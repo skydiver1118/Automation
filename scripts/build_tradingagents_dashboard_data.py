@@ -331,6 +331,64 @@ def first_sentence(markdown: str, max_chars: int = 260) -> str:
     return sentence
 
 
+SUSPICIOUS_MODULE_PATTERNS = [
+    r"12-year-old vietnamese child",
+    r"wants to learn english",
+    r"\.swallow the input",
+    r"\bthe user wants me\b",
+    r"\bokay, let'?s tackle this\b",
+    r"stock market hedge",
+    r"\bnvda \(oracle\)\b",
+    r"\bsmh'?s ai partnership\b",
+]
+
+
+def is_suspicious_module_text(text: str) -> bool:
+    lowered = (text or "").lower()
+    if "hắn" in lowered:
+        return True
+    return any(re.search(pattern, lowered) for pattern in SUSPICIOUS_MODULE_PATTERNS)
+
+
+def safe_module_fallback(module_key: str, symbol: str, facts: dict, sections: dict[str, str], full_markdown: str) -> str:
+    section_fallbacks = {
+        "research": ["Executive Summary", "Bull Case", "Bear Case"],
+        "trader": ["Trader Transaction Proposal"],
+        "risk": ["Risk Management Debate"],
+        "portfolio": ["Portfolio-Level Final Decision"],
+        "news": ["News Analyst Report"],
+        "sentiment": ["Sentiment Analyst Report"],
+        "fundamentals": ["Fundamentals Analyst Report", "Earnings And Data Availability"],
+        "market": ["Market Analyst Report"],
+    }
+    parts = [
+        sections[name]
+        for name in section_fallbacks.get(module_key, [])
+        if sections.get(name) and not is_suspicious_module_text(sections[name])
+    ]
+    if parts:
+        return "\n\n".join(parts)
+
+    latest = facts.get("latest_ohlcv", {})
+    close = parse_float(latest.get("close"))
+    latest_date = latest.get("date") or facts.get("latest_data_date")
+    if module_key == "market" and close is not None:
+        return f"Source-grounded fallback: {symbol} closed at {close:.2f} on {latest_date}. Review the full grounded report for the latest indicator context."
+    if module_key == "fundamentals":
+        text = clean_report_text(facts.get("fundamentals_text"))
+        if text:
+            return text
+    if module_key in {"research", "trader", "risk", "portfolio"}:
+        summary = first_sentence(full_markdown) if full_markdown else ""
+        if summary:
+            return f"Source-grounded fallback: {summary}"
+    if module_key == "sentiment":
+        return f"Source-grounded fallback: sentiment text for {symbol} was suppressed because the artifact content was off-topic. Regenerate the grounded report if you need full social detail."
+    if module_key == "news":
+        return f"Source-grounded fallback: news text for {symbol} was suppressed because the artifact content was off-topic. Regenerate the grounded report if you need the full article list."
+    return f"Source-grounded fallback: this module for {symbol} was suppressed because the artifact content was off-topic."
+
+
 def load_grounded_facts(md_path: Path) -> dict:
     facts_path = md_path.parent / "facts.json"
     if facts_path.exists():
@@ -443,15 +501,16 @@ def compose_data_note(snapshot: dict, market_snapshot: dict) -> str:
 
 
 def report_paths_for(symbol: str) -> tuple[Path | None, Path | None]:
+    grounded_candidates = list(TRADINGAGENTS_REPORTS.rglob(f"{symbol}_TradingAgents_Full_Report_*.md"))
+    if grounded_candidates:
+        newest = max(grounded_candidates, key=lambda p: p.stat().st_mtime)
+        return newest, None
+
     folder = BATCH_DIR / symbol
     md_path = folder / "full_tradingagents_output.md"
     json_path = folder / "full_tradingagents_output.json"
     if md_path.exists() and json_path.exists():
         return md_path, json_path
-    candidates = list(TRADINGAGENTS_REPORTS.rglob(f"{symbol}_TradingAgents_Full_Report_*.md"))
-    if candidates:
-        newest = max(candidates, key=lambda p: p.stat().st_mtime)
-        return newest, None
     return None, None
 
 
@@ -498,6 +557,8 @@ def load_full_report(symbol: str) -> dict:
                 if sections.get(section_name)
             ]
             text = "\n\n".join(parts)
+        if text and is_suspicious_module_text(text):
+            text = safe_module_fallback(module_key, symbol, facts, sections, full_markdown)
         modules[module_key] = {
             "label": label,
             "text": text,
