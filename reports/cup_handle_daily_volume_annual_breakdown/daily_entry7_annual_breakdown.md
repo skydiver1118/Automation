@@ -1,0 +1,43 @@
+# Daily Cup-And-Handle Entry-Window 7 Annual Breakdown
+
+This is technical strategy research, not investment advice.
+
+## Rule
+
+- Daily cup-and-handle signals with volume gates.
+- Candidate pool: top 10 per scan date, `TargetReturnPct > 30%`.
+- Entry window: `7 trading days`.
+- Entry filters: `Close > SMA50`, stock 63-day return > S&P 500 63-day return, and `S&P 500 close > SMA100`.
+- Entry volume: breakout-day volume >= `1.40x` prior 50-day average.
+- Exit: ATR14 `3.5x` initial stop, no target, 60-trading-day time stop.
+- Portfolio: max 3 concurrent stocks.
+
+## Segment Summary
+
+| Segment | Strategy Return % | Strategy Sharpe | Strategy Max DD % | Trades | S&P 500 Return % | S&P 500 Sharpe |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| IS | 391.64 | 0.977 | -27.94 | 75 | 185.16 | 0.785 |
+| OOS | 263.74 | 1.212 | -16.34 | 48 | 132.67 | 0.747 |
+
+## Annual Return, Drawdown, Trades
+
+| Segment | Year | StartDate | EndDate | AnnualReturnPct | MaxDrawdownPct | SP500AnnualReturnPct | SP500MaxDrawdownPct | Trades | WinRatePct | AvgTradeReturnPct |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| IS | 2010 | 2010-01-04 | 2010-12-31 | 30.92 | -20.57 | 11.0 | -15.99 | 8 | 75.0 | 9.6 |
+| IS | 2011 | 2011-01-03 | 2011-12-30 | -4.57 | -15.59 | -1.12 | -19.39 | 6 | 66.67 | 5.23 |
+| IS | 2012 | 2012-01-03 | 2012-12-31 | 25.41 | -13.85 | 11.68 | -9.94 | 9 | 77.78 | 8.22 |
+| IS | 2013 | 2013-01-02 | 2013-12-31 | 87.36 | -8.64 | 26.39 | -5.76 | 8 | 87.5 | 25.66 |
+| IS | 2014 | 2014-01-02 | 2014-12-31 | 19.08 | -8.81 | 12.39 | -7.4 | 6 | 50.0 | 7.98 |
+| IS | 2015 | 2015-01-02 | 2015-12-31 | 1.52 | -16.17 | -0.69 | -12.35 | 9 | 33.33 | 0.9 |
+| IS | 2016 | 2016-01-04 | 2016-12-30 | 19.01 | -8.52 | 11.24 | -9.3 | 8 | 87.5 | 9.9 |
+| IS | 2017 | 2017-01-03 | 2017-12-29 | 10.94 | -12.07 | 18.42 | -2.8 | 9 | 44.44 | 2.5 |
+| IS | 2018 | 2018-01-02 | 2018-12-31 | 0.74 | -19.24 | -7.01 | -19.78 | 5 | 60.0 | 0.71 |
+| IS | 2019 | 2019-01-02 | 2019-12-31 | -1.14 | -13.02 | 28.71 | -6.84 | 7 | 42.86 | -2.75 |
+| OOS | 2020 | 2020-01-02 | 2020-12-31 | 10.22 | -16.34 | 15.29 | -33.92 | 10 | 40.0 | 4.95 |
+| OOS | 2021 | 2021-01-04 | 2021-12-31 | 8.69 | -12.43 | 28.79 | -5.21 | 8 | 62.5 | 1.38 |
+| OOS | 2022 | 2022-01-03 | 2022-12-30 | 16.74 | -7.4 | -19.95 | -25.43 | 6 | 66.67 | 8.98 |
+| OOS | 2023 | 2023-01-03 | 2023-12-29 | 4.97 | -10.28 | 24.73 | -10.28 | 7 | 57.14 | 11.23 |
+| OOS | 2024 | 2024-01-02 | 2024-12-31 | 54.02 | -8.76 | 24.01 | -8.49 | 8 | 87.5 | 13.39 |
+| OOS | 2025 | 2025-01-02 | 2025-12-31 | 26.65 | -8.84 | 16.65 | -18.9 | 7 | 85.71 | 8.45 |
+| OOS | 2026 | 2026-01-02 | 2026-05-29 | 33.44 | -7.3 | 10.52 | -9.1 | 2 | 50.0 | 10.97 |
+

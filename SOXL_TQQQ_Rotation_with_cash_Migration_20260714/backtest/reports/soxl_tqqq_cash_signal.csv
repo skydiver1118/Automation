@@ -1,0 +1,2 @@
+agent,date,target,previous_target,base_rotation_target,signal,action_summary,soxl_close,tqqq_close,qqq_close,selected_close,selected_sma150,qqq_sma150,risk_on,selected_trend_ok,qqq_trend_ok,cash_rule,alpaca_positions,position_source,generated_at
+SOXL/TQQQ Rotation with cash,2026-07-08,SOXL,SOXL,SOXL,HOLD,Already aligned with target SOXL.,174.905,72.72,711.44,174.905,105.8056,644.9912,True,True,True,Risk-off only when selected ETF and QQQ are both below SMA150; re-enter when either is above SMA150 + 1%.,SOXL:58@171.2414,alpaca,2026-07-08T16:10:10-04:00

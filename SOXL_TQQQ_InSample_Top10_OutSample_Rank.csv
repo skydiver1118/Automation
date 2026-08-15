@@ -1,0 +1,11 @@
+Out-of-sample rank,In-sample selection rank,Strategy,Family,In-sample actual range,In-sample cumulative return %,In-sample max drawdown %,In-sample Sharpe,Out-of-sample actual range,Out-of-sample cumulative return %,Out-of-sample max drawdown %,Out-of-sample Sharpe,Notes,Source file
+1,1,Advanced DCA: best Calmar/raw return,DCA overlay,2010-06-25 to 2019-12-31,1312542.81,-63.32,1.61,2020-01-02 to 2026-05-20,1792023.79,-82.46,1.87,,reports\soxl_tqqq_dca_advanced_curves.csv
+2,9,Cash + deep DCA: best raw full-period return,Cash + DCA,2010-07-01 to 2019-12-31,2743.94,-57.77,0.95,2020-01-02 to 2026-05-22,37007.67,-71.83,1.45,,reports\soxl_tqqq_cash_dca_deep_best_raw_2010_daily.csv
+3,3,Highest return DCA overlay,DCA overlay,2010-06-25 to 2019-12-31,15783.89,-87.39,1.04,2020-01-02 to 2026-05-20,36719.88,-97.29,1.39,margin_3x; anchor=rolling_high; add 5%/40%,reports\soxl_tqqq_dca_overlay_curves.csv
+4,2,Advanced DCA: best return with DD better than SOXL-only,DCA overlay,2010-06-25 to 2019-12-31,23678.67,-52.53,1.26,2020-01-02 to 2026-05-20,11296.24,-65.19,1.29,,reports\soxl_tqqq_dca_advanced_curves.csv
+5,10,New cash balanced strategy,Cash regime,2010-06-25 to 2019-12-31,2523.18,-52.16,0.95,2020-01-02 to 2026-05-20,10570.12,-50.78,1.42,,reports\soxl_tqqq_cash_regime_best_balanced_daily.csv
+6,4,Base SOXL/TQQQ rotation,Base / benchmark,2010-06-25 to 2019-12-31,8478.8,-58.4,1.11,2020-01-02 to 2026-05-20,8405.93,-79.24,1.24,Original best rotation benchmark,reports\soxl_tqqq_dca_overlay_curves.csv
+7,5,Advanced DCA: best return with DD <= 60%,DCA overlay,2010-06-25 to 2019-12-31,7349.63,-42.92,1.19,2020-01-02 to 2026-05-20,4542.22,-59.85,1.2,,reports\soxl_tqqq_dca_advanced_curves.csv
+8,8,SOXL-only SMA50/SMA63 10% stop,Base / benchmark,2010-06-25 to 2019-12-31,2825.77,-62.0,0.97,2020-01-02 to 2026-05-20,1224.54,-66.18,0.92,SOXL-only state/stop benchmark,reports\soxl_tqqq_dca_overlay_curves.csv
+9,7,SOXL buy-and-hold,Buy-hold benchmark,2010-06-25 to 2019-12-31,3337.59,-72.61,0.88,2020-01-02 to 2026-05-20,819.19,-90.46,0.87,,reports\soxl_tqqq_dca_overlay_curves.csv
+10,6,TQQQ buy-and-hold,Buy-hold benchmark,2010-06-25 to 2019-12-31,4619.32,-58.08,1.06,2020-01-02 to 2026-05-20,605.45,-81.66,0.79,,reports\soxl_tqqq_dca_overlay_curves.csv

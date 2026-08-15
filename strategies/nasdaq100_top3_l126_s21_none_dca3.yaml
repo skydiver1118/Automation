@@ -1,0 +1,41 @@
+name: nasdaq100_top3_l126_s21_none_dca3
+display_name: NASDAQ100 Top3 L126 S21 none DCA3
+source: Rank stock trading strategies
+status: final_list
+platform: local_python_backtest
+script: src/strategy_lab/momentum_is_oos_research_separate.py
+symbol_universe: Nasdaq-100 reconstructed point-in-time membership
+timeframe: monthly
+in_sample_window: 2010-01-01 to 2019-12-31
+out_of_sample_window: 2020-01-01 through latest available data as of 2026-05-24
+
+parameters:
+  top_n: 3
+  lookback_days: 126
+  skip_days: 21
+  score: Close[t - skip] / Close[t - lookback] - 1
+  cash_filter: none
+  dca_steps: 3
+  benchmark_proxy: QQQ
+
+entry_conditions:
+  - On each monthly signal date, rank eligible Nasdaq-100 members by 126-trading-day momentum while skipping the latest 21 trading days.
+  - Buy the top 3 ranked eligible stocks at the next month first open.
+  - Ramp exposure by one third per monthly rebalance until fully invested because DCA3 means three-step entry.
+
+exit_conditions:
+  - Rebalance monthly at the next month first open.
+  - Sell stocks that fall out of the top 3 and buy newly selected top-ranked stocks.
+  - Reset exposure to cash only when no eligible stocks are selected; no benchmark SMA cash filter is applied.
+  - Mark the final open position to the latest available close.
+
+performance:
+  is_max_drawdown: -31.89%
+  oos_return: 2123.73%
+  oos_max_drawdown: -37.50%
+  oos_sharpe: 1.40
+
+source_files:
+  - reports/momentum_is2010_2019_oos2020_2026ytd_separate_sp500_nasdaq_cash_dca_with_oos_benchmarks.md
+  - reports/momentum_is2010_2019_oos2020_2026ytd_separate_sp500_nasdaq_cash_dca_with_oos_benchmarks.csv
+  - src/strategy_lab/momentum_is_oos_research_separate.py

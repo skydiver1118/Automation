@@ -1,0 +1,50 @@
+name: smh_hist_pit_top2_l252_s0_smh_sma100_dca1
+display_name: SMH_HIST_PIT Top2 L252 S0 smh_sma100 DCA1
+source: Compare momentum strategies
+status: final_list
+platform: local_python_backtest
+symbol_universe: SMH historical component stocks
+timeframe: monthly
+in_sample_window: 2010-01-01 to 2019-12-31
+out_of_sample_window: 2020-01-01 through latest available data as of 2026-05-24
+
+universe_rule:
+  description: Historical SMH / legacy Semiconductor HOLDRS holdings from public SEC filings.
+  point_in_time_rule: Each month uses only the latest holdings snapshot whose SEC filing date is on or before the signal date.
+  historical_tickers_in_sec_list: 41
+  price_available_tickers: 31
+
+parameters:
+  top_n: 2
+  lookback_days: 252
+  skip_days: 0
+  score: Close[t - skip] / Close[t - lookback] - 1
+  cash_filter: smh_sma100
+  dca_steps: 1
+  benchmark_proxy: SMH
+
+entry_conditions:
+  - On each monthly signal date, rank eligible SMH historical component stocks by 252-trading-day momentum with no skip.
+  - Enter only when SMH is above its 100-day SMA on the monthly signal date.
+  - Buy the top 2 ranked eligible stocks at the next month first open.
+  - Use full target exposure immediately because DCA1 means one-step entry.
+
+exit_conditions:
+  - Rebalance monthly at the next month first open.
+  - Move to cash when SMH is not above its 100-day SMA on the monthly signal date.
+  - Sell stocks that fall out of the top 2 and buy newly selected top-ranked stocks when the SMH SMA100 cash filter is risk-on.
+  - Mark the final open position to the latest available close.
+
+performance:
+  is_return: 2249.91%
+  is_cagr: 37.14%
+  is_max_drawdown: -22.84%
+  is_sharpe: 1.37
+  oos_return: 993.60%
+  oos_cagr: 45.38%
+  oos_max_drawdown: -26.89%
+  oos_sharpe: 1.23
+
+source_files:
+  - reports/smh_historical_components_momentum_is2010_2019_oos2020_2026ytd.md
+  - reports/smh_historical_components_momentum_is2010_2019_oos2020_2026ytd.csv

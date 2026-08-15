@@ -1,0 +1,5 @@
+Case,variant,net_return_pct,cagr_pct,max_drawdown_pct,sharpe,dca_trade_events,max_units,extra_exposure_days_pct,base_rotation_return_pct,base_rotation_max_drawdown_pct,soxl_only_return_pct,soxl_only_max_drawdown_pct
+Recommended compromise,reserve_cash; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none,73135.63,51.41,-55.78,1.2,208,3,71.15,775116.8,-79.24,41069.8,-66.18
+Lowest drawdown,reserve_cash; anchor=entry; add at 15%/20%; sell=rebound_from_low 5%; max_extra_days=none,5377.22,28.63,-28.74,1.17,23,3,0.57,775116.8,-79.24,41069.8,-66.18
+Highest return,margin_3x; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none,6213084.81,100.19,-97.29,1.2,208,3,71.15,775116.8,-79.24,41069.8,-66.18
+Best margin while improving base DD,margin_3x; anchor=entry; add at 10%/15%; sell=extra_profit 20%; max_extra_days=10,2107566.56,87.03,-78.85,1.2,56,3,2.93,775116.8,-79.24,41069.8,-66.18

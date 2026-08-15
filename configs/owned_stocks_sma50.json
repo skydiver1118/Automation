@@ -1,0 +1,43 @@
+{
+  "symbols": [
+    "AAPL",
+    "APP",
+    "AVGO",
+    "CHAT",
+    "CRWD",
+    "CRWV",
+    "HOOD",
+    "LITE",
+    "MU",
+    "NVDA",
+    "OPEN",
+    "PLTR",
+    "QLD",
+    "QTUM",
+    "RKLB",
+    "RKT",
+    "SHLD",
+    "SMH",
+    "SNDK",
+    "SOFI",
+    "TSLA",
+    "URA",
+    "VRSN"
+  ],
+  "data": {
+    "period": "6mo",
+    "interval": "1d"
+  },
+  "notifications": {
+    "subject": "[Stock Alert] Owned stocks below SMA50",
+    "email": {
+      "enabled": true,
+      "smtp_host": "smtp.gmail.com",
+      "smtp_port": 587,
+      "from": "set-by-ALERT_EMAIL_FROM",
+      "to": [
+        "set-by-ALERT_EMAIL_TO"
+      ]
+    }
+  }
+}

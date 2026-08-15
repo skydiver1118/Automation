@@ -1,0 +1,182 @@
+<!doctype html><html><head><meta charset="utf-8"><title>In-Sample Top 10, Out-of-Sample Rank</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111827}table{border-collapse:collapse;font-size:13px}th,td{border:1px solid #d1d5db;padding:7px 10px;vertical-align:top}th{background:#f3f4f6}td:nth-child(1),td:nth-child(2),td:nth-child(6),td:nth-child(7),td:nth-child(8),td:nth-child(10),td:nth-child(11),td:nth-child(12){text-align:right}</style></head><body><h1>SOXL/TQQQ In-Sample Top 10, Out-of-Sample Ranking</h1><p>Top 10 selected using only 2010-01-01 to 2020-01-01 in-sample cumulative return. The selected strategies are then ranked by 2020-to-date out-of-sample cumulative return.</p><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Out-of-sample rank</th>
+      <th>In-sample selection rank</th>
+      <th>Strategy</th>
+      <th>Family</th>
+      <th>In-sample actual range</th>
+      <th>In-sample cumulative return %</th>
+      <th>In-sample max drawdown %</th>
+      <th>In-sample Sharpe</th>
+      <th>Out-of-sample actual range</th>
+      <th>Out-of-sample cumulative return %</th>
+      <th>Out-of-sample max drawdown %</th>
+      <th>Out-of-sample Sharpe</th>
+      <th>Notes</th>
+      <th>Source file</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>Advanced DCA: best Calmar/raw return</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>1312542.81</td>
+      <td>-63.32</td>
+      <td>1.61</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>1792023.79</td>
+      <td>-82.46</td>
+      <td>1.87</td>
+      <td></td>
+      <td>reports\soxl_tqqq_dca_advanced_curves.csv</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>9</td>
+      <td>Cash + deep DCA: best raw full-period return</td>
+      <td>Cash + DCA</td>
+      <td>2010-07-01 to 2019-12-31</td>
+      <td>2743.94</td>
+      <td>-57.77</td>
+      <td>0.95</td>
+      <td>2020-01-02 to 2026-05-22</td>
+      <td>37007.67</td>
+      <td>-71.83</td>
+      <td>1.45</td>
+      <td></td>
+      <td>reports\soxl_tqqq_cash_dca_deep_best_raw_2010_daily.csv</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>3</td>
+      <td>Highest return DCA overlay</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>15783.89</td>
+      <td>-87.39</td>
+      <td>1.04</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>36719.88</td>
+      <td>-97.29</td>
+      <td>1.39</td>
+      <td>margin_3x; anchor=rolling_high; add 5%/40%</td>
+      <td>reports\soxl_tqqq_dca_overlay_curves.csv</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>2</td>
+      <td>Advanced DCA: best return with DD better than SOXL-only</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>23678.67</td>
+      <td>-52.53</td>
+      <td>1.26</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>11296.24</td>
+      <td>-65.19</td>
+      <td>1.29</td>
+      <td></td>
+      <td>reports\soxl_tqqq_dca_advanced_curves.csv</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>10</td>
+      <td>New cash balanced strategy</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>2523.18</td>
+      <td>-52.16</td>
+      <td>0.95</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>10570.12</td>
+      <td>-50.78</td>
+      <td>1.42</td>
+      <td></td>
+      <td>reports\soxl_tqqq_cash_regime_best_balanced_daily.csv</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>4</td>
+      <td>Base SOXL/TQQQ rotation</td>
+      <td>Base / benchmark</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>8478.80</td>
+      <td>-58.40</td>
+      <td>1.11</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>8405.93</td>
+      <td>-79.24</td>
+      <td>1.24</td>
+      <td>Original best rotation benchmark</td>
+      <td>reports\soxl_tqqq_dca_overlay_curves.csv</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>5</td>
+      <td>Advanced DCA: best return with DD <= 60%</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>7349.63</td>
+      <td>-42.92</td>
+      <td>1.19</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>4542.22</td>
+      <td>-59.85</td>
+      <td>1.20</td>
+      <td></td>
+      <td>reports\soxl_tqqq_dca_advanced_curves.csv</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>8</td>
+      <td>SOXL-only SMA50/SMA63 10% stop</td>
+      <td>Base / benchmark</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>2825.77</td>
+      <td>-62.00</td>
+      <td>0.97</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>1224.54</td>
+      <td>-66.18</td>
+      <td>0.92</td>
+      <td>SOXL-only state/stop benchmark</td>
+      <td>reports\soxl_tqqq_dca_overlay_curves.csv</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>7</td>
+      <td>SOXL buy-and-hold</td>
+      <td>Buy-hold benchmark</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>3337.59</td>
+      <td>-72.61</td>
+      <td>0.88</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>819.19</td>
+      <td>-90.46</td>
+      <td>0.87</td>
+      <td></td>
+      <td>reports\soxl_tqqq_dca_overlay_curves.csv</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>6</td>
+      <td>TQQQ buy-and-hold</td>
+      <td>Buy-hold benchmark</td>
+      <td>2010-06-25 to 2019-12-31</td>
+      <td>4619.32</td>
+      <td>-58.08</td>
+      <td>1.06</td>
+      <td>2020-01-02 to 2026-05-20</td>
+      <td>605.45</td>
+      <td>-81.66</td>
+      <td>0.79</td>
+      <td></td>
+      <td>reports\soxl_tqqq_dca_overlay_curves.csv</td>
+    </tr>
+  </tbody>
+</table></body></html>

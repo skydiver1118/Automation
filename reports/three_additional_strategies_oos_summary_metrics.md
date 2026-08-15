@@ -1,0 +1,7 @@
+# Three Additional Strategies OOS Summary Metrics
+
+| strategy | period | cumulative_return_pct | cagr_pct | max_drawdown_pct | sharpe | sortino | calmar | market | net_perf_all | asset_perf | beta_vs_asset | positions | wins | losses | average_win | average_loss | average_return | reward_risk_ratio | expectancy |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| SP500 Top5 L63 S0 none DCA1 | 2020-01-01 to 2026-05-22 | 810.89 | 41.32 | -18.21 | 1.258 | 3.007 | 2.269 | SPY | 810.89 | 152.18 | 0.952 | 257 | 56.03 | 43.97 | 18.92 | -8.94 | 6.67 | 2.116 | 6.67 |
+| NASDAQ100 Top3 L126 S21 none DCA3 | 2020-01-01 to 2026-05-22 | 2123.73 | 62.52 | -37.5 | 1.407 | 3.474 | 1.667 | QQQ | 2123.73 | 247.27 | 1.274 | 121 | 58.68 | 41.32 | 27.34 | -10.93 | 11.53 | 2.502 | 11.53 |
+| SMH_HIST_PIT Top2 L252 S0 smh_sma100 DCA1 | 2020-01-01 to 2026-05-22 | 993.6 | 45.43 | -26.89 | 1.24 | 3.257 | 1.689 | SMH | 993.6 | 731.93 | 0.699 | 45 | 62.22 | 37.78 | 30.36 | -8.0 | 15.87 | 3.793 | 15.87 |

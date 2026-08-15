@@ -1,0 +1,22 @@
+{
+  "agent": "SOXL/TQQQ Rotation with cash",
+  "date": "2026-07-08",
+  "target": "SOXL",
+  "previous_target": "SOXL",
+  "base_rotation_target": "SOXL",
+  "signal": "HOLD",
+  "action_summary": "Already aligned with target SOXL.",
+  "soxl_close": 174.905,
+  "tqqq_close": 72.72,
+  "qqq_close": 711.44,
+  "selected_close": 174.905,
+  "selected_sma150": 105.8056,
+  "qqq_sma150": 644.9912,
+  "risk_on": true,
+  "selected_trend_ok": true,
+  "qqq_trend_ok": true,
+  "cash_rule": "Risk-off only when selected ETF and QQQ are both below SMA150; re-enter when either is above SMA150 + 1%.",
+  "alpaca_positions": "SOXL:58@171.2414",
+  "position_source": "alpaca",
+  "generated_at": "2026-07-08T16:10:10-04:00"
+}

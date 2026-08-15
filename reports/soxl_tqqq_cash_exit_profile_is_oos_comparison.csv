@@ -1,0 +1,9 @@
+period,strategy,profit_profile,loss_profile,start,end,cumulative_return_pct,cagr_pct,max_drawdown_pct,sharpe,daily_vol_pct
+IS,baseline_no_exit_submodule,,,2010-03-11,2019-12-31,2915.25,41.53,-52.16,0.971,47.6
+OOS,baseline_no_exit_submodule,,,2020-01-02,2026-05-22,9826.01,105.47,-53.4,1.402,68.24
+IS,is_rank_1_with_exit_submodule,risk_first_trend_runner,one_r_invalidation,2010-03-11,2019-12-31,3599.99,44.51,-53.6,1.138,39.18
+OOS,is_rank_1_with_exit_submodule,risk_first_trend_runner,one_r_invalidation,2020-01-02,2026-05-22,4073.81,79.4,-43.63,1.311,57.34
+IS,is_rank_2_with_exit_submodule,volatility_ladder,one_r_invalidation,2010-03-11,2019-12-31,4395.25,47.41,-52.62,1.099,44.41
+OOS,is_rank_2_with_exit_submodule,volatility_ladder,one_r_invalidation,2020-01-02,2026-05-22,6323.84,91.93,-44.34,1.353,63.17
+IS,is_rank_3_with_exit_submodule,risk_first_trend_runner,time_and_volatility_failure,2010-03-11,2019-12-31,3301.79,43.28,-53.94,1.099,40.09
+OOS,is_rank_3_with_exit_submodule,risk_first_trend_runner,time_and_volatility_failure,2020-01-02,2026-05-22,4229.47,80.43,-43.63,1.325,57.01

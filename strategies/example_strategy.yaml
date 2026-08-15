@@ -1,0 +1,34 @@
+name: example_strategy
+symbol_universe: SPY
+timeframe: 1D
+platform: TrendSpider
+status: draft
+
+objective:
+  - Define what this strategy is trying to capture before tuning parameters.
+
+entry_conditions:
+  - Replace with TrendSpider rule text.
+
+exit_conditions:
+  - Replace with TrendSpider rule text.
+
+risk_management:
+  position_size: Replace with fixed dollars, shares, or percent risk.
+  stop_loss: Replace with TrendSpider stop rule, if used.
+  take_profit: Replace with TrendSpider target rule, if used.
+
+parameters:
+  example_length: 20
+
+backtest_exports:
+  baseline: data/trendspider_exports/example_baseline.csv
+
+review_questions:
+  - Did total P/L improve without a worse drawdown?
+  - Did profit factor improve without too few trades?
+  - Did the change make sense across symbols or only one chart?
+
+notes:
+  - Keep one config per materially different strategy idea.
+  - Use parameter names that match TrendSpider inputs when possible.

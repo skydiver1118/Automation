@@ -1,0 +1,19 @@
+{
+  "name": "SOXL only",
+  "description": "Daily SOXL SMA50/SMA63 state scanner with 10% stop and optional Alpaca paper execution.",
+  "command": "python scripts/soxl_only_signal_scanner.py --agent \"SOXL only\" --alpaca",
+  "execute_command": "python scripts/soxl_only_signal_scanner.py --agent \"SOXL only\" --alpaca --execute --qty 1",
+  "extended_hours_execute_command": "python scripts/soxl_only_signal_scanner.py --agent \"SOXL only\" --alpaca --execute --extended-hours --limit-offset-pct 0 --qty 1",
+  "default_mode": "paper_execute",
+  "outputs": [
+    "reports/soxl_only_signal.csv",
+    "reports/soxl_only_signal.json"
+  ],
+  "strategy": {
+    "symbol": "SOXL",
+    "timeframe": "1d",
+    "entry": "SMA50 > SMA63",
+    "exit": "SMA50 <= SMA63 or close <= entry * 0.90",
+    "stop_pct": 0.1
+  }
+}

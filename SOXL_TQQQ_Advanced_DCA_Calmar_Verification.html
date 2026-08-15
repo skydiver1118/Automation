@@ -1,0 +1,245 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Advanced DCA Calmar Verification</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111827}table{border-collapse:collapse;font-size:13px;margin-bottom:28px}th,td{border:1px solid #d1d5db;padding:7px 10px;text-align:right;vertical-align:top}th{background:#f3f4f6}td:nth-child(1),td:nth-child(2),th:nth-child(1),th:nth-child(2){text-align:left}</style></head><body><h1>Advanced DCA: Best Calmar/Raw Return Verification</h1><h2>Verified Summary</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Strategy</th>
+      <th>Variant</th>
+      <th>Period</th>
+      <th>Start equity</th>
+      <th>End equity</th>
+      <th>Cumulative return %</th>
+      <th>CAGR %</th>
+      <th>Max drawdown %</th>
+      <th>Sharpe ratio</th>
+      <th>DCA trade events</th>
+      <th>Rotation resets</th>
+      <th>Max exposure used</th>
+      <th>Avg exposure</th>
+      <th>Days above 1x %</th>
+      <th>Max abs diff vs saved curve</th>
+      <th>Max rel diff vs saved curve</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Advanced DCA: best Calmar/raw return</td>
+      <td>unit=1.00, cap=2.00, anchor=rolling_high, add=5%/20%, sell=extra_profit 15%, max_days=20, trend_sma=100, dd_guard=none</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>1.0</td>
+      <td>2.499136e+08</td>
+      <td>2.499136e+10</td>
+      <td>237.38</td>
+      <td>-82.46</td>
+      <td>1.71</td>
+      <td>447</td>
+      <td>123</td>
+      <td>2.0</td>
+      <td>1.448</td>
+      <td>44.88</td>
+      <td>172.782536</td>
+      <td>0.000004</td>
+    </tr>
+  </tbody>
+</table><h2>Annual Return and Drawdown</h2><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Year</th>
+      <th>Period</th>
+      <th>Annual return %</th>
+      <th>Annual max drawdown %</th>
+      <th>End cumulative return %</th>
+      <th>End growth of $1</th>
+      <th>Avg exposure</th>
+      <th>Max exposure</th>
+      <th>Days above 1x %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2010</td>
+      <td>2010-06-25 to 2010-12-31</td>
+      <td>193.27</td>
+      <td>-32.14</td>
+      <td>1.932700e+02</td>
+      <td>2.932742e+00</td>
+      <td>1.500</td>
+      <td>2.0</td>
+      <td>50.76</td>
+    </tr>
+    <tr>
+      <td>2011</td>
+      <td>2011-01-03 to 2011-12-30</td>
+      <td>57.37</td>
+      <td>-48.29</td>
+      <td>3.823700e+02</td>
+      <td>4.823666e+00</td>
+      <td>1.325</td>
+      <td>2.0</td>
+      <td>32.54</td>
+    </tr>
+    <tr>
+      <td>2012</td>
+      <td>2012-01-03 to 2012-12-31</td>
+      <td>101.01</td>
+      <td>-41.14</td>
+      <td>9.799800e+02</td>
+      <td>1.079977e+01</td>
+      <td>1.364</td>
+      <td>2.0</td>
+      <td>36.40</td>
+    </tr>
+    <tr>
+      <td>2013</td>
+      <td>2013-01-02 to 2013-12-31</td>
+      <td>230.10</td>
+      <td>-35.63</td>
+      <td>4.130270e+03</td>
+      <td>4.230271e+01</td>
+      <td>1.556</td>
+      <td>2.0</td>
+      <td>55.56</td>
+    </tr>
+    <tr>
+      <td>2014</td>
+      <td>2014-01-02 to 2014-12-31</td>
+      <td>151.38</td>
+      <td>-42.15</td>
+      <td>1.003689e+04</td>
+      <td>1.013689e+02</td>
+      <td>1.528</td>
+      <td>2.0</td>
+      <td>52.78</td>
+    </tr>
+    <tr>
+      <td>2015</td>
+      <td>2015-01-02 to 2015-12-31</td>
+      <td>56.67</td>
+      <td>-40.87</td>
+      <td>1.552119e+04</td>
+      <td>1.562119e+02</td>
+      <td>1.492</td>
+      <td>2.0</td>
+      <td>49.21</td>
+    </tr>
+    <tr>
+      <td>2016</td>
+      <td>2016-01-04 to 2016-12-30</td>
+      <td>701.50</td>
+      <td>-41.64</td>
+      <td>1.174537e+05</td>
+      <td>1.175537e+03</td>
+      <td>1.456</td>
+      <td>2.0</td>
+      <td>45.63</td>
+    </tr>
+    <tr>
+      <td>2017</td>
+      <td>2017-01-03 to 2017-12-29</td>
+      <td>243.67</td>
+      <td>-43.81</td>
+      <td>4.051661e+05</td>
+      <td>4.052661e+03</td>
+      <td>1.606</td>
+      <td>2.0</td>
+      <td>60.56</td>
+    </tr>
+    <tr>
+      <td>2018</td>
+      <td>2018-01-02 to 2018-12-31</td>
+      <td>-29.68</td>
+      <td>-58.46</td>
+      <td>3.318839e+05</td>
+      <td>3.319839e+03</td>
+      <td>1.315</td>
+      <td>2.0</td>
+      <td>31.47</td>
+    </tr>
+    <tr>
+      <td>2019</td>
+      <td>2019-01-02 to 2019-12-31</td>
+      <td>285.18</td>
+      <td>-63.32</td>
+      <td>1.312547e+06</td>
+      <td>1.312647e+04</td>
+      <td>1.345</td>
+      <td>2.0</td>
+      <td>34.52</td>
+    </tr>
+    <tr>
+      <td>2020</td>
+      <td>2020-01-02 to 2020-12-31</td>
+      <td>865.57</td>
+      <td>-73.57</td>
+      <td>1.346493e+07</td>
+      <td>1.346503e+05</td>
+      <td>1.364</td>
+      <td>2.0</td>
+      <td>36.36</td>
+    </tr>
+    <tr>
+      <td>2021</td>
+      <td>2021-01-04 to 2021-12-31</td>
+      <td>506.15</td>
+      <td>-54.95</td>
+      <td>7.936471e+07</td>
+      <td>7.936481e+05</td>
+      <td>1.651</td>
+      <td>2.0</td>
+      <td>65.08</td>
+    </tr>
+    <tr>
+      <td>2022</td>
+      <td>2022-01-03 to 2022-12-30</td>
+      <td>-79.63</td>
+      <td>-81.54</td>
+      <td>1.811508e+07</td>
+      <td>1.811518e+05</td>
+      <td>1.064</td>
+      <td>2.0</td>
+      <td>6.37</td>
+    </tr>
+    <tr>
+      <td>2023</td>
+      <td>2023-01-03 to 2023-12-29</td>
+      <td>918.73</td>
+      <td>-41.04</td>
+      <td>1.803851e+08</td>
+      <td>1.803852e+06</td>
+      <td>1.616</td>
+      <td>2.0</td>
+      <td>61.60</td>
+    </tr>
+    <tr>
+      <td>2024</td>
+      <td>2024-01-02 to 2024-12-31</td>
+      <td>447.27</td>
+      <td>-60.43</td>
+      <td>9.371572e+08</td>
+      <td>9.371573e+06</td>
+      <td>1.595</td>
+      <td>2.0</td>
+      <td>59.52</td>
+    </tr>
+    <tr>
+      <td>2025</td>
+      <td>2025-01-02 to 2025-12-31</td>
+      <td>112.43</td>
+      <td>-56.62</td>
+      <td>1.965654e+09</td>
+      <td>1.965654e+07</td>
+      <td>1.376</td>
+      <td>2.0</td>
+      <td>37.60</td>
+    </tr>
+    <tr>
+      <td>2026</td>
+      <td>2026-01-02 to 2026-05-20</td>
+      <td>918.82</td>
+      <td>-51.51</td>
+      <td>2.499136e+10</td>
+      <td>2.499136e+08</td>
+      <td>1.573</td>
+      <td>2.0</td>
+      <td>57.29</td>
+    </tr>
+  </tbody>
+</table></body></html>

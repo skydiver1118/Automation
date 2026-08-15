@@ -1,0 +1,21 @@
+[project]
+name = "trendspider-strategy-lab"
+version = "0.1.0"
+description = "Local analysis framework for iterating TrendSpider strategy backtests."
+requires-python = ">=3.11"
+dependencies = [
+    "alpaca-py>=0.28",
+    "ibapi>=9.81.1.post1",
+    "lxml>=5.0",
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "yfinance>=0.2",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

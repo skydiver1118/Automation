@@ -1,0 +1,11 @@
+{
+  "name": "NASDAQ100 Top3 L126 S21 none DCA3",
+  "description": "Monthly Nasdaq-100 top-3 skip-momentum signal with DCA3 exposure ramp and optional Alpaca paper execution.",
+  "command": "powershell -ExecutionPolicy Bypass -File scripts/run_nasdaq100_top3_l126_s21_dca3_task.ps1 --alpaca --env-file .env.alpaca --email-to skydiver1118@gmail.com",
+  "extended_hours_execute_command": "powershell -ExecutionPolicy Bypass -File scripts/run_nasdaq100_top3_l126_s21_dca3_task.ps1 --alpaca --execute --env-file .env.alpaca --email-to skydiver1118@gmail.com",
+  "outputs": [
+    "reports/nasdaq100_top3_l126_s21_dca3_signal.csv",
+    "reports/nasdaq100_top3_l126_s21_dca3_signal.json",
+    "reports/nasdaq100_top3_l126_s21_dca3_execution.json"
+  ]
+}

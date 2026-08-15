@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File scripts/run_nasdaq100_top3_l126_s21_dca3_task.ps1 --alpaca --execute --extended-hours --env-file .env.alpaca --email-to skydiver1118@gmail.com

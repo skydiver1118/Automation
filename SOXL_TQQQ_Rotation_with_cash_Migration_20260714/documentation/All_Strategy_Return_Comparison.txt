@@ -1,0 +1,11 @@
+All Strategy Return Comparison
+
+ Rank by Return                            Strategy             Type                   Period  Total Return %  CAGR %  Max Drawdown %                                                                                        Notes
+              1                      Highest return      DCA overlay 2010-06-25 to 2026-05-20      6213084.81  100.19          -97.29    margin_3x; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none
+              2 Best margin while improving base DD      DCA overlay 2010-06-25 to 2026-05-20      2107566.56   87.03          -78.85            margin_3x; anchor=entry; add at 10%/15%; sell=extra_profit 20%; max_extra_days=10
+              3             Best SOXL/TQQQ rotation Base / benchmark 2010-06-25 to 2026-05-20       775116.80   75.63          -79.24                                                Base optimized rotation between SOXL and TQQQ
+              4              Recommended compromise      DCA overlay 2010-06-25 to 2026-05-20        73135.63   51.41          -55.78 reserve_cash; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none
+              5      SOXL-only SMA50/SMA63 10% stop Base / benchmark 2010-06-25 to 2026-05-20        41069.80   46.02          -66.18                                                                 Automated SOXL-only strategy
+              6                       TQQQ buy-hold Base / benchmark 2010-06-25 to 2026-05-20        34842.88   44.53          -81.66                                                                                    Benchmark
+              7                       SOXL buy-hold Base / benchmark 2010-06-25 to 2026-05-20        33468.63   44.16          -90.46                                                                                    Benchmark
+              8                     Lowest drawdown      DCA overlay 2010-06-25 to 2026-05-20         5377.22   28.63          -28.74    reserve_cash; anchor=entry; add at 15%/20%; sell=rebound_from_low 5%; max_extra_days=none

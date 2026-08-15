@@ -1,0 +1,49 @@
+{
+  "data": {
+    "period": "6mo",
+    "interval": "1d"
+  },
+  "alerts": [
+    {
+      "symbol": "QQQ",
+      "condition": "below_sma",
+      "window": 50,
+      "label": "QQQ below SMA 50",
+      "notify_on": "enter",
+      "enabled": true
+    },
+    {
+      "symbol": "SOXL",
+      "condition": "cross_below_sma",
+      "window": 50,
+      "label": "SOXL crosses below SMA 50",
+      "notify_on": "enter",
+      "enabled": false
+    }
+  ],
+  "notifications": {
+    "subject_prefix": "[Stock Alert]",
+    "email": {
+      "enabled": false,
+      "smtp_host": "smtp.gmail.com",
+      "smtp_port": 587,
+      "from": "your.email@gmail.com",
+      "to": [
+        "your.email@gmail.com",
+        "15551234567@carrier-sms-gateway.example"
+      ]
+    },
+    "twilio_sms": {
+      "enabled": false,
+      "from": "+15551234567",
+      "to": "+15557654321"
+    },
+    "webhooks": [
+      {
+        "name": "discord",
+        "enabled": false,
+        "url_env": "ALERT_DISCORD_WEBHOOK_URL"
+      }
+    ]
+  }
+}

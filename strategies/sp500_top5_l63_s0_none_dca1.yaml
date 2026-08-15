@@ -1,0 +1,41 @@
+name: sp500_top5_l63_s0_none_dca1
+display_name: SP500 Top5 L63 S0 none DCA1
+source: Rank stock trading strategies
+status: final_list
+platform: local_python_backtest
+script: src/strategy_lab/momentum_is_oos_research_separate.py
+symbol_universe: S&P 500 point-in-time membership
+timeframe: monthly
+in_sample_window: 2010-01-01 to 2019-12-31
+out_of_sample_window: 2020-01-01 through latest available data as of 2026-05-24
+
+parameters:
+  top_n: 5
+  lookback_days: 63
+  skip_days: 0
+  score: Close[t - skip] / Close[t - lookback] - 1
+  cash_filter: none
+  dca_steps: 1
+  benchmark_proxy: SPY
+
+entry_conditions:
+  - On each monthly signal date, rank eligible S&P 500 members by 63-trading-day momentum with no skip.
+  - Buy the top 5 ranked eligible stocks at the next month first open.
+  - Use full target exposure immediately because DCA1 means one-step entry.
+
+exit_conditions:
+  - Rebalance monthly at the next month first open.
+  - Sell stocks that fall out of the top 5 and buy newly selected top-ranked stocks.
+  - No benchmark SMA cash filter is applied.
+  - Mark the final open position to the latest available close.
+
+performance:
+  is_max_drawdown: -32.36%
+  oos_return: 810.89%
+  oos_max_drawdown: -18.21%
+  oos_sharpe: 1.25
+
+source_files:
+  - reports/momentum_is2010_2019_oos2020_2026ytd_separate_sp500_nasdaq_cash_dca_with_oos_benchmarks.md
+  - reports/momentum_is2010_2019_oos2020_2026ytd_separate_sp500_nasdaq_cash_dca_with_oos_benchmarks.csv
+  - src/strategy_lab/momentum_is_oos_research_separate.py

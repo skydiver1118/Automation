@@ -1,0 +1,10 @@
+is_rank,period,strategy,profit_profile,loss_profile,start,end,cumulative_return_pct,cagr_pct,max_drawdown_pct,sharpe,daily_vol_pct,event_count
+1,IS,with_exit_profiles,risk_first_trend_runner,one_r_invalidation,2010-03-11,2019-12-31,3599.99,44.51,-53.6,1.138,39.18,305
+2,IS,with_exit_profiles,volatility_ladder,one_r_invalidation,2010-03-11,2019-12-31,4395.25,47.41,-52.62,1.099,44.41,274
+3,IS,with_exit_profiles,risk_first_trend_runner,time_and_volatility_failure,2010-03-11,2019-12-31,3301.79,43.28,-53.94,1.099,40.09,332
+4,IS,with_exit_profiles,volatility_ladder,time_and_volatility_failure,2010-03-11,2019-12-31,4208.3,46.77,-52.62,1.088,44.44,304
+5,IS,with_exit_profiles,risk_first_trend_runner,trend_structure_break,2010-03-11,2019-12-31,3027.59,42.06,-52.64,1.082,39.87,293
+6,IS,with_exit_profiles,structure_ladder,time_and_volatility_failure,2010-03-11,2019-12-31,3875.22,45.57,-52.75,1.051,45.81,283
+7,IS,with_exit_profiles,structure_ladder,one_r_invalidation,2010-03-11,2019-12-31,3590.01,44.47,-49.44,1.035,45.82,233
+8,IS,with_exit_profiles,volatility_ladder,trend_structure_break,2010-03-11,2019-12-31,3463.8,43.96,-50.69,1.027,45.84,338
+9,IS,with_exit_profiles,structure_ladder,trend_structure_break,2010-03-11,2019-12-31,2961.43,41.75,-52.16,0.98,47.05,266

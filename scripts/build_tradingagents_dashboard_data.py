@@ -40,6 +40,7 @@ OWNED_SMA_STATE = WORKSPACE / "data" / "owned_stocks_sma50_state.json"
 OUTPUT = WORKSPACE / "tradingagents_dashboard" / "data" / "dashboard-data.js"
 ENV_FILES = (WORKSPACE / ".env.alpaca", WORKSPACE / ".env")
 EASTERN = ZoneInfo("America/New_York")
+RECENT_CHART_BARS = 22
 
 
 MODULE_KEYS = {
@@ -164,7 +165,7 @@ def fetch_alpaca_market_snapshot(symbols: list[str]) -> dict:
         request = StockBarsRequest(
             symbol_or_symbols=symbols,
             timeframe=TimeFrame.Day,
-            start=latest_day - timedelta(days=10),
+            start=latest_day - timedelta(days=45),
             end=latest_day + timedelta(days=1),
             feed="iex",
         )
@@ -187,11 +188,23 @@ def fetch_alpaca_market_snapshot(symbols: list[str]) -> dict:
             chg_pct = None
             if prev_close not in (None, 0):
                 chg_pct = round(((close / prev_close) - 1.0) * 100.0, 2)
+            recent_bars = completed[-RECENT_CHART_BARS:]
             by_symbol[symbol] = {
                 "close": close,
                 "prevClose": prev_close,
                 "chgPct": chg_pct,
                 "barDate": latest.timestamp.astimezone(EASTERN).date().isoformat(),
+                "recentBars": [
+                    {
+                        "date": row.timestamp.astimezone(EASTERN).date().isoformat(),
+                        "open": round(float(row.open), 2),
+                        "high": round(float(row.high), 2),
+                        "low": round(float(row.low), 2),
+                        "close": round(float(row.close), 2),
+                        "volume": int(row.volume),
+                    }
+                    for row in recent_bars
+                ],
             }
         return {
             "ok": True,
@@ -260,6 +273,16 @@ def parse_float(value: object) -> float | None:
         return None
     try:
         return float(cleaned)
+    except ValueError:
+        return None
+
+
+def parse_iso_date(value: object) -> date | None:
+    if value in (None, ""):
+        return None
+    text = str(value).strip()
+    try:
+        return date.fromisoformat(text[:10])
     except ValueError:
         return None
 
@@ -466,6 +489,39 @@ def derive_grounded_risk(facts: dict) -> str:
     return "Medium"
 
 
+def extract_next_earnings_date(facts: dict) -> str | None:
+    if not facts:
+        return None
+
+    anchor_date = (
+        parse_iso_date(facts.get("latest_data_date"))
+        or parse_iso_date(facts.get("requested_trade_date"))
+        or date.today()
+    )
+
+    calendar_text = str((facts.get("yfinance_extras") or {}).get("calendar", ""))
+    calendar_matches = re.findall(r"datetime\.date\((\d{4}),\s*(\d{1,2}),\s*(\d{1,2})\)", calendar_text)
+    calendar_dates: list[date] = []
+    for year, month, day in calendar_matches:
+        try:
+            calendar_dates.append(date(int(year), int(month), int(day)))
+        except ValueError:
+            continue
+
+    earnings_text = str((facts.get("yfinance_extras") or {}).get("earnings_dates", ""))
+    earnings_matches = re.findall(r"(\d{4}-\d{2}-\d{2})\s+\d{2}:\d{2}:\d{2}", earnings_text)
+    earnings_dates = [parsed for parsed in (parse_iso_date(match) for match in earnings_matches) if parsed]
+
+    upcoming = sorted({d for d in [*calendar_dates, *earnings_dates] if d >= anchor_date})
+    if upcoming:
+        return upcoming[0].isoformat()
+
+    historical = sorted({d for d in [*calendar_dates, *earnings_dates] if d < anchor_date}, reverse=True)
+    if historical:
+        return historical[0].isoformat()
+    return None
+
+
 def load_sma_statuses() -> dict[str, dict]:
     if not OWNED_SMA_STATE.exists():
         return {}
@@ -582,6 +638,7 @@ def load_full_report(symbol: str) -> dict:
         "derivedScores": derive_grounded_scores(facts) if facts else {"trading": None, "investment": None, "nearTerm": None},
         "decisionSummary": decision_summary,
         "riskLabel": derive_grounded_risk(facts) if facts else None,
+        "nextEarningsDate": extract_next_earnings_date(facts),
         "latestClose": parse_float(facts.get("latest_ohlcv", {}).get("close")) if facts else None,
         "oneDayReturnPct": parse_float(facts.get("one_day_return_pct")) if facts else None,
         "modules": modules,
@@ -629,6 +686,8 @@ def build_on_demand_stock(symbol: str) -> dict:
         "risk": risk,
         "horizon": horizon,
         "action": action,
+        "nextEarningsDate": full_report.get("nextEarningsDate"),
+        "chart": [],
         "snapshot": None,
         "sma": None,
         "fullReport": full_report,
@@ -724,6 +783,8 @@ def build() -> dict:
                 "risk": risk,
                 "horizon": alpaca_bar.get("barDate") if alpaca_bar and row.get("Source", "etrade") != "on-demand" else horizon,
                 "action": action,
+                "nextEarningsDate": full_report.get("nextEarningsDate"),
+                "chart": alpaca_bar.get("recentBars", []) if alpaca_bar else [],
                 "snapshot": snapshot_row,
                 "sma": sma_row,
                 "marketData": alpaca_bar,

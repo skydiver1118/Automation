@@ -1,0 +1,303 @@
+<!doctype html><html><head><meta charset="utf-8"><title>All Reported 2010 Strategies</title><style>body{font-family:Arial,sans-serif;margin:28px;color:#111827}table{border-collapse:collapse;font-size:13px}th,td{border:1px solid #d1d5db;padding:7px 10px;vertical-align:top}th{background:#f3f4f6}td:nth-child(4),td:nth-child(5),td:nth-child(6){text-align:right}</style></head><body><h1>All Reported 2010-to-Date Strategies With Sharpe</h1><table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Rank by lowest drawdown</th>
+      <th>Strategy</th>
+      <th>Family</th>
+      <th>Period</th>
+      <th>Cumulative return %</th>
+      <th>Max drawdown %</th>
+      <th>Sharpe ratio</th>
+      <th>Source file</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Lowest drawdown</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>5.377220e+03</td>
+      <td>-28.74</td>
+      <td>1.17</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>reserve_cash; anchor=entry; add at 15%/20%; sell=rebound_from_low 5%; max_extra_days=none</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Cash regime - Best return with max DD <= 40%</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>3.207634e+04</td>
+      <td>-38.87</td>
+      <td>1.09</td>
+      <td>SOXL_TQQQ_Cash_Regime_Summary.csv</td>
+      <td>selected_and_qqq_cash; SMA250; exit below SMA-5%; reenter above SMA+5%; unit=0.75; cap=1.00; dca=False</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Advanced DCA - Best return with DD <= 50%</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>4.368298e+04</td>
+      <td>-47.87</td>
+      <td>1.20</td>
+      <td>SOXL_TQQQ_DCA_Advanced_Summary.csv</td>
+      <td>unit=0.50, cap=1.00, anchor=entry, add=10%/20%, sell=extra_profit 20%, max_days=10, trend_sma=none, dd_guard=none</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Cash + deep DCA - Best full-period return with DD <= 50%</td>
+      <td>Cash + DCA</td>
+      <td>2010-07-01 to 2026-05-22</td>
+      <td>2.009479e+05</td>
+      <td>-48.24</td>
+      <td>1.13</td>
+      <td>SOXL_TQQQ_Cash_DCA_Deep_Summary.csv</td>
+      <td>selected_and_qqq; cashSMA200; exit 0%; reentry 1%; DCA below SMA200 20%->50%; exp 1.00->2.00; filter=selected_above_sma20; recover=5%; maxDays=63; normal=1.00</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>Cash regime - Best return with max DD <= 50%</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>1.185582e+05</td>
+      <td>-49.97</td>
+      <td>1.09</td>
+      <td>SOXL_TQQQ_Cash_Regime_Summary.csv</td>
+      <td>selected_and_qqq_cash; SMA250; exit below SMA-5%; reenter above SMA+5%; unit=1.00; cap=1.00; dca=False</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Cash + deep DCA - Best 2020-to-date return with DD <= 50%</td>
+      <td>Cash + DCA</td>
+      <td>2010-07-01 to 2026-05-22</td>
+      <td>2.500078e+05</td>
+      <td>-51.22</td>
+      <td>1.13</td>
+      <td>SOXL_TQQQ_Cash_DCA_Deep_Summary.csv</td>
+      <td>selected_or_qqq; cashSMA150; exit 0%; reentry 1%; DCA below SMA200 20%->50%; exp 1.00->2.00; filter=selected_above_sma20; recover=5%; maxDays=63; normal=1.00</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Direct comparison - Cash + deep DCA</td>
+      <td>Direct comparison normalized common period</td>
+      <td>2010-07-01 to 2026-05-20</td>
+      <td>2.272230e+05</td>
+      <td>-51.22</td>
+      <td>1.13</td>
+      <td>SOXL_TQQQ_Cash_vs_Cash_DCA_Summary.csv</td>
+      <td>Common-date normalized comparison</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Cash regime - Best Calmar</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>3.240737e+05</td>
+      <td>-51.91</td>
+      <td>1.17</td>
+      <td>SOXL_TQQQ_Cash_Regime_Summary.csv</td>
+      <td>selected_or_qqq_cash; SMA180; exit below SMA-3%; reenter above SMA+5%; unit=1.00; cap=1.00; dca=False</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Cash regime - Best balanced: DD <= 55%, 2022 loss <= 35%</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>2.972535e+05</td>
+      <td>-52.16</td>
+      <td>1.17</td>
+      <td>SOXL_TQQQ_Cash_Regime_Summary.csv</td>
+      <td>selected_or_qqq_cash; SMA150; exit below SMA-0%; reenter above SMA+1%; unit=1.00; cap=1.00; dca=False</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Direct comparison - New cash balanced</td>
+      <td>Direct comparison normalized common period</td>
+      <td>2010-07-01 to 2026-05-20</td>
+      <td>3.583063e+05</td>
+      <td>-52.16</td>
+      <td>1.19</td>
+      <td>SOXL_TQQQ_Cash_vs_Cash_DCA_Summary.csv</td>
+      <td>Common-date normalized comparison</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Recommended compromise</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>7.313563e+04</td>
+      <td>-55.78</td>
+      <td>1.20</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>reserve_cash; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Cash regime - Best return with 2022 loss <= 25%</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>2.099383e+05</td>
+      <td>-56.08</td>
+      <td>1.13</td>
+      <td>SOXL_TQQQ_Cash_Regime_Summary.csv</td>
+      <td>selected_or_qqq_cash; SMA150; exit below SMA-1%; reenter above SMA+3%; unit=1.00; cap=1.00; dca=False</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>Advanced DCA - Best return with DD <= 60%</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>3.565125e+05</td>
+      <td>-59.85</td>
+      <td>1.18</td>
+      <td>SOXL_TQQQ_DCA_Advanced_Summary.csv</td>
+      <td>unit=0.50, cap=1.50, anchor=rolling_high, add=10%/20%, sell=extra_profit 20%, max_days=20, trend_sma=200, dd_guard=45.0</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>Cash regime - Best raw return</td>
+      <td>Cash regime</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>3.592030e+05</td>
+      <td>-60.52</td>
+      <td>1.18</td>
+      <td>SOXL_TQQQ_Cash_Regime_Summary.csv</td>
+      <td>selected_or_qqq_cash; SMA150; exit below SMA-3%; reenter above SMA+1%; unit=1.00; cap=1.00; dca=False</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>Cash + deep DCA - Best 2020 strategy with 2022 loss <= 20%</td>
+      <td>Cash + DCA</td>
+      <td>2010-07-01 to 2026-05-22</td>
+      <td>1.911295e+05</td>
+      <td>-64.06</td>
+      <td>1.05</td>
+      <td>SOXL_TQQQ_Cash_DCA_Deep_Summary.csv</td>
+      <td>selected_and_qqq; cashSMA150; exit 0%; reentry 1%; DCA below SMA200 25%->50%; exp 0.50->2.00; filter=none; recover=5%; maxDays=20; normal=1.00</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>Advanced DCA - Best return with DD better than SOXL-only</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>2.823010e+06</td>
+      <td>-65.54</td>
+      <td>1.26</td>
+      <td>SOXL_TQQQ_DCA_Advanced_Summary.csv</td>
+      <td>unit=0.67, cap=2.00, anchor=rolling_high, add=10%/20%, sell=extra_profit 20%, max_days=20, trend_sma=200, dd_guard=45.0</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>SOXL-only SMA50/SMA63 10% stop</td>
+      <td>Base / benchmark</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>4.106980e+04</td>
+      <td>-66.18</td>
+      <td>0.93</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>Automated SOXL-only strategy</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>Cash + deep DCA - Best raw 2020 return</td>
+      <td>Cash + DCA</td>
+      <td>2010-07-01 to 2026-05-22</td>
+      <td>1.085039e+06</td>
+      <td>-70.05</td>
+      <td>1.18</td>
+      <td>SOXL_TQQQ_Cash_DCA_Deep_Summary.csv</td>
+      <td>selected_or_qqq; cashSMA150; exit 0%; reentry 1%; DCA below SMA200 20%->50%; exp 0.50->2.00; filter=none; recover=5%; maxDays=20; normal=1.00</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Cash + deep DCA - Best raw full-period return</td>
+      <td>Cash + DCA</td>
+      <td>2010-07-01 to 2026-05-22</td>
+      <td>1.107529e+06</td>
+      <td>-71.83</td>
+      <td>1.18</td>
+      <td>SOXL_TQQQ_Cash_DCA_Deep_Summary.csv</td>
+      <td>selected_or_qqq; cashSMA150; exit 0%; reentry 1%; DCA below SMA200 20%->50%; exp 0.67->2.00; filter=none; recover=5%; maxDays=20; normal=1.00</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>Best margin while improving base DD</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>2.107567e+06</td>
+      <td>-78.85</td>
+      <td>1.20</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>margin_3x; anchor=entry; add at 10%/15%; sell=extra_profit 20%; max_extra_days=10</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>Best SOXL/TQQQ rotation</td>
+      <td>Base / benchmark</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>7.751168e+05</td>
+      <td>-79.24</td>
+      <td>1.15</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>Base optimized rotation between SOXL and TQQQ</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>TQQQ buy-hold</td>
+      <td>Base / benchmark</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>3.484288e+04</td>
+      <td>-81.66</td>
+      <td>0.91</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>Benchmark</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>Advanced DCA - Best Calmar</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>2.499135e+10</td>
+      <td>-82.46</td>
+      <td>1.71</td>
+      <td>SOXL_TQQQ_DCA_Advanced_Summary.csv</td>
+      <td>unit=1.00, cap=2.00, anchor=rolling_high, add=5%/20%, sell=extra_profit 15%, max_days=20, trend_sma=100, dd_guard=none</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Advanced DCA - Best raw return</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>2.499135e+10</td>
+      <td>-82.46</td>
+      <td>1.71</td>
+      <td>SOXL_TQQQ_DCA_Advanced_Summary.csv</td>
+      <td>unit=1.00, cap=2.00, anchor=rolling_high, add=5%/20%, sell=extra_profit 15%, max_days=20, trend_sma=100, dd_guard=none</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>SOXL buy-hold</td>
+      <td>Base / benchmark</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>3.346863e+04</td>
+      <td>-90.46</td>
+      <td>0.86</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>Benchmark</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>Highest return</td>
+      <td>DCA overlay</td>
+      <td>2010-06-25 to 2026-05-20</td>
+      <td>6.213085e+06</td>
+      <td>-97.29</td>
+      <td>1.20</td>
+      <td>All_Strategy_Return_Comparison.csv</td>
+      <td>margin_3x; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none</td>
+    </tr>
+  </tbody>
+</table></body></html>

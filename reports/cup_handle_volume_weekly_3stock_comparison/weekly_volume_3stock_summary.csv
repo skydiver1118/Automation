@@ -1,0 +1,8 @@
+Family,Selection,Variant,IS_TotalReturnPct,IS_Sharpe,IS_Trades,OOS_TotalReturnPct,OOS_Sharpe,OOS_Trades,IS_Return_vs_SP500_PctPts,IS_Sharpe_vs_SP500,OOS_Return_vs_SP500_PctPts,OOS_Sharpe_vs_SP500
+Base 3-stock rotation,Single rule,weekly volume + entry volume,68.84,0.484,62.0,55.05,0.614,43.0,-116.32,-0.301,-77.62,-0.133
+Trend filters,Best by IS return,stock_close_gt_sma50_sma50_rising__market_spx_close_gt_sma50_sma50_gt_sma200,102.73,0.72,47.0,45.0,0.637,27.0,-82.43,-0.065,-87.67,-0.11
+Trend filters,Best by OOS return,stock_close_gt_sma50_rs63_gt_spx__market_none,69.97,0.493,58.0,75.67,0.789,40.0,-115.19,-0.292,-57.0,0.042
+ATR exits,Best by IS return,atr_2x_target_60d,101.85,0.748,58.0,71.79,0.875,44.0,-83.31,-0.037,-60.88,0.128
+ATR exits,Best by OOS return,atr_2x_target_60d,101.85,0.748,58.0,71.79,0.875,44.0,-83.31,-0.037,-60.88,0.128
+Entry window 3-10 days,Best by IS return,8 trading days,284.44,1.159,71.0,98.21,0.859,51.0,99.28,0.374,-34.46,0.112
+Entry window 3-10 days,Best by OOS return,9 trading days,230.22,1.05,72.0,102.21,0.831,55.0,45.06,0.265,-30.46,0.084

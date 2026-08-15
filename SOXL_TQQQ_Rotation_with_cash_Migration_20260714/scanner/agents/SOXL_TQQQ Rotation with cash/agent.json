@@ -1,0 +1,20 @@
+{
+  "name": "SOXL/TQQQ Rotation with cash",
+  "description": "Daily SOXL/TQQQ relative-momentum rotation scanner with SMA150 cash regime and optional Alpaca paper execution.",
+  "command": "python scripts/soxl_tqqq_cash_signal_scanner.py --agent \"SOXL/TQQQ Rotation with cash\" --env-file .env.alpaca --alpaca",
+  "execute_command": "python scripts/soxl_tqqq_cash_signal_scanner.py --agent \"SOXL/TQQQ Rotation with cash\" --env-file .env.alpaca --alpaca --execute --qty 1",
+  "extended_hours_execute_command": "python scripts/soxl_tqqq_cash_signal_scanner.py --agent \"SOXL/TQQQ Rotation with cash\" --env-file .env.alpaca --alpaca --execute --extended-hours --limit-offset-pct 0 --qty 1",
+  "default_mode": "dry_run",
+  "outputs": [
+    "reports/soxl_tqqq_cash_signal.csv",
+    "reports/soxl_tqqq_cash_signal.json"
+  ],
+  "strategy": {
+    "symbols": ["SOXL", "TQQQ"],
+    "context_symbol": "QQQ",
+    "timeframe": "1d",
+    "base_rotation": "Monthly SOXL/TQQQ relative momentum using 63-day return minus 0.5 * annualized volatility, skip the most recent 10 trading days, prefer chosen/alternate above SMA50, 5% hysteresis.",
+    "cash_filter": "Risk-off only when the selected ETF and QQQ are both below SMA150; re-enter when either selected ETF or QQQ is above SMA150 + 1%.",
+    "positioning": "Target SOXL, TQQQ, or CASH. No DCA in the balanced cash version."
+  }
+}

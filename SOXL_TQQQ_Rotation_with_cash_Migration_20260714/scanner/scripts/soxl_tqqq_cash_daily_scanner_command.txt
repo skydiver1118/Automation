@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File scripts/run_soxl_tqqq_cash_daily_scanner_task.ps1 --agent "SOXL/TQQQ Rotation with cash" --env-file .env.alpaca --alpaca --execute --extended-hours --limit-offset-pct 0 --target-notional 10000 --qty 1 --email-to skydiver1118@gmail.com

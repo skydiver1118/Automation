@@ -1,0 +1,87 @@
+name: trend_follow_v1
+display_name: Trend Follow v1
+platform: TrendSpider
+status: active_review
+symbol_universe: SMH
+timeframe: 1D
+backtest_window: 2018-07-24 to 2026-03-01
+
+indicator:
+  name: Trend Pullback ATR Strategy - Signals
+  source: Custom Indicator Editor
+  side: Long
+
+tester_wiring_observed:
+  entry_condition: Trend Pullback ATR Strategy - Signals, Exit signal emerged
+  exit_condition: Trend Pullback ATR Strategy - Signals, Entry signal emerged
+  note: This is the swapped setup described in the indicator comments, not the original Entry=Entry and Exit=Exit wiring.
+
+baseline_parameters:
+  fast_ema: 21
+  mid_ema: 50
+  trend_ema: 200
+  rsi_length: 14
+  long_rsi_min: 50
+  long_rsi_max: 70
+  use_volume_filter: true
+  volume_sma_length: 20
+  volume_multiplier: 1.0
+  atr_length: 14
+  stop_atr_multiplier: 1.5
+  reward_risk_target: 2.0
+  use_atr_trailing_stop: true
+  trailing_atr_multiplier: 2.0
+  max_bars_in_trade: 40
+
+visible_trendspider_metrics:
+  net_performance: 499.0%
+  asset_performance: 666.8%
+  positions: 26
+  wins: 80%
+  losses: 20%
+  max_drawdown: -44.0%
+  average_win: 11.34%
+  average_loss: -5.00%
+  average_return: 8.07%
+  reward_risk_ratio: 2.27
+  expectancy: 1.6
+
+entry_logic_from_indicator:
+  - close above trend EMA
+  - fast EMA above mid EMA
+  - mid EMA above trend EMA
+  - close crosses above fast EMA
+  - RSI between long_rsi_min and long_rsi_max
+  - candle closes green
+  - volume is at or above volume SMA times volume multiplier
+
+exit_logic_from_indicator:
+  priority:
+    - stop
+    - target
+    - trend
+    - time
+  stop: Entry price minus ATR times stop_atr_multiplier, trailed when enabled.
+  target: Entry price plus risk times reward_risk_target.
+  trend_exit: close below mid EMA.
+  time_exit: bars held reaches max_bars_in_trade when greater than zero.
+
+tuning_queue:
+  - name: wiring_sanity_original
+    change: Strategy Tester Entry=Entry and Exit=Exit
+    reason: Confirms whether the current 499% result is from normal trend-following or from the swapped contrarian test.
+  - name: reduce_drawdown_fast_trend_exit
+    change: Test trend exit at close below fast EMA instead of mid EMA.
+    reason: Current max drawdown is high; a faster trend exit may cut rollover losses earlier.
+  - name: reduce_drawdown_shorter_time_exit
+    change: Test max_bars_in_trade at 20 and 30.
+    reason: Current 40-bar hold may keep trades through stale pullback recoveries.
+  - name: entry_quality_filter
+    change: Test long_rsi_min 55 and volume_multiplier 1.2.
+    reason: Fewer but cleaner entries may reduce drawdown on weak recoveries.
+  - name: entry_frequency_filter
+    change: Test long_rsi_max 75 or volume_multiplier 0.8.
+    reason: Only 26 positions over 7.6 years; this tests whether more trades improve robustness.
+  - name: stop_trail_sweep
+    change: Test stop_atr_multiplier 1.25, 1.75, 2.0 and trailing_atr_multiplier 1.5, 2.5.
+    reason: Separates premature stops from late drawdown exits.

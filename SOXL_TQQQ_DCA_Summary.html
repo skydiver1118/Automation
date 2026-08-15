@@ -1,0 +1,11 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>SOXL/TQQQ DCA Summary</title>
+<style>
+body{font-family:Arial,sans-serif;margin:28px;color:#111827} table{border-collapse:collapse;font-size:13px} th,td{border:1px solid #d1d5db;padding:7px 10px;text-align:right} th{background:#f3f4f6} th:nth-child(1),td:nth-child(1),th:nth-child(2),td:nth-child(2){text-align:left} img{max-width:100%;height:auto;border:1px solid #ddd;margin-top:16px}
+</style></head><body>
+<h1>SOXL/TQQQ DCA Overlay Summary</h1>
+<p>Recommended compromise uses reserve cash: core 1 unit, add at drawdowns, sell extra units on profit, keep the 1-unit core.</p>
+<table><thead><tr><th>Case</th><th>variant</th><th>net_return_pct</th><th>cagr_pct</th><th>max_drawdown_pct</th><th>sharpe</th><th>dca_trade_events</th><th>max_units</th><th>extra_exposure_days_pct</th><th>base_rotation_return_pct</th><th>base_rotation_max_drawdown_pct</th><th>soxl_only_return_pct</th><th>soxl_only_max_drawdown_pct</th></tr></thead><tbody><tr><td>Recommended compromise</td><td>reserve_cash; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none</td><td>73135.63</td><td>51.41</td><td>-55.78</td><td>1.2</td><td>208</td><td>3</td><td>71.15</td><td>775116.8</td><td>-79.24</td><td>41069.8</td><td>-66.18</td></tr><tr><td>Lowest drawdown</td><td>reserve_cash; anchor=entry; add at 15%/20%; sell=rebound_from_low 5%; max_extra_days=none</td><td>5377.22</td><td>28.63</td><td>-28.74</td><td>1.17</td><td>23</td><td>3</td><td>0.57</td><td>775116.8</td><td>-79.24</td><td>41069.8</td><td>-66.18</td></tr><tr><td>Highest return</td><td>margin_3x; anchor=rolling_high; add at 5%/40%; sell=extra_profit 20%; max_extra_days=none</td><td>6213084.81</td><td>100.19</td><td>-97.29</td><td>1.2</td><td>208</td><td>3</td><td>71.15</td><td>775116.8</td><td>-79.24</td><td>41069.8</td><td>-66.18</td></tr><tr><td>Best margin while improving base DD</td><td>margin_3x; anchor=entry; add at 10%/15%; sell=extra_profit 20%; max_extra_days=10</td><td>2107566.56</td><td>87.03</td><td>-78.85</td><td>1.2</td><td>56</td><td>3</td><td>2.93</td><td>775116.8</td><td>-79.24</td><td>41069.8</td><td>-66.18</td></tr></tbody></table>
+<h2>Equity Curve</h2>
+<img src="SOXL_TQQQ_DCA_Overlay.png">
+</body></html>

@@ -1,0 +1,47 @@
+name: soxl_tqqq_rotation_with_cash_daily_scanner
+display_name: SOXL/TQQQ Rotation with cash daily scanner
+source: Compare momentum strategies
+status: final_list
+platform: local_python_scanner
+script: scripts/soxl_tqqq_cash_signal_scanner.py
+symbol_universe:
+  - SOXL
+  - TQQQ
+context_symbols:
+  - QQQ
+timeframe: 1D
+backtest_window: 2020-01-02 to 2026-05-22
+
+parameters:
+  rotation_lookback_days: 63
+  rotation_skip_days: 10
+  rotation_score: 63-day return minus 0.5 times annualized volatility, skipping the latest 10 trading days
+  rotation_trend_sma: 50
+  rotation_hysteresis: 5%
+  cash_sma: 150
+  cash_exit_buffer: 0%
+  cash_reentry_buffer: 1%
+  dca: none
+
+entry_conditions:
+  - Rank SOXL and TQQQ by the rotation score.
+  - Prefer the selected ETF when it is above its SMA50.
+  - If the selected ETF is not above SMA50, use the alternate ETF if the alternate ETF is above SMA50.
+  - Require a 5% score advantage before switching the base rotation target.
+  - Enter the selected ETF when the cash filter is risk-on.
+
+exit_conditions:
+  - Move to cash when both the selected ETF and QQQ are below their SMA150.
+  - Re-enter the selected ETF when either the selected ETF or QQQ is above SMA150 by at least 1%.
+  - Rotate between SOXL and TQQQ when the base rotation target changes and the cash filter remains risk-on.
+
+performance:
+  period: 2020-01-02 to 2026-05-22
+  cumulative_return: 9826.01%
+  max_drawdown: -53.40%
+  sharpe: 1.402
+
+source_files:
+  - SOXL_TQQQ_Three_Strategy_2020_To_Date.csv
+  - agents/SOXL_TQQQ Rotation with cash/README.md
+  - scripts/soxl_tqqq_cash_signal_scanner.py

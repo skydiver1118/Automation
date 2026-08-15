@@ -1,0 +1,24 @@
+{
+  "name": "Strategy Performance Metrics",
+  "description": "Reusable strategy performance report generator for OOS metrics, annual return/drawdown, holding periods, equity curves, and drawdown curves.",
+  "command": "python scripts/strategy_performance_metrics.py --strategy soxl_tqqq_rotation_cash --start 2020-01-02",
+  "supported_strategy_keys": [
+    "soxl_tqqq_rotation_cash",
+    "sp500_top5_l63_s0_none_dca1",
+    "nasdaq100_top3_l126_s21_none_dca3",
+    "smh_hist_pit_top2_l252_s0_smh_sma100_dca1"
+  ],
+  "outputs": [
+    "reports/soxl_tqqq_rotation_cash_oos_performance.md",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_summary_metrics.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_annual_return_drawdown.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_annual_returns.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_annual_drawdowns.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_trades.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_holding_period_by_outcome.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_equity_curves.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_drawdown_curves.csv",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_curves.png",
+    "reports/soxl_tqqq_rotation_cash_oos_performance_trendspider_style_metrics.json"
+  ]
+}

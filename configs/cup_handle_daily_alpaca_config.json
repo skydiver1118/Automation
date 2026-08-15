@@ -1,0 +1,23 @@
+{
+  "name": "Cup & Handle Daily",
+  "universe": "S&P 500",
+  "timeframe": "daily",
+  "top_n": 10,
+  "min_target_return_pct": 30.0,
+  "min_score": 45.0,
+  "max_positions": 3,
+  "target_equity_pct": 0.95,
+  "handle_volume_max_cup_ratio": 1.05,
+  "entry_volume_min_50d_ratio": 1.4,
+  "stock_filter": "close > SMA50 and stock 63-day return > S&P 500 63-day return",
+  "market_filter": "S&P 500 close > SMA100",
+  "stop": "entry - 3.5 * ATR14",
+  "target": "none",
+  "time_stop_trading_days": 60,
+  "alpaca": {
+    "paper": true,
+    "env_file": ".env.alpaca",
+    "extended_hours": true,
+    "limit_offset_pct": 0.0
+  }
+}
