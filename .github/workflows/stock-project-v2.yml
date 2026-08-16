@@ -2,9 +2,8 @@ name: Stock Project V2 Daily
 
 on:
   schedule:
-    # 23:15 UTC = 7:15 PM EDT / 6:15 PM EST. The Python job
-    # independently verifies that today is an actual NYSE trading day
-    # and that today's completed market data is available.
+    # Runs on weekdays after the US cash session. A separate NYSE calendar gate
+    # below prevents holiday/non-session runs from producing results or email.
     - cron: '15 23 * * 1-5'
   workflow_dispatch:
 
@@ -18,7 +17,7 @@ concurrency:
 jobs:
   rank:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
@@ -34,24 +33,103 @@ jobs:
       - name: Install dependencies
         run: pip install -r stock-project-v2/requirements.txt
 
+      - name: Check actual NYSE trading date
+        id: market
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          import pandas_market_calendars as mcal
+
+          tz = ZoneInfo('America/New_York')
+          today = datetime.now(tz).date()
+          nyse = mcal.get_calendar('NYSE')
+          schedule = nyse.schedule(start_date=today, end_date=today)
+          is_trading_day = not schedule.empty
+          close_time = '' if schedule.empty else schedule.iloc[0]['market_close'].tz_convert(tz).isoformat()
+          print(f'{today}: NYSE trading day={is_trading_day}; close={close_time or "N/A"}')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'trade_date={today}\n')
+              f.write(f'is_trading_day={str(is_trading_day).lower()}\n')
+              f.write(f'close_time={close_time}\n')
+          PY
+
+      - name: Skip non-trading date
+        if: steps.market.outputs.is_trading_day != 'true'
+        run: echo "${{ steps.market.outputs.trade_date }} is not an NYSE trading date. No ranking, dashboard update, or email."
+
       - name: Run Stock Project V2
+        if: steps.market.outputs.is_trading_day == 'true'
         run: python stock-project-v2/run_v2.py
 
-      - name: Commit trading-day results
+      - name: Detect new completed session
+        if: steps.market.outputs.is_trading_day == 'true'
+        id: session
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then
-            echo "No new completed trading-day result to commit."
+            echo "new_session=false" >> "$GITHUB_OUTPUT"
+            echo "No new completed trading-session scores available yet."
+          else
+            echo "new_session=true" >> "$GITHUB_OUTPUT"
+            echo "New completed trading-session scores detected."
+          fi
+
+      - name: Build dashboard and stock detail pages
+        if: steps.market.outputs.is_trading_day == 'true'
+        run: python stock-project-v2/dashboard.py
+
+      - name: Commit scores, history, and dashboard
+        if: steps.market.outputs.is_trading_day == 'true'
+        shell: bash
+        run: |
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/ stock-project-v2/dashboard/; then
+            echo "Nothing changed."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/ stock-project-v2/dashboard/
           TRADE_DATE=$(python - <<'PY'
           import pandas as pd
           print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])
           PY
           )
-          git commit -m "Stock V2: refresh ${TRADE_DATE}"
+          git commit -m "Stock V2: dashboard refresh ${TRADE_DATE}"
           git push
+
+      - name: Publish dashboard to gh-pages
+        if: steps.market.outputs.is_trading_day == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./stock-project-v2/dashboard
+          publish_branch: gh-pages
+          force_orphan: true
+          enable_jekyll: false
+
+      - name: Email dashboard link
+        if: steps.market.outputs.is_trading_day == 'true' && steps.session.outputs.new_session == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.STOCK_EMAIL_USERNAME }}
+          password: ${{ secrets.STOCK_EMAIL_APP_PASSWORD }}
+          subject: "Stock Project V2 results — ${{ steps.market.outputs.trade_date }}"
+          to: 1118xmb@gmail.com
+          from: "Stock Project V2 <${{ secrets.STOCK_EMAIL_USERNAME }}>"
+          body: |
+            Stock Project V2 has completed the ${{ steps.market.outputs.trade_date }} trading-session refresh.
+
+            Dashboard:
+            https://skydiver1118.github.io/Automation/
+
+            GitHub fallback:
+            https://github.com/skydiver1118/Automation/tree/main/stock-project-v2/dashboard
+
+            The dashboard includes the 11-stock ranking, Long-Term / Short-Term / Buy-Now score history, and a detailed analysis page for every stock.
