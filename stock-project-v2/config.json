@@ -1,0 +1,13 @@
+{
+  "version": "2.0",
+  "universe": ["NVDA", "MU", "SPCX", "LITE", "META", "NBIS", "MRVL", "RKLB", "AXTI", "APLD", "IREN"],
+  "excluded": ["ORCL"],
+  "benchmarks": {"SMH": 0.67, "QQQ": 0.33},
+  "relative_strength_horizon_weights": {"1M": 0.15, "3M": 0.30, "6M": 0.30, "12M": 0.25},
+  "long_term_weights": {"growth_and_revisions": 0.30, "quality": 0.25, "valuation": 0.20, "secular_competitive": 0.15, "risk": 0.10},
+  "short_term_weights": {"relative_strength": 0.40, "technical": 0.30, "revisions": 0.20, "entry_condition": 0.10},
+  "buy_now_weights": {"long_term": 0.55, "short_term": 0.30, "entry_valuation": 0.15},
+  "technical_inputs": ["RSI14", "MACD", "MACD_SIGNAL", "ADX14", "DIST_20DMA", "DIST_50DMA", "DIST_200DMA", "VOLUME_CONFIRMATION"],
+  "fundamental_inputs": ["FORWARD_REVENUE_GROWTH", "FORWARD_EPS_GROWTH", "REVENUE_REVISIONS_30_60_90D", "EPS_REVISIONS_30_60_90D", "EV_SALES", "FORWARD_PE", "EV_EBITDA", "FCF_YIELD", "FCF_MARGIN", "ROIC", "GROSS_MARGIN", "OPERATING_MARGIN", "DILUTION", "BALANCE_SHEET"],
+  "refresh": {"market": "US", "timezone": "America/New_York", "trading_days_only": true}
+}
