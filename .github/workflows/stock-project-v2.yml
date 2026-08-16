@@ -127,7 +127,7 @@ jobs:
           username: ${{ secrets.STOCK_EMAIL_USERNAME }}
           password: ${{ secrets.STOCK_EMAIL_APP_PASSWORD }}
           subject: "Stock Project V2 results — ${{ steps.market.outputs.trade_date }}"
-          to: 1118xmb@gmail.com
+          to: ${{ secrets.STOCK_EMAIL_TO }}
           from: "Stock Project V2 <${{ secrets.STOCK_EMAIL_USERNAME }}>"
           body: |
             Stock Project V2 has completed the ${{ steps.market.outputs.trade_date }} trading-session refresh.
