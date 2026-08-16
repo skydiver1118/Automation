@@ -1,0 +1,57 @@
+name: Stock Project V2 Daily
+
+on:
+  schedule:
+    # 23:15 UTC = 7:15 PM EDT / 6:15 PM EST. The Python job
+    # independently verifies that today is an actual NYSE trading day
+    # and that today's completed market data is available.
+    - cron: '15 23 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-project-v2-daily
+  cancel-in-progress: false
+
+jobs:
+  rank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: stock-project-v2/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r stock-project-v2/requirements.txt
+
+      - name: Run Stock Project V2
+        run: python stock-project-v2/run_v2.py
+
+      - name: Commit trading-day results
+        shell: bash
+        run: |
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then
+            echo "No new completed trading-day result to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/
+          TRADE_DATE=$(python - <<'PY'
+          import pandas as pd
+          print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])
+          PY
+          )
+          git commit -m "Stock V2: refresh ${TRADE_DATE}"
+          git push
