@@ -42,14 +42,11 @@ jobs:
           from datetime import datetime
           from zoneinfo import ZoneInfo
           import pandas_market_calendars as mcal
-
           tz = ZoneInfo('America/New_York')
           today = datetime.now(tz).date()
-          nyse = mcal.get_calendar('NYSE')
-          schedule = nyse.schedule(start_date=today, end_date=today)
+          schedule = mcal.get_calendar('NYSE').schedule(start_date=today, end_date=today)
           is_trading_day = not schedule.empty
           close_time = '' if schedule.empty else schedule.iloc[0]['market_close'].tz_convert(tz).isoformat()
-          print(f'{today}: NYSE trading day={is_trading_day}; close={close_time or "N/A"}')
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write(f'trade_date={today}\n')
               f.write(f'is_trading_day={str(is_trading_day).lower()}\n')
@@ -71,10 +68,8 @@ jobs:
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then
             echo "new_session=false" >> "$GITHUB_OUTPUT"
-            echo "No new completed trading-session scores available yet."
           else
             echo "new_session=true" >> "$GITHUB_OUTPUT"
-            echo "New completed trading-session scores detected."
           fi
 
       - name: Build dashboard and stock detail pages
@@ -89,7 +84,6 @@ jobs:
             echo "Nothing changed."
             exit 0
           fi
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/ stock-project-v2/dashboard/
@@ -101,12 +95,23 @@ jobs:
           git commit -m "Stock V2: dashboard refresh ${TRADE_DATE}"
           git push
 
+      - name: Stage dashboard at /stock-project-v2/
+        if: steps.market.outputs.is_trading_day == 'true'
+        shell: bash
+        run: |
+          rm -rf .pages
+          mkdir -p .pages/stock-project-v2
+          cp -R stock-project-v2/dashboard/. .pages/stock-project-v2/
+          cat > .pages/index.html <<'HTML'
+          <!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./stock-project-v2/"><title>Stock Project V2</title></head><body><a href="./stock-project-v2/">Open Stock Project V2 dashboard</a></body></html>
+          HTML
+
       - name: Publish dashboard to gh-pages
         if: steps.market.outputs.is_trading_day == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./stock-project-v2/dashboard
+          publish_dir: ./.pages
           publish_branch: gh-pages
           force_orphan: true
           enable_jekyll: false
@@ -127,7 +132,7 @@ jobs:
             Stock Project V2 has completed the ${{ steps.market.outputs.trade_date }} trading-session refresh.
 
             Dashboard:
-            https://skydiver1118.github.io/Automation/
+            https://skydiver1118.github.io/Automation/stock-project-v2/
 
             GitHub fallback:
             https://github.com/skydiver1118/Automation/tree/main/stock-project-v2/dashboard
