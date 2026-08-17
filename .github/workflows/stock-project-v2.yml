@@ -22,6 +22,10 @@ jobs:
   rank:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      STOCK_EMAIL_TO: ${{ secrets.STOCK_EMAIL_TO }}
+      STOCK_EMAIL_USERNAME: ${{ secrets.STOCK_EMAIL_USERNAME }}
+      STOCK_EMAIL_APP_PASSWORD: ${{ secrets.STOCK_EMAIL_APP_PASSWORD }}
 
     steps:
       - name: Checkout
@@ -58,7 +62,6 @@ jobs:
           else:
               close_dt = schedule.iloc[0]['market_close'].tz_convert(tz).to_pydatetime()
               close_time = close_dt.isoformat()
-              # Give end-of-day feeds time to settle.
               after_close = now.timestamp() >= close_dt.timestamp() + 15 * 60
 
           event = os.environ.get('GITHUB_EVENT_NAME', '')
@@ -134,17 +137,17 @@ jobs:
           enable_jekyll: false
 
       - name: Email dashboard link
-        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && secrets.STOCK_EMAIL_TO != '' && secrets.STOCK_EMAIL_USERNAME != '' && secrets.STOCK_EMAIL_APP_PASSWORD != ''
+        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           secure: true
-          username: ${{ secrets.STOCK_EMAIL_USERNAME }}
-          password: ${{ secrets.STOCK_EMAIL_APP_PASSWORD }}
+          username: ${{ env.STOCK_EMAIL_USERNAME }}
+          password: ${{ env.STOCK_EMAIL_APP_PASSWORD }}
           subject: "Stock Project V2 results — ${{ steps.market.outputs.trade_date }}"
-          to: ${{ secrets.STOCK_EMAIL_TO }}
-          from: "Stock Project V2 <${{ secrets.STOCK_EMAIL_USERNAME }}>"
+          to: ${{ env.STOCK_EMAIL_TO }}
+          from: "Stock Project V2 <${{ env.STOCK_EMAIL_USERNAME }}>"
           body: |
             Stock Project V2 has completed the ${{ steps.market.outputs.trade_date }} trading-session refresh.
 
