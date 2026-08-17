@@ -3,8 +3,59 @@
 *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#08101d,#0b1423 45%,#08101d);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 a{color:inherit;text-decoration:none}.wrap{max-width:1500px;margin:auto;padding:28px}.topbar{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:20px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--accent);font-weight:800}.title{font-size:32px;font-weight:850;letter-spacing:-.03em;margin:4px 0}.sub{color:var(--muted);max-width:900px}.stamp{color:var(--muted);text-align:right;white-space:nowrap}.grid{display:grid;gap:16px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.kpi,.panel,.stock-card{background:rgba(16,27,45,.92);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.14)}.kpi{padding:17px}.kpi .label{color:var(--muted);font-size:12px}.kpi .value{font-size:25px;font-weight:800;margin-top:4px}.panel{padding:18px;margin-bottom:16px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.panel h2{font-size:17px;margin:0}.controls select{background:#0b1423;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 10px}.chartbox{height:360px}.table-wrap{overflow:auto;border-radius:12px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:12px 10px;border-bottom:1px solid #1d2d44;text-align:right;white-space:nowrap}th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;position:sticky;top:0;background:var(--panel)}th:nth-child(1),td:nth-child(1),th:nth-child(2),td:nth-child(2){text-align:left}.ticker{font-weight:850;font-size:15px}.ticker:hover{color:var(--accent)}.rank{color:var(--muted)}.score{font-weight:800}.excellent{color:var(--green)}.good{color:#90d7ff}.neutral{color:var(--amber)}.weak{color:var(--red)}.badge{display:inline-flex;padding:4px 8px;border-radius:999px;background:#16263c;border:1px solid #28415f;color:#bcd0e8;font-size:11px}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.stock-card{padding:16px;transition:.18s ease}.stock-card:hover{transform:translateY(-2px);border-color:#39577c}.stock-head{display:flex;justify-content:space-between;align-items:start}.stock-name{font-size:20px;font-weight:850}.bigscore{font-size:30px;font-weight:900}.triplet{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.mini{background:#0b1423;border:1px solid #1e314b;border-radius:10px;padding:9px}.mini span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase}.mini b{font-size:16px}.footer{color:var(--muted);font-size:12px;padding:16px 0 30px}.back{display:inline-block;color:var(--accent);font-weight:700;margin-bottom:12px}.detail-grid{grid-template-columns:1.2fr .8fr}.factor-grid{grid-template-columns:repeat(2,1fr)}.factor{padding:10px 0}.factor-line{display:flex;justify-content:space-between;margin-bottom:5px}.bar{height:7px;background:#182942;border-radius:8px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,#65a7ff,#54d6a6);border-radius:8px}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.metric{background:#0b1423;border:1px solid #1e314b;border-radius:10px;padding:11px}.metric small{display:block;color:var(--muted);margin-bottom:2px}.metric strong{font-size:16px}.positive{color:var(--green)}.negative{color:var(--red)}
 @media(max-width:900px){.wrap{padding:16px}.kpis,.cards,.detail-grid,.factor-grid{grid-template-columns:1fr}.topbar{align-items:start;flex-direction:column}.stamp{text-align:left}.chartbox{height:300px}.metrics{grid-template-columns:repeat(2,1fr)}}
-</style></head><body><main class='wrap'>
+</style>
+<style id='entry-support-css'>
+.entry-panel{border-color:#2d4668}.entry-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.entry-card{display:block;background:linear-gradient(180deg,#12243b,#0d192a);border:1px solid #294766;border-radius:14px;padding:16px;transition:.18s ease}.entry-card:hover{transform:translateY(-2px);border-color:#5b87b7}.entry-head{display:flex;justify-content:space-between;align-items:start}.entry-head h3{font-size:25px;margin:2px 0 0}.entry-rank{font-size:10px;letter-spacing:.12em;color:#65a7ff;font-weight:800}.entry-score{font-size:30px;font-weight:900;color:#54d6a6}.entry-price{color:#9fb2c9;margin-top:5px}.entry-stance{margin:12px 0;padding:9px 10px;background:#0a1423;border-left:3px solid #65a7ff;border-radius:6px;font-weight:700}.entry-zones{display:grid;grid-template-columns:1fr 1fr;gap:8px}.entry-zones>div{background:#0a1423;border:1px solid #20364f;border-radius:9px;padding:9px}.entry-zones small,.entry-support small{display:block;color:#8299b4;font-size:10px}.entry-zones b{display:block;margin-top:3px}.entry-supports{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}.entry-support{background:#0a1423;border:1px solid #20364f;border-radius:9px;padding:8px}.entry-support span{display:block;color:#65a7ff;font-size:10px;font-weight:800}.entry-support b{display:block;font-size:15px}.entry-support small{white-space:normal;line-height:1.2;margin-top:2px}.entry-foot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;color:#95a9c0;font-size:11px}.entry-foot b{color:#eaf2ff}@media(max-width:1000px){.entry-grid{grid-template-columns:1fr}.entry-zones{grid-template-columns:1fr 1fr}}@media(max-width:560px){.entry-zones,.entry-supports{grid-template-columns:1fr}.entry-foot{flex-direction:column}}
+</style>
+</head><body><main class='wrap'>
 <div class='topbar'><div><div class='eyebrow'>Stock Project V2.0</div><div class='title'>AI / Semiconductor Ranking Dashboard</div><div class='sub'>11-stock systematic ranking. Scores update only after a completed NYSE trading session. Click any ticker for its detailed factor and technical analysis.</div></div><div class='stamp'>Latest trading session<br><b>2026-08-17</b></div></div>
+
+<section class='panel entry-panel'>
+  <div class='panel-head'><div><h2>Top 3 Buy-Now: Entry & Support Map</h2><div class='sub'>Updated from the latest completed session (2026-08-17). Support is calculated from moving averages, swing lows, Fibonacci retracements and ATR. Click a stock for full analysis.</div></div></div>
+  <div class='entry-grid'>
+<a class='entry-card' href='stocks/MU.html'>
+  <div class='entry-head'>
+    <div><span class='entry-rank'>#1 BUY-NOW</span><h3>MU</h3></div>
+    <div class='entry-score'>71.5</div>
+  </div>
+  <div class='entry-price'>Price <b>$1,011.75</b> · RSI 59.5 · ADX 15.5</div>
+  <div class='entry-stance'>Near support — starter entry acceptable</div>
+  <div class='entry-zones'>
+    <div><small>Preferred entry zone</small><b>$965.69 – $1,016.21</b></div>
+    <div><small>Deeper entry zone</small><b>$872.11 – $922.63</b></div>
+  </div>
+  <div class='entry-supports'><div class='entry-support'><span>S1</span><b>$990.95</b><small>swing low + 50DMA</small></div><div class='entry-support'><span>S2</span><b>$897.37</b><small>20DMA + 6M Fib 0.382 + swing low</small></div><div class='entry-support'><span>S3</span><b>$844.62</b><small>swing low</small></div></div>
+  <div class='entry-foot'><span>Breakout trigger <b>$1,018.99</b></span><span>Risk/stop reference <b>$839.64</b></span></div>
+</a>
+<a class='entry-card' href='stocks/NVDA.html'>
+  <div class='entry-head'>
+    <div><span class='entry-rank'>#2 BUY-NOW</span><h3>NVDA</h3></div>
+    <div class='entry-score'>64.9</div>
+  </div>
+  <div class='entry-price'>Price <b>$225.01</b> · RSI 62.9 · ADX 21.0</div>
+  <div class='entry-stance'>Prefer pullback into first support</div>
+  <div class='entry-zones'>
+    <div><small>Preferred entry zone</small><b>$216.90 – $221.56</b></div>
+    <div><small>Deeper entry zone</small><b>$213.87 – $218.53</b></div>
+  </div>
+  <div class='entry-supports'><div class='entry-support'><span>S1</span><b>$219.23</b><small>6M Fib 0.236</small></div><div class='entry-support'><span>S2</span><b>$216.20</b><small>swing low</small></div><div class='entry-support'><span>S3</span><b>$211.48</b><small>20DMA</small></div></div>
+  <div class='entry-foot'><span>Breakout trigger <b>$228.16</b></span><span>Risk/stop reference <b>$210.88</b></span></div>
+</a>
+<a class='entry-card' href='stocks/MRVL.html'>
+  <div class='entry-head'>
+    <div><span class='entry-rank'>#3 BUY-NOW</span><h3>MRVL</h3></div>
+    <div class='entry-score'>61.4</div>
+  </div>
+  <div class='entry-price'>Price <b>$234.33</b> · RSI 58.2 · ADX 17.4</div>
+  <div class='entry-stance'>Breakout active — prefer retest/hold rather than chase</div>
+  <div class='entry-zones'>
+    <div><small>Preferred entry zone</small><b>$226.56 – $238.52</b></div>
+    <div><small>Deeper entry zone</small><b>$216.91 – $228.87</b></div>
+  </div>
+  <div class='entry-supports'><div class='entry-support'><span>S1</span><b>$232.54</b><small>6M Fib 0.382</small></div><div class='entry-support'><span>S2</span><b>$222.89</b><small>swing low</small></div><div class='entry-support'><span>S3</span><b>$204.48</b><small>20DMA</small></div></div>
+  <div class='entry-foot'><span>Breakout trigger <b>$233.09</b></span><span>Risk/stop reference <b>$209.22</b></span></div>
+</a></div>
+</section>
 <div class='grid kpis'><div class='kpi'><div class='label'>Top Buy-Now</div><div class='value'>MU · 71.5</div></div><div class='kpi'><div class='label'>Universe</div><div class='value'>11 stocks</div></div><div class='kpi'><div class='label'>Best Long-Term</div><div class='value'>MU · 70.4</div></div><div class='kpi'><div class='label'>Best Short-Term</div><div class='value'>MU · 71.4</div></div></div>
 <section class='panel'><div class='panel-head'><div><h2>Score movement</h2><div class='sub'>Historical score trajectory by completed trading session.</div></div><div class='controls'><select id='metric'><option value='buy_now_score'>Buy-Now</option><option value='long_term_score'>Long-Term</option><option value='short_term_score'>Short-Term</option></select></div></div><div class='chartbox'><canvas id='historyChart'></canvas></div></section>
 <section class='panel'><div class='panel-head'><div><h2>Current ranking</h2><div class='sub'>Sorted by Buy-Now score.</div></div></div><div class='table-wrap'><table><thead><tr><th>Rank</th><th>Ticker</th><th>Price</th><th>Market cap</th><th>Long-term</th><th>Short-term</th><th>Buy-now</th><th>Value</th><th>Quality</th><th>Growth</th><th>Technical</th><th>RSI</th></tr></thead><tbody>
