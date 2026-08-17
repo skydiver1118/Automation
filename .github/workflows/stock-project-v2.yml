@@ -2,10 +2,14 @@ name: Stock Project V2 Daily
 
 on:
   schedule:
-    # Runs on weekdays after the US cash session. A separate NYSE calendar gate
-    # below prevents holiday/non-session runs from producing new scores or email.
-    - cron: '15 23 * * 1-5'
+    # Run twice to handle US daylight-saving changes without relying on UTC DST logic.
+    # The first completed post-close run writes the session; the second is idempotent.
+    - cron: '30 20 * * 1-5'
+    - cron: '30 21 * * 1-5'
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/stock-project-v2.yml'
 
 permissions:
   contents: write
@@ -33,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r stock-project-v2/requirements.txt
 
-      - name: Check actual NYSE trading date
+      - name: Check actual NYSE trading date and close
         id: market
         shell: bash
         run: |
@@ -42,28 +46,40 @@ jobs:
           from datetime import datetime
           from zoneinfo import ZoneInfo
           import pandas_market_calendars as mcal
+
           tz = ZoneInfo('America/New_York')
-          today = datetime.now(tz).date()
+          now = datetime.now(tz)
+          today = now.date()
           schedule = mcal.get_calendar('NYSE').schedule(start_date=today, end_date=today)
           is_trading_day = not schedule.empty
-          close_time = '' if schedule.empty else schedule.iloc[0]['market_close'].tz_convert(tz).isoformat()
-          print(f'{today}: NYSE trading day={is_trading_day}; close={close_time or "N/A"}; event={os.environ.get("GITHUB_EVENT_NAME")}')
+          if schedule.empty:
+              close_time = ''
+              after_close = False
+          else:
+              close_dt = schedule.iloc[0]['market_close'].tz_convert(tz).to_pydatetime()
+              close_time = close_dt.isoformat()
+              # Give end-of-day feeds time to settle.
+              after_close = now.timestamp() >= close_dt.timestamp() + 15 * 60
+
+          event = os.environ.get('GITHUB_EVENT_NAME', '')
+          print(f'{now.isoformat()}: trading_day={is_trading_day}; after_close={after_close}; close={close_time or "N/A"}; event={event}')
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write(f'trade_date={today}\n')
               f.write(f'is_trading_day={str(is_trading_day).lower()}\n')
+              f.write(f'after_close={str(after_close).lower()}\n')
               f.write(f'close_time={close_time}\n')
           PY
 
-      - name: Skip score refresh on non-trading date
-        if: steps.market.outputs.is_trading_day != 'true'
-        run: echo "${{ steps.market.outputs.trade_date }} is not an NYSE trading date. No new score/history record or email will be generated. A manual run may still publish the latest saved dashboard."
+      - name: Explain skipped score refresh
+        if: steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true'
+        run: echo "No new score record. NYSE trading day=${{ steps.market.outputs.is_trading_day }}, after close=${{ steps.market.outputs.after_close }}. Manual runs can still republish the latest dashboard."
 
       - name: Run Stock Project V2
-        if: steps.market.outputs.is_trading_day == 'true'
+        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: python stock-project-v2/run_v2.py
 
       - name: Detect new completed session
-        if: steps.market.outputs.is_trading_day == 'true'
+        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         id: session
         shell: bash
         run: |
@@ -74,11 +90,11 @@ jobs:
           fi
 
       - name: Build dashboard and stock detail pages
-        if: steps.market.outputs.is_trading_day == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
         run: python stock-project-v2/dashboard.py
 
       - name: Commit trading-day scores, history, and dashboard
-        if: steps.market.outputs.is_trading_day == 'true'
+        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/ stock-project-v2/dashboard/; then
@@ -97,7 +113,7 @@ jobs:
           git push
 
       - name: Stage dashboard at /stock-project-v2/
-        if: steps.market.outputs.is_trading_day == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
         shell: bash
         run: |
           rm -rf .pages
@@ -108,7 +124,7 @@ jobs:
           HTML
 
       - name: Publish dashboard to gh-pages
-        if: steps.market.outputs.is_trading_day == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -118,7 +134,7 @@ jobs:
           enable_jekyll: false
 
       - name: Email dashboard link
-        if: steps.market.outputs.is_trading_day == 'true' && steps.session.outputs.new_session == 'true'
+        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && secrets.STOCK_EMAIL_TO != '' && secrets.STOCK_EMAIL_USERNAME != '' && secrets.STOCK_EMAIL_APP_PASSWORD != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
