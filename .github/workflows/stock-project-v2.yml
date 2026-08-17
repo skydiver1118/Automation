@@ -4,6 +4,7 @@ on:
   schedule:
     # Run twice to handle US daylight-saving changes without relying on UTC DST logic.
     # The first completed post-close run writes the session; the second is idempotent.
+    # Historical score snapshots are retained so the dashboard chart shows session-to-session movement.
     - cron: '30 20 * * 1-5'
     - cron: '30 21 * * 1-5'
   workflow_dispatch:
