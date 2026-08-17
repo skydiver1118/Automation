@@ -93,21 +93,27 @@ jobs:
             echo "new_session=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Analyze top-3 entry points and support
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
+        run: python stock-project-v2/entry_support.py
+
       - name: Build dashboard and stock detail pages
         if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
-        run: python stock-project-v2/dashboard.py
+        run: |
+          python stock-project-v2/dashboard.py
+          python stock-project-v2/enhance_dashboard.py
 
-      - name: Commit trading-day scores, history, and dashboard
+      - name: Commit trading-day scores, entry map, history, and dashboard
         if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         shell: bash
         run: |
-          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/ stock-project-v2/dashboard/; then
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/dashboard/; then
             echo "Nothing changed."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/ stock-project-v2/dashboard/
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/dashboard/
           TRADE_DATE=$(python - <<'PY'
           import pandas as pd
           print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])
@@ -158,4 +164,4 @@ jobs:
             GitHub fallback:
             https://github.com/skydiver1118/Automation/tree/main/stock-project-v2/dashboard
 
-            The dashboard includes the 11-stock ranking, Long-Term / Short-Term / Buy-Now score history, and a detailed analysis page for every stock.
+            The dashboard includes the 11-stock ranking, score-history trend, top-3 entry/support map, and a detailed analysis page for every stock.
