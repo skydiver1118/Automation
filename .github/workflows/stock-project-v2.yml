@@ -11,6 +11,9 @@ on:
   push:
     paths:
       - '.github/workflows/stock-project-v2.yml'
+      - 'stock-project-v2/enhance_dashboard.py'
+      - 'stock-project-v2/dashboard.py'
+      - 'stock-project-v2/entry_support.py'
 
 permissions:
   contents: write
@@ -94,11 +97,11 @@ jobs:
           fi
 
       - name: Analyze top-3 entry points and support
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         run: python stock-project-v2/entry_support.py
 
       - name: Build dashboard and stock detail pages
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         run: |
           python stock-project-v2/dashboard.py
           python stock-project-v2/enhance_dashboard.py
@@ -123,7 +126,7 @@ jobs:
           git push
 
       - name: Stage dashboard at /stock-project-v2/
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         shell: bash
         run: |
           rm -rf .pages
@@ -134,7 +137,7 @@ jobs:
           HTML
 
       - name: Publish dashboard to gh-pages
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
