@@ -14,6 +14,7 @@ on:
       - 'stock-project-v2/enhance_dashboard.py'
       - 'stock-project-v2/dashboard.py'
       - 'stock-project-v2/entry_support.py'
+      - 'stock-project-v2/add_metric_comments.py'
 
 permissions:
   contents: write
@@ -105,6 +106,7 @@ jobs:
         run: |
           python stock-project-v2/dashboard.py
           python stock-project-v2/enhance_dashboard.py
+          python stock-project-v2/add_metric_comments.py
 
       - name: Commit trading-day scores, entry map, history, and dashboard
         if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
