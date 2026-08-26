@@ -135,22 +135,46 @@ def interp(label: str, r: pd.Series):
     return "Context","metric-context","No standalone bullish/bearish interpretation assigned."
 
 
+def sentiment_summary(row, labels):
+    counts = {"bullish":0,"favorable":0,"bearish":0,"neutral":0,"context":0}
+    for label in labels:
+        tag, cls, _ = interp(label, row)
+        tl = tag.lower()
+        if tag == "Favorable": counts["favorable"] += 1
+        elif cls == "metric-bullish": counts["bullish"] += 1
+        elif cls == "metric-bearish": counts["bearish"] += 1
+        elif cls == "metric-neutral": counts["neutral"] += 1
+        else: counts["context"] += 1
+    positive = counts["bullish"] + counts["favorable"]
+    directional = positive + counts["bearish"]
+    score = round(100 * positive / directional) if directional else 50
+    if score >= 70: overall, css = "Bullish", "metric-bullish"
+    elif score >= 55: overall, css = "Moderately bullish", "metric-bullish"
+    elif score <= 30: overall, css = "Bearish", "metric-bearish"
+    elif score <= 45: overall, css = "Moderately bearish", "metric-bearish"
+    else: overall, css = "Mixed / neutral", "metric-neutral"
+    return counts, score, overall, css
+
+
 def main():
     df=pd.read_csv(LATEST).set_index("ticker")
-    css="""<style id='metric-comments-css'>.metric-comment{display:block;margin-top:7px;padding-top:7px;border-top:1px solid #1e314b;font-size:11px;line-height:1.35;font-weight:600}.metric-bullish{color:#54d6a6}.metric-bearish{color:#ff8c8c}.metric-neutral{color:#f6c85f}.metric-context{color:#91a4bd}.metric-comment b{font-weight:850}</style>"""
+    css="""<style id='metric-comments-css'>.metric-comment{display:block;margin-top:7px;padding-top:7px;border-top:1px solid #1e314b;font-size:11px;line-height:1.35;font-weight:600}.metric-bullish{color:#54d6a6}.metric-bearish{color:#ff8c8c}.metric-neutral{color:#f6c85f}.metric-context{color:#91a4bd}.metric-comment b{font-weight:850}.sentiment-summary{margin:12px 0 16px;padding:14px;background:#0b1423;border:1px solid #29415e;border-radius:12px}.sentiment-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.sentiment-title{font-weight:850;font-size:15px}.sentiment-overall{font-weight:900;font-size:16px}.sentiment-counts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.sentiment-count{padding:9px;border:1px solid #1e314b;border-radius:9px;text-align:center}.sentiment-count small{display:block;color:#91a4bd}.sentiment-count b{font-size:20px}.sentiment-note{margin-top:9px;color:#91a4bd;font-size:11px}@media(max-width:700px){.sentiment-counts{grid-template-columns:repeat(2,1fr)}}</style>"""
     pattern=re.compile(r"(<div class='metric'><small>([^<]+)</small><strong>.*?</strong>)(</div>)",re.S)
     for ticker,row in df.iterrows():
         path=STOCKS/f"{ticker}.html"
         if not path.exists():continue
         page=path.read_text(encoding="utf-8")
         page=re.sub(r"<span class='metric-comment [^']*'><b>.*?</b> — .*?</span>","",page,flags=re.S)
+        page=re.sub(r"<div class='sentiment-summary'>.*?</div>\s*</div>\s*</div>","",page,flags=re.S)
         if "metric-comments-css" not in page: page=page.replace("</head>",css+"</head>")
+        labels=[]
+        for m in pattern.finditer(page): labels.append(html.unescape(m.group(2)).strip())
+        counts, score, overall, overall_css = sentiment_summary(row, labels)
+        summary=f"""<div class='sentiment-summary'><div class='sentiment-head'><div><div class='sentiment-title'>Diagnostic sentiment summary</div><div class='sub'>Directional count across applicable Raw V2 metrics</div></div><div class='sentiment-overall {overall_css}'>{overall} · {score}% positive</div></div><div class='sentiment-counts'><div class='sentiment-count metric-bullish'><small>Bullish / positive</small><b>{counts['bullish']}</b></div><div class='sentiment-count metric-bullish'><small>Favorable valuation</small><b>{counts['favorable']}</b></div><div class='sentiment-count metric-bearish'><small>Bearish / caution</small><b>{counts['bearish']}</b></div><div class='sentiment-count metric-neutral'><small>Neutral</small><b>{counts['neutral']}</b></div><div class='sentiment-count metric-context'><small>Context / N/A</small><b>{counts['context']}</b></div></div><div class='sentiment-note'>Positive % = (bullish/positive + favorable) ÷ directional signals. Neutral and context-only metrics are excluded from the denominator. This is a diagnostic breadth indicator, not the Buy-Now score.</div></div>"""
+        raw_marker="<section class='panel'><div class='panel-head'><div><h2>Raw V2 diagnostics</h2>"
+        if raw_marker in page:
+            pos=page.find("</div></div>",page.find(raw_marker))
+            if pos!=-1: page=page[:pos+12]+summary+page[pos+12:]
         def repl(m):
             label=html.unescape(m.group(2)).strip(); tag,cls,comment=interp(label,row)
-            extra=f"<span class='metric-comment {cls}'><b>{html.escape(tag)}</b> — {html.escape(comment)}</span>"
-            return m.group(1)+extra+m.group(3)
-        page=pattern.sub(repl,page)
-        path.write_text(page,encoding="utf-8")
-        print(f"Added metric interpretations: {ticker}")
-
-if __name__=="__main__": main()
+            extra=f"<span class='metric-comment {cls}'><b>{html.escape(tag)}</b> — {html.escape(comment)}</span>
