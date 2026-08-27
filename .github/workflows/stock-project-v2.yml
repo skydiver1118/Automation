@@ -2,7 +2,6 @@ name: Stock Project V2 Daily
 
 on:
   schedule:
-    # Run twice to cover EDT/EST. Only actual NYSE sessions after close are scored.
     - cron: '30 20 * * 1-5'
     - cron: '30 21 * * 1-5'
   workflow_dispatch:
@@ -13,6 +12,7 @@ on:
       - 'stock-project-v2/dashboard.py'
       - 'stock-project-v2/entry_support.py'
       - 'stock-project-v2/add_metric_comments.py'
+      - 'stock-project-v2/sentiment_transitions.py'
 
 permissions:
   contents: write
@@ -29,23 +29,19 @@ jobs:
       STOCK_EMAIL_TO: ${{ secrets.STOCK_EMAIL_TO }}
       STOCK_EMAIL_USERNAME: ${{ secrets.STOCK_EMAIL_USERNAME }}
       STOCK_EMAIL_APP_PASSWORD: ${{ secrets.STOCK_EMAIL_APP_PASSWORD }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: false
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
           cache-dependency-path: stock-project-v2/requirements.txt
-
       - name: Install dependencies
         run: pip install -r stock-project-v2/requirements.txt
-
       - name: Validate Python scripts
         run: |
           python -m py_compile stock-project-v2/run_v2.py
@@ -53,7 +49,7 @@ jobs:
           python -m py_compile stock-project-v2/enhance_dashboard.py
           python -m py_compile stock-project-v2/entry_support.py
           python -m py_compile stock-project-v2/add_metric_comments.py
-
+          python -m py_compile stock-project-v2/sentiment_transitions.py
       - name: Check actual NYSE trading date and close
         id: market
         shell: bash
@@ -63,101 +59,63 @@ jobs:
           from datetime import datetime
           from zoneinfo import ZoneInfo
           import pandas_market_calendars as mcal
-          tz = ZoneInfo('America/New_York')
-          now = datetime.now(tz)
-          today = now.date()
-          schedule = mcal.get_calendar('NYSE').schedule(start_date=today, end_date=today)
-          is_trading_day = not schedule.empty
-          if schedule.empty:
-              close_time = ''
-              after_close = False
+          tz=ZoneInfo('America/New_York'); now=datetime.now(tz); today=now.date()
+          schedule=mcal.get_calendar('NYSE').schedule(start_date=today,end_date=today)
+          is_trading_day=not schedule.empty
+          if schedule.empty: close_time=''; after_close=False
           else:
-              close_dt = schedule.iloc[0]['market_close'].tz_convert(tz).to_pydatetime()
-              close_time = close_dt.isoformat()
-              after_close = now.timestamp() >= close_dt.timestamp() + 15 * 60
+              close_dt=schedule.iloc[0]['market_close'].tz_convert(tz).to_pydatetime()
+              close_time=close_dt.isoformat(); after_close=now.timestamp()>=close_dt.timestamp()+15*60
           print(f'{now.isoformat()}: trading_day={is_trading_day}; after_close={after_close}; close={close_time or "N/A"}; event={os.environ.get("GITHUB_EVENT_NAME","")}')
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
-              f.write(f'trade_date={today}\n')
-              f.write(f'is_trading_day={str(is_trading_day).lower()}\n')
-              f.write(f'after_close={str(after_close).lower()}\n')
-              f.write(f'close_time={close_time}\n')
+          with open(os.environ['GITHUB_OUTPUT'],'a') as f:
+              f.write(f'trade_date={today}\n'); f.write(f'is_trading_day={str(is_trading_day).lower()}\n'); f.write(f'after_close={str(after_close).lower()}\n'); f.write(f'close_time={close_time}\n')
           PY
-
       - name: Explain skipped score refresh
         if: github.event_name == 'push' || steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true'
-        run: echo "No new score record for this event. Push events rebuild/publish from the latest saved trading-session data only."
-
+        run: echo "No new score record for this event. Push events rebuild/publish from latest saved session."
       - name: Run Stock Project V2
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: python stock-project-v2/run_v2.py
-
       - name: Validate complete 11-stock result
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: |
           python - <<'PY'
-          import json
-          import numpy as np
-          import pandas as pd
-          cfg = json.load(open('stock-project-v2/config.json'))
-          df = pd.read_csv('stock-project-v2/latest_scores.csv')
-          expected = set(cfg['universe'])
-          got = set(df['ticker'])
-          missing = sorted(expected - got)
-          bad = df[df['ticker'].isin(expected) & (~np.isfinite(pd.to_numeric(df['price'], errors='coerce')))]
-          if len(df[df['ticker'].isin(expected)]) != len(expected) or missing or not bad.empty:
-              raise SystemExit(f'INVALID V2 RESULT: missing={missing}; invalid_price={bad.ticker.tolist()}')
+          import json,numpy as np,pandas as pd
+          cfg=json.load(open('stock-project-v2/config.json')); df=pd.read_csv('stock-project-v2/latest_scores.csv'); expected=set(cfg['universe']); got=set(df['ticker']); missing=sorted(expected-got); bad=df[df['ticker'].isin(expected)&(~np.isfinite(pd.to_numeric(df['price'],errors='coerce')))]
+          if len(df[df['ticker'].isin(expected)])!=len(expected) or missing or not bad.empty: raise SystemExit(f'INVALID V2 RESULT: missing={missing}; invalid_price={bad.ticker.tolist()}')
           print('V2 result validation passed for all 11 stocks.')
           PY
-
       - name: Detect new completed session
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         id: session
         shell: bash
         run: |
-          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then
-            echo "new_session=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "new_session=true" >> "$GITHUB_OUTPUT"
-          fi
-
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then echo "new_session=false" >> "$GITHUB_OUTPUT"; else echo "new_session=true" >> "$GITHUB_OUTPUT"; fi
       - name: Analyze top-3 entry points and support
         run: python stock-project-v2/entry_support.py
-
+      - name: Track diagnostic sentiment transitions
+        run: python stock-project-v2/sentiment_transitions.py
       - name: Build dashboard and stock detail pages
         run: |
           python stock-project-v2/dashboard.py
           python stock-project-v2/enhance_dashboard.py
           python stock-project-v2/add_metric_comments.py
-
-      - name: Commit trading-day scores, entry map, history, and dashboard
+      - name: Commit trading-day scores, sentiment history, entry map, and dashboard
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         shell: bash
         run: |
-          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/dashboard/; then
-            echo "Nothing changed."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/dashboard/
-          TRADE_DATE=$(python - <<'PY'
-          import pandas as pd
-          print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])
-          PY
-          )
-          git commit -m "Stock V2: dashboard refresh ${TRADE_DATE}"
-          git push
-
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/; then echo "Nothing changed."; exit 0; fi
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/
+          TRADE_DATE=$(python -c "import pandas as pd; print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])")
+          git commit -m "Stock V2: dashboard refresh ${TRADE_DATE}"; git push
       - name: Stage dashboard at /stock-project-v2/
         shell: bash
         run: |
-          rm -rf .pages
-          mkdir -p .pages/stock-project-v2
-          cp -R stock-project-v2/dashboard/. .pages/stock-project-v2/
+          rm -rf .pages; mkdir -p .pages/stock-project-v2; cp -R stock-project-v2/dashboard/. .pages/stock-project-v2/
           cat > .pages/index.html <<'HTML'
           <!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./stock-project-v2/"><title>Stock Project V2</title></head><body><a href="./stock-project-v2/">Open Stock Project V2 dashboard</a></body></html>
           HTML
-
       - name: Publish dashboard to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -166,7 +124,6 @@ jobs:
           publish_branch: gh-pages
           force_orphan: true
           enable_jekyll: false
-
       - name: Email dashboard link
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
         uses: dawidd6/action-send-mail@v3
@@ -180,12 +137,6 @@ jobs:
           to: ${{ env.STOCK_EMAIL_TO }}
           from: "Stock Project V2 <${{ env.STOCK_EMAIL_USERNAME }}>"
           body: |
-            Stock Project V2 has completed the ${{ steps.market.outputs.trade_date }} trading-session refresh.
-
-            Dashboard:
-            https://skydiver1118.github.io/Automation/stock-project-v2/
-
-            GitHub fallback:
-            https://github.com/skydiver1118/Automation/tree/main/stock-project-v2/dashboard
-
-            The dashboard includes the 11-stock ranking, score-history trend, top-3 entry/support map, diagnostic sentiment summaries, and detailed analysis for every stock.
+            Stock Project V2 completed the ${{ steps.market.outputs.trade_date }} refresh.
+            Dashboard: https://skydiver1118.github.io/Automation/stock-project-v2/
+            The engine also tracks diagnostic sentiment regime changes (bullish / neutral / bearish) versus the prior saved trading session.
