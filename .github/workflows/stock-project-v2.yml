@@ -2,9 +2,7 @@ name: Stock Project V2 Daily
 
 on:
   schedule:
-    # Run twice to handle US daylight-saving changes without relying on UTC DST logic.
-    # The first completed post-close run writes the session; the second is idempotent.
-    # Historical score snapshots are retained so the dashboard chart shows session-to-session movement.
+    # Run twice to cover EDT/EST. Only actual NYSE sessions after close are scored.
     - cron: '30 20 * * 1-5'
     - cron: '30 21 * * 1-5'
   workflow_dispatch:
@@ -35,6 +33,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          submodules: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -46,6 +46,14 @@ jobs:
       - name: Install dependencies
         run: pip install -r stock-project-v2/requirements.txt
 
+      - name: Validate Python scripts
+        run: |
+          python -m py_compile stock-project-v2/run_v2.py
+          python -m py_compile stock-project-v2/dashboard.py
+          python -m py_compile stock-project-v2/enhance_dashboard.py
+          python -m py_compile stock-project-v2/entry_support.py
+          python -m py_compile stock-project-v2/add_metric_comments.py
+
       - name: Check actual NYSE trading date and close
         id: market
         shell: bash
@@ -55,7 +63,6 @@ jobs:
           from datetime import datetime
           from zoneinfo import ZoneInfo
           import pandas_market_calendars as mcal
-
           tz = ZoneInfo('America/New_York')
           now = datetime.now(tz)
           today = now.date()
@@ -68,9 +75,7 @@ jobs:
               close_dt = schedule.iloc[0]['market_close'].tz_convert(tz).to_pydatetime()
               close_time = close_dt.isoformat()
               after_close = now.timestamp() >= close_dt.timestamp() + 15 * 60
-
-          event = os.environ.get('GITHUB_EVENT_NAME', '')
-          print(f'{now.isoformat()}: trading_day={is_trading_day}; after_close={after_close}; close={close_time or "N/A"}; event={event}')
+          print(f'{now.isoformat()}: trading_day={is_trading_day}; after_close={after_close}; close={close_time or "N/A"}; event={os.environ.get("GITHUB_EVENT_NAME","")}')
           with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
               f.write(f'trade_date={today}\n')
               f.write(f'is_trading_day={str(is_trading_day).lower()}\n')
@@ -79,15 +84,33 @@ jobs:
           PY
 
       - name: Explain skipped score refresh
-        if: steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true'
-        run: echo "No new score record. NYSE trading day=${{ steps.market.outputs.is_trading_day }}, after close=${{ steps.market.outputs.after_close }}. Manual runs can still republish the latest dashboard."
+        if: github.event_name == 'push' || steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true'
+        run: echo "No new score record for this event. Push events rebuild/publish from the latest saved trading-session data only."
 
       - name: Run Stock Project V2
-        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: python stock-project-v2/run_v2.py
 
+      - name: Validate complete 11-stock result
+        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        run: |
+          python - <<'PY'
+          import json
+          import numpy as np
+          import pandas as pd
+          cfg = json.load(open('stock-project-v2/config.json'))
+          df = pd.read_csv('stock-project-v2/latest_scores.csv')
+          expected = set(cfg['universe'])
+          got = set(df['ticker'])
+          missing = sorted(expected - got)
+          bad = df[df['ticker'].isin(expected) & (~np.isfinite(pd.to_numeric(df['price'], errors='coerce')))]
+          if len(df[df['ticker'].isin(expected)]) != len(expected) or missing or not bad.empty:
+              raise SystemExit(f'INVALID V2 RESULT: missing={missing}; invalid_price={bad.ticker.tolist()}')
+          print('V2 result validation passed for all 11 stocks.')
+          PY
+
       - name: Detect new completed session
-        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         id: session
         shell: bash
         run: |
@@ -98,18 +121,16 @@ jobs:
           fi
 
       - name: Analyze top-3 entry points and support
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         run: python stock-project-v2/entry_support.py
 
       - name: Build dashboard and stock detail pages
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         run: |
           python stock-project-v2/dashboard.py
           python stock-project-v2/enhance_dashboard.py
           python stock-project-v2/add_metric_comments.py
 
       - name: Commit trading-day scores, entry map, history, and dashboard
-        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/dashboard/; then
@@ -128,7 +149,6 @@ jobs:
           git push
 
       - name: Stage dashboard at /stock-project-v2/
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         shell: bash
         run: |
           rm -rf .pages
@@ -139,7 +159,6 @@ jobs:
           HTML
 
       - name: Publish dashboard to gh-pages
-        if: steps.market.outputs.after_close == 'true' || github.event_name == 'workflow_dispatch' || github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -149,7 +168,7 @@ jobs:
           enable_jekyll: false
 
       - name: Email dashboard link
-        if: steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
+        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -169,4 +188,4 @@ jobs:
             GitHub fallback:
             https://github.com/skydiver1118/Automation/tree/main/stock-project-v2/dashboard
 
-            The dashboard includes the 11-stock ranking, score-history trend, top-3 entry/support map, and a detailed analysis page for every stock.
+            The dashboard includes the 11-stock ranking, score-history trend, top-3 entry/support map, diagnostic sentiment summaries, and detailed analysis for every stock.
