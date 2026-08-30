@@ -8,6 +8,11 @@ on:
   push:
     paths:
       - '.github/workflows/stock-project-v2.yml'
+      - 'stock-project-v2/run_v2.py'
+      - 'stock-project-v2/signal_policy.py'
+      - 'stock-project-v2/materialize_decisions.py'
+      - 'stock-project-v2/build_canonical.py'
+      - 'stock-project-v2/apply_decision_model.py'
       - 'stock-project-v2/enhance_dashboard.py'
       - 'stock-project-v2/dashboard.py'
       - 'stock-project-v2/entry_support.py'
@@ -45,6 +50,10 @@ jobs:
       - name: Validate Python scripts
         run: |
           python -m py_compile stock-project-v2/run_v2.py
+          python -m py_compile stock-project-v2/signal_policy.py
+          python -m py_compile stock-project-v2/materialize_decisions.py
+          python -m py_compile stock-project-v2/build_canonical.py
+          python -m py_compile stock-project-v2/apply_decision_model.py
           python -m py_compile stock-project-v2/dashboard.py
           python -m py_compile stock-project-v2/enhance_dashboard.py
           python -m py_compile stock-project-v2/entry_support.py
@@ -76,6 +85,8 @@ jobs:
       - name: Run Stock Project V2
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: python stock-project-v2/run_v2.py
+      - name: Materialize ownership and entry decisions
+        run: python stock-project-v2/materialize_decisions.py
       - name: Validate complete 11-stock result
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: |
@@ -83,7 +94,9 @@ jobs:
           import json,numpy as np,pandas as pd
           cfg=json.load(open('stock-project-v2/config.json')); df=pd.read_csv('stock-project-v2/latest_scores.csv'); expected=set(cfg['universe']); got=set(df['ticker']); missing=sorted(expected-got); bad=df[df['ticker'].isin(expected)&(~np.isfinite(pd.to_numeric(df['price'],errors='coerce')))]
           if len(df[df['ticker'].isin(expected)])!=len(expected) or missing or not bad.empty: raise SystemExit(f'INVALID V2 RESULT: missing={missing}; invalid_price={bad.ticker.tolist()}')
-          print('V2 result validation passed for all 11 stocks.')
+          required={'long_term_rating','entry_score','entry_quality','short_put_eligible'}
+          if not required.issubset(df.columns): raise SystemExit(f'Missing decision fields: {sorted(required-set(df.columns))}')
+          print('V2 result validation passed for all 11 stocks and decision fields.')
           PY
       - name: Detect new completed session
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
@@ -95,20 +108,33 @@ jobs:
         run: python stock-project-v2/entry_support.py
       - name: Track diagnostic sentiment transitions
         run: python stock-project-v2/sentiment_transitions.py
+      - name: Build canonical market and technical layer
+        run: python stock-project-v2/build_canonical.py
       - name: Build dashboard and stock detail pages
         run: |
           python stock-project-v2/dashboard.py
           python stock-project-v2/enhance_dashboard.py
           python stock-project-v2/add_metric_comments.py
-      - name: Commit trading-day scores, sentiment history, entry map, and dashboard
+          python stock-project-v2/apply_decision_model.py
+      - name: Commit trading-day scores, decisions, canonical layer, and dashboard
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         shell: bash
         run: |
-          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/; then echo "Nothing changed."; exit 0; fi
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/; then echo "Nothing changed."; exit 0; fi
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/
           TRADE_DATE=$(python -c "import pandas as pd; print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])")
           git commit -m "Stock V2: dashboard refresh ${TRADE_DATE}"; git push
+      - name: Persist decision/canonical outputs after source changes
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/history/ stock-project-v2/dashboard/; then echo "No derived changes."; exit 0; fi
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/history/ stock-project-v2/dashboard/
+          git commit -m "Stock V2: materialize ownership and canonical layer" || true
+          git pull --rebase origin main || true
+          git push origin HEAD:main || true
       - name: Stage dashboard at /stock-project-v2/
         shell: bash
         run: |
@@ -139,4 +165,4 @@ jobs:
           body: |
             Stock Project V2 completed the ${{ steps.market.outputs.trade_date }} refresh.
             Dashboard: https://skydiver1118.github.io/Automation/stock-project-v2/
-            The engine also tracks diagnostic sentiment regime changes (bullish / neutral / bearish) versus the prior saved trading session.
+            Long-Term Rating and Entry Quality are separate decisions; short-put SELL eligibility requires BUY or STRONG BUY.
