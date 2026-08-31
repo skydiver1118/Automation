@@ -19,6 +19,7 @@ on:
       - 'stock-project-v2/entry_support.py'
       - 'stock-project-v2/add_metric_comments.py'
       - 'stock-project-v2/sentiment_transitions.py'
+      - 'stock-project-v2/ensure_universe_rows.py'
 
 permissions:
   contents: write
@@ -60,6 +61,7 @@ jobs:
           python -m py_compile stock-project-v2/entry_support.py
           python -m py_compile stock-project-v2/add_metric_comments.py
           python -m py_compile stock-project-v2/sentiment_transitions.py
+          python -m py_compile stock-project-v2/ensure_universe_rows.py
       - name: Check actual NYSE trading date and close
         id: market
         shell: bash
@@ -116,6 +118,7 @@ jobs:
           python stock-project-v2/enhance_dashboard.py
           python stock-project-v2/add_metric_comments.py
           python stock-project-v2/apply_decision_model.py
+          python stock-project-v2/ensure_universe_rows.py
       - name: Commit trading-day scores, decisions, canonical layer, and dashboard
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         shell: bash
