@@ -79,6 +79,8 @@ def main() -> int:
     page = index.read_text(encoding="utf-8")
     replacements = {
         "Top Buy-Now": "Top Overall Opportunity",
+        "Top 3 Buy-Now: Entry & Support Map": "Top 3 Composite Opportunities: Entry & Support Map",
+        "BUY-NOW": "COMPOSITE",
         "Buy-Now score": "Composite opportunity score",
         ">Buy-Now</option>": ">Composite</option>",
         "Sorted by Buy-Now score.": "Composite opportunity rank. Long-Term Rating and Entry Quality are separate decisions.",
