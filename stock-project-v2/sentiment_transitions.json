@@ -1,16 +1,26 @@
 {
-  "latest_date": "2026-08-31",
+  "latest_date": "2026-09-01",
   "transitions": [
     {
-      "ticker": "AXTI",
-      "date": "2026-08-31",
-      "previous_date": "2026-08-28",
-      "from": "Mixed / neutral",
+      "ticker": "DRAM",
+      "date": "2026-09-01",
+      "previous_date": "2026-08-31",
+      "from": "Moderately bullish",
       "to": "Moderately bearish",
-      "from_score": 47,
-      "to_score": 42,
+      "from_score": 60,
+      "to_score": 40,
+      "direction": "bullish_to_bearish"
+    },
+    {
+      "ticker": "SOXL",
+      "date": "2026-09-01",
+      "previous_date": "2026-08-31",
+      "from": "Mixed / neutral",
+      "to": "Bearish",
+      "from_score": 50,
+      "to_score": 22,
       "direction": "neutral_to_bearish"
     }
   ],
-  "all_transition_count": 18
+  "all_transition_count": 20
 }
