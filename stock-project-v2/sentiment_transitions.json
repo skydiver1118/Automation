@@ -1,36 +1,26 @@
 {
-  "latest_date": "2026-09-01",
+  "latest_date": "2026-09-02",
   "transitions": [
     {
-      "ticker": "DRAM",
-      "date": "2026-09-01",
-      "previous_date": "2026-08-31",
-      "from": "Moderately bullish",
-      "to": "Moderately bearish",
-      "from_score": 60,
-      "to_score": 40,
-      "direction": "bullish_to_bearish"
-    },
-    {
-      "ticker": "MRVL",
-      "date": "2026-09-01",
-      "previous_date": "2026-08-31",
-      "from": "Moderately bullish",
-      "to": "Mixed / neutral",
-      "from_score": 60,
-      "to_score": 53,
-      "direction": "bullish_to_neutral"
-    },
-    {
-      "ticker": "SOXL",
-      "date": "2026-09-01",
-      "previous_date": "2026-08-31",
+      "ticker": "AVGO",
+      "date": "2026-09-02",
+      "previous_date": "2026-09-01",
       "from": "Mixed / neutral",
-      "to": "Bearish",
+      "to": "Moderately bearish",
       "from_score": 50,
-      "to_score": 22,
+      "to_score": 44,
       "direction": "neutral_to_bearish"
+    },
+    {
+      "ticker": "DRAM",
+      "date": "2026-09-02",
+      "previous_date": "2026-09-01",
+      "from": "Moderately bearish",
+      "to": "Moderately bullish",
+      "from_score": 40,
+      "to_score": 60,
+      "direction": "bearish_to_bullish"
     }
   ],
-  "all_transition_count": 21
+  "all_transition_count": 23
 }
