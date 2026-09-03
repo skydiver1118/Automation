@@ -15,3 +15,9 @@ This is a standalone dashboard for the Multi Bagger six-pass research archive.
 - Publisher: `.github/workflows/multi-bagger-dashboard.yml`
 
 The Multi Bagger publisher writes only the `multi-bagger/` directory on the `gh-pages` branch. The Stock Project V2 publisher writes `stock-project-v2/`. Both preserve sibling directories.
+
+## Price column
+
+- `build_price_snapshot.py` retrieves the regular-session close for the dashboard snapshot's `market_session_date`.
+- Published price data is stored separately at `multi-bagger/data/prices/latest.json`.
+- Price data does not come from, modify, or merge with the Stock Project V2 dashboard.
