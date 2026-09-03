@@ -36,6 +36,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: stock-project-v2/requirements.txt
+
+      - name: Install market-data dependencies
+        run: pip install -r stock-project-v2/requirements.txt
 
       - name: Validate dashboard source and canonical data
         shell: bash
