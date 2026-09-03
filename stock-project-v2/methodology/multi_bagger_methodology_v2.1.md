@@ -4,6 +4,37 @@
 
 This specification separates the investment outputs shown on the Multi Bagger dashboard from the evidence and domain assessments produced during the six-pass research process. The dated JSON snapshot is the system of record. CSV and Markdown files are derived artifacts.
 
+## Single source of truth
+
+The Multi-Bagger Skill is the required six-pass research workflow. `multi-bagger-v2.1` is the only official production scoring methodology until a formally versioned successor replaces it.
+
+Rules:
+
+1. There is exactly one official Multi Bagger Score for a ticker and snapshot: the score persisted by the production Multi Bagger scoring pipeline under the active `methodology_version`.
+2. ChatGPT, Codex, notebooks, reports, and dashboard code must not invent, estimate, rescale, or publish an independent score labeled `Multi Bagger Score`, `MB Score`, `Expectation & Valuation Score`, `P(5x)`, or `Weekly Technical Score`.
+3. A research analysis may contain qualitative assessments and pass findings before scoring, but these are explicitly non-official until processed by the active production methodology.
+4. Every official score record must carry the active `methodology_version` and be persisted to the canonical dated JSON snapshot. The dashboard reads that canonical record; it does not recompute or override headline scores in the browser.
+5. Cross-stock ranking is apples-to-apples only when the compared records use the same `methodology_version`. A methodology-version mismatch must be disclosed and must not be represented as a directly comparable ranking.
+6. If a required production scorer, factor input, or evidence field is unavailable, the correct output is `unscored`/null with the missing requirement identified. Missing data must never be replaced by an ad-hoc numerical score.
+7. A methodology upgrade must receive a new explicit version (for example `multi-bagger-v2.2`) and become the new authority in one central production configuration. Historical snapshots retain their original methodology version and are never silently rewritten.
+8. The six-pass workflow and the headline scoring engine are separate layers: research creates auditable evidence; the production methodology turns eligible factor inputs into official scores.
+9. Before a newly analyzed ticker is compared with the live Top-20, the production pipeline should validate its score record and, where practical, reproduce/validate at least one existing same-version benchmark record.
+10. Any legacy dashboard headline score whose underlying factor worksheet was not captured remains valid as a historical legacy observation, but it must not be reverse-engineered into missing factor inputs or used to claim that a newly hand-scored ticker is directly comparable.
+
+Operational flow:
+
+```text
+Multi-Bagger Skill (Passes 1–6)
+        ↓
+auditable factor/evidence inputs
+        ↓
+active production methodology (currently multi-bagger-v2.1)
+        ↓
+canonical dated JSON snapshot
+        ↓
+append-only history + dashboard + reports
+```
+
 ## Headline outputs
 
 The following dashboard values remain distinct from the six pass records:
