@@ -21,7 +21,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: multi-bagger-dashboard-publish
+  group: stock-project-v2-daily
   cancel-in-progress: false
 
 jobs:
