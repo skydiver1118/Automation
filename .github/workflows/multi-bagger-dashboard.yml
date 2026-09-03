@@ -40,6 +40,7 @@ jobs:
       - name: Validate dashboard source and canonical data
         shell: bash
         run: |
+          python -m py_compile multi-bagger-dashboard/build_price_snapshot.py
           python - <<'PY'
           import csv
           import json
@@ -49,13 +50,18 @@ jobs:
           latest_path = Path('stock-project-v2/data/multi_bagger/pass_scores/latest.json')
           history_path = Path('stock-project-v2/data/multi_bagger/history/pass_score_history.csv')
           dashboard_path = Path('multi-bagger-dashboard/index.html')
-          for path in [latest_path, history_path, dashboard_path]:
+          price_builder_path = Path('multi-bagger-dashboard/build_price_snapshot.py')
+          for path in [latest_path, history_path, dashboard_path, price_builder_path]:
               if not path.is_file() or path.stat().st_size == 0:
                   raise SystemExit(f'Missing or empty required file: {path}')
 
           html = dashboard_path.read_text(encoding='utf-8')
           if './data/pass_scores/latest.json' not in html:
               raise SystemExit('Dashboard does not reference the canonical latest snapshot')
+          if './data/prices/latest.json' not in html:
+              raise SystemExit('Dashboard does not reference the separate price snapshot')
+          if '<th>Ticker</th><th>Price</th><th>Market cap</th>' not in html:
+              raise SystemExit('Price column is not positioned immediately after Ticker')
           if '<title>Multi Bagger Top-20 Dashboard</title>' not in html:
               raise SystemExit('Dashboard title is missing')
           if not re.search(r'<script>.*?</script>', html, flags=re.S):
@@ -104,12 +110,39 @@ jobs:
           rm -rf .multi-bagger-pages
           mkdir -p .multi-bagger-pages/data/pass_scores
           mkdir -p .multi-bagger-pages/data/history
+          mkdir -p .multi-bagger-pages/data/prices
           mkdir -p .multi-bagger-pages/reports
           cp multi-bagger-dashboard/index.html .multi-bagger-pages/index.html
           cp stock-project-v2/data/multi_bagger/pass_scores/latest.json .multi-bagger-pages/data/pass_scores/latest.json
           cp stock-project-v2/data/multi_bagger/history/pass_score_history.csv .multi-bagger-pages/data/history/pass_score_history.csv
           cp stock-project-v2/reports/multi_bagger/*.md .multi-bagger-pages/reports/
           touch .multi-bagger-pages/.nojekyll
+
+      - name: Build market-session price layer
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        shell: bash
+        run: |
+          python multi-bagger-dashboard/build_price_snapshot.py \
+            --snapshot stock-project-v2/data/multi_bagger/pass_scores/latest.json \
+            --output .multi-bagger-pages/data/prices/latest.json \
+            --minimum-coverage 0.75
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          snapshot = json.loads(Path('stock-project-v2/data/multi_bagger/pass_scores/latest.json').read_text(encoding='utf-8'))
+          prices = json.loads(Path('.multi-bagger-pages/data/prices/latest.json').read_text(encoding='utf-8'))
+          expected = {str(row['ticker']).upper() for row in snapshot['stocks']}
+          actual = set(prices.get('prices', {}))
+          if actual != expected:
+              raise SystemExit(f'Price-layer ticker mismatch: missing={sorted(expected-actual)} extra={sorted(actual-expected)}')
+          if prices.get('market_session_date') != snapshot.get('market_session_date'):
+              raise SystemExit('Price-layer market_session_date does not match the Multi Bagger snapshot')
+          print(
+              f"Price layer validated: {prices['coverage']['available']}/"
+              f"{prices['coverage']['requested']} available for {prices['market_session_date']}"
+          )
+          PY
 
       - name: Publish only /multi-bagger/
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
