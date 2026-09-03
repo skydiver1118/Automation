@@ -21,3 +21,9 @@ The Multi Bagger publisher writes only the `multi-bagger/` directory on the `gh-
 - `build_price_snapshot.py` retrieves the regular-session close for the dashboard snapshot's `market_session_date`.
 - Published price data is stored separately at `multi-bagger/data/prices/latest.json`.
 - Price data does not come from, modify, or merge with the Stock Project V2 dashboard.
+
+## Run timestamp
+
+- The Snapshot card displays the research run date, hour, and minute from `recorded_at`.
+- The timestamp is formatted in `America/New_York` and includes the active Eastern time-zone abbreviation.
+- The market-session date remains separately labeled beside the run timestamp.
