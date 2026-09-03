@@ -151,7 +151,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./.pages
           publish_branch: gh-pages
-          force_orphan: true
+          keep_files: true
+          force_orphan: false
           enable_jekyll: false
       - name: Email dashboard link
         if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
