@@ -1,0 +1,44 @@
+name: Test Multi Bagger Price Fetch
+
+on:
+  push:
+    branches:
+      - feature/multibagger-price-column
+    paths:
+      - '.github/workflows/test-multibagger-price-fetch.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test-price-layer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: feature/multibagger-price-column
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Build and validate price snapshot
+        shell: bash
+        run: |
+          python multi-bagger-dashboard/build_price_snapshot.py \
+            --snapshot stock-project-v2/data/multi_bagger/pass_scores/latest.json \
+            --output /tmp/multi-bagger-prices.json \
+            --minimum-coverage 0.75
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          payload = json.loads(Path('/tmp/multi-bagger-prices.json').read_text(encoding='utf-8'))
+          coverage = payload['coverage']
+          if coverage['available'] < 15:
+              raise SystemExit(f"Insufficient price coverage: {coverage}")
+          print(json.dumps(coverage, indent=2))
+          PY
