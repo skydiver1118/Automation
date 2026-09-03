@@ -1,0 +1,71 @@
+name: Validate Multi Bagger Pass Scores
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/validate-multibagger-pass-scores.yml'
+      - 'stock-project-v2/scripts/store_multibagger_pass_scores.py'
+      - 'stock-project-v2/tests/test_multibagger_pass_score_storage.py'
+      - 'stock-project-v2/data/multi_bagger/**'
+      - 'stock-project-v2/reports/multi_bagger/**'
+      - 'stock-project-v2/methodology/multi_bagger_methodology_v2.1.md'
+      - 'stock-project-v2/README.md'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/validate-multibagger-pass-scores.yml'
+      - 'stock-project-v2/scripts/store_multibagger_pass_scores.py'
+      - 'stock-project-v2/tests/test_multibagger_pass_score_storage.py'
+      - 'stock-project-v2/data/multi_bagger/**'
+      - 'stock-project-v2/reports/multi_bagger/**'
+      - 'stock-project-v2/methodology/multi_bagger_methodology_v2.1.md'
+      - 'stock-project-v2/README.md'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Compile storage code
+        run: python -m py_compile stock-project-v2/scripts/store_multibagger_pass_scores.py
+
+      - name: Run storage tests
+        run: python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+
+      - name: Parse JSON artifacts
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          roots = [
+              Path('stock-project-v2/data/multi_bagger/pass_scores'),
+              Path('stock-project-v2/data/multi_bagger/evidence'),
+              Path('stock-project-v2/data/multi_bagger/schemas'),
+          ]
+          files = [path for root in roots for path in root.glob('*.json')]
+          if not files:
+              raise SystemExit('No Multi Bagger JSON artifacts found.')
+          for path in files:
+              json.loads(path.read_text(encoding='utf-8'))
+          print(f'Parsed {len(files)} JSON artifact(s).')
+          PY
+
+      - name: Reconcile canonical snapshots, evidence, reports, latest pointer, and CSV
+        run: |
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py \
+            --project-root stock-project-v2 \
+            --verify-repository

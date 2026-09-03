@@ -63,3 +63,16 @@ BuyNow = 55% × LongTerm + 30% × ShortTerm + 15% × Entry/Valuation
 ## Refresh cadence
 
 Refresh after each U.S. trading session. Store the current ranking in `latest_scores.csv` and, when the automation writes historical outputs, preserve a dated snapshot under `history/`.
+
+## Multi Bagger six-pass score archive
+
+The Top-20 Multi Bagger research process now has a separate auditable store under `data/multi_bagger/`. It does not replace the 11-security Stock Project V2 ranking engine described above.
+
+- Dated JSON snapshots under `data/multi_bagger/pass_scores/` are canonical and immutable.
+- `data/multi_bagger/pass_scores/latest.json` is the current convenience pointer.
+- `data/multi_bagger/history/pass_score_history.csv` is the append-only analytical history.
+- Evidence manifests under `data/multi_bagger/evidence/` resolve pass-level source IDs.
+- Human-readable dated reports are generated under `reports/multi_bagger/`.
+- `scripts/store_multibagger_pass_scores.py` validates, persists, and reconciles these artifacts.
+
+A regular refresh should be stored with `--require-complete`; missing pass evidence is represented as null, never as a zero score. See `methodology/multi_bagger_methodology_v2.1.md` for the schema, correction, and verification rules.
