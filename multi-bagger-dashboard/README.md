@@ -24,6 +24,10 @@ The Multi Bagger publisher writes only the `multi-bagger/` directory on the `gh-
 
 ## Run timestamp
 
-- The Snapshot card displays the research run date, hour, and minute from `recorded_at`.
-- The timestamp is formatted in `America/New_York` and includes the active Eastern time-zone abbreviation.
-- The market-session date remains separately labeled beside the run timestamp.
+- The Snapshot card displays the saved research run timestamp with hour and minute in `America/New_York` time.
+- The run timestamp is separate from the market-session date so pre-market refreshes clearly show which completed trading session supplied the market data.
+
+## Daily technical refresh
+
+- Beginning with the September 4, 2026 regular refresh, Weekly Technical Score uses the explicit Multi Bagger v2.2 formula: trend 30%, momentum 20%, relative-strength/volume 20%, support/risk 20%, and catalyst-confirmation proxy 10%.
+- Pre-market refreshes use the latest completed regular-session close; intraday data from the new session is not mixed into the snapshot.
