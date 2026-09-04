@@ -1,16 +1,36 @@
 {
-  "latest_date": "2026-09-03",
+  "latest_date": "2026-09-04",
   "transitions": [
     {
-      "ticker": "MRVL",
-      "date": "2026-09-03",
-      "previous_date": "2026-09-02",
-      "from": "Mixed / neutral",
-      "to": "Moderately bullish",
-      "from_score": 50,
-      "to_score": 57,
-      "direction": "neutral_to_bullish"
+      "ticker": "AVGO",
+      "date": "2026-09-04",
+      "previous_date": "2026-09-03",
+      "from": "Moderately bearish",
+      "to": "Mixed / neutral",
+      "from_score": 42,
+      "to_score": 47,
+      "direction": "bearish_to_neutral"
+    },
+    {
+      "ticker": "NBIS",
+      "date": "2026-09-04",
+      "previous_date": "2026-09-03",
+      "from": "Bearish",
+      "to": "Mixed / neutral",
+      "from_score": 24,
+      "to_score": 47,
+      "direction": "bearish_to_neutral"
+    },
+    {
+      "ticker": "SOXL",
+      "date": "2026-09-04",
+      "previous_date": "2026-09-03",
+      "from": "Bearish",
+      "to": "Mixed / neutral",
+      "from_score": 22,
+      "to_score": 50,
+      "direction": "bearish_to_neutral"
     }
   ],
-  "all_transition_count": 24
+  "all_transition_count": 27
 }
