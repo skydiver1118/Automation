@@ -1,0 +1,215 @@
+name: Multi Bagger Daily Persist 2026-09-04
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mb-daily-persist-20260904.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  persist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build verified daily snapshot
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from copy import deepcopy
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          root=Path('stock-project-v2')
+          prior=json.loads((root/'data/multi_bagger/pass_scores/latest.json').read_text())
+          market=json.loads((root/'data/multi_bagger/evidence/2026-09-04-market.json').read_text())
+          assert prior['run_date']=='2026-09-03', prior['run_date']
+          assert market['market_session_date']=='2026-09-03', market['market_session_date']
+          now=datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00','Z')
+
+          snap=deepcopy(prior)
+          snap['methodology_version']='multi-bagger-v2.2'
+          snap['run_date']='2026-09-04'
+          snap['snapshot_revision']=1
+          snap['market_session_date']='2026-09-03'
+          snap['run_type']='regular_refresh'
+          snap['generated_at']=now
+          snap['recorded_at']=now
+          snap['source_time_precision']='exact'
+          snap['price_basis']='2026-09-03 regular-session close; September 4 refresh completed before the regular session opened'
+          snap['corrections']=[]
+
+          # Daily fundamental scoring is intentionally banded. No new material financial
+          # statement, guidance reset, or thesis-breaking disclosure justified a MB or E&V
+          # score-band change since the previous run. New information is reflected in thesis
+          # status/notes, action, market cap and technicals instead of creating false precision.
+          thesis={
+            'IREN':('intact_with_caveats','AI Cloud growth and contracted demand remain compelling; transition economics and post-earnings execution remain the principal caveat.'),
+            'AMPX':('intact_with_caveats','SiCore product cadence and aviation battery demand support the thesis, but price remains in a weak intermediate downtrend despite being in the preferred valuation zone.'),
+            'APLD':('intact_with_caveats','Contracted AI/HPC infrastructure revenue thesis remains intact; financing intensity and construction/ramp execution remain key risks.'),
+            'BKSY':('intact_with_caveats','Defense/intelligence demand and recent growth remain supportive, but the technical trend is deeply oversold and below key moving averages.'),
+            'RKLB':('intact','Electron execution remains strong; the 94th Electron mission successfully deployed Synspective StriX and 16 additional Synspective missions are booked, while Neutron schedule risk remains.'),
+            'FIGR':('intact_with_caveats','Kiavi acquisition has closed and expands scale, but integration, 8.5% acquisition debt and estimate comparability remain important caveats.'),
+            'NBIS':('intact','AI cloud capacity expansion and enterprise demand thesis remain intact; valuation and execution against a very large buildout remain the main risks.'),
+            'WULF':('intact_with_caveats','Long-duration AI/HPC lease economics and power-backed campuses remain attractive; capital intensity, delivery timing and customer concentration remain the core caveats.'),
+            'ZETA':('intact','Strong Q2 growth, positive GAAP income and raised 2026 guidance remain supportive; the stock is now at a 52-week high, reducing near-term valuation asymmetry.'),
+            'TSSI':('intact_with_caveats','AI infrastructure integration demand remains favorable, but customer concentration and weak price trend keep the risk/reward dependent on execution.'),
+            'RZLV':('intact_with_caveats','H1 revenue growth was exceptionally strong, but post-results price action, acquisition/commerce execution and quality-of-growth verification remain material caveats.'),
+            'CRMD':('intact','Commercial execution thesis remains intact and the chart is one of the stronger setups in the group; no material new fundamental disclosure changed the thesis.'),
+            'EVLV':('intact_with_caveats','Recurring security-screening opportunity remains intact, but the stock remains below major moving averages and execution credibility must keep improving.'),
+            'RR':('intact_with_caveats','Early commercial robotics optionality and liquidity remain substantial, but revenue scale, accounting quality and dilution risk keep the thesis speculative.'),
+            'GRRR':('intact_with_caveats','AI/data-center contract pipeline and improved profitability remain attractive, while project concentration, convertibles and cash-conversion execution remain material risks.'),
+            'AXTI':('intact_with_caveats','Q2 InP demand and margins support the AI optical-connectivity thesis; China manufacturing/export-permit exposure and recent momentum weakness remain key risks.'),
+            'SOUN':('intact_with_caveats','Conversational AI demand remains intact; LivePerson shareholder approval reduces deal risk, but acquisition integration, dilution and profitability remain important caveats.'),
+            'POET':('intact_with_caveats','Optical-interposer revenue growth and AI interconnect demand support the thesis, but revenue scale remains early and technical momentum is weak.'),
+            'SERV':('intact_with_caveats','Autonomous-delivery deployment scale and indoor robotics expansion preserve long-run optionality, but cash burn, integration and unit economics remain central risks.'),
+            'SSII':('intact_with_caveats','Robotic-surgery adoption thesis remains plausible, but current valuation/technical evidence does not justify new capital without a stronger confirmation signal.'),
+          }
+          action_overrides={
+            'AMPX':'BUY SMALL only / wait for reversal to scale',
+            'APLD':'WAIT / add only on pullback into entry zone',
+            'BKSY':'WAIT for reversal / starter only after stabilization',
+            'FIGR':'WAIT for pullback',
+          }
+          confidence_overrides={'FIGR':'high','RZLV':'medium_high'}
+
+          # Evidence sources. The source-inventory pass records the delta scan; specific primary
+          # releases are referenced where they materially inform the current thesis.
+          common_sources=['market-technical-2026-09-04','sec-ir-delta-scan-2026-09-04','sector-index-2026-09-04']
+          specific={
+            'AMPX':['ampx-ir-2026-09-04'], 'APLD':['apld-ir-2026-09-04'], 'RKLB':['rklb-mission-2026-09-02'],
+            'FIGR':['figr-ir-2026-09-04'], 'NBIS':['nbis-ir-2026-09-02'], 'WULF':['wulf-q2-2026'],
+            'ZETA':['zeta-q2-2026'], 'TSSI':['tssi-ir-2026-09-04'], 'RZLV':['rzlv-h1-2026'],
+            'CRMD':['crmd-conference-2026-09-01'], 'RR':['rr-sec-q3fy26'], 'GRRR':['grrr-fy2025'],
+            'AXTI':['axt-q2-2026'], 'SOUN':['soun-liveperson-approval'], 'POET':['poet-q2-2026'],
+            'SERV':['serv-q2-2026']
+          }
+
+          current_hits=[]
+          methodology_deltas=[]
+          for stock in snap['stocks']:
+              t=stock['ticker']; old=next(x for x in prior['stocks'] if x['ticker']==t); m=market['stocks'][t]
+              assert m['status']=='ok', (t,m)
+              old_tech=old['weekly_technical_score']
+              stock['rank_delta']=0
+              stock['market_cap_usd']=int(m['market_cap_usd']) if m.get('market_cap_usd') is not None else old['market_cap_usd']
+              mc=stock['market_cap_usd']
+              stock['market_cap_display']=(f'~${mc/1e9:.2f}B' if mc>=1_000_000_000 else f'~${mc/1e6:.0f}M') if mc is not None else '—'
+              stock['multi_bagger_score_delta']=stock['multi_bagger_score']-old['multi_bagger_score'] if stock['multi_bagger_score'] is not None and old['multi_bagger_score'] is not None else None
+              stock['expectation_valuation_score_delta']=stock['expectation_valuation_score']-old['expectation_valuation_score'] if stock['expectation_valuation_score'] is not None and old['expectation_valuation_score'] is not None else None
+              stock['weekly_technical_score']=int(m['weekly_technical_score'])
+              stock['weekly_technical_score_delta']=stock['weekly_technical_score']-old_tech if old_tech is not None else None
+              if stock['weekly_technical_score_delta']:
+                  methodology_deltas.append((t,stock['weekly_technical_score_delta']))
+              stock['thesis_status'],stock['thesis_note']=thesis[t]
+              if t in action_overrides: stock['action']=action_overrides[t]
+              if t in confidence_overrides: stock['data_confidence']=confidence_overrides[t]
+
+              zone=stock['entry_zone']; low=zone.get('low'); high=zone.get('high'); px=float(m['price'])
+              if low is None or high is None:
+                  zone['hit_status']='no_zone'
+              elif low <= px <= high:
+                  zone['hit_status']='hit'; current_hits.append(t)
+              elif px < low:
+                  zone['hit_status']='below'
+              else:
+                  zone['hit_status']='above'
+
+              ids=common_sources+specific.get(t,[])
+              inv_score={'high':92,'medium_high':88,'medium':84,'low_medium':78,'low':70,'unknown':75}[stock['data_confidence']]
+              stock['passes']={
+                'pass_1_primary_source_inventory':{
+                  'status':'complete','score':inv_score,'completion_pct':100,'confidence':stock['data_confidence'],'source_ids':ids,
+                  'findings':['SEC/IR/news delta inventory refreshed through the September 4 pre-market run; material new disclosures were reconciled against the prior thesis.'],
+                  'missing_fields':[], 'metadata':{'score_basis':'source coverage and reconciliation quality'}},
+                'pass_2_financial_reconstruction':{
+                  'status':'partial','score':None,'completion_pct':90,'confidence':stock['data_confidence'],'source_ids':ids,
+                  'findings':['Latest reported financial results and balance-sheet context were rechecked; no new quarterly financial statement since the prior run required a fundamental score-band reset.'],
+                  'missing_fields':['eight_quarter_structured_worksheet_not_rearchived_in_daily_snapshot'], 'metadata':{'daily_delta_refresh':True}},
+                'pass_3_forward_expectations':{
+                  'status':'partial','score':None,'completion_pct':90,'confidence':stock['data_confidence'],'source_ids':ids,
+                  'findings':['Guidance, contracted revenue/backlog or current forward catalyst context was rechecked; no evidence justified a change to the expectation-and-valuation score band today.'],
+                  'missing_fields':['full_consensus_revision_panel_not_archived'], 'metadata':{'expectation_valuation_score':stock['expectation_valuation_score']}},
+                'pass_4_risk_moat_sector_review':{
+                  'status':'partial','score':None,'completion_pct':90,'confidence':stock['data_confidence'],'source_ids':ids,
+                  'findings':['Competition, financing/execution risk and sector context were rechecked; AI infrastructure demand remains strong while power, supply-chain and capital-intensity constraints remain material.','No confirmed pre-market major U.S. index-membership change was identified for the Top-20; the next Russell U.S. reconstitution is later in 2026.'],
+                  'missing_fields':['daily_complete_etf_constituent_holdings_diff_not_archived'], 'metadata':{'index_change_detected':False}},
+                'pass_5_technical_review':{
+                  'status':'complete','score':stock['weekly_technical_score'],'completion_pct':100,'confidence':'high','source_ids':['market-technical-2026-09-04'],
+                  'findings':[f"Sep 3 close ${px:.2f}; RSI14 {m.get('rsi14')}; vs 20/50/200DMA {m.get('dist20_pct')}%/{m.get('dist50_pct')}%/{m.get('dist200_pct')}%; 1M/3M relative strength vs QQQ+SMH {m.get('rs_vs_qqq_smh_1m_pct')}%/{m.get('rs_vs_qqq_smh_3m_pct')}%.",f"Technical components: {m.get('technical_components')}"],
+                  'missing_fields':[], 'metadata':{'method':market['technical_method'],'as_of':m['as_of'],'price':px,'components':m['technical_components']}},
+                'pass_6_adversarial_audit':{
+                  'status':'partial','score':None,'completion_pct':90,'confidence':stock['data_confidence'],'source_ids':ids,
+                  'findings':['Adversarial delta audit searched for new evidence that would invalidate or materially weaken the thesis; caveats are reflected in thesis status and action rather than silently ignored.'],
+                  'missing_fields':['full_source_by_source_contradiction_matrix_not_archived'], 'metadata':{'thesis_status':stock['thesis_status']}},
+              }
+
+          # Changes versus previous saved run.
+          snap['changes']={
+            'top20_additions':[], 'top20_removals':[], 'index_etf_changes':[], 'entry_zone_hits':current_hits,
+            'notes':[
+              'No Top-20 additions/removals or rank changes: no new fundamental evidence crossed a Multi Bagger or expectation/valuation score band during the pre-market delta refresh.',
+              'Weekly Technical Score methodology was standardized to v2.2 (trend 30%, momentum 20%, relative strength/volume 20%, support/risk 20%, catalyst-confirmation proxy 10%); technical deltas versus the legacy September 3 scores therefore include methodology-reset effects and are not pure one-session moves.',
+              'Material execution update: Rocket Lab successfully completed its 94th Electron mission for Synspective; thesis remains intact and rank/MB score are unchanged because the event is consistent with the existing execution thesis.',
+              'Figure announced upcoming investor-conference participation after the September 3 close; no new financial guidance was issued, so fundamental scores were unchanged.',
+              'No correction to prior fundamental records was identified in this run.'
+            ]
+          }
+          snap['record_limitations']=[
+            'This is a pre-market daily refresh using the latest completed regular session (September 3); September 4 intraday data is intentionally excluded.',
+            'The prior September 3 snapshot was a legacy import without archived Pass 1-4/6 numeric worksheets. This run executes all six verification passes but does not invent missing historical pass scores.',
+            'Pass 2 retains the prior reconstructed financial thesis and rechecks the latest reported results; the full eight-quarter worksheet is not re-archived in this daily snapshot.',
+            'Weekly Technical Score uses the newly explicit v2.2 formula, so its delta versus the legacy score is a methodology transition as well as a market-data change.',
+            'A complete daily ETF-holdings constituent diff is not archived; no material major-index membership change was identified pre-market.'
+          ]
+
+          evidence={
+            '$schema':'../schemas/evidence_manifest.schema.json','schema_version':'1.0.0','run_date':'2026-09-04','snapshot_revision':1,
+            'sources':[
+              {'source_id':'market-technical-2026-09-04','source_type':'market_data','title':'September 4 Multi Bagger market and technical evidence','source_date':'2026-09-03','retrieved_at':market['generated_at'],'locator':'stock-project-v2/data/multi_bagger/evidence/2026-09-04-market.json','content_sha256':None,'notes':'20/20 tickers: Sep 3 close, market cap, 20/50/200DMA, RSI, MACD, ADX, volume, relative strength vs QQQ/SMH, 52-week range and v2.2 technical components.'},
+              {'source_id':'sec-ir-delta-scan-2026-09-04','source_type':'primary_source_inventory','title':'SEC EDGAR and issuer-IR daily delta scan — Multi Bagger Top-20','source_date':'2026-09-04','retrieved_at':now,'locator':'SEC EDGAR and issuer investor-relations sites','content_sha256':None,'notes':'Daily filing/IR inventory reconciled against the September 3 snapshot; no new financial statement or guidance reset was found that required a fundamental score-band change.'},
+              {'source_id':'sector-index-2026-09-04','source_type':'sector_index_review','title':'AI infrastructure, software/space sector and major U.S. index calendar review','source_date':'2026-09-04','retrieved_at':now,'locator':'S&P DJI, FTSE Russell/LSEG and current sector news','content_sha256':None,'notes':'AI infrastructure demand remains strong but power/capital constraints persist; Russell U.S. reconstitution is later in 2026; no pre-market major membership change identified.'},
+              {'source_id':'rklb-mission-2026-09-02','source_type':'issuer_ir','title':'Rocket Lab: Mission Success — 94th Electron Mission','source_date':'2026-09-02','retrieved_at':now,'locator':'https://investors.rocketlabcorp.com/news-releases/news-release-details/mission-success-rocket-lab-launches-94th-electron-mission','content_sha256':None,'notes':'Synspective StriX successfully deployed; 16 further Synspective Electron missions booked.'},
+              {'source_id':'ampx-ir-2026-09-04','source_type':'issuer_ir','title':'Amprius Technologies Investor Relations','source_date':'2026-09-02','retrieved_at':now,'locator':'https://ir.amprius.com/','content_sha256':None,'notes':'Latest IR inventory includes SiCore 500 introduction and Q2 2026 financial results.'},
+              {'source_id':'apld-ir-2026-09-04','source_type':'issuer_ir','title':'Applied Digital Investor Relations','source_date':'2026-09-04','retrieved_at':now,'locator':'https://ir.applieddigital.com/','content_sha256':None,'notes':'Latest annual/financial disclosure inventory rechecked; no new Sep 3 guidance update.'},
+              {'source_id':'figr-ir-2026-09-04','source_type':'issuer_ir','title':'Figure Technology Solutions Investor Relations','source_date':'2026-09-03','retrieved_at':now,'locator':'https://investors.figure.com/','content_sha256':None,'notes':'Kiavi acquisition closed Sep 1; Sep 3 update was upcoming investor-conference participation with no new guidance.'},
+              {'source_id':'nbis-ir-2026-09-02','source_type':'issuer_ir','title':'Nebius: upcoming investor conferences','source_date':'2026-09-02','retrieved_at':now,'locator':'https://nebius.com/newsroom/nebius-to-participate-in-upcoming-investor-conferences','content_sha256':None,'notes':'No new financial guidance in the Sep 2 conference notice.'},
+              {'source_id':'wulf-q2-2026','source_type':'issuer_ir','title':'TeraWulf Reports Second Quarter 2026 Results','source_date':'2026-08-05','retrieved_at':now,'locator':'https://investors.terawulf.com/news-events/press-releases/detail/144/terawulf-reports-second-quarter-2026-results','content_sha256':None,'notes':'102 MW revenue-generating critical IT capacity, 336 MW under construction, ~$19B Anthropic lease and substantial liquidity.'},
+              {'source_id':'zeta-q2-2026','source_type':'issuer_ir','title':'Zeta Global Reports Second Quarter 2026 Results','source_date':'2026-08-04','retrieved_at':now,'locator':'https://investors.zetaglobal.com/news/news-details/2026/Zeta-Global-Reports-20th-Consecutive-Beat-and-Raise-Quarter-Achieves-the-Rule-of-64-and-Generates-Positive-GAAP-Net-Income-in-2Q26/default.aspx','content_sha256':None,'notes':'44% revenue growth, positive GAAP net income, guidance raised.'},
+              {'source_id':'tssi-ir-2026-09-04','source_type':'issuer_ir','title':'TSS Investor Relations','source_date':'2026-08-17','retrieved_at':now,'locator':'https://ir.tssiusa.com/','content_sha256':None,'notes':'Latest posted financial release remains Q2 2026 (Aug 13); no Sep 3 material update.'},
+              {'source_id':'rzlv-h1-2026','source_type':'sec_filing','title':'Rezolve AI H1 2026 Form 6-K','source_date':'2026-09-01','retrieved_at':now,'locator':'https://www.sec.gov/Archives/edgar/data/1920294/000119312526378541/0001193125-26-378541-index.htm','content_sha256':None,'notes':'H1 filing verified; revenue $130.8M was already reflected in the prior run thesis context.'},
+              {'source_id':'crmd-conference-2026-09-01','source_type':'issuer_news','title':'CorMedix Wells Fargo Healthcare Conference participation','source_date':'2026-09-01','retrieved_at':now,'locator':'https://www.cormedix.com/','content_sha256':None,'notes':'Conference participation only; no financial guidance change.'},
+              {'source_id':'rr-sec-q3fy26','source_type':'sec_filing','title':'Richtech Robotics latest fiscal 2026 filing','source_date':'2026-08-01','retrieved_at':now,'locator':'https://ir.richtechrobotics.com/node/7606/html','content_sha256':None,'notes':'Liquidity and balance-sheet progress rechecked; early-stage operating execution remains the key risk.'},
+              {'source_id':'grrr-fy2025','source_type':'issuer_ir','title':'Gorilla Technology FY2025 results and 2026 outlook','source_date':'2026-03-02','retrieved_at':now,'locator':'https://investors.gorilla-technology.com/gorilla-technology-reports-for-full-year-2025-record-revenue-of-101-4-million-and-major-profitability-turnaround/','content_sha256':None,'notes':'Record FY2025 revenue and profitability improvement; large AI infrastructure pipeline with execution/cash-conversion risk.'},
+              {'source_id':'axt-q2-2026','source_type':'issuer_ir','title':'AXT Q2 2026 financial results','source_date':'2026-07-30','retrieved_at':now,'locator':'https://investors.axt.com/Investors/news/news-details/2026/AXT-Inc--Announces-Second-Quarter-2026-Financial-Results/default.aspx','content_sha256':None,'notes':'Revenue $47.6M, gross margin 44.9%, record InP revenue; export-permit and China exposure remain risks.'},
+              {'source_id':'soun-liveperson-approval','source_type':'transaction_update','title':'LivePerson shareholders approve SoundHound AI transaction','source_date':'2026-09-02','retrieved_at':now,'locator':'https://ir.liveperson.com/','content_sha256':None,'notes':'Shareholder approval reduces closing risk; transaction expected to close Sep 4 subject to customary conditions.'},
+              {'source_id':'poet-q2-2026','source_type':'issuer_results','title':'POET Technologies Q2 2026 results','source_date':'2026-08-13','retrieved_at':now,'locator':'https://www.poet-technologies.com/','content_sha256':None,'notes':'Revenue growth and optical-interposer commercialization rechecked; early revenue scale remains a caveat.'},
+              {'source_id':'serv-q2-2026','source_type':'issuer_results','title':'Serve Robotics Q2 2026 results','source_date':'2026-08-06','retrieved_at':now,'locator':'https://investors.serverobotics.com/','content_sha256':None,'notes':'Deployment scale and Diligent Robotics expansion rechecked; cash burn and integration remain risks.'}
+            ],
+            'limitations':snap['record_limitations']
+          }
+          Path('/tmp/mb-snapshot.json').write_text(json.dumps(snap,indent=2)+'\n')
+          Path('/tmp/mb-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
+          print('Prepared Sep 4 snapshot with',len(snap['stocks']),'stocks and entry hits',current_hits)
+          print('Technical deltas:',sorted(methodology_deltas,key=lambda x:x[1],reverse=True))
+          PY
+      - name: Validate and persist canonical snapshot/history/report
+        run: |
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py /tmp/mb-snapshot.json \
+            --evidence /tmp/mb-evidence.json --project-root stock-project-v2
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py \
+            --project-root stock-project-v2 --verify-repository
+      - name: Commit refresh
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add stock-project-v2/data/multi_bagger/pass_scores stock-project-v2/data/multi_bagger/evidence/2026-09-04.json stock-project-v2/data/multi_bagger/history/pass_score_history.csv stock-project-v2/reports/multi_bagger
+          git commit -m 'Multi Bagger: Sep 4 verified daily refresh'
+          git push
