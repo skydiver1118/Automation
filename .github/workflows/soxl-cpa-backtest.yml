@@ -1,0 +1,30 @@
+name: SOXL CPA Backtest
+
+on:
+  push:
+    paths:
+      - 'research/soxl_cpa_backtest.py'
+      - '.github/workflows/soxl-cpa-backtest.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install pandas numpy yfinance
+      - name: Run backtest
+        run: python research/soxl_cpa_backtest.py
+      - name: Show summary
+        run: cat artifacts/soxl_cpa/summary.csv
+      - uses: actions/upload-artifact@v4
+        with:
+          name: soxl-cpa-backtest
+          path: artifacts/soxl_cpa/
