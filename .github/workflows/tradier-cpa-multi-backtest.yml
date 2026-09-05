@@ -1,0 +1,31 @@
+name: Tradier CPA Multi Backtest
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'research/tradier_cpa_multi_backtest.py'
+      - '.github/workflows/tradier-cpa-multi-backtest.yml'
+jobs:
+  backtest:
+    runs-on: ubuntu-24.04
+    env:
+      TRADIER_TOKEN: ${{ secrets.TRADIER_TOKEN }}
+      TRADIER_API_TOKEN: ${{ secrets.TRADIER_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install pandas numpy requests
+      - name: Run Tradier backtest
+        run: python research/tradier_cpa_multi_backtest.py
+      - name: Show summary
+        if: always()
+        run: |
+          if [ -f artifacts/tradier_cpa/summary.csv ]; then cat artifacts/tradier_cpa/summary.csv; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tradier-cpa-multi-backtest
+          path: artifacts/tradier_cpa/
