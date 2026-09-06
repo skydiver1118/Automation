@@ -1,0 +1,41 @@
+name: Collect MB30 missing evidence
+on:
+  push:
+    branches: ['fix/mb30-evidence-gated-scores']
+    paths: ['multi-bagger-dashboard/collect_evidence.py', '.github/workflows/mb30-evidence-repair.yml']
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: |
+            multi-bagger-dashboard
+            stock-project-v2/data/multi_bagger
+            stock-project-v2/scripts
+            stock-project-v2/tests
+            stock-project-v2/reports/multi_bagger
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r multi-bagger-dashboard/requirements.txt beautifulsoup4 lxml requests
+      - name: Collect missing evidence only
+        run: python -u multi-bagger-dashboard/collect_evidence.py --output evidence30
+      - name: Verify research collection did not change any tracked data
+        run: git diff --exit-code
+      - name: Export baseline for local evidence audit and tests
+        if: always()
+        run: |
+          mkdir -p evidence30/workspace
+          git archive HEAD multi-bagger-dashboard stock-project-v2/data/multi_bagger stock-project-v2/scripts stock-project-v2/tests stock-project-v2/reports/multi_bagger .github/workflows > evidence30/workspace/source.tar
+          git rev-parse HEAD > evidence30/workspace/commit.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-missing-evidence
+          path: evidence30/
+          retention-days: 14
