@@ -1,0 +1,56 @@
+name: Research MB25 SEC Crosscheck
+on:
+  push:
+    branches: ['research/mb25-comparison-20260906']
+    paths: ['.github/workflows/research-mb25-sec.yml']
+permissions:
+  contents: read
+jobs:
+  sec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Fetch issuer filings and structured facts without modifying any repository file
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, time, urllib.request
+          from pathlib import Path
+          out=Path('sec_research');out.mkdir()
+          ciks={'IREN':1878848,'AMPX':1899287,'APLD':1144879,'BKSY':1753539,'RKLB':1819994,'FIGR':2064124,'NBIS':1513845,'WULF':1083301,'ZETA':1851003,'TSSI':1320760,'RZLV':1920294,'CRMD':1410098,'EVLV':1808665,'RR':1963685,'GRRR':1903145,'AXTI':1051627,'SOUN':1840856,'POET':1437424,'SERV':1832483,'SSII':1676163,'KTOS':1069258,'AVAV':1368622,'HUBB':48898,'VST':1692819,'ETN':1551182}
+          tags={'RevenueFromContractWithCustomerExcludingAssessedTax','RevenueFromContractWithCustomerIncludingAssessedTax','Revenues','SalesRevenueNet','OperatingRevenue','Revenue','GrossProfit','OperatingIncomeLoss','ProfitLossFromOperatingActivities','NetIncomeLoss','ProfitLoss','NetCashProvidedByUsedInOperatingActivities','CashFlowsFromUsedInOperatingActivities','PaymentsToAcquirePropertyPlantAndEquipment','PurchaseOfPropertyPlantAndEquipment','CashAndCashEquivalentsAtCarryingValue','CashAndCashEquivalents','ShortTermInvestments','LongTermDebtCurrent','LongTermDebtNoncurrent','ShortTermBorrowings','LongTermDebt','StockholdersEquity','Equity','Assets','Liabilities','WeightedAverageNumberOfDilutedSharesOutstanding','WeightedAverageNumberOfSharesOutstandingBasic','CommonStockSharesOutstanding','EntityCommonStockSharesOutstanding','ShareBasedCompensation','SharebasedPaymentArrangementNoncashExpense','DepreciationDepletionAndAmortization','DepreciationDepletionAndAmortizationPropertyPlantAndEquipment','DepreciationAmortizationAndAccretionNet','PaymentsToAcquireProductiveAssets','PaymentsToAcquireOtherPropertyPlantAndEquipment'}
+          def get(url):
+              time.sleep(.3)
+              req=urllib.request.Request(url,headers={'User-Agent':'MultiBaggerResearch skydiver1118@users.noreply.github.com','Accept':'application/json'})
+              with urllib.request.urlopen(req,timeout=20) as r:return json.load(r)
+          summary=[]
+          for t,cik in ciks.items():
+              rec={'ticker':t,'cik':cik}
+              try:
+                  sub=get(f'https://data.sec.gov/submissions/CIK{cik:010d}.json')
+                  rec['entity_name']=sub.get('name');rec['listed_tickers']=sub.get('tickers',[])
+                  if t not in rec['listed_tickers']:raise ValueError('CIK ticker mismatch; do not use')
+                  f=sub['filings']['recent'];filings=[]
+                  for i,form in enumerate(f['form']):
+                      if form in ['10-Q','10-K','20-F','6-K','8-K','40-F'] and '2024-01-01'<=f['filingDate'][i]<='2026-09-06':
+                          a=f['accessionNumber'][i];doc=f['primaryDocument'][i]
+                          filings.append({'form':form,'filed':f['filingDate'][i],'report_date':f['reportDate'][i],'accession':a,'url':f'https://www.sec.gov/Archives/edgar/data/{cik}/{a.replace("-","")}/{doc}'})
+                  cf=get(f'https://data.sec.gov/api/xbrl/companyfacts/CIK{cik:010d}.json');panel={}
+                  for tax,fields in cf.get('facts',{}).items():
+                      for tag,vals in fields.items():
+                          if tag in tags:
+                              units={u:[v for v in obs if v.get('end','')>='2023-01-01' and v.get('filed','9999')<='2026-09-06'] for u,obs in vals.get('units',{}).items()}
+                              panel[tax+':'+tag]=units
+                  payload={**rec,'filings':filings,'facts':panel,'source':'SEC companyfacts and submissions','cutoff':'2026-09-06'}
+                  (out/f'{t}.json').write_text(json.dumps(payload))
+                  rec['status']='retrieved';rec['fact_tags']=len(panel);rec['filings']=len(filings)
+              except Exception as e:rec['status']='unavailable';rec['error']=str(e)
+              summary.append(rec);print(json.dumps(rec),flush=True)
+          (out/'summary.json').write_text(json.dumps(summary,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb25-sec-crosscheck-20260906
+          path: sec_research/
+          retention-days: 30
