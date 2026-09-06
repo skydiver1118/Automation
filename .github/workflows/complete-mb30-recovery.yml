@@ -1,0 +1,177 @@
+name: Complete MB30 recovered audit
+on:
+  push:
+    branches: ['feature/mb30-evidence-repair-20260906']
+    paths: ['.github/workflows/complete-mb30-recovery.yml']
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: stock-project-v2-daily
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/mb30-evidence-repair-20260906
+          fetch-depth: 0
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recover existing authored patch, verify compression integrity and enforce file boundaries
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,lzma,subprocess
+          from pathlib import Path,PurePosixPath
+          app=Path('multi-bagger-dashboard')
+          if not (app/'apply_evidence30.py').exists():
+              text=''.join(Path(f'.migration/evidence30/part{i}.b64').read_text().strip() for i in range(4))
+              packed=base64.b64decode(text,validate=True)
+              raw=lzma.decompress(packed) # XZ integrity checksum must succeed.
+              assert raw.startswith(b'diff ') or raw.startswith(b'--- '), 'Not a unified source patch'
+              paths=set()
+              for line in raw.decode('utf-8').splitlines():
+                  if not line.startswith(('--- ','+++ ')):continue
+                  name=line[4:].split('\t')[0]
+                  if name=='/dev/null':continue
+                  name=name[2:];p=PurePosixPath(name)
+                  assert not p.is_absolute() and '..' not in p.parts and name.startswith('multi-bagger-dashboard/'),name
+                  paths.add(name)
+              assert len(paths)==20,len(paths)
+              p=Path('/tmp/recovered-mb30.patch');p.write_bytes(raw)
+              subprocess.run(['git','apply','--check',str(p)],check=True)
+              subprocess.run(['git','apply',str(p)],check=True)
+              print(json.dumps({'recovered_patch_sha256':hashlib.sha256(raw).hexdigest(),'source_files':len(paths)}))
+          assert hashlib.sha256((app/'research_scoring.py').read_bytes()).hexdigest()=='dbe4e33b5b5002d32a6e3a6114279332a252db6b627d2806fbd38a7ee7dc078a','Do not silently change scoring weights'
+          assert (app/'research/evidence30/latest.json').exists()
+          PY
+      - run: pip install -r multi-bagger-dashboard/requirements.txt
+      - name: Recompute scores and apply only the specifically authorized reassignment
+        run: python multi-bagger-dashboard/apply_evidence30.py
+      - name: Make remaining research gaps unambiguous without filling any missing values
+        run: |
+          python - <<'PY'
+          import json,math
+          from pathlib import Path
+          from datetime import datetime,timezone
+          app=Path('multi-bagger-dashboard')
+          evidence=json.loads((app/'research/evidence30/latest.json').read_text())
+          assert len(evidence['stocks'])==30
+          missing=[]
+          for s in evidence['stocks']:
+              r=s['research'];assert isinstance(r['research_mb_score'],(int,float)) and math.isfinite(r['research_mb_score']),s['ticker']
+              rows=s['quarterly']['rows'];assert len(rows)==8,s['ticker']
+              gaps=[]
+              for q in rows:
+                  for metric,cell in q['metrics'].items():
+                      if cell.get('value') is None:gaps.append({'quarter_end':q.get('end'),'metric':metric})
+              if gaps:missing.append({'ticker':s['ticker'],'missing_quarterly_cells':gaps})
+          notice='<aside class="notice" id="researchScopeNotice"><strong>Missing-data policy:</strong> Scores below are reproducible research calculations, not calibrated fivefold-return probabilities. An input-audit pass certifies only its listed checks. It does not certify completion of every requirement in the broader six-pass process. Any blank quarterly figure, unavailable estimate, unresolved acquisition or capital-structure issue remains a warning, not a zero. Open a ticker for its sources, quarterly table, factor contributions and unresolved items.</aside>'
+          page=app/'index.html';text=page.read_text()
+          if 'id="researchScopeNotice"' not in text:
+              start=text.find('<main')
+              if start<0:start=text.find('<body')
+              assert start>=0
+              pos=text.find('>',start)+1;text=text[:pos]+notice+text[pos:]
+              page.write_text(text)
+          ui=app/'audit-ui.js'
+          if ui.exists():
+              text=ui.read_text().replace('Verified MB','Input-audited MB').replace('verified MB','input-audited MB')
+              ui.write_text(text)
+          report={'updated_at':datetime.now(timezone.utc).isoformat(),'scope':'Source-linked input audit; not a claim that all original six-pass research requirements are complete.','stocks_recalculated':30,'quarterly_missing_data':missing,'automatic_swaps':False,'candidate_first':True}
+          (app/'research/evidence30/remaining_information.json').write_text(json.dumps(report,indent=2))
+          PY
+      - name: Run all tests before any production change
+        run: |
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+          python multi-bagger-dashboard/watchlist.py validate
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
+      - name: Stage application-only changes on latest main, preserving unrelated updates
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add multi-bagger-dashboard
+          git diff --cached --quiet || git commit -m 'Recover MB30 evidence repair with explicit remaining-information report'
+          git fetch origin main --no-recurse-submodules
+          # Do not overwrite a previously successful recovery or concurrent audited refresh.
+          if git cat-file -e origin/main:multi-bagger-dashboard/research/evidence30/latest.json 2>/dev/null; then
+            git checkout -B mb30-complete-main origin/main
+          else
+            git diff --binary origin/main HEAD -- multi-bagger-dashboard > /tmp/mb30-release.patch
+            test -s /tmp/mb30-release.patch
+            git checkout -B mb30-complete-main origin/main
+            git apply --check /tmp/mb30-release.patch
+            git apply /tmp/mb30-release.patch
+          fi
+          git diff --exit-code -- stock-project-v2 .github/workflows
+          python - <<'PY'
+          import json,hashlib,subprocess
+          from pathlib import Path
+          app=Path('multi-bagger-dashboard');x=json.loads((app/'monitoring/latest.json').read_text());reg=json.loads((app/'watchlist_registry.json').read_text())
+          assert len(reg['stocks'])==len(x['stocks'])==30
+          assert sum(s['tier']=='action' for s in reg['stocks'])==10
+          assert reg['intake_default']=='candidate' and not reg['automatic_swaps']
+          for p in (app/'monitoring/runs').glob('*.json'):
+              old=subprocess.run(['git','show','HEAD:'+str(p)],capture_output=True)
+              if old.returncode==0:assert hashlib.sha256(old.stdout).digest()==hashlib.sha256(p.read_bytes()).digest(),str(p)
+          print(json.dumps({'action':[s['ticker'] for s in reg['stocks'] if s['tier']=='action'],'candidates':[s['ticker'] for s in reg['stocks'] if s['tier']=='candidate'],'audit':x['metadata'].get('audit_summary')},indent=2))
+          PY
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          node --check .multi-bagger-pages/audit-ui.js
+          rm .multi-bagger-pages/app.syntax-check.js
+          git add multi-bagger-dashboard
+          if ! git diff --cached --quiet; then
+            git commit -m 'Multi Bagger: publish source-backed30 scorecards, missing-information warnings and audited Action10'
+            git push origin HEAD:main
+          fi
+      - name: Publish only the independent Multi Bagger directory
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.multi-bagger-pages
+          publish_branch: gh-pages
+          destination_dir: multi-bagger
+          keep_files: true
+          force_orphan: false
+          enable_jekyll: false
+      - name: Verify actual public deployment and preserve a receipt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python - <<'PY'
+          import requests,json,os,time
+          from pathlib import Path
+          url='https://skydiver1118.github.io/Automation/multi-bagger/'
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+          r=requests.post('https://api.github.com/repos/skydiver1118/Automation/pages/builds',headers=headers,timeout=25)
+          expected=json.loads(Path('.multi-bagger-pages/build.json').read_text())
+          receipt={'public_verified':False,'pages_build_request_status':r.status_code,'expected_build':expected}
+          for i in range(16):
+              try:
+                  b=requests.get(url+'build.json?audit='+str(time.time_ns()),timeout=20)
+                  h=requests.get(url+'?audit='+str(time.time_ns()),timeout=20)
+                  if b.status_code==200 and b.json()==expected and h.status_code==200 and 'audit-ui.js' in h.text:
+                      receipt.update(public_verified=True,attempt=i+1,url=url);break
+              except Exception as e:receipt['last_error']=str(e)
+              time.sleep(15)
+          Path('mb30-completion-receipt.json').write_text(json.dumps(receipt,indent=2))
+          print(json.dumps(receipt,indent=2))
+          if not receipt['public_verified']:raise SystemExit('Source and gh-pages release succeeded; public-page verification remains pending.')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-completion-evidence
+          path: |
+            mb30-completion-receipt.json
+            .multi-bagger-pages/
+          retention-days: 30
