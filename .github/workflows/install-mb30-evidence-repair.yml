@@ -1,0 +1,100 @@
+name: Install MB30 evidence repair
+on:
+  push:
+    branches: ['feature/mb30-evidence-repair-20260906']
+    paths: ['.github/workflows/install-mb30-evidence-repair.yml']
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/mb30-evidence-repair-20260906
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recover and verify application-only patch
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,lzma,subprocess
+          from pathlib import Path,PurePosixPath
+          packed=base64.b64decode(''.join(Path(f'.migration/evidence30/part{i}.b64').read_text().strip() for i in range(4)),validate=True)
+          assert hashlib.sha256(packed).hexdigest()=='05e960ad5bb495a57d059a0d0cffbf47f3d5c03e0597b894c88ea5c133da05c4'
+          raw=lzma.decompress(packed)
+          assert hashlib.sha256(raw).hexdigest()=='4c43fa9dc3e0bf6639064d380458bbdf04e003b5c8ee5c6c1b1f0bb9e02098322'
+          paths=set()
+          for line in raw.decode().splitlines():
+              if not line.startswith(('--- ','+++ ')): continue
+              name=line[4:].split('\t')[0]
+              if name=='/dev/null':continue
+              name=name[2:];p=PurePosixPath(name)
+              assert not p.is_absolute() and '..' not in p.parts and name.startswith('multi-bagger-dashboard/'),name
+              paths.add(name)
+          assert len(paths)==20,len(paths)
+          old={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for root in ['stock-project-v2/data/multi_bagger','multi-bagger-dashboard/monitoring/runs'] for p in Path(root).rglob('*') if p.is_file()}
+          Path('/tmp/mb30-preserved.json').write_text(json.dumps(old))
+          Path('/tmp/mb30.patch').write_bytes(raw)
+          subprocess.run(['git','apply','--check','/tmp/mb30.patch'],check=True)
+          subprocess.run(['git','apply','/tmp/mb30.patch'],check=True)
+          print('Recovered all 20 application-only files; no workflow or Stock V2 edits.')
+          PY
+      - name: Install dependencies
+        run: pip install -r multi-bagger-dashboard/requirements.txt
+      - name: Recompute all 30 and apply the user-approved evidence-gated Action reassignment
+        run: python multi-bagger-dashboard/apply_evidence30.py
+      - name: Validate actual calculations, evidence, missingness, membership and history
+        run: |
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+          python multi-bagger-dashboard/watchlist.py validate
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
+      - name: Build separate site and check JavaScript
+        run: |
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          node --check .multi-bagger-pages/audit-ui.js
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Verify old snapshots and source boundaries
+        run: |
+          python - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          old=json.loads(Path('/tmp/mb30-preserved.json').read_text())
+          for name,h in old.items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h,name
+          assert not subprocess.check_output(['git','diff','--name-only','--','stock-project-v2','.github/workflows'],text=True).strip()
+          x=json.loads(Path('multi-bagger-dashboard/monitoring/latest.json').read_text())
+          assert len(x['stocks'])==30 and x['metadata']['action_count']==10 and x['metadata']['candidate_count']==20
+          print(json.dumps(x['metadata']['audit_summary'],indent=2))
+          print('Old immutable records preserved:',len(old))
+          PY
+      - name: Retain review artifact without raw full-document republication
+        if: always()
+        run: |
+          mkdir -p mb30-review-artifact
+          cp -r .multi-bagger-pages mb30-review-artifact/site 2>/dev/null || true
+          cp multi-bagger-dashboard/research/evidence30/validation.json mb30-review-artifact/validation.json 2>/dev/null || true
+          tar -czf mb30-review-artifact/source.tar.gz multi-bagger-dashboard
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-evidence-repair-validated
+          path: mb30-review-artifact/
+          retention-days: 14
+      - name: Commit only permanent application and audited data
+        run: |
+          rm -rf .migration/evidence30
+          find multi-bagger-dashboard -type d -name __pycache__ -prune -exec rm -rf {} +
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --exit-code -- .github/workflows stock-project-v2
+          git add -u
+          git add multi-bagger-dashboard
+          git diff --cached --stat
+          git commit -m 'Multi Bagger: source-linked 30-stock scorecards, research warnings and evidence-gated Action10'
+          git push origin HEAD:feature/mb30-evidence-repair-20260906
