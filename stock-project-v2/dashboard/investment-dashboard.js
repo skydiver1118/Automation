@@ -46,6 +46,12 @@ function spark(r){
  return `<svg class="spark" viewBox="0 0 ${width} ${height}" role="img" aria-label="${esc(r.ticker)} score history on a zero to one hundred scale; breaks indicate resets">${svg}</svg>`;
 }
 function deltaCell(r,period){const d=change(r,period);return d?`<span class="num ${color(d.delta)}">${sign(d.delta)}</span>`:`<span class="neutral">—</span><small>${esc(data.comparison_status[period])}</small>`;}
+function sentimentPercentages(r){
+ const s=r.sentiment,c=s?.counts;
+ const directional=c?(c.bullish??0)+(c.favorable??0)+(c.bearish??0):0;
+ const bullish=directional>0&&Number.isFinite(s.positive_pct)?s.positive_pct:null;
+ return {bullish,bearish:bullish==null?null:100-bullish};
+}
 function filteredRows(){
  const term=el('search').value.trim().toLowerCase(),asset=el('asset-type').value,sector=el('sector').value,focus=el('focus').value,sort=el('sort').value;
  let result=rows.filter(r=>(!term||`${r.ticker} ${r.name}`.toLowerCase().includes(term))&&(asset==='all'||r.asset_type===asset)&&(sector==='all'||r.sector===sector)&&(focus==='all'||focus==='supported'&&r.supported||focus==='timing-weak'&&r.state==='In zone; timing weak'||focus==='improving'&&(change(r,'weekly')?.delta??0)>0||focus==='declining'&&(change(r,'weekly')?.delta??0)<0||focus==='data'&&r.coverage<100));
@@ -59,12 +65,14 @@ function renderTracker(){
  el('row-count').textContent=`${list.length} of ${rows.length} securities · Ranks always use the full ${rows.length}-security universe.${data.comparison_status.weekly!=='Comparable'&&['weekly','decline','rank'].includes(el('sort').value)?' Weekly changes unavailable; sorted by current score.':''}`;
  const scoreCell=(r,key)=>`<span class="num">${number(r[key])}</span>${r.ranks[key]!=null?`<small>Rank ${r.ranks[key]}</small>`:''}`;
  el('tracker-rows').innerHTML=list.map(r=>{
-  const d=change(r,'weekly');
+  const d=change(r,'weekly'), percentages=sentimentPercentages(r);
   const sentiment=r.sentiment?.label?`${esc(r.sentiment.label)}<small>${number(r.sentiment.positive_pct,0)}% bullish indicators</small>`:'—';
   const cells=[
    `<a class="ticker" href="stocks/${esc(r.ticker)}.html" title="${esc(r.name)}">${esc(r.ticker)}</a><small>${esc(r.sector)}</small>`,
    r.ranks[m]??'—',esc(r.asset_type),money(r.price),capitalization(r.market_cap),
-   ...['long_term_score','short_term_score','buy_now_score','valuation_score','quality_score','growth_score','revision_score','relative_strength_score','technical_score'].map(key=>scoreCell(r,key)),
+   ...['long_term_score','short_term_score','buy_now_score'].map(key=>scoreCell(r,key)),
+   ...['bullish','bearish'].map(key=>percentages[key]==null?'<span class="neutral">—</span>':`<span class="num ${key==='bullish'?'positive':'negative'}">${number(percentages[key],0)}%</span>`),
+   ...['valuation_score','quality_score','growth_score','revision_score','relative_strength_score','technical_score'].map(key=>scoreCell(r,key)),
    number(r.rsi14),sentiment,
    `<span class="${r.state==='In entry zone'?'positive':''}">${esc(setupLabel(r))}</span>`,entryBand(r),
    `<span title="${esc(r.missing.join(', '))}">${r.coverage}%</span>${r.missing.length?`<small>${r.missing.length} missing</small>`:''}`,
@@ -73,7 +81,7 @@ function renderTracker(){
    spark(r)
   ];
   return `<tr>${cells.map(cell=>`<td>${cell}</td>`).join('')}</tr>`;
- }).join('')||'<tr><td colspan="23">No securities match these filters.</td></tr>';
+ }).join('')||'<tr><td colspan="25">No securities match these filters.</td></tr>';
 }
 const colors=['#82bbff','#67dfb1','#ffd18a'];
 for(let i=1;i<=3;i++){el(`compare-${i}`).innerHTML='<option value="">None</option>'+rows.map(r=>`<option value="${esc(r.ticker)}">${esc(r.ticker)}</option>`).join('');el(`compare-${i}`).value=(supported[i-1]||rows[i-1])?.ticker??'';el(`compare-${i}`).addEventListener('change',renderComparison);}
