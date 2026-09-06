@@ -98,6 +98,10 @@ def main() -> int:
     now = datetime.now(TZ)
     created_text = now.strftime("%A, %b %d, %Y · %I:%M %p %Z").replace(" 0", " ")
     page = DASH.read_text(encoding="utf-8")
+    if 'content="investment-v3"' in page:
+        enhance_stock_pages(load_latest(), created_text)
+        print("Investment overview already contains entry cards; detail pages enhanced.")
+        return 0
     data = json.loads(ENTRY.read_text(encoding="utf-8"))
 
     cards = []

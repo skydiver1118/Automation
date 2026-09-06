@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import argparse
 import hashlib
+import inspect
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -112,7 +113,7 @@ def row_for(ticker: str, price_df: pd.DataFrame, bench_returns: dict) -> dict:
     for h in stock_ret:
         rs[h]=np.nan if np.isnan(stock_ret[h]) else sum(w*(stock_ret[h]-bench_returns[b][h]) for b,w in CONFIG["benchmarks"].items() if not np.isnan(bench_returns[b][h]))
     market_cap = info.get("totalAssets",np.nan) if asset_type=="ETF" else info.get("marketCap",np.nan)
-    base={"ticker":ticker,"asset_type":asset_type,"price":float(close.iloc[-1]),"market_cap":market_cap,"rs_1m":rs["1M"],"rs_3m":rs["3M"],"rs_6m":rs["6M"],"rs_12m":rs["12M"],"rsi14":rsi(close),"macd":m,"macd_signal":ms,"macd_hist":mh,"adx14":adx(high,low,close),"dist_20dma":dist_ma(close,20),"dist_50dma":dist_ma(close,50),"dist_200dma":dist_ma(close,200),"volume_ratio_20d":float(vol.iloc[-1]/vol.rolling(20).mean().iloc[-1]) if len(vol)>=20 else np.nan}
+    base={"company_name":info.get("longName",info.get("shortName",ticker)),"sector":info.get("sector") or ("Thematic ETF" if asset_type=="ETF" else "Unclassified"),"ticker":ticker,"asset_type":asset_type,"price":float(close.iloc[-1]),"market_cap":market_cap,"rs_1m":rs["1M"],"rs_3m":rs["3M"],"rs_6m":rs["6M"],"rs_12m":rs["12M"],"rsi14":rsi(close),"macd":m,"macd_signal":ms,"macd_hist":mh,"adx14":adx(high,low,close),"dist_20dma":dist_ma(close,20),"dist_50dma":dist_ma(close,50),"dist_200dma":dist_ma(close,200),"volume_ratio_20d":float(vol.iloc[-1]/vol.rolling(20).mean().iloc[-1]) if len(vol)>=20 else np.nan}
     if asset_type=="ETF":
         base.update({k:np.nan for k in ["forward_revenue_growth","forward_eps_growth","eps_revision_signal","forward_pe","ev_sales","ev_ebitda","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin","debt_to_equity","shares_growth"]})
         return base
@@ -169,9 +170,18 @@ def score(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def scoring_fingerprint():
+    keys=["scoring_version","benchmarks","asset_types","etf_metadata","etf_scoring","long_term_weights","short_term_weights","buy_now_weights","relative_strength_horizon_weights"]
+    definition={k:CONFIG.get(k) for k in keys}
+    functions=[pct_return,rsi,macd,adx,dist_ma,row_for,eps_revision_score,revenue_growth_estimate,eps_growth_estimate,calc_roic_proxy,pct_rank,weighted_mean,score]
+    source="\n".join(inspect.getsource(f) for f in functions)
+    return hashlib.sha256((json.dumps(definition,sort_keys=True)+source).encode()).hexdigest()[:20]
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--latest-completed",action="store_true")
+    parser.add_argument("--if-needed",action="store_true",help="Reuse an identical completed-session score snapshot on display-only changes")
     args=parser.parse_args()
     now=pd.Timestamp.now(tz=TZ)
     schedule=mcal.get_calendar("NYSE").schedule(start_date=TODAY-pd.Timedelta(days=14),end_date=TODAY)
@@ -180,6 +190,12 @@ def main():
     as_of=completed.index[-1].date() if args.latest_completed else TODAY
     if not args.latest_completed and CONFIG["refresh"].get("trading_days_only",True) and not is_trading_day(TODAY):
         print(f"{TODAY} is not an NYSE trading day; no update."); return 0
+    fingerprint=scoring_fingerprint()
+    if args.if_needed and (ROOT/"latest_scores.csv").exists():
+        saved=pd.read_csv(ROOT/"latest_scores.csv")
+        if {"scoring_fingerprint","as_of","sector","company_name"}.issubset(saved.columns) and not saved.ticker.duplicated().any() and set(saved.ticker)==set(CONFIG["universe"]) and saved.as_of.eq(str(as_of)).all() and saved.scoring_fingerprint.eq(fingerprint).all():
+            print(f"Reusing {as_of} scores: same method and universe; display changes do not rewrite scores.")
+            return 0
     symbols=CONFIG["universe"]+list(CONFIG["benchmarks"].keys()); raw=yf.download(symbols,period="18mo",interval="1d",auto_adjust=True,group_by="ticker",threads=True,progress=False)
     if raw.empty:raise RuntimeError("No market data returned")
     raw=raw.loc[raw.index.date<=as_of]
@@ -198,7 +214,9 @@ def main():
     failed=[r["ticker"] for r in rows if not np.isfinite(r.get("price",np.nan))]
     if failed:raise RuntimeError(f"Incomplete universe; refusing mixed/stale ranking: {failed}")
     df=score(pd.DataFrame(rows)); df["as_of"]=str(as_of); df=df.sort_values(["buy_now_score","long_term_score"],ascending=False).reset_index(drop=True); df.insert(0,"rank",np.arange(1,len(df)+1))
-    output_cols=["rank","ticker","asset_type","price","market_cap","long_term_score","short_term_score","buy_now_score","valuation_score","quality_score","growth_score","revision_score","technical_score","relative_strength_score","rsi14","macd_hist","adx14","dist_20dma","dist_50dma","dist_200dma","rs_1m","rs_3m","rs_6m","rs_12m","forward_revenue_growth","forward_eps_growth","eps_revision_signal","forward_pe","ev_sales","ev_ebitda","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin","debt_to_equity","macd_hist_pct","volume_ratio_20d","as_of","scoring_version","universe_size","image_mentions"]
+    output_cols=["rank","ticker","asset_type","price","market_cap","long_term_score","short_term_score","buy_now_score","valuation_score","quality_score","growth_score","revision_score","technical_score","relative_strength_score","rsi14","macd_hist","adx14","dist_20dma","dist_50dma","dist_200dma","rs_1m","rs_3m","rs_6m","rs_12m","forward_revenue_growth","forward_eps_growth","eps_revision_signal","forward_pe","ev_sales","ev_ebitda","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin","debt_to_equity","macd_hist_pct","volume_ratio_20d","as_of","scoring_version","universe_size","image_mentions","company_name","sector","scoring_fingerprint","data_retrieved_at"]
+    df["scoring_fingerprint"]=fingerprint
+    df["data_retrieved_at"]=datetime.now(TZ).isoformat()
     df["scoring_version"]=CONFIG.get("scoring_version","2.1")
     df["universe_size"]=len(CONFIG["universe"])
     df["image_mentions"]=df["ticker"].map(CONFIG.get("image_mentions",{}).get("all_counts",{})).fillna(0).astype(int)

@@ -143,18 +143,28 @@ def analyze(ticker: str, p: pd.DataFrame, buy_score: float, rank: int) -> dict:
 
 
 def main() -> int:
-    latest = pd.read_csv(LATEST).sort_values("buy_now_score", ascending=False).head(3)
+    latest = pd.read_csv(LATEST).sort_values("buy_now_score", ascending=False)
     tickers = latest["ticker"].tolist()
     raw = yf.download(tickers, period="18mo", interval="1d", auto_adjust=True, group_by="ticker", threads=True, progress=False)
     results = []
+    errors = []
+    as_of = str(latest["as_of"].iloc[0])
     for rank, (_, row) in enumerate(latest.iterrows(), 1):
         t = row["ticker"]
         if len(tickers) == 1:
             p = raw
         else:
             p = raw[t]
-        results.append(analyze(t, p, row["buy_now_score"], rank))
-    payload = {"as_of": str(latest["as_of"].iloc[0]), "top3": results}
+        try:
+            p=p.loc[p.index.strftime("%Y-%m-%d")<=as_of].dropna(subset=["Close"])
+            if p.empty or p.index[-1].strftime("%Y-%m-%d")!=as_of:
+                raise ValueError(f"Missing exact-session prices for {as_of}")
+            result=analyze(t, p, row["buy_now_score"], int(row["rank"]))
+            result["series_as_of"]=as_of
+            results.append(result)
+        except Exception as e:
+            errors.append({"ticker":t,"error":str(e)})
+    payload = {"as_of": str(latest["as_of"].iloc[0]), "top3": [r for r in results if r["rank"]<=3], "securities": results, "errors": errors}
     OUT.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     print(json.dumps(payload, indent=2))
     return 0

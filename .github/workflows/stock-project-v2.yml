@@ -16,6 +16,9 @@ on:
       - 'stock-project-v2/apply_decision_model.py'
       - 'stock-project-v2/enhance_dashboard.py'
       - 'stock-project-v2/dashboard.py'
+      - 'stock-project-v2/investment_dashboard.py'
+      - 'stock-project-v2/assets/**'
+      - 'stock-project-v2/tests/test_investment_dashboard.py'
       - 'stock-project-v2/entry_support.py'
       - 'stock-project-v2/add_metric_comments.py'
       - 'stock-project-v2/sentiment_transitions.py'
@@ -52,6 +55,7 @@ jobs:
       - name: Validate Python scripts
         run: |
           python stock-project-v2/tests/test_normalization.py
+          python stock-project-v2/tests/test_investment_dashboard.py
           python -m py_compile stock-project-v2/run_v2.py
           python -m py_compile stock-project-v2/signal_policy.py
           python -m py_compile stock-project-v2/materialize_decisions.py
@@ -84,7 +88,7 @@ jobs:
           PY
       - name: Recompute full universe from latest completed session
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        run: python stock-project-v2/run_v2.py --latest-completed
+        run: python stock-project-v2/run_v2.py --latest-completed --if-needed
       - name: Explain skipped score refresh
         if: github.event_name == 'schedule' && (steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true')
         run: echo "No newly completed session for this scheduled refresh."
@@ -110,7 +114,7 @@ jobs:
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then echo "new_session=false" >> "$GITHUB_OUTPUT"; else echo "new_session=true" >> "$GITHUB_OUTPUT"; fi
-      - name: Analyze top-3 entry points and support
+      - name: Analyze entry points and support for the full universe
         run: python stock-project-v2/entry_support.py
       - name: Track diagnostic sentiment transitions
         run: python stock-project-v2/sentiment_transitions.py
