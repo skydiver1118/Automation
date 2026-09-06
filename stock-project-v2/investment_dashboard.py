@@ -127,7 +127,7 @@ def build_payload(hist, config, canonical, entries, sessions=None):
         state=idea_state(row,entry)
         fcf=finite(row.get('fcf_yield')); op=finite(row.get('operating_margin')); quality=finite(row.get('quality_score')); val=finite(row.get('valuation_score'))
         supported=(row.get('asset_type')!='ETF' and cov>=80 and (finite(row.get('long_term_score')) or 0)>=55 and quality is not None and quality>=55 and fcf is not None and fcf>0 and op is not None and op>0)
-        r={k:finite(row.get(k)) for k in METRICS+list(FACTORS)+['price','rsi14','adx14','dist_50dma','dist_200dma','fcf_yield','forward_pe','forward_revenue_growth','operating_margin']}
+        r={k:finite(row.get(k)) for k in METRICS+list(FACTORS)+['price','market_cap','rsi14','adx14','dist_50dma','dist_200dma','fcf_yield','forward_pe','forward_revenue_growth','operating_margin']}
         r.update({'ticker':t,'asset_type':row.get('asset_type','Stock'),'name':row.get('company_name') if isinstance(row.get('company_name'),str) else t,'sector':row.get('sector') if isinstance(row.get('sector'),str) else 'Unclassified','coverage':cov,'missing':missing,'strengths':strengths,'risks':risks,'state':state,'supported':supported,'value_quality':bool(supported and quality>=60 and val is not None and val>=60),'entry':entry,'support':support.get('key_support'),'trend':c.get('technical',{}).get('trend','Unavailable'),'sentiment':c.get('diagnostic_sentiment',{}),'changes':{metric:{k:vals.get(t) for k,vals in periods.items()} for metric,periods in deltas.items()},'history':[]})
         for _,x in hist[hist.ticker==t].iterrows():
             r['history'].append({'date':x.as_of,'era':era[x.as_of],**{m:finite(x.get(m)) for m in METRICS}})
