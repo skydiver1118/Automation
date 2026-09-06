@@ -1,156 +1,53 @@
 name: Publish Multi Bagger Dashboard
-
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - '.github/workflows/multi-bagger-dashboard.yml'
       - 'multi-bagger-dashboard/**'
       - 'stock-project-v2/data/multi_bagger/**'
       - 'stock-project-v2/reports/multi_bagger/**'
+      - 'stock-project-v2/scripts/store_multibagger_pass_scores.py'
   pull_request:
     paths:
       - '.github/workflows/multi-bagger-dashboard.yml'
       - 'multi-bagger-dashboard/**'
       - 'stock-project-v2/data/multi_bagger/**'
       - 'stock-project-v2/reports/multi_bagger/**'
-
+      - 'stock-project-v2/scripts/store_multibagger_pass_scores.py'
 permissions:
   contents: write
-
 concurrency:
   group: stock-project-v2-daily
   cancel-in-progress: false
-
 jobs:
   validate-and-publish:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: stock-project-v2/requirements.txt
-
-      - name: Install market-data dependencies
-        run: pip install -r stock-project-v2/requirements.txt
-
-      - name: Validate dashboard source and canonical data
-        shell: bash
+          cache-dependency-path: multi-bagger-dashboard/requirements.txt
+      - name: Install Multi Bagger validation dependencies
+        run: pip install -r multi-bagger-dashboard/requirements.txt
+      - name: Validate final 25 and immutable history
         run: |
-          python -m py_compile multi-bagger-dashboard/build_price_snapshot.py
-          python - <<'PY'
-          import csv
-          import json
-          import re
-          from pathlib import Path
-
-          latest_path = Path('stock-project-v2/data/multi_bagger/pass_scores/latest.json')
-          history_path = Path('stock-project-v2/data/multi_bagger/history/pass_score_history.csv')
-          dashboard_path = Path('multi-bagger-dashboard/index.html')
-          price_builder_path = Path('multi-bagger-dashboard/build_price_snapshot.py')
-          for path in [latest_path, history_path, dashboard_path, price_builder_path]:
-              if not path.is_file() or path.stat().st_size == 0:
-                  raise SystemExit(f'Missing or empty required file: {path}')
-
-          html = dashboard_path.read_text(encoding='utf-8')
-          if './data/pass_scores/latest.json' not in html:
-              raise SystemExit('Dashboard does not reference the canonical latest snapshot')
-          if './data/prices/latest.json' not in html:
-              raise SystemExit('Dashboard does not reference the separate price snapshot')
-          if '<th>Ticker</th><th>Price</th><th>Market cap</th>' not in html:
-              raise SystemExit('Price column is not positioned immediately after Ticker')
-          if '<title>Multi Bagger Top-20 Dashboard</title>' not in html:
-              raise SystemExit('Dashboard title is missing')
-          if not re.search(r'<script>.*?</script>', html, flags=re.S):
-              raise SystemExit('Dashboard JavaScript block is missing')
-
-          snapshot = json.loads(latest_path.read_text(encoding='utf-8'))
-          stocks = snapshot.get('stocks')
-          if not isinstance(stocks, list) or not stocks:
-              raise SystemExit('latest.json must contain a non-empty stocks array')
-          tickers = [str(row.get('ticker', '')).upper() for row in stocks]
-          ranks = [row.get('rank') for row in stocks]
-          if len(tickers) != len(set(tickers)):
-              raise SystemExit('Duplicate ticker found in latest.json')
-          if len(ranks) != len(set(ranks)):
-              raise SystemExit('Duplicate rank found in latest.json')
-
-          pass_keys = {
-              'pass_1_primary_source_inventory',
-              'pass_2_financial_reconstruction',
-              'pass_3_forward_expectations',
-              'pass_4_risk_moat_sector_review',
-              'pass_5_technical_review',
-              'pass_6_adversarial_audit',
-          }
-          for row in stocks:
-              if set((row.get('passes') or {}).keys()) != pass_keys:
-                  raise SystemExit(f"{row.get('ticker')}: incomplete six-pass key set")
-              if row['passes']['pass_5_technical_review'].get('score') != row.get('weekly_technical_score'):
-                  raise SystemExit(f"{row.get('ticker')}: Pass 5 and Weekly Technical Score disagree")
-
-          with history_path.open(newline='', encoding='utf-8') as handle:
-              history_rows = list(csv.DictReader(handle))
-          if not history_rows:
-              raise SystemExit('Pass-score history CSV is empty')
-
-          report_path = Path('stock-project-v2/reports/multi_bagger') / f"{snapshot['run_date']}.md"
-          if not report_path.is_file():
-              raise SystemExit(f'Missing dated report: {report_path}')
-          print(f"Validated Multi Bagger dashboard: {len(stocks)} stocks, {len(history_rows)} history rows, report {report_path.name}")
-          PY
-
-      - name: Stage separate Multi Bagger site
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        shell: bash
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
+      - name: Rebuild separate Multi Bagger site from verified saved evidence
         run: |
-          rm -rf .multi-bagger-pages
-          mkdir -p .multi-bagger-pages/data/pass_scores
-          mkdir -p .multi-bagger-pages/data/history
-          mkdir -p .multi-bagger-pages/data/prices
-          mkdir -p .multi-bagger-pages/reports
-          cp multi-bagger-dashboard/index.html .multi-bagger-pages/index.html
-          cp stock-project-v2/data/multi_bagger/pass_scores/latest.json .multi-bagger-pages/data/pass_scores/latest.json
-          cp stock-project-v2/data/multi_bagger/history/pass_score_history.csv .multi-bagger-pages/data/history/pass_score_history.csv
-          cp stock-project-v2/reports/multi_bagger/*.md .multi-bagger-pages/reports/
-          touch .multi-bagger-pages/.nojekyll
-
-      - name: Build market-session price layer
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-        shell: bash
-        run: |
-          python multi-bagger-dashboard/build_price_snapshot.py \
-            --snapshot stock-project-v2/data/multi_bagger/pass_scores/latest.json \
-            --output .multi-bagger-pages/data/prices/latest.json \
-            --minimum-coverage 0.75
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          snapshot = json.loads(Path('stock-project-v2/data/multi_bagger/pass_scores/latest.json').read_text(encoding='utf-8'))
-          prices = json.loads(Path('.multi-bagger-pages/data/prices/latest.json').read_text(encoding='utf-8'))
-          expected = {str(row['ticker']).upper() for row in snapshot['stocks']}
-          actual = set(prices.get('prices', {}))
-          if actual != expected:
-              raise SystemExit(f'Price-layer ticker mismatch: missing={sorted(expected-actual)} extra={sorted(actual-expected)}')
-          if prices.get('market_session_date') != snapshot.get('market_session_date'):
-              raise SystemExit('Price-layer market_session_date does not match the Multi Bagger snapshot')
-          print(
-              f"Price layer validated: {prices['coverage']['available']}/"
-              f"{prices['coverage']['requested']} available for {prices['market_session_date']}"
-          )
-          PY
-
-      - name: Publish only /multi-bagger/
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Publish only Multi Bagger; preserve all sibling dashboards
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
