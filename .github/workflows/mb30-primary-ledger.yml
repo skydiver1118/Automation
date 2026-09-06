@@ -1,0 +1,36 @@
+name: Collect MB30 primary statement ledger
+on:
+  push:
+    branches: ['fix/mb30-evidence-gated-scores']
+    paths: ['.github/workflows/mb30-primary-ledger.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - uses: actions/download-artifact@v4
+        with:
+          name: mb30-missing-evidence
+          run-id: 34056884578
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: evidence30
+      - name: Retrieve filed-statement evidence
+        run: python -u multi-bagger-dashboard/collect_filing_facts.py --evidence evidence30 --output primary30
+      - run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-primary-ledger
+          path: primary30/
+          retention-days: 14
