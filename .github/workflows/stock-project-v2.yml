@@ -51,6 +51,7 @@ jobs:
         run: pip install -r stock-project-v2/requirements.txt
       - name: Validate Python scripts
         run: |
+          python stock-project-v2/tests/test_normalization.py
           python -m py_compile stock-project-v2/run_v2.py
           python -m py_compile stock-project-v2/signal_policy.py
           python -m py_compile stock-project-v2/materialize_decisions.py
@@ -81,16 +82,19 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
               f.write(f'trade_date={today}\n'); f.write(f'is_trading_day={str(is_trading_day).lower()}\n'); f.write(f'after_close={str(after_close).lower()}\n'); f.write(f'close_time={close_time}\n')
           PY
+      - name: Recompute full universe from latest completed session
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: python stock-project-v2/run_v2.py --latest-completed
       - name: Explain skipped score refresh
-        if: github.event_name == 'push' || steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true'
-        run: echo "No new score record for this event. Push events rebuild/publish from latest saved session."
+        if: github.event_name == 'schedule' && (steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true')
+        run: echo "No newly completed session for this scheduled refresh."
       - name: Run Stock Project V2
-        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name == 'schedule' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
         run: python stock-project-v2/run_v2.py
       - name: Materialize ownership and entry decisions
         run: python stock-project-v2/materialize_decisions.py
       - name: Validate complete configured universe
-        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true')
         run: |
           python - <<'PY'
           import json,numpy as np,pandas as pd
@@ -101,7 +105,7 @@ jobs:
           print(f"V2 validation passed for all {len(expected)} configured securities and decision fields.")
           PY
       - name: Detect new completed session
-        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true')
         id: session
         shell: bash
         run: |
@@ -120,7 +124,7 @@ jobs:
           python stock-project-v2/apply_decision_model.py
           python stock-project-v2/ensure_universe_rows.py
       - name: Commit trading-day scores, decisions, canonical layer, and dashboard
-        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true')
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/; then echo "Nothing changed."; exit 0; fi
@@ -128,16 +132,6 @@ jobs:
           git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/
           TRADE_DATE=$(python -c "import pandas as pd; print(pd.read_csv('stock-project-v2/latest_scores.csv')['as_of'].iloc[0])")
           git commit -m "Stock V2: dashboard refresh ${TRADE_DATE}"; git push
-      - name: Persist decision/canonical outputs after source changes
-        if: github.event_name == 'push'
-        shell: bash
-        run: |
-          if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/history/ stock-project-v2/dashboard/; then echo "No derived changes."; exit 0; fi
-          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/history/ stock-project-v2/dashboard/
-          git commit -m "Stock V2: materialize ownership and canonical layer" || true
-          git pull --rebase origin main || true
-          git push origin HEAD:main || true
       - name: Stage dashboard at /stock-project-v2/
         shell: bash
         run: |

@@ -1,29 +1,155 @@
 {
   "version": "2.1",
-  "universe": ["NVDA", "MU", "SPCX", "LITE", "META", "NBIS", "MRVL", "RKLB", "AXTI", "APLD", "IREN", "AVGO", "AAOI", "SOXL", "QTUM", "DRAM"],
+  "universe": [
+    "NVDA",
+    "MU",
+    "SPCX",
+    "LITE",
+    "META",
+    "NBIS",
+    "MRVL",
+    "RKLB",
+    "AXTI",
+    "APLD",
+    "IREN",
+    "AVGO",
+    "AAOI",
+    "SOXL",
+    "QTUM",
+    "DRAM",
+    "ETN",
+    "GEV",
+    "AMZN",
+    "AVAV",
+    "CEG",
+    "CRWD",
+    "HUBB",
+    "KTOS",
+    "MP",
+    "PANW",
+    "VST"
+  ],
   "asset_types": {
     "SOXL": "ETF",
     "QTUM": "ETF",
     "DRAM": "ETF"
   },
   "etf_metadata": {
-    "SOXL": {"name": "Direxion Daily Semiconductor Bull 3X Shares", "leveraged": true, "leverage": 3.0},
-    "QTUM": {"name": "Defiance Quantum ETF", "leveraged": false, "leverage": 1.0},
-    "DRAM": {"name": "Roundhill DRAM & Memory Technology ETF", "leveraged": false, "leverage": 1.0}
+    "SOXL": {
+      "name": "Direxion Daily Semiconductor Bull 3X Shares",
+      "leveraged": true,
+      "leverage": 3
+    },
+    "QTUM": {
+      "name": "Defiance Quantum ETF",
+      "leveraged": false,
+      "leverage": 1
+    },
+    "DRAM": {
+      "name": "Roundhill DRAM & Memory Technology ETF",
+      "leveraged": false,
+      "leverage": 1
+    }
   },
-  "excluded": ["ORCL"],
-  "benchmarks": {"SMH": 0.67, "QQQ": 0.33},
-  "relative_strength_horizon_weights": {"1M": 0.15, "3M": 0.30, "6M": 0.30, "12M": 0.25},
-  "long_term_weights": {"growth_and_revisions": 0.30, "quality": 0.25, "valuation": 0.20, "secular_competitive": 0.15, "risk": 0.10},
-  "short_term_weights": {"relative_strength": 0.40, "technical": 0.30, "revisions": 0.20, "entry_condition": 0.10},
-  "buy_now_weights": {"long_term": 0.55, "short_term": 0.30, "entry_valuation": 0.15},
+  "excluded": [
+    "ORCL"
+  ],
+  "benchmarks": {
+    "SMH": 0.67,
+    "QQQ": 0.33
+  },
+  "relative_strength_horizon_weights": {
+    "1M": 0.15,
+    "3M": 0.3,
+    "6M": 0.3,
+    "12M": 0.25
+  },
+  "long_term_weights": {
+    "growth_and_revisions": 0.3,
+    "quality": 0.25,
+    "valuation": 0.2,
+    "secular_competitive": 0.15,
+    "risk": 0.1
+  },
+  "short_term_weights": {
+    "relative_strength": 0.4,
+    "technical": 0.3,
+    "revisions": 0.2,
+    "entry_condition": 0.1
+  },
+  "buy_now_weights": {
+    "long_term": 0.55,
+    "short_term": 0.3,
+    "entry_valuation": 0.15
+  },
   "etf_scoring": {
-    "long_term": {"relative_strength": 0.45, "technical": 0.30, "trend_risk": 0.25},
-    "short_term": {"relative_strength": 0.55, "technical": 0.35, "volume": 0.10},
-    "buy_now": {"long_term": 0.35, "short_term": 0.50, "technical": 0.15},
+    "long_term": {
+      "relative_strength": 0.45,
+      "technical": 0.3,
+      "trend_risk": 0.25
+    },
+    "short_term": {
+      "relative_strength": 0.55,
+      "technical": 0.35,
+      "volume": 0.1
+    },
+    "buy_now": {
+      "long_term": 0.35,
+      "short_term": 0.5,
+      "technical": 0.15
+    },
     "leveraged_long_term_penalty": 15
   },
-  "technical_inputs": ["RSI14", "MACD", "MACD_SIGNAL", "ADX14", "DIST_20DMA", "DIST_50DMA", "DIST_200DMA", "VOLUME_CONFIRMATION"],
-  "fundamental_inputs": ["FORWARD_REVENUE_GROWTH", "FORWARD_EPS_GROWTH", "REVENUE_REVISIONS_30_60_90D", "EPS_REVISIONS_30_60_90D", "EV_SALES", "FORWARD_PE", "EV_EBITDA", "FCF_YIELD", "FCF_MARGIN", "ROIC", "GROSS_MARGIN", "OPERATING_MARGIN", "DILUTION", "BALANCE_SHEET"],
-  "refresh": {"market": "US", "timezone": "America/New_York", "trading_days_only": true}
+  "technical_inputs": [
+    "RSI14",
+    "MACD",
+    "MACD_SIGNAL",
+    "ADX14",
+    "DIST_20DMA",
+    "DIST_50DMA",
+    "DIST_200DMA",
+    "VOLUME_CONFIRMATION"
+  ],
+  "fundamental_inputs": [
+    "FORWARD_REVENUE_GROWTH",
+    "FORWARD_EPS_GROWTH",
+    "REVENUE_REVISIONS_30_60_90D",
+    "EPS_REVISIONS_30_60_90D",
+    "EV_SALES",
+    "FORWARD_PE",
+    "EV_EBITDA",
+    "FCF_YIELD",
+    "FCF_MARGIN",
+    "ROIC",
+    "GROSS_MARGIN",
+    "OPERATING_MARGIN",
+    "DILUTION",
+    "BALANCE_SHEET"
+  ],
+  "refresh": {
+    "market": "US",
+    "timezone": "America/New_York",
+    "trading_days_only": true
+  },
+  "scoring_version": "2.2-universe-normalization",
+  "image_mentions": {
+    "source": "IMG_4639.jpeg",
+    "study_date": "2026-09-06",
+    "total_mentions": 103,
+    "unique_tickers": 90,
+    "selection_rule": "More than one occurrence in the image; no scoring bonus for frequency",
+    "counts": {
+      "ETN": 3,
+      "GEV": 3,
+      "AMZN": 2,
+      "AVAV": 2,
+      "CEG": 2,
+      "CRWD": 2,
+      "HUBB": 2,
+      "KTOS": 2,
+      "MP": 2,
+      "PANW": 2,
+      "VST": 2
+    }
+  }
 }

@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import json
+import argparse
+import hashlib
+import shutil
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -120,10 +123,15 @@ def row_for(ticker: str, price_df: pd.DataFrame, bench_returns: dict) -> dict:
 
 def pct_rank(s: pd.Series, higher_better=True) -> pd.Series:
     x=s.replace([np.inf,-np.inf],np.nan).astype(float)
-    if x.notna().sum()<2:return pd.Series(50.0,index=s.index)
-    x=x.clip(x.quantile(.05),x.quantile(.95)); r=x.rank(pct=True)*100
-    if not higher_better:r=100-r+100/len(x)
-    return r.fillna(50.0)
+    valid=x.notna()
+    result=pd.Series(50.0,index=s.index)
+    if valid.sum()<2:return result
+    x=x[valid].clip(x[valid].quantile(.05),x[valid].quantile(.95))
+    if x.nunique()<2:return result
+    # The observed universe is identical in both ranking directions.
+    ranks=x.rank(method="average",ascending=higher_better)
+    result.loc[valid]=(ranks-1)/(len(x)-1)*100
+    return result
 
 
 def weighted_mean(frame: pd.DataFrame, pairs) -> pd.Series:
@@ -134,12 +142,14 @@ def weighted_mean(frame: pd.DataFrame, pairs) -> pd.Series:
 
 
 def score(df: pd.DataFrame) -> pd.DataFrame:
-    for c in ["rs_1m","rs_3m","rs_6m","rs_12m","macd_hist","adx14","volume_ratio_20d"]:df[c+"_p"]=pct_rank(df[c],True)
+    df=df.copy()
+    df["macd_hist_pct"]=df["macd_hist"]/df["price"].where(df["price"]>0)
+    for c in ["rs_1m","rs_3m","rs_6m","rs_12m","macd_hist_pct","adx14","volume_ratio_20d"]:df[c+"_p"]=pct_rank(df[c],True)
     for c in ["dist_20dma","dist_50dma","dist_200dma"]:
         sweet=1-((df[c].clip(-.30,.60)-.08).abs()/.38).clip(0,1); df[c+"_p"]=pct_rank(sweet,True)
     df["rsi_p"]=pct_rank(1-((df["rsi14"]-62).abs()/38).clip(0,1),True)
     rs=weighted_mean(df,[("rs_1m_p",.15),("rs_3m_p",.30),("rs_6m_p",.30),("rs_12m_p",.25)])
-    tech=weighted_mean(df,[("rsi_p",.10),("macd_hist_p",.20),("adx14_p",.15),("dist_20dma_p",.15),("dist_50dma_p",.15),("dist_200dma_p",.15),("volume_ratio_20d_p",.10)])
+    tech=weighted_mean(df,[("rsi_p",.10),("macd_hist_pct_p",.20),("adx14_p",.15),("dist_20dma_p",.15),("dist_50dma_p",.15),("dist_200dma_p",.15),("volume_ratio_20d_p",.10)])
     for c in ["forward_revenue_growth","forward_eps_growth","eps_revision_signal","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin"]:df[c+"_p"]=pct_rank(df[c],True)
     for c in ["forward_pe","ev_sales","ev_ebitda","debt_to_equity"]:df[c+"_p"]=pct_rank(df[c],False)
     revisions=weighted_mean(df,[("eps_revision_signal_p",.55),("forward_eps_growth_p",.25),("forward_revenue_growth_p",.20)]); growth=weighted_mean(df,[("forward_revenue_growth_p",.55),("forward_eps_growth_p",.45)]); quality=weighted_mean(df,[("roic_proxy_p",.30),("fcf_margin_p",.25),("gross_margin_p",.20),("operating_margin_p",.15),("debt_to_equity_p",.10)]); valuation=weighted_mean(df,[("forward_pe_p",.30),("ev_sales_p",.25),("ev_ebitda_p",.15),("fcf_yield_p",.30)])
@@ -160,23 +170,49 @@ def score(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def main():
-    if CONFIG["refresh"].get("trading_days_only",True) and not is_trading_day(TODAY):
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--latest-completed",action="store_true")
+    args=parser.parse_args()
+    now=pd.Timestamp.now(tz=TZ)
+    schedule=mcal.get_calendar("NYSE").schedule(start_date=TODAY-pd.Timedelta(days=14),end_date=TODAY)
+    completed=schedule[schedule["market_close"]+pd.Timedelta(minutes=15)<=now]
+    if completed.empty:raise RuntimeError("No completed NYSE session found")
+    as_of=completed.index[-1].date() if args.latest_completed else TODAY
+    if not args.latest_completed and CONFIG["refresh"].get("trading_days_only",True) and not is_trading_day(TODAY):
         print(f"{TODAY} is not an NYSE trading day; no update."); return 0
     symbols=CONFIG["universe"]+list(CONFIG["benchmarks"].keys()); raw=yf.download(symbols,period="18mo",interval="1d",auto_adjust=True,group_by="ticker",threads=True,progress=False)
     if raw.empty:raise RuntimeError("No market data returned")
+    raw=raw.loc[raw.index.date<=as_of]
     latest_dates=[raw[b].dropna(how="all").index[-1].date() for b in CONFIG["benchmarks"] if b in raw.columns.get_level_values(0)]
-    if not latest_dates or max(latest_dates)<TODAY:
-        print(f"Latest completed market data is {max(latest_dates) if latest_dates else 'NA'}, not {TODAY}; no update."); return 0
+    if len(latest_dates)!=len(CONFIG["benchmarks"]) or any(d!=as_of for d in latest_dates):
+        raise RuntimeError(f"Benchmark data does not match completed session {as_of}: {latest_dates}")
     bench_returns={b:{h:pct_return(raw[b]["Close"].dropna(),d) for h,d in {"1M":21,"3M":63,"6M":126,"12M":252}.items()} for b in CONFIG["benchmarks"]}
     rows=[]
     for ticker in CONFIG["universe"]:
-        try:rows.append(row_for(ticker,raw,bench_returns))
+        try:
+            prices=raw[ticker].dropna(subset=["Close"])
+            if prices.empty or prices.index[-1].date()!=as_of:
+                raise ValueError(f"Missing completed-session price for {as_of}")
+            rows.append(row_for(ticker,raw,bench_returns))
         except Exception as e:print(f"WARN {ticker}: {e}"); rows.append({"ticker":ticker,"asset_type":CONFIG.get("asset_types",{}).get(ticker,"Stock")})
-    df=score(pd.DataFrame(rows)); df["as_of"]=str(TODAY); df=df.sort_values(["buy_now_score","long_term_score"],ascending=False).reset_index(drop=True); df.insert(0,"rank",np.arange(1,len(df)+1))
-    output_cols=["rank","ticker","asset_type","price","market_cap","long_term_score","short_term_score","buy_now_score","valuation_score","quality_score","growth_score","revision_score","technical_score","relative_strength_score","rsi14","macd_hist","adx14","dist_20dma","dist_50dma","dist_200dma","rs_1m","rs_3m","rs_6m","rs_12m","forward_revenue_growth","forward_eps_growth","eps_revision_signal","forward_pe","ev_sales","ev_ebitda","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin","debt_to_equity","as_of"]
+    failed=[r["ticker"] for r in rows if not np.isfinite(r.get("price",np.nan))]
+    if failed:raise RuntimeError(f"Incomplete universe; refusing mixed/stale ranking: {failed}")
+    df=score(pd.DataFrame(rows)); df["as_of"]=str(as_of); df=df.sort_values(["buy_now_score","long_term_score"],ascending=False).reset_index(drop=True); df.insert(0,"rank",np.arange(1,len(df)+1))
+    output_cols=["rank","ticker","asset_type","price","market_cap","long_term_score","short_term_score","buy_now_score","valuation_score","quality_score","growth_score","revision_score","technical_score","relative_strength_score","rsi14","macd_hist","adx14","dist_20dma","dist_50dma","dist_200dma","rs_1m","rs_3m","rs_6m","rs_12m","forward_revenue_growth","forward_eps_growth","eps_revision_signal","forward_pe","ev_sales","ev_ebitda","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin","debt_to_equity","macd_hist_pct","volume_ratio_20d","as_of","scoring_version","universe_size","image_mentions"]
+    df["scoring_version"]=CONFIG.get("scoring_version","2.1")
+    df["universe_size"]=len(CONFIG["universe"])
+    df["image_mentions"]=df["ticker"].map(CONFIG.get("image_mentions",{}).get("counts",{})).fillna(0).astype(int)
     for c in output_cols:
         if c not in df.columns:df[c]=np.nan
-    out=df[output_cols]; out.to_csv(ROOT/"latest_scores.csv",index=False); (ROOT/"history").mkdir(exist_ok=True); out.to_csv(ROOT/"history"/f"{TODAY}.csv",index=False); (ROOT/"latest_scores.json").write_text(out.replace({np.nan:None}).to_json(orient="records",indent=2)); print(out[["rank","ticker","asset_type","long_term_score","short_term_score","buy_now_score"]].to_string(index=False)); return 0
+    # Archive the earlier same-session result before changing the universe or methodology.
+    previous=ROOT/"history"/f"{as_of}.csv"
+    if previous.exists():
+        digest=hashlib.sha256(previous.read_bytes()).hexdigest()[:12]
+        archive=ROOT/"history"/"revisions"
+        archive.mkdir(parents=True,exist_ok=True)
+        backup=archive/f"{as_of}-{digest}.csv"
+        if not backup.exists():shutil.copy2(previous,backup)
+    out=df[output_cols]; out.to_csv(ROOT/"latest_scores.csv",index=False); (ROOT/"history").mkdir(exist_ok=True); out.to_csv(ROOT/"history"/f"{as_of}.csv",index=False); (ROOT/"latest_scores.json").write_text(out.replace({np.nan:None}).to_json(orient="records",indent=2)); print(out[["rank","ticker","asset_type","long_term_score","short_term_score","buy_now_score"]].to_string(index=False)); return 0
 
 
 if __name__ == "__main__":
