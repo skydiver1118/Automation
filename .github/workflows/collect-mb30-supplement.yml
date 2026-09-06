@@ -1,0 +1,41 @@
+name: Collect MB30 supplementary evidence
+on:
+  push:
+    branches: ['feature/mb30-evidence-repair-20260906']
+    paths: ['.github/workflows/collect-mb30-supplement.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - uses: actions/download-artifact@v4
+        with:
+          name: mb30-primary-and-financial-evidence
+          run-id: 34059685001
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: mb30_evidence
+      - uses: actions/download-artifact@v4
+        with:
+          name: mb30-edgar-exhibits
+          run-id: 34060171257
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: mb30_edgar
+      - run: python -u multi-bagger-dashboard/collect_evidence_supplement.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-supplementary-evidence
+          path: mb30_supplement/
+          retention-days: 30
+          if-no-files-found: error
