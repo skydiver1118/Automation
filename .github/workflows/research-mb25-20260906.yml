@@ -1,0 +1,43 @@
+name: Research MB25 September 6 2026
+on:
+  push:
+    branches: ['research/mb25-comparison-20260906']
+    paths: ['research/mb25_20260906/**', '.github/workflows/research-mb25-20260906.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: research-mb25-20260906
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          submodules: false
+          sparse-checkout: |
+            research/mb25_20260906
+            stock-project-v2/data/multi_bagger
+          sparse-checkout-cone-mode: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install research dependencies
+        run: pip install yfinance pandas numpy requests
+      - name: Validate collector syntax
+        run: python -m py_compile research/mb25_20260906/collect.py
+      - name: Collect prices, statements, estimates and SEC evidence
+        run: python -u research/mb25_20260906/collect.py
+      - name: Verify no production edits
+        run: git diff --exit-code -- stock-project-v2/data/multi_bagger
+      - name: Retain research evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mb25-evidence-20260906
+          path: research_output_mb25/
+          retention-days: 30
+          if-no-files-found: error
