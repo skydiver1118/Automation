@@ -1,0 +1,93 @@
+name: Research screenshot 12 Multi Bagger
+on:
+  push:
+    branches: ['research/mb-screenshot12-20260906']
+    paths: ['.github/workflows/research-mb-screenshot12.yml']
+permissions:
+  contents: read
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          persist-credentials: true
+          sparse-checkout: |
+            multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install yfinance pandas numpy requests
+      - name: Collect dated market and financial evidence without updating dashboard
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,math,time,hashlib,shutil
+          from pathlib import Path
+          from datetime import datetime,timezone
+          import pandas as pd,numpy as np,yfinance as yf
+          OUT=Path('screenshot12_evidence');OUT.mkdir()
+          tickers='INO CAPR GOSS SLS IREN WULF OKLO SMR RGTI QBTS EOSE AMPX'.split()
+          def clean(v):
+              if isinstance(v,dict):return {str(k):clean(x) for k,x in v.items()}
+              if isinstance(v,(list,tuple)):return [clean(x) for x in v]
+              if isinstance(v,(np.integer,)):return int(v)
+              if isinstance(v,(float,np.floating)):return float(v) if math.isfinite(v) else None
+              if isinstance(v,(datetime,pd.Timestamp)):return v.isoformat()
+              if v is pd.NA:return None
+              return v
+          def save(n,o):(OUT/n).write_text(json.dumps(clean(o),indent=2,allow_nan=False,default=str))
+          def fj(d):return {} if d is None or d.empty else {str(c):{str(k):clean(v) for k,v in d[c].items()} for c in d}
+          raw=yf.download(tickers+['QQQ','SMH','SPY','XBI'],start='2024-01-01',end='2026-09-05',auto_adjust=False,group_by='ticker',progress=False,threads=True)
+          def frame(t):
+              d=raw[t].dropna(subset=['Close']).copy()
+              return d.loc[pd.to_datetime(d.index).date<=pd.Timestamp('2026-09-04').date()]
+          def tech(d):
+              if d.empty:return {'error':'no price data'}
+              c,h,l,v=d.Close,d.High,d.Low,d.Volume;a=d['Adj Close'] if 'Adj Close' in d else c
+              changes=c.diff();gain=changes.clip(lower=0).ewm(alpha=1/14,adjust=False).mean();loss=(-changes.clip(upper=0)).ewm(alpha=1/14,adjust=False).mean()
+              rsi=100-100/(1+gain/loss.replace(0,np.nan));macd=c.ewm(span=12,adjust=False).mean()-c.ewm(span=26,adjust=False).mean();signal=macd.ewm(span=9,adjust=False).mean()
+              tr=pd.concat([h-l,(h-c.shift()).abs(),(l-c.shift()).abs()],axis=1).max(axis=1);atr=tr.ewm(alpha=1/14,adjust=False).mean()
+              up=h.diff();down=-l.diff();pdm=up.where((up>down)&(up>0),0.);mdm=down.where((down>up)&(down>0),0.)
+              pdi=100*pdm.ewm(alpha=1/14,adjust=False).mean()/atr;mdi=100*mdm.ewm(alpha=1/14,adjust=False).mean()/atr;adx=(100*(pdi-mdi).abs()/(pdi+mdi).replace(0,np.nan)).ewm(alpha=1/14,adjust=False).mean()
+              out={'price_date':str(d.index[-1].date()),'price':float(c.iloc[-1]),'rsi14':rsi.iloc[-1],'macd':macd.iloc[-1],'macd_signal':signal.iloc[-1],'macd_hist':(macd-signal).iloc[-1],'adx14':adx.iloc[-1],'plus_di':pdi.iloc[-1],'minus_di':mdi.iloc[-1],'atr14':atr.iloc[-1],'volume_ratio20':v.iloc[-1]/v.tail(20).mean(),'high20':h.tail(20).max(),'low20':l.tail(20).min(),'high252':h.tail(252).max(),'low252':l.tail(252).min(),'observations':len(d)}
+              for n in [20,50,200]:out[f'ma{n}']=c.tail(n).mean() if len(c)>=n else None
+              for name,n in [('1m',21),('3m',63),('6m',126),('12m',252)]:out['return_'+name]=a.iloc[-1]/a.iloc[-1-n]-1 if len(a)>n else None
+              return clean(out)
+          bench={t:tech(frame(t)) for t in ['QQQ','SMH','SPY','XBI']};save('benchmarks.json',bench)
+          keys=['longName','currency','financialCurrency','sector','industry','marketCap','enterpriseValue','sharesOutstanding','impliedSharesOutstanding','totalRevenue','revenueGrowth','grossMargins','operatingMargins','ebitda','freeCashflow','operatingCashflow','totalCash','totalDebt','mostRecentQuarter','lastFiscalYearEnd','regularMarketTime','regularMarketPrice','lastSplitFactor','lastSplitDate']
+          series=['TotalRevenue','OperatingIncome','GrossProfit','NetIncome','OperatingCashFlow','CapitalExpenditure','DepreciationAndAmortization','CashCashEquivalentsAndShortTermInvestments','CashAndCashEquivalents','TotalDebt','DilutedAverageShares','BasicAverageShares','OrdinarySharesNumber']
+          result=[]
+          for ticker in tickers:
+              t=yf.Ticker(ticker);d=frame(ticker);d.to_csv(OUT/f'{ticker}_daily.csv');r={'ticker':ticker,'technical':tech(d),'errors':{}}
+              try:info=t.get_info();r['info']={k:info.get(k) for k in keys}
+              except Exception as e:r['info']={};r['errors']['info']=str(e)
+              for name,fn in [('income_quarterly',lambda:t.get_income_stmt(freq='quarterly')),('balance_quarterly',lambda:t.get_balance_sheet(freq='quarterly')),('cashflow_quarterly',lambda:t.get_cashflow(freq='quarterly')),('income_annual',lambda:t.get_income_stmt(freq='yearly')),('balance_annual',lambda:t.get_balance_sheet(freq='yearly')),('cashflow_annual',lambda:t.get_cashflow(freq='yearly')),('revenue_estimate',t.get_revenue_estimate),('eps_trend',t.get_eps_trend),('earnings_estimate',t.get_earnings_estimate)]:
+                  try:r[name]=fj(fn())
+                  except Exception as e:r[name]={};r['errors'][name]=str(e)
+              try:
+                  url=f'https://query1.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/{ticker}'
+                  params={'symbol':ticker,'type':','.join('quarterly'+s for s in series),'period1':int(pd.Timestamp('2023-06-01',tz='UTC').timestamp()),'period2':int(pd.Timestamp('2026-09-05',tz='UTC').timestamp())}
+                  r['extended_quarterly']=t._data.get_raw_json(url,params=params)
+              except Exception as e:r['errors']['extended_quarterly']=str(e)
+              r['retrieved_at']=datetime.now(timezone.utc).isoformat();save(f'{ticker}.json',r);result.append(r)
+              print(json.dumps({'ticker':ticker,'price':r['technical'].get('price'),'marketcap':r['info'].get('marketCap'),'errors':list(r['errors'])}),flush=True)
+              time.sleep(.2)
+          save('collection.json',{'market_session':'2026-09-04','retrieved_at':datetime.now(timezone.utc).isoformat(),'benchmarks':bench,'stocks':result,'official_scores':False})
+          for name in ['research_scoring.py','final_list.json']:
+              p=Path('multi-bagger-dashboard')/name;shutil.copy(p,OUT/name)
+          for name in ['inputs.json','calculated.json','sources.json','methodology.md']:
+              p=Path('multi-bagger-dashboard/research/2026-09-06')/name;shutil.copy(p,OUT/('baseline_'+name))
+          save('checks.json',{'price_date_exact':sum(r['technical'].get('price_date')=='2026-09-04' for r in result),'stocks':len(result),'scoring_code_sha256':hashlib.sha256((OUT/'research_scoring.py').read_bytes()).hexdigest(),'production_modified':False,'versions':{'yfinance':yf.__version__,'pandas':pd.__version__}})
+          assert all(r['technical'].get('price_date')=='2026-09-04' for r in result)
+          PY
+      - name: Verify no tracked files changed
+        run: git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshot12-multibagger-evidence
+          path: screenshot12_evidence/
+          retention-days: 30
