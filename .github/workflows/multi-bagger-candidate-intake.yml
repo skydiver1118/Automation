@@ -1,0 +1,61 @@
+name: Add Multi Bagger Candidate
+on:
+  workflow_dispatch:
+    inputs:
+      ticker:
+        type: string
+        required: true
+        description: New symbol; always enters Candidates, never Action directly
+      reason:
+        type: string
+        required: true
+        description: Why this stock merits research
+permissions:
+  contents: write
+concurrency:
+  group: stock-project-v2-daily
+  cancel-in-progress: false
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TICKER: ${{ inputs.ticker }}
+      REASON: ${{ inputs.reason }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r multi-bagger-dashboard/requirements.txt
+      - name: Candidate-only intake
+        run: python multi-bagger-dashboard/watchlist.py add "$TICKER" --reason "$REASON"
+      - name: Validate and stage independent dashboard
+        run: |
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Commit only Candidate registry and monitoring history
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add multi-bagger-dashboard/watchlist_registry.json multi-bagger-dashboard/monitoring
+          git commit -m 'Multi Bagger: candidate-first intake'
+          git pull --rebase origin main
+          git push origin HEAD:main
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Publish only Multi Bagger
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.multi-bagger-pages
+          publish_branch: gh-pages
+          destination_dir: multi-bagger
+          keep_files: true
+          force_orphan: false
+          enable_jekyll: false
