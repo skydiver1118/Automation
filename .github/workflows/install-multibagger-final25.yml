@@ -1,0 +1,94 @@
+name: Install Multi Bagger 25
+on:
+  push:
+    branches: ['feature/multibagger-final25-20260906']
+    paths: ['.github/workflows/install-multibagger-final25.yml']
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/multibagger-final25-20260906
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify hashes and unpack scoped source files
+        shell: bash
+        run: |
+          python - <<'PY'
+          import base64,hashlib,json,lzma
+          from pathlib import Path,PurePosixPath
+          chunks=[Path(f'.migration/mb25/part{i}.b64').read_text().strip() for i in range(4)]
+          for i,c in enumerate(chunks): print('part',i,'length',len(c),'sha256',hashlib.sha256(c.encode()).hexdigest())
+          packed=base64.b64decode(''.join(chunks),validate=True)
+          assert hashlib.sha256(packed).hexdigest()=='a10b7229ae528da29e3aaec807b331d100fbc314a7426daa9d08a40f8acdfbaf','Compressed payload hash mismatch'
+          raw=lzma.decompress(packed)
+          assert hashlib.sha256(raw).hexdigest()=='65d1fc701a2b02c303d9c64cb213a9084c618ba5daab236df2d4764aba786c3f','Source payload hash mismatch'
+          files=json.loads(raw)
+          exact={'.github/workflows/multi-bagger-dashboard.yml','stock-project-v2/scripts/store_multibagger_pass_scores.py','stock-project-v2/data/multi_bagger/schemas/pass_scores.schema.json'}
+          assert len(files)==16
+          for name,text in files.items():
+              p=PurePosixPath(name)
+              assert not p.is_absolute() and '..' not in p.parts
+              assert name.startswith('multi-bagger-dashboard/') or name in exact,name
+              assert isinstance(text,str)
+          archive={}
+          for p in Path('stock-project-v2/data/multi_bagger/pass_scores').glob('20*.json'): archive[str(p)]=hashlib.sha256(p.read_bytes()).hexdigest()
+          Path('/tmp/mb25-old-archive.json').write_text(json.dumps(archive))
+          for name,text in files.items():
+              p=Path(name);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(text,encoding='utf-8')
+          print('Verified and installed',len(files),'scoped source files')
+          PY
+      - name: Install validation dependencies
+        run: pip install -r multi-bagger-dashboard/requirements.txt
+      - name: Recompute final 25 and append immutable snapshot
+        run: python multi-bagger-dashboard/build_final25.py
+      - name: Run all 17 data and regression tests
+        run: |
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
+      - name: Rebuild and syntax-check standalone dashboard
+        run: |
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Verify old history and separate Stock V2 are untouched
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib,json,subprocess
+          from pathlib import Path
+          old=json.loads(Path('/tmp/mb25-old-archive.json').read_text())
+          for name,h in old.items(): assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h,name
+          changed=subprocess.check_output(['git','diff','--name-only'],text=True).splitlines()
+          for p in changed:
+              assert p.startswith(('multi-bagger-dashboard/','stock-project-v2/data/multi_bagger/','stock-project-v2/reports/multi_bagger/')) or p in ['stock-project-v2/scripts/store_multibagger_pass_scores.py','.github/workflows/multi-bagger-dashboard.yml'],p
+          print('Preserved',len(old),'historical snapshots; no Stock Project V2 ranking/config/dashboard changes')
+          PY
+      - name: Retain validated site evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: multibagger-final25-validated-site
+          path: .multi-bagger-pages/
+          retention-days: 14
+      - name: Remove temporary migration and commit permanent implementation
+        shell: bash
+        run: |
+          rm -rf .migration/mb25
+          rm -f .github/workflows/prepare-multibagger-final25.yml .github/workflows/collect-multibagger-membership.yml .github/workflows/install-multibagger-final25.yml
+          find multi-bagger-dashboard stock-project-v2/scripts stock-project-v2/tests -type d -name __pycache__ -prune -exec rm -rf {} +
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add multi-bagger-dashboard stock-project-v2/data/multi_bagger stock-project-v2/reports/multi_bagger stock-project-v2/scripts/store_multibagger_pass_scores.py
+          git diff --cached --stat
+          git commit -m 'Multi Bagger: expand final list to 25, archive research evidence, and rebuild independent dashboard'
+          git push origin HEAD:feature/multibagger-final25-20260906
