@@ -196,7 +196,41 @@ def render_history(existing, new):
         seen[key]=row; rows.append(row)
     out=io.StringIO(newline=""); writer=csv.DictWriter(out, fieldnames=HISTORY_COLUMNS, lineterminator="\n"); writer.writeheader(); writer.writerows(rows); return out.getvalue()
 
+def render_research_report(snapshot):
+    def fmt(v):return '—' if v is None else f'{v:.1f}'
+    def pct(v):return '—' if v is None else f'{100*v:.1f}%'
+    lines=[f"# Multi Bagger Final {snapshot['universe_size']} — {snapshot_id(snapshot)}",'',
+      f"Market session: {snapshot['market_session_date']} regular-session close. Data collected: {snapshot['generated_at']}. Watchlist publication prepared: {snapshot['recorded_at']}.",'',
+      '**Research calibration, not reproduced official scores.** All five new names were added; all prior 20 retained. No Stock Project V2 data or scoring changes. No P(5x) probability model has been calibrated.','',
+      '| Rank | Ticker | Price | Market cap | MB research | E&V research | Technical research | MB coverage | E&V coverage | New |',
+      '|---:|---|---:|---:|---:|---:|---:|---:|---:|---|']
+    for s in snapshot['stocks']:
+        r=s['metadata']['research']
+        lines.append(f"| {s['rank']} | {s['ticker']} | ${r['price']:,.2f} | {s['market_cap_display']} | {fmt(r['research_mb_score'])} | {fmt(r['research_ev_score'])} | {fmt(r['technical_score'])} | {pct(r['mb_input_weight_coverage'])} | {pct(r['ev_input_weight_coverage'])} | {'Yes' if s['metadata']['new_member'] else ''} |")
+    lines+=['','E&V with 70% input coverage is valuation-only, not a complete E&V comparison. Coverage is input weight, NOT completion of the six research passes.','', '## Changes', '', 'Additions: '+', '.join(snapshot['changes']['top20_additions'])+'. Removals: none.','Score and rank deltas against the older calibration: not comparable (not zero).','Legacy preferred-entry ranges hit at the September 4 close: '+', '.join(snapshot['changes']['entry_zone_hits'])+'.']
+    for s in snapshot['stocks']:
+        m=s['metadata'];r=m['research'];t=m['technical'];zone=s['entry_zone'];prior=m.get('prior_archive')
+        lines+=['',f"## {s['ticker']} — {m['company']['name']}",'',f"**{s['action']}**. Thesis: {s['thesis_status']}. Data confidence: {s['data_confidence']}. Final watchlist member: yes.",
+         f"Sector: {m['sector']}; sector trend: {m['sector_trend']} (analyst judgment). {m['sector_drivers_risks']}",'',s['thesis_note'],'',
+         f"Preferred entry: {zone['display']} ({zone['hit_status']}). {zone.get('qualifier') or ''}",
+         f"Chart references only: 20-day low ${t['low20']:.2f}; 20-day high ${t['high20']:.2f}; 20/50/200-day averages ${t['ma20']:.2f}/${t['ma50']:.2f}/${t['ma200']:.2f}. RSI14 {t['rsi14']:.1f}, MACD histogram {t['macd_hist']:.4f}, ADX14 {t['adx14']:.1f}.",
+         f"Sensitivity rank: {r['weight_rank_low']}–{r['weight_rank_high']}. Missing-input score bounds: {fmt(r['unknown_lower_bound'])}–{fmt(r['unknown_upper_bound'])}. These are not statistical confidence intervals.",'',
+         '### Financial and expectation inputs','', '| Metric | Value |','|---|---:|']
+        for k in ['financial_period_end','revenue_ttm','gross_profit_ttm','operating_income_ttm','cfo_ttm','capex_ttm','fcf_ttm','cash','debt','current_growth','current_growth_basis','next_year_growth','next_year_revenue','eps_revision90','dilution_yoy','dilution_basis','ev_forward_gp','fcf_yield']:
+            v=r.get(k);lines.append(f"| {k} | {'—' if v is None else v} |")
+        lines+=['','### ETF / index evidence','',m['membership_confidence']]
+        for h in m['etf_holdings']:lines.append(f"- {h['fund']}: {h['weight_pct']}%; {h['as_of']}; benchmark {h['benchmark']}. [Primary holdings]({h['source']})")
+        lines+=['','### Audit findings','']+['- '+x for x in r['issues']]
+        lines+=['','### Six-pass scope','']
+        for key,p in s['passes'].items():lines.append(f"- {key}: {p['status']}. {' '.join(p['findings'])} Remaining: {', '.join(p['missing_fields']) or 'None for the research technical calculation.'}")
+        if prior:lines+=['',f"Prior archive ({prior['run_date']}, different calibration): rank {prior['rank']}, MB {prior['mb']}, E&V {prior['ev']}, technical {prior['technical']}. Not comparable with this run's research scores."]
+        lines+=['','### Sources','']+[f"- [{x['source_kind']}]({x['locator']})" for x in m['sources']]
+    lines+=['','## Limitations','']+['- '+x for x in snapshot['record_limitations']]
+    return '\n'.join(lines)+'\n'
+
 def render_report(snapshot):
+    if snapshot.get("metadata", {}).get("display_mode") == "common_calibration_research":
+        return render_research_report(snapshot)
     lines=[f"# Multi Bagger Pass-Score Snapshot — {snapshot_id(snapshot)}", "", f"- Run date: `{snapshot['run_date']}`", f"- Market session used: `{snapshot['market_session_date']}`",
         f"- Methodology: `{snapshot['methodology_version']}`", f"- Run type: `{snapshot['run_type']}`", f"- Price basis: {snapshot['price_basis']}", "", "## Rankings and pass scores", "",
         "| Rank | Ticker | Market cap | MB | E&V | P1 | P2 | P3 | P4 | P5 | P6 | P(5×) | Action | Confidence |",
