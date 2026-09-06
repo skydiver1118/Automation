@@ -4,19 +4,38 @@
       "id": "2026-09-03",
       "count": 20,
       "methodology": "multi-bagger-v2.1",
-      "market_session_date": "2026-09-02"
+      "market_session_date": "2026-09-02",
+      "path": "./data/pass_scores/2026-09-03.json"
     },
     {
       "id": "2026-09-04",
       "count": 20,
       "methodology": "multi-bagger-v2.2",
-      "market_session_date": "2026-09-03"
+      "market_session_date": "2026-09-03",
+      "path": "./data/pass_scores/2026-09-04.json"
     },
     {
       "id": "2026-09-06",
       "count": 25,
       "methodology": "MB25_RESEARCH_V1_20260906",
-      "market_session_date": "2026-09-04"
+      "market_session_date": "2026-09-04",
+      "path": "./data/pass_scores/2026-09-06.json"
+    },
+    {
+      "id": "2026-09-06T191051Z-membership_migration",
+      "count": 30,
+      "methodology": "MB25_RESEARCH_V1_20260906",
+      "market_session_date": "2026-09-04",
+      "path": "./monitoring/runs/2026-09-06T191051Z-membership_migration.json",
+      "mode": "membership_migration"
+    },
+    {
+      "id": "2026-09-06T191052Z-weekly",
+      "count": 30,
+      "methodology": "MB25_RESEARCH_V1_20260906",
+      "market_session_date": "2026-09-04",
+      "path": "./monitoring/runs/2026-09-06T191052Z-weekly.json",
+      "mode": "weekly"
     }
   ]
 }
