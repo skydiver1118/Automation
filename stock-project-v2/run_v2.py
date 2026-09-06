@@ -201,7 +201,7 @@ def main():
     output_cols=["rank","ticker","asset_type","price","market_cap","long_term_score","short_term_score","buy_now_score","valuation_score","quality_score","growth_score","revision_score","technical_score","relative_strength_score","rsi14","macd_hist","adx14","dist_20dma","dist_50dma","dist_200dma","rs_1m","rs_3m","rs_6m","rs_12m","forward_revenue_growth","forward_eps_growth","eps_revision_signal","forward_pe","ev_sales","ev_ebitda","fcf_yield","fcf_margin","roic_proxy","gross_margin","operating_margin","debt_to_equity","macd_hist_pct","volume_ratio_20d","as_of","scoring_version","universe_size","image_mentions"]
     df["scoring_version"]=CONFIG.get("scoring_version","2.1")
     df["universe_size"]=len(CONFIG["universe"])
-    df["image_mentions"]=df["ticker"].map(CONFIG.get("image_mentions",{}).get("counts",{})).fillna(0).astype(int)
+    df["image_mentions"]=df["ticker"].map(CONFIG.get("image_mentions",{}).get("all_counts",{})).fillna(0).astype(int)
     for c in output_cols:
         if c not in df.columns:df[c]=np.nan
     # Archive the earlier same-session result before changing the universe or methodology.
