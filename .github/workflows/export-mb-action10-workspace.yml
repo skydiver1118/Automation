@@ -1,0 +1,31 @@
+name: Export Multi Bagger Action10 workspace
+on:
+  push:
+    branches: ['feature/mb-action10-candidate-first']
+    paths: ['.github/workflows/export-mb-action10-workspace.yml']
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: |
+            multi-bagger-dashboard
+            stock-project-v2/data/multi_bagger
+            stock-project-v2/reports/multi_bagger
+            stock-project-v2/scripts
+            stock-project-v2/tests
+            .github/workflows
+      - run: |
+          mkdir workspace
+          git archive HEAD multi-bagger-dashboard stock-project-v2/data/multi_bagger stock-project-v2/reports/multi_bagger stock-project-v2/scripts stock-project-v2/tests .github/workflows > workspace/source.tar
+          git rev-parse HEAD > workspace/commit.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mb-action10-workspace
+          path: workspace/
+          retention-days: 7
