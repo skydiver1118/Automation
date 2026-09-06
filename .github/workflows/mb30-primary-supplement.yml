@@ -1,0 +1,62 @@
+name: MB30 primary evidence supplement
+on:
+  push:
+    branches: ['fix/mb30-evidence-gated-scores']
+    paths: ['.github/workflows/mb30-primary-supplement.yml']
+permissions:
+  contents: read
+jobs:
+  supplement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - name: Fetch independently identified filing URLs and parse consolidated facts
+        run: |
+          python - <<'PY'
+          import sys,json,hashlib,concurrent.futures
+          from pathlib import Path
+          from datetime import datetime,timezone
+          import requests
+          sys.path.insert(0,'multi-bagger-dashboard')
+          from collect_filing_facts import parse
+          out=Path('supplement30');out.mkdir()
+          docs=[
+          ('IREN','10-K','1878848/000187884826000052/iren-20260630.htm'),
+          ('IREN','10-K','1878848/000187884825000063/iren-20250630.htm'),
+          ('ETN','10-Q','1551182/000155118225000036/etn-20250930.htm'),
+          ('ZETA','10-K','1851003/000119312526068598/zeta-20251231.htm'),
+          ('KTOS','10-K','1069258/000106925826000013/ktos-20251228.htm'),
+          ('KTOS','10-Q','1069258/000106925826000077/ktos-20260628.htm'),
+          ('EVLV','10-K','1805385/000180538526000012/evlv-20251231.htm'),
+          ('EOSE','10-Q','1805077/000162828026052906/eose-20260630.htm'),
+          ('QBTS','10-Q','1907982/000190798226000129/qbts-20260630.htm'),
+          ('SMR','10-Q','1822966/000182296626000085/smr-20260630.htm'),
+          ('OKLO','10-Q','1849056/000162828026054571/oklo-20260630.htm'),
+          ('RZLV','6-K exhibit','1920294/000119312526378541/rzlv-ex99_1.htm'),
+          ('SSII','6-K exhibit','1676163/000121390026088726/ea030188701ex99-1.htm'),
+          ('RR','10-Q','1963685/000121390026091798/ea0302286-10q_richtech.htm')]
+          def run(item):
+              t,form,path=item;cik,acc,file=path.split('/');url=f'https://cdn.yahoofinance.com/prod/sec-filings/{int(cik):010d}/{acc}/{file}'
+              rec={'ticker':t,'form':form,'document':form,'filed':None,'sec_url':'https://www.sec.gov/Archives/edgar/data/'+path,'mirror_url':url,'retrieved_at':datetime.now(timezone.utc).isoformat(),'status':'unavailable'}
+              try:
+                  r=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=25);r.raise_for_status();rec.update(parse(r.text));rec.update({'sha256':hashlib.sha256(r.content).hexdigest(),'status':'retrieved','bytes':len(r.content),'date_note':'Filing date not inferred from the period end. URL independently found; facts disclosed before study cutoff.'})
+                  (out/(t+'-'+acc+'.html')).write_bytes(r.content)
+              except Exception as e:rec['error']=str(e)
+              (out/(t+'-'+acc+'.json')).write_text(json.dumps(rec))
+              print(t,acc,rec['status'],len(rec.get('facts',[])),flush=True);return rec
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:result=list(pool.map(run,docs))
+          (out/'ledger.json').write_text(json.dumps({'documents':result,'cutoff':'2026-09-06'}))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mb30-primary-supplement
+          path: supplement30/
+          retention-days: 14
