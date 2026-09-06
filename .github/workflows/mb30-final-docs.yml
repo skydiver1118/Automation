@@ -1,0 +1,43 @@
+name: MB30 latest document crosscheck
+on:
+  push:
+    branches: ['fix/mb30-evidence-gated-scores']
+    paths: ['.github/workflows/mb30-final-docs.yml']
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - run: |
+          python - <<'PY'
+          import sys,json,hashlib
+          from pathlib import Path
+          from datetime import datetime,timezone
+          import requests
+          sys.path.insert(0,'multi-bagger-dashboard');from collect_filing_facts import parse
+          out=Path('latest30');out.mkdir();result=[]
+          docs=[('EVLV','10-Q','1805385/000180538526000049/evlv-20260630.htm'),('SOUN','10-K','1840856/000184085626000006/soun-20251231.htm'),('BKSY','10-Q','1753539/000175353926000124/bksy-20260630.htm'),('WULF','10-Q','1083301/000108330126000166/wulf-20260630.htm'),('EOSE','10-K','1805077/000162828026011961/eose-20251231.htm')]
+          for t,form,path in docs:
+              cik,acc,file=path.split('/');url=f'https://cdn.yahoofinance.com/prod/sec-filings/{int(cik):010d}/{acc}/{file}'
+              rec={'ticker':t,'filed':None,'form':form,'document':form,'sec_url':'https://www.sec.gov/Archives/edgar/data/'+path,'mirror_url':url,'retrieved_at':datetime.now(timezone.utc).isoformat(),'status':'unavailable'}
+              try:
+                  res=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=25);res.raise_for_status();rec.update(parse(res.text));rec['sha256']=hashlib.sha256(res.content).hexdigest();rec['status']='retrieved';(out/(t+'-'+acc+'.html')).write_bytes(res.content)
+              except Exception as e:rec['error']=str(e)
+              result.append(rec);print(t,rec['status'],flush=True)
+          (out/'ledger.json').write_text(json.dumps({'cutoff':'2026-09-06','documents':result}))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mb30-latest-documents
+          path: latest30/
+          retention-days: 14
