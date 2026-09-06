@@ -37,7 +37,7 @@ def explanation(rating: str, quality: str, eligible: bool) -> str:
     if not eligible:
         return f"No short-put SELL: long-term rating is {rating}; BUY/STRONG BUY is required."
     if quality in {"EXCELLENT", "GOOD"}:
-        return "Long-term ownership gate passes; equity timing is favorable. Option trade still needs its own premium/IV/risk gates."
+        return "Long-term ownership gate passes; the model entry score is favorable. Price location, support and risk checks remain separate. Options still need their own premium/IV/risk gates."
     return "Long-term ownership gate passes, but equity timing is not ideal. Option dashboard may remain WAIT."
 
 
@@ -56,7 +56,7 @@ def main_panel(df: pd.DataFrame) -> str:
     return """<section class='panel' id='decision-model'><div class='panel-head'><div><h2>Ownership vs entry decision model</h2><div class='sub'>Long-Term Rating answers whether the business is attractive to own. Entry Quality answers whether equity timing is favorable. A short-put SELL is permitted only for BUY / STRONG BUY stocks, then the options engine applies separate execution gates.</div></div></div><div class='table-wrap'><table><thead><tr><th>Ticker</th><th>Long-Term Rating</th><th>Entry Quality</th><th>Put eligible</th><th style='text-align:left'>Interpretation</th></tr></thead><tbody>""" + "".join(rows) + "</tbody></table></div></section>"
 
 
-def detail_panel(row, canonical: dict) -> str:
+def detail_panel(row, canonical: dict, setup: dict | None = None) -> str:
     rating, es, quality, eligible = state(row)
     t = str(row["ticker"])
     c = (canonical.get("stocks") or {}).get(t, {})
@@ -66,7 +66,15 @@ def detail_panel(row, canonical: dict) -> str:
     key_support = support.get("key_support")
     sentiment = (c.get("diagnostic_sentiment") or {}).get("label") or "—"
     support_text = f"${float(key_support):,.2f}" if key_support is not None else "—"
-    return f"""<section class='panel' id='signal-reconciliation'><div class='panel-head'><div><h2>Signal reconciliation</h2><div class='sub'>Ownership conviction and execution timing are intentionally separate.</div></div></div><div class='grid kpis'><div class='kpi'><div class='label'>Long-Term Rating</div><div class='value'>{html.escape(rating)} · {score(row.get('long_term_score'))}</div></div><div class='kpi'><div class='label'>Entry Quality</div><div class='value'>{html.escape(quality)} · {score(es)}</div></div><div class='kpi'><div class='label'>Short-put ownership gate</div><div class='value {'excellent' if eligible else 'weak'}'>{'ELIGIBLE' if eligible else 'NO TRADE'}</div></div><div class='kpi'><div class='label'>Canonical trend / support</div><div class='value'>{html.escape(str(trend))}</div><div class='sub'>{support_text} · sentiment {html.escape(str(sentiment))}</div></div></div><div class='sub'>{html.escape(explanation(rating, quality, eligible))}</div></section>"""
+    practical=""
+    if setup:
+        entry=setup.get("entry",{})
+        zone=entry.get("entry_zone") or []
+        band=f"${zone[0]:,.2f}–${zone[1]:,.2f}" if len(zone)==2 else "Unavailable"
+        stop=entry.get("stop_reference")
+        stop_text=f"${stop:,.2f}" if stop is not None else "Unavailable"
+        practical=f"<div style='margin-top:16px;padding:14px;background:#0b1423;border-left:3px solid #65a7ff'><b>Practical setup: {html.escape(setup['state'])}</b><p>Support entry band: {band} · Stop reference: {stop_text} · Inputs present: {setup['coverage']}%</p><p>What needs attention: {html.escape('; '.join(setup.get('risks',[])))}</p><small>Model entry quality measures the score; practical setup also checks price location and data coverage. A technical stop reference does not guarantee an exit price.</small></div>"
+    return f"""<section class='panel' id='signal-reconciliation'><div class='panel-head'><div><h2>Signal reconciliation</h2><div class='sub'>Ownership conviction and execution timing are intentionally separate.</div></div></div><div class='grid kpis'><div class='kpi'><div class='label'>Long-Term Rating</div><div class='value'>{html.escape(rating)} · {score(row.get('long_term_score'))}</div></div><div class='kpi'><div class='label'>Entry Quality</div><div class='value'>{html.escape(quality)} · {score(es)}</div></div><div class='kpi'><div class='label'>Short-put ownership gate</div><div class='value {'excellent' if eligible else 'weak'}'>{'ELIGIBLE' if eligible else 'NO TRADE'}</div></div><div class='kpi'><div class='label'>Canonical trend / support</div><div class='value'>{html.escape(str(trend))}</div><div class='sub'>{support_text} · sentiment {html.escape(str(sentiment))}</div></div></div><div class='sub'>{html.escape(explanation(rating, quality, eligible))}</div>{practical}</section>"""
 
 
 def main() -> int:
@@ -93,6 +101,9 @@ def main() -> int:
         page = page.replace(marker, main_panel(df) + marker, 1)
     index.write_text(page, encoding="utf-8")
 
+    overview_path=DASH/"investment-data.json"
+    overview=json.loads(overview_path.read_text()) if overview_path.exists() else {}
+    setups={r["ticker"]:r for r in overview.get("records",[])} if overview.get("as_of")==str(df["as_of"].iloc[0]) else {}
     by_ticker = df.set_index("ticker")
     for ticker, row in by_ticker.iterrows():
         path = STOCKS / f"{ticker}.html"
@@ -105,7 +116,7 @@ def main() -> int:
         marker2 = "<div class='grid detail-grid'>"
         if "id='signal-reconciliation'" not in p and marker2 in p:
             row = row.copy(); row["ticker"] = ticker
-            p = p.replace(marker2, detail_panel(row, canonical) + marker2, 1)
+            p = p.replace(marker2, detail_panel(row, canonical, setups.get(ticker)) + marker2, 1)
         path.write_text(p, encoding="utf-8")
     print("Applied Long-Term Rating / Entry Quality UI and reconciliation panels.")
     return 0
