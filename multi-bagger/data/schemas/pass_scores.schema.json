@@ -1,0 +1,550 @@
+{
+  "$defs": {
+    "passRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "completion_pct": {
+          "oneOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confidence": {
+          "oneOf": [
+            {
+              "enum": [
+                "high",
+                "medium_high",
+                "medium",
+                "low_medium",
+                "low",
+                "unknown"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "findings": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "metadata": {
+          "type": "object"
+        },
+        "missing_fields": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "score": {
+          "oneOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "incomplete",
+            "not_applicable",
+            "legacy_not_captured",
+            "legacy_score_only"
+          ]
+        }
+      },
+      "required": [
+        "status",
+        "score",
+        "completion_pct",
+        "confidence",
+        "source_ids",
+        "findings",
+        "missing_fields"
+      ],
+      "type": "object"
+    },
+    "stock": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "data_confidence": {
+          "enum": [
+            "high",
+            "medium_high",
+            "medium",
+            "low_medium",
+            "low",
+            "unknown"
+          ]
+        },
+        "entry_zone": {
+          "additionalProperties": false,
+          "properties": {
+            "display": {
+              "type": "string"
+            },
+            "high": {
+              "oneOf": [
+                {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "hit_status": {
+              "enum": [
+                "hit",
+                "not_hit",
+                "below",
+                "above",
+                "unknown",
+                "no_zone"
+              ]
+            },
+            "low": {
+              "oneOf": [
+                {
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "qualifier": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "display",
+            "low",
+            "high",
+            "qualifier",
+            "hit_status"
+          ],
+          "type": "object"
+        },
+        "expectation_valuation_score": {
+          "oneOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expectation_valuation_score_delta": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "market_cap_display": {
+          "type": "string"
+        },
+        "market_cap_usd": {
+          "oneOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "multi_bagger_score": {
+          "oneOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "multi_bagger_score_delta": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "passes": {
+          "additionalProperties": false,
+          "properties": {
+            "pass_1_primary_source_inventory": {
+              "$ref": "#/$defs/passRecord"
+            },
+            "pass_2_financial_reconstruction": {
+              "$ref": "#/$defs/passRecord"
+            },
+            "pass_3_forward_expectations": {
+              "$ref": "#/$defs/passRecord"
+            },
+            "pass_4_risk_moat_sector_review": {
+              "$ref": "#/$defs/passRecord"
+            },
+            "pass_5_technical_review": {
+              "$ref": "#/$defs/passRecord"
+            },
+            "pass_6_adversarial_audit": {
+              "$ref": "#/$defs/passRecord"
+            }
+          },
+          "required": [
+            "pass_1_primary_source_inventory",
+            "pass_2_financial_reconstruction",
+            "pass_3_forward_expectations",
+            "pass_4_risk_moat_sector_review",
+            "pass_5_technical_review",
+            "pass_6_adversarial_audit"
+          ],
+          "type": "object"
+        },
+        "probability_5x_pct": {
+          "oneOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rank": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "rank_delta": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "thesis_note": {
+          "type": "string"
+        },
+        "thesis_status": {
+          "enum": [
+            "strengthened",
+            "intact",
+            "intact_with_caveats",
+            "weakened",
+            "broken",
+            "under_review",
+            "legacy_note_only"
+          ]
+        },
+        "ticker": {
+          "pattern": "^[A-Z0-9.\\-]{1,15}$",
+          "type": "string"
+        },
+        "weekly_technical_score": {
+          "oneOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weekly_technical_score_delta": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Research metrics and sourced detail; never an unlabelled official-score replacement."
+        }
+      },
+      "required": [
+        "ticker",
+        "rank",
+        "rank_delta",
+        "market_cap_usd",
+        "market_cap_display",
+        "multi_bagger_score",
+        "multi_bagger_score_delta",
+        "expectation_valuation_score",
+        "expectation_valuation_score_delta",
+        "weekly_technical_score",
+        "weekly_technical_score_delta",
+        "probability_5x_pct",
+        "data_confidence",
+        "action",
+        "thesis_status",
+        "thesis_note",
+        "entry_zone",
+        "passes"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://skydiver1118.github.io/Automation/stock-project-v2/data/multi_bagger/schemas/pass_scores.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "changes": {
+      "additionalProperties": false,
+      "properties": {
+        "entry_zone_hits": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "index_etf_changes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "notes": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "top20_additions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "top20_removals": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "top20_additions",
+        "top20_removals",
+        "index_etf_changes",
+        "entry_zone_hits",
+        "notes"
+      ],
+      "type": "object"
+    },
+    "corrections": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "corrected_value": {},
+          "field": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "prior_value": {},
+          "reason": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "ticker": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "ticker",
+          "field",
+          "prior_value",
+          "corrected_value",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "generated_at": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "market_session_date": {
+      "format": "date",
+      "type": "string"
+    },
+    "methodology_version": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "price_basis": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "record_limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "recorded_at": {
+      "oneOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "run_date": {
+      "format": "date",
+      "type": "string"
+    },
+    "run_type": {
+      "enum": [
+        "regular_refresh",
+        "research_rerun",
+        "correction",
+        "legacy_import"
+      ]
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "snapshot_revision": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "source_time_precision": {
+      "enum": [
+        "exact",
+        "date_only",
+        "legacy_unknown"
+      ]
+    },
+    "stocks": {
+      "items": {
+        "$ref": "#/$defs/stock"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "universe_size": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional provenance/display extensions; archival scores are not recalibrated."
+    }
+  },
+  "required": [
+    "schema_version",
+    "methodology_version",
+    "run_date",
+    "snapshot_revision",
+    "market_session_date",
+    "run_type",
+    "generated_at",
+    "recorded_at",
+    "source_time_precision",
+    "price_basis",
+    "universe_size",
+    "changes",
+    "corrections",
+    "record_limitations",
+    "stocks"
+  ],
+  "title": "Multi Bagger Pass-Score Snapshot",
+  "type": "object"
+}

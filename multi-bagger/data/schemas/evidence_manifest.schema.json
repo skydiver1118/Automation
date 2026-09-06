@@ -1,0 +1,120 @@
+{
+  "$defs": {
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "content_sha256": {
+          "oneOf": [
+            {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locator": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notes": {
+          "type": "string"
+        },
+        "retrieved_at": {
+          "oneOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_date": {
+          "oneOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source_type": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "source_type",
+        "title",
+        "source_date",
+        "retrieved_at",
+        "locator",
+        "content_sha256",
+        "notes"
+      ],
+      "type": "object"
+    }
+  },
+  "$id": "https://skydiver1118.github.io/Automation/stock-project-v2/data/multi_bagger/schemas/evidence_manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "run_date": {
+      "format": "date",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "snapshot_revision": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "sources": {
+      "items": {
+        "$ref": "#/$defs/source"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_date",
+    "snapshot_revision",
+    "sources",
+    "limitations"
+  ],
+  "title": "Multi Bagger Evidence Manifest",
+  "type": "object"
+}
