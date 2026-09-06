@@ -1,0 +1,70 @@
+name: MB30 eight-quarter history supplement
+on:
+  push:
+    branches: ['fix/mb30-evidence-gated-scores']
+    paths: ['.github/workflows/mb30-history-supplement.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - uses: actions/download-artifact@v4
+        with:
+          name: mb30-missing-evidence
+          run-id: 34056884578
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: evidence30
+      - uses: actions/download-artifact@v4
+        with:
+          name: mb30-primary-ledger
+          run-id: 34057400573
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: primary30
+      - name: Retrieve only identified missing interim documents
+        run: |
+          python - <<'PY'
+          import sys,json,hashlib,concurrent.futures
+          from pathlib import Path
+          from datetime import datetime,timezone
+          import requests
+          sys.path.insert(0,'multi-bagger-dashboard');from collect_filing_facts import parse
+          old=json.loads(Path('primary30/ledger.json').read_text());seen={d['mirror_url'] for d in old['documents']};jobs=[];out=Path('history30');out.mkdir()
+          for p in Path('evidence30').glob('*/vendor.json'):
+              t=p.parent.name
+              for f in json.loads(p.read_text()).get('sec_filings',[]):
+                  if not '2024-05-01'<=f['date']<='2026-09-06':continue
+                  if f['type']=='10-Q':keys=['10-Q']
+                  elif f['type']=='6-K':keys=[k for k in f.get('exhibits',{}) if k in ['EX-99.1','EX-99.2','EX-99.3']]
+                  else:continue
+                  for key in keys:
+                      url=f.get('exhibits',{}).get(key)
+                      if url and url not in seen and not url.lower().endswith('.pdf'):jobs.append((t,f['date'],f['type'],key,url));seen.add(url)
+          def get(j):
+              t,date,form,key,url=j;rec={'ticker':t,'filed':date,'form':form,'document':key,'mirror_url':url,'retrieved_at':datetime.now(timezone.utc).isoformat(),'status':'unavailable'}
+              tail=url.split('/sec-filings/')[-1].split('/');rec['sec_url']='https://www.sec.gov/Archives/edgar/data/'+str(int(tail[0]))+'/'+tail[1]+'/'+tail[-1]
+              try:
+                  r=requests.get(url,headers={'User-Agent':'Mozilla/5.0'},timeout=20);r.raise_for_status();rec.update(parse(r.text));rec['sha256']=hashlib.sha256(r.content).hexdigest();rec['status']='retrieved'
+                  (out/(t+'-'+tail[1]+'-'+key+'.html')).write_bytes(r.content)
+              except Exception as e:rec['error']=str(e)[:180]
+              print(t,date,form,key,rec['status'],flush=True);return rec
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:result=list(pool.map(get,jobs))
+          (out/'ledger.json').write_text(json.dumps({'cutoff':'2026-09-06','documents':result}))
+          print('Additional documents',len(result))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-history-supplement
+          path: history30/
+          retention-days: 14
