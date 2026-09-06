@@ -1,34 +1,132 @@
-# Multi Bagger Final 25
+# Multi Bagger — Action 10 + Candidate Bench
 
-Published independently at `https://skydiver1118.github.io/Automation/multi-bagger/`.
-Stock Project V2 remains at `/Automation/stock-project-v2/`; neither its universe nor scoring is changed.
+Published path remains `/Automation/multi-bagger/`. Stock Project V2's universe,
+engine, dashboard and workflow are separate and are not changed by these jobs.
 
-## Final membership
+## User-approved membership
 
-`final_list.json` is the authoritative **25-member** registry. The five approved additions are KTOS, AVAV, HUBB, VST and ETN. All previous 20 members remain. No future refresh may silently truncate to 20 or overwrite this registry without an explicit membership change.
+`watchlist_registry.json` is the sole membership source of truth. Initially:
 
-## Score integrity
+- Action10, selected by the previous common-calibration research ranking:
+  ETN, ZETA, HUBB, VST, FIGR, CRMD, AXTI, KTOS, EVLV, RKLB.
+- Candidates20: remaining 15 former Final25 names, plus RGTI, QBTS, OKLO, SMR, EOSE.
+- No former member was deleted. The four photo biotech candidates are excluded.
+- Every future stock MUST enter Candidates first. No score/rank can promote it automatically.
+- Action is a daily-research attention tier, NOT a BUY signal or a portfolio allocation.
+- FIGR and other provisional-data flags remain visible. Initial selection is an explicit
+  membership migration, not a claim that every member satisfies all future promotion gates.
 
-The displayed September 6 run uses **MB25_RESEARCH_V1_20260906**, the same common research calibration for all 25. `research_scoring.py` is the only calculator for those research outputs. Its inputs, analyst grades, methodology, source links and arithmetic checks are versioned under `research/2026-09-06/`.
+The old `final_list.json` is archived at `research/2026-09-06/final25_registry.json`.
+A public compatibility `final_list.json` is generated at build time from the registry;
+it is never an input or a competing membership file.
 
-This publishes research results; it does **not** certify an official investment scoring model. Archived official MB/E&V mappings could not be reproduced. Official fields and P(5x) are deliberately null in the new snapshot; separately named research fields are displayed. Old September 3 and September 4 scores remain intact and are accessible through the history selector. Cross-calibration score/rank deltas are null, not zero. E&V with 70% coverage is valuation-only. POET has 70% MB input-weight coverage. Six-pass partial work is not marked complete.
+## Cadence
 
-## Information shown
+`multi-bagger-refresh.yml` schedules Action refresh at 08:00 America/New_York on
+weekdays and the Candidate/common-date comparison at 09:00 Saturday in that timezone.
+GitHub schedules are best effort and may be delayed; display actual completion time.
 
-Ticker then closing price, market capitalization, sector and sector-trend judgment, three research scores, coverage/confidence, preferred entry status, action and thesis. Ticker details include financial bridges, next-fiscal-year expectations, share changes, moving averages/RSI/MACD/ADX/ATR/volume/returns, technical reference levels, factor scores, sensitivity, ETF weights and benchmark index associations, prior archive and source links.
+Daily: refresh price, cap bridge, estimates and technical calculations for Action only;
+scan SEC filing metadata for all names, without relabeling weekly candidate scores as daily.
+Weekly: refresh both tiers with a common completed regular-session price cutoff;
+produce a promotion/demotion queue. Neither job edits registry membership.
 
-ETF exposure was checked in IVV, IWB, IWM, IJH and ITA using primary September 3 holdings files. It is not an exhaustive direct index roster. New stocks have no invented fundamental entry zones or P(5x) estimates. Legacy preferred ranges are identified as not revalued.
+NYSE and Nasdaq calendar agreement is required for daily runs; weekends and full-day
+holidays skip data refresh, publishing and digest silently. Known adhoc closures are in
+the calendars; newly announced closures can be added to `market_closures.json`.
+Calendar/validation failure fails closed. Early-close sessions are trading days.
+Completed-session data only: no intraday candles are mixed into an 8am run.
+Manual structure changes/rebuilds can publish on weekends without pretending a market
+session occurred. No scheduled email is sent for those changes.
 
-## Time and refresh semantics
+## Actual research scope — important
 
-Research/market data: September 4 closing session; collection completed September 6 at 09:22 Eastern. The saved watchlist-recording time and actual dashboard-build time are separate and display date, hour, minute and EDT/EST. This explicit user-requested Sunday membership rebuild is not a scheduled closed-market research refresh. No holiday email was sent.
+The exact saved `research_scoring.py` remains unchanged, guarded by its registry SHA256.
+Both tiers use the same absolute anchors/weights, never separately normalized scores.
+Research MB, E&V and technical scores are NOT the older unverified official scores or
+calibrated fivefold-return probabilities. Missing inputs remain missing, not zero.
 
-`build_site.py` validates and rebuilds the site from saved evidence; it does not falsely label that operation a fresh full SEC study. New research refreshes must supply current source evidence, the complete final-list universe and one verified scoring calibration. The publication gate rejects a stale 20-stock payload or inconsistent research scores. The current frozen calibration is intentionally fail-closed; a future research calibration needs a versioned input/validator update, not an unlabelled mix of methods.
+Automation refreshes market and consensus inputs. It does NOT pretend to perform a
+new eight-quarter reconstruction, read every new filing, or certify all six passes.
+Previously reviewed statements, capital-claims bridge and analyst grades retain their
+actual review timestamp. New financial periods, share-count changes, missing estimates
+or new material-form SEC inventory create research holds. The dashboard displays those
+holds and keeps last known good data if retrieval fails. SEC metadata is an event trigger,
+not a substitute for a primary-source filing review. Old statements are not relabeled current.
 
-## Archive and deployment
+For paired economic classes, financing, restricted cash and acquisition effects, retain
+reviewed financial bridges rather than silently replacing them with generic vendor fields.
+If shares change more than 5%, flag review and identify the retained-share estimate.
 
-Canonical snapshot/history remains in `stock-project-v2/data/multi_bagger/` for backward compatibility, isolated from Stock V2 score data. `2026-09-06.json` is a new `research_rerun` snapshot: 25 rows added to the prior 40-row archive. The research-score CSV has separately named columns so historical official numbers cannot be mistaken for the new calibration.
+## Promotion policy
 
-Publish workflow stages only `/multi-bagger/`, uses `keep_files: true`, and shares the existing Pages concurrency group. It never runs the Stock V2 ranking generator.
+Weekly comparisons require common market dates, >=90% numerical coverage, fully cleared
+research for both sides, cleared candidate blocker, comparable valuation coverage,
+>=5 MB point advantage for two distinct consecutive weekly reviews, and sensitivity
+support under both growth and quality weights. A 28-day post-swap cooldown applies.
+At most two non-overlapping swaps can be recommended; none is required. Repeated runs
+within one week never count as additional weeks. Rank is within each tier between reviews.
 
-Validation: `python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v`; build: `python multi-bagger-dashboard/build_site.py`.
+No auto-swaps and no broker orders. `full_research_reviewed_at` and
+`promotion_blocker_cleared` are explicit human-review fields, not populated by a market scan.
+The existing incomplete research still blocks promotion. Changes can be made only through
+a recorded user approval. Watchlist demotion is not a sell instruction.
+
+## Candidate intake
+
+Use the `Add Multi Bagger Candidate` GitHub Actions workflow (ticker + reason), or:
+
+```bash
+python multi-bagger-dashboard/watchlist.py add TICKER --reason 'Why it merits research'
+```
+
+The command accepts no tier argument. Duplicate tickers fail, and an unknown company
+appears with blank MB/E&V until real research is supplied. Intake persists an immutable
+membership snapshot. Do not hand-edit a registry without appending the corresponding snapshot;
+publish validation rejects registry/snapshot mismatch.
+
+Approved swap only:
+
+```bash
+python multi-bagger-dashboard/watchlist.py swap --promote CANDIDATE --demote ACTION \
+  --approval-ref 'user-request-or-approved-review-reference' --reason 'Specific evidence'
+```
+
+## Storage and display
+
+- `monitoring/latest.json`: last successful monitoring/membership state.
+- `monitoring/runs/<timestamp>-<kind>.json`: immutable monitoring snapshots with tier,
+  score, source dates, raw model inputs, six-pass gaps and event/review information.
+- `monitoring/history.json`: monitoring snapshot manifest.
+- `research/candidate_seed_2026-09-06.json`: source-reconciled photo candidate seed.
+- Previous 20/25 research snapshots remain immutable in their original `stock-project-v2/data/multi_bagger/` archive.
+
+Builder produces separate current/history CSV and report downloads from monitoring data.
+The history selector includes both the new monitoring states and original 20/25 archives.
+Every price shows its actual market date. Date/hour/minute/timezone are visible for builds
+and runs. Action defaults to 10 rows; Candidates shows the separate bench with blockers
+and next-review triggers. Mobile shows the same members as stock cards. No verified setup
+can be a valid Today’s Opportunities result: a legacy range hit alone is never BUY.
+
+## Notifications and safety
+
+After successful scheduled DAILY publishing only, a changes-only digest uses existing
+`STOCK_EMAIL_TO`, `STOCK_EMAIL_USERNAME`, `STOCK_EMAIL_APP_PASSWORD` repository secrets.
+No secrets are committed or logged. Missing mail secrets leave the dashboard as the
+notification surface. Weekly results are available in the dashboard and next trading-day digest.
+A static site rebuild is not a research refresh. Deployment success and data freshness
+are separate facts. Shared Pages write lock and `destination_dir: multi-bagger` preserve
+all sibling dashboards.
+
+## Validation
+
+```bash
+python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+node --check .multi-bagger-pages/app.syntax-check.js
+```
+
+Tests cover intake, cap, approval, holiday silence, early closes, DST, closure override,
+fail-closed behavior, numerical reconciliation, stale-comparison gates and immutable history.
+The old `build_final25.py` is blocked from replacing the current membership structure.

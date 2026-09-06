@@ -50,7 +50,9 @@ SECTOR={
 
 
 def main():
-    registry=load(APP/'final_list.json');inputs=load(STUDY/'inputs.json')
+    if (APP/'watchlist_registry.json').exists():
+        raise RuntimeError('Final25 is an archived migration. Use watchlist_runtime.py for the Action/Candidate registry.')
+    registry=load(STUDY/'final25_registry.json');inputs=load(STUDY/'inputs.json')
     rows=compute_all(inputs);details={r['financial']['ticker']:r for r in inputs['stocks']}
     if set(registry['members'])!={r['ticker'] for r in rows}:raise ValueError('Registry and recalculated research disagree')
     for r in rows:

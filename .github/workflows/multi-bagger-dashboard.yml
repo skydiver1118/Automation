@@ -36,7 +36,7 @@ jobs:
           cache-dependency-path: multi-bagger-dashboard/requirements.txt
       - name: Install Multi Bagger validation dependencies
         run: pip install -r multi-bagger-dashboard/requirements.txt
-      - name: Validate final 25 and immutable history
+      - name: Validate Action10/Candidates and immutable history
         run: |
           python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
           python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v

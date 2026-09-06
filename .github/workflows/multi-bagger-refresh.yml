@@ -1,0 +1,92 @@
+name: Refresh Multi Bagger Action10 and Candidates
+on:
+  schedule:
+    - cron: '0 8 * * 1-5'
+      timezone: America/New_York
+    - cron: '0 9 * * 6'
+      timezone: America/New_York
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        description: Daily Action refresh or weekly common-date Candidate comparison
+        options: [daily, weekly]
+        default: daily
+permissions:
+  contents: write
+# Shared Pages write lock: independent datasets, serialized publishing to preserve sibling sites.
+concurrency:
+  group: stock-project-v2-daily
+  cancel-in-progress: false
+jobs:
+  refresh:
+    if: github.repository == 'skydiver1118/Automation'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MODE: ${{ github.event_name == 'schedule' && (github.event.schedule == '0 9 * * 6' && 'weekly' || 'daily') || inputs.mode || 'daily' }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: multi-bagger-dashboard/requirements.txt
+      - run: pip install -r multi-bagger-dashboard/requirements.txt
+      - name: Exchange-session, closure and duplicate-run guard
+        id: gate
+        run: python multi-bagger-dashboard/watchlist_runtime.py --mode "$MODE" --gate-only
+      - name: Refresh selected tier and collect disclosure triggers
+        if: steps.gate.outputs.run == 'true'
+        run: python multi-bagger-dashboard/watchlist_runtime.py --mode "$MODE"
+      - name: Validate calculations, provenance and membership
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          python multi-bagger-dashboard/watchlist.py validate
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Commit only new monitoring evidence, no membership changes
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git diff --exit-code -- multi-bagger-dashboard/watchlist_registry.json
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add multi-bagger-dashboard/monitoring
+          git diff --cached --quiet && exit 0
+          git commit -m "Multi Bagger $MODE monitor: dated evidence, no automatic swaps"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Publish only Multi Bagger and preserve sibling dashboards
+        if: steps.gate.outputs.run == 'true'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.multi-bagger-pages
+          publish_branch: gh-pages
+          destination_dir: multi-bagger
+          keep_files: true
+          force_orphan: false
+          enable_jekyll: false
+      - name: Trading-morning changes-only digest after successful publication
+        if: steps.gate.outputs.run == 'true' && steps.gate.outputs.notify == 'true' && github.event_name == 'schedule'
+        env:
+          STOCK_EMAIL_TO: ${{ secrets.STOCK_EMAIL_TO }}
+          STOCK_EMAIL_USERNAME: ${{ secrets.STOCK_EMAIL_USERNAME }}
+          STOCK_EMAIL_APP_PASSWORD: ${{ secrets.STOCK_EMAIL_APP_PASSWORD }}
+        run: python multi-bagger-dashboard/notify_watchlist.py
+      - name: Preserve diagnostic evidence on refresh failure only
+        if: failure() && steps.gate.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: multibagger-refresh-diagnostics
+          path: multi-bagger-dashboard/monitoring
+          retention-days: 7

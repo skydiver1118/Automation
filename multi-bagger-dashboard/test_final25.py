@@ -3,7 +3,7 @@ import copy, importlib.util, json, unittest
 from decimal import Decimal
 from pathlib import Path
 from research_scoring import compute_all, score, FACTORS, WEIGHTS
-from build_site import verify, load, APP, BASE
+from build_site import verify_legacy as verify, load, APP, BASE
 
 class Final25Tests(unittest.TestCase):
  def test_membership_and_snapshot_reconcile(self):
