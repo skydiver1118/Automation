@@ -1,0 +1,600 @@
+{
+  "schema_version": "2.0",
+  "name": "Multi Bagger Action 10 + Candidates",
+  "action_limit": 10,
+  "intake_default": "candidate",
+  "automatic_swaps": false,
+  "updated_at": "2026-09-06T18:40:00+00:00",
+  "initial_selection_basis": "Top 10 of the existing same-calibration September 6 research ranking; not a BUY signal. Existing provisional flags retained.",
+  "schedules": {
+    "timezone": "America/New_York",
+    "action": "08:00 each NYSE/Nasdaq trading day",
+    "candidate": "09:00 Saturday; common-date comparison includes Action list",
+    "candidate_daily": "Disclosure-event scan only; no daily candidate score refresh"
+  },
+  "promotion_policy": {
+    "min_mb_gap": 5,
+    "consecutive_weeks": 2,
+    "min_input_coverage": 0.9,
+    "max_weekly_swaps": 2,
+    "cooldown_days": 28,
+    "requires_recorded_approval": true,
+    "requires_cleared_research_and_valuation_blockers": true
+  },
+  "stocks": [
+    {
+      "ticker": "ETN",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use 14% organic growth, not 21% acquisition-inclusive growth.; Acquisition-related debt and a high starting market capitalization constrain per-share multibagger potential.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "ZETA",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Reported growth includes acquired revenue; no invented organic growth, so current-growth subcomponent is excluded.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "HUBB",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use 10% organic growth, not 15% acquisition-inclusive growth.; NSI acquisition increased debt; the historical low-leverage narrative no longer describes the latest balance sheet.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "VST",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use conventional CFO-minus-total-capex, not issuer free-cash-flow-before-growth.; Hedging, derivatives and acquisition timing complicate GAAP margins; trailing/forward ratio definitions must remain separate.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "FIGR",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Latest-quarter net revenue differs from vendor standardization. Finance-company CFO, gross profit and EV are not directly comparable to industrial/software companies.; September 1 Kiavi acquisition is not incorporated in the June balance sheet; the mechanical score is not promotion-ready.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "CRMD",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Bridge grant-inclusive GAAP revenue from annual and half-year figures; do not use a mixed standardized revenue denominator.; Trailing cash generation is not a sustainable forecast: FY2026 revenue guidance is $325-345M and FY+1 consensus declines; TDAPA reimbursement transition is material.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "AXTI",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "China manufacturing/export permits and the substrate cycle can undermine extrapolated AI-driven growth.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "KTOS",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use 19.1% organic growth, not 30.5% acquisition-inclusive growth.; Issuer Q2 FCF includes $9.3M asset-sale proceeds; model excludes such proceeds and uses CFO-minus-capex.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "EVLV",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "ARR growth is distinct from purchase/subscription hardware revenue; do not equate all revenue growth with recurring growth.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "RKLB",
+      "tier": "action",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Material acquisition contributions were not separated from latest revenue growth; exclude that half of the growth factor.; Neutron execution, capital spending and financing remain key risks.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "daily",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "AVAV",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use FY2026 annual GAAP operating loss including $240.708M goodwill impairment; quarter sums mix classifications.; 133% Q4 headline growth is acquisition-heavy; exclude it as organic. Diluted Q4 weighted shares rose about 79%.",
+      "next_review_trigger": "Next earnings / guidance and execution confirmation; September 9 earnings are pending",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "BKSY",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Productive capex includes satellite work in process, not only PPE.; Reported cost of sales excludes D&A; valuation gross-profit proxy is not a fully harmonized cross-sector margin.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "GRRR",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Rebuilt CFO-minus-capex is negative despite positive vendor info.freeCashflow.; July bond funding makes June liquidity and EV inputs provisional; the mechanical score is not promotion-ready.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "AMPX",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Vendor four-quarter revenue is about 1% below the issuer annual-plus-interim bridge; retain the vendor series with a visible reconciliation flag.; Conventional trailing FCF includes the facility-exit cash payment; current capital-light economics may improve.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "NBIS",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use operating income plus operating D&A, not EBITDA contaminated by nonoperating investment gains.; Customer prepayments support CFO but are not free recurring profit. Gross profit excludes separately reported D&A.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "SSII",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Pending U.S./European approvals are future catalysts, not approvals already obtained.; Limited cash and operating losses constrain the thesis despite installed-base growth.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "IREN",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Annual reported operating loss includes impairments; standardized operating income omits material charges. Contracted ARR is not recognized revenue.; Gross profit proxy is before separately reported D&A. Positive CFO includes customer prepayments.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "TSSI",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Procurement is low-margin/pass-through revenue; the decline in consolidated revenue does not describe integration growth.; Customer concentration and working-capital swings weaken comparability.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "SOUN",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "LivePerson closed September 4; 36,894,839 debt-settlement shares are not the entire merger issuance.; The quote vendor capital base/forward consensus and June balance sheet are not verified post-close; mechanical score is provisional and not promotion-ready.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "POET",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Vendor Q4 capex is missing and PPE purchases reverse sign; do not invent zero capex.; Gross profit is absent from the vendor statement panel, so its valuation component is unknown, not zero.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "WULF",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Do not include restricted cash in available liquidity; long-duration lease values are not current revenue.; Gross profit excludes separately reported D&A. Construction spending and subsequent asset transactions make trailing ratios imperfect.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "APLD",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use the latest annual statement instead of summing quarters with mixed discontinued-operation restatements.; Preferred/minority capital and future construction obligations complicate EV and common-equity upside.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "RR",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Large cash holdings arose from financing; small revenue scale and dilution must not be mistaken for proven profitability.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "RZLV",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "Use SEC H1 cash flow of -$91.956M, not the earlier approximate -$96.1M. Exclude $67.392M restricted cash.; SEC H1 states substantial doubt about going concern; trailing growth is acquisition-heavy.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "SERV",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "approved_final25",
+      "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
+      "promotion_blocker": "FY2026 revenue guidance was reduced from $26M to $9-10M on August 6; earlier dashboard optimism did not fully reflect this.; Reported growth includes Diligent Robotics; commercial delivery and unit economics remain unproved.",
+      "next_review_trigger": "Next issuer financial / commercial update; see sourced thesis and risk record",
+      "priority": "standard",
+      "model_scope": "operating_business_research",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "RGTI",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "photo_back_pocket",
+      "intake_reason": "Highest new mechanical research score, but poor valuation and weak chart argue against automatic promotion.",
+      "promotion_blocker": "Tiny sales against $5.1b equity value, roughly 103x EV/next-fiscal-year consensus revenue; commercial quantum advantage unproven.",
+      "next_review_trigger": "Recurring customer economics, independently measured useful computation and valuation discipline.",
+      "priority": "priority",
+      "model_scope": "early_commercial_quantum",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "QBTS",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "photo_back_pocket",
+      "intake_reason": "Evidence of paid usage, but bookings are not sales and current valuation is demanding.",
+      "promotion_blocker": "Q2 sales about $3.1m essentially flat; H1 down 67% despite strong bookings; roughly 70x EV/next-fiscal-year consensus sales and acquisition integration risk.",
+      "next_review_trigger": "Revenue recognition, recurring software/service share, acquired costs and cash consumption.",
+      "priority": "priority",
+      "model_scope": "early_commercial_quantum",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "OKLO",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "photo_back_pocket",
+      "intake_reason": "Long-duration development option; business-score proxy is not project NPV.",
+      "promotion_blocker": "First $1.21m quarterly revenue is ancillary services, not commercial Aurora electricity. First commercial powerhouse targeted for 2028; licensing, fuel, construction and economics still uncertain.",
+      "next_review_trigger": "Commercial licensing path, funded deployment, fuel commitments and verified power production.",
+      "priority": "development_watch",
+      "model_scope": "project_stage_proxy",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "SMR",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "photo_back_pocket",
+      "intake_reason": "Stronger design-approval evidence does not yet establish an investable commercial fleet.",
+      "promotion_blocker": "ENTRA1/TVA negotiations not a signed funded fleet; approximately $507m milestone expense followed nonbinding 2025 arrangement, increasing financing risk. Class exchanges must not be mistaken for true new dilution.",
+      "next_review_trigger": "Binding PPA/FID/funding, partner payment obligations and economic-unit dilution.",
+      "priority": "development_watch",
+      "model_scope": "project_stage_proxy",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "EOSE",
+      "tier": "candidate",
+      "membership_since": "2026-09-06T18:40:00+00:00",
+      "origin": "photo_back_pocket",
+      "intake_reason": "Below AMPX on demonstrated unit economics; require gross-margin and financing improvement.",
+      "promotion_blocker": "Q2 gross margin about -71%; $55.0m of $68.8m sales related-party; downward-guidance narrowing; restricted cash, debt and mezzanine preferred claims.",
+      "next_review_trigger": "Positive sustainable gross margin, non-related-party demand and total common-equity dilution.",
+      "priority": "development_watch",
+      "model_scope": "manufacturing_scaleup",
+      "full_research_reviewed_at": null
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "ETN",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "ZETA",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "HUBB",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "VST",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "FIGR",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "CRMD",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "AXTI",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "KTOS",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "EVLV",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "RKLB",
+      "from": "final25",
+      "to": "action",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "AVAV",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "BKSY",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "GRRR",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "AMPX",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "NBIS",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "SSII",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "IREN",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "TSSI",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "SOUN",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "POET",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "WULF",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "APLD",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "RR",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "RZLV",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "SERV",
+      "from": "final25",
+      "to": "candidate",
+      "reason": "User approved Action10; selected by existing research rank."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "RGTI",
+      "from": null,
+      "to": "candidate",
+      "reason": "Back-pocket candidate; no biotech names from the photo admitted."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "QBTS",
+      "from": null,
+      "to": "candidate",
+      "reason": "Back-pocket candidate; no biotech names from the photo admitted."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "OKLO",
+      "from": null,
+      "to": "candidate",
+      "reason": "Back-pocket candidate; no biotech names from the photo admitted."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "SMR",
+      "from": null,
+      "to": "candidate",
+      "reason": "Back-pocket candidate; no biotech names from the photo admitted."
+    },
+    {
+      "at": "2026-09-06T18:40:00+00:00",
+      "ticker": "EOSE",
+      "from": null,
+      "to": "candidate",
+      "reason": "Back-pocket candidate; no biotech names from the photo admitted."
+    }
+  ],
+  "score_methodology": "MB25_RESEARCH_V1_20260906",
+  "scoring_code_sha256": "dbe4e33b5b5002d32a6e3a6114279332a252db6b627d2806fbd38a7ee7dc078a"
+}
