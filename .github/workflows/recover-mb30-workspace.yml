@@ -1,0 +1,54 @@
+name: Recover MB30 workspace
+on:
+  push:
+    branches: ['feature/mb30-evidence-repair-20260906']
+    paths: ['.github/workflows/recover-mb30-workspace.yml']
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: |
+            multi-bagger-dashboard
+            stock-project-v2/data/multi_bagger
+            stock-project-v2/scripts
+            stock-project-v2/tests
+            stock-project-v2/reports/multi_bagger
+            .migration/evidence30
+            .github/workflows
+      - name: Export actual branch and published state
+        shell: bash
+        run: |
+          mkdir recovery
+          git archive HEAD multi-bagger-dashboard stock-project-v2/data/multi_bagger stock-project-v2/scripts stock-project-v2/tests stock-project-v2/reports/multi_bagger .migration/evidence30 .github/workflows > recovery/source.tar
+          git fetch --depth=1 origin main gh-pages
+          git ls-tree origin/main > recovery/main_tree.txt
+          git ls-tree -r origin/main stock-project-v2 > recovery/stockv2_main_baseline.txt
+          git ls-tree -r FETCH_HEAD stock-project-v2 > recovery/stockv2_pages_baseline.txt
+          git show FETCH_HEAD:multi-bagger/build.json > recovery/published_build.json
+          python - <<'PY'
+          import base64,hashlib,json,lzma
+          from pathlib import Path
+          chunks=[Path(f'.migration/evidence30/part{i}.b64').read_text().strip() for i in range(4)]
+          text=''.join(chunks)
+          meta={'chunks':[{'length':len(s),'hash':hashlib.sha256(s.encode()).hexdigest()} for s in chunks],'total':len(text)}
+          try:
+            packed=base64.b64decode(text+'='*((-len(text))%4));meta['packed_hash']=hashlib.sha256(packed).hexdigest();d=lzma.LZMADecompressor();out=[]
+            for i in range(0,len(packed),256):
+              try:out.append(d.decompress(packed[i:i+256]))
+              except Exception as e:meta['error']=str(e);meta['offset']=i;break
+            raw=b''.join(out);Path('recovery/recovered.partial.patch').write_bytes(raw);meta.update(recovered_bytes=len(raw),eof=d.eof,raw_hash=hashlib.sha256(raw).hexdigest())
+          except Exception as e:meta['error']=str(e)
+          Path('recovery/diagnosis.json').write_text(json.dumps(meta,indent=2));print(json.dumps(meta,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb30-recovery-workspace
+          path: recovery/
+          retention-days: 7
