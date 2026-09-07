@@ -3,7 +3,55 @@
 Published path remains `/Automation/multi-bagger/`. Stock Project V2's universe,
 engine, dashboard and workflow are separate and are not changed by these jobs.
 
-## User-approved membership
+## September 6 source-evidence repair
+
+Current Action10 is selected only from stocks passing all stated input-audit checklists,
+with 100% MB numerical input-weight coverage and no critical unresolved warning:
+**ETN, ZETA, HUBB, CRMD, AXTI, KTOS, AVAV, EVLV, BKSY, AMPX**.
+AVAV/BKSY/AMPX replace FIGR/VST/RKLB for daily attention. All 30 are retained.
+This one-time reassignment was explicitly authorized by the user. Later automated
+refreshes still cannot change membership, and all future intake remains Candidate-first.
+
+The `evidence_audit/2026-09-06/` archive now supplies 30 eight-factor scorecards,
+eight dated financial periods per stock (missing/vendor-allocated observations flagged),
+245 retrieved filed-document references, explicit input derivations, sources, corrections,
+forecast panels, risk/catalyst records, and six checklist records per stock.
+**13/30 pass the stated input-audit checks; 22/30 have full MB numerical input weight.**
+All 30 have computed screening scores; 17 retain explicit input/comparability gaps. The
+`input_audited_mb_score` field identifies 13 bounded input audits. The separate
+`verified_mb_score` remains null for all 30, and full six-pass completion remains false.
+Complete segment/KPI and guidance-history reconciliation, exhaustive index/ETF and peer
+review, and the complete analyst-evidence/contradiction matrix remain outstanding.
+Input-check completion is not a calibrated return forecast or full research certification.
+
+The eight-factor calculator and absolute score mappings are unchanged. The six stages
+are research checklists, not six numerical grades. UI status cells show checks passed,
+source detail, dates, and outstanding items. Every historical financial cell distinguishes
+filed, derived, standardized-vendor, or missing evidence. The full historical panel is
+not represented as independently primary-verified when vendor observations remain.
+
+`evidence_gate.py` derives confidence from evidence state, NOT ticker-specific defaults,
+and withdraws a prior sign-off when new filings, changed financial dependencies,
+unavailable consensus or stale prices require review. Daily prices/estimates may
+recalculate a screen but never rewrite or redate the immutable source audit.
+The dated audit and live overlay remain separate; missing information never becomes zero.
+
+On mobile, the six-pass matrix becomes readable two-column checklist cards. Ticker
+views include the eight-quarter table, score contribution math, TTM bridge, consensus
+panel, primary-document inventory, counter-thesis and warnings. Current CSV/report
+exports carry the evidence status and missingness warnings, not just an unlabeled score.
+
+Reconstruction tooling is in `evidence_tools/`. Run the dated builder only with the
+retained source archives in directories `new30`, `edgar`, `supplement`, `final_gaps`
+under the `MB_EVIDENCE_ROOT` environment path. It refuses to overwrite a dated audit.
+Subsequent repairs require a new version/date rather than silently editing this archive.
+The published numeric evidence and the monitoring snapshot retain enough input
+information to independently reproduce the eight-factor score without vendor access.
+
+The original implementation notes below describe the pre-audit initial membership;
+they are preserved as history, not a second current membership source.
+
+## Original user-approved membership (historical initial state)
 
 `watchlist_registry.json` is the sole membership source of truth. Initially:
 

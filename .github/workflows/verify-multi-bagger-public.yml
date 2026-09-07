@@ -1,0 +1,70 @@
+name: Verify public Multi Bagger dashboard
+on:
+  workflow_run:
+    workflows: ['Publish Multi Bagger Dashboard']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verify-multi-bagger-public
+  cancel-in-progress: false
+jobs:
+  public-verification:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          submodules: false
+          sparse-checkout: multi-bagger-dashboard
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install browser test dependencies
+        run: |
+          pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Wait for public Pages data to match the committed snapshot
+        run: |
+          python - <<'PY'
+          import hashlib,json,time
+          from pathlib import Path
+          from urllib.request import Request,urlopen
+          base='https://skydiver1118.github.io/Automation/multi-bagger/'
+          expected=hashlib.sha256(Path('multi-bagger-dashboard/monitoring/latest.json').read_bytes()).hexdigest()
+          Path('public-proof').mkdir(exist_ok=True)
+          success=False
+          for attempt in range(24):
+              try:
+                  def get(path):
+                      with urlopen(Request(base+path,headers={'Cache-Control':'no-cache','User-Agent':'MultiBaggerDashboardVerifier'}),timeout=20) as r:return r.read()
+                  build=json.loads(get('build.json'))
+                  payload=get('monitoring/latest.json')
+                  actual=hashlib.sha256(payload).hexdigest()
+                  assert build['monitoring_sha256']==expected and actual==expected,'Waiting for Pages/CDN snapshot propagation'
+                  assert build['action_count']==10 and build['candidate_count']>=20
+                  assert build['evidence_audit']['scorecards_with_audit']>=30
+                  assert not build['full_six_pass_complete']
+                  receipt={'status':'passed','expected_snapshot_sha256':expected,'public_snapshot_sha256':actual,'public_build':build,'verified_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source':'Public HTTPS responses compared with main checkout'}
+                  Path('public-proof/public_data_verification.json').write_text(json.dumps(receipt,indent=2)+'\n')
+                  print(json.dumps(receipt,indent=2));success=True;break
+              except Exception as e:
+                  print('Attempt',attempt+1,str(e),flush=True)
+                  if attempt<23:time.sleep(15)
+          if not success:raise SystemExit('Public deployment did not match; do not report publication verified')
+          PY
+      - name: Verify all 30 public scorecards on desktop and mobile
+        run: python multi-bagger-dashboard/browser_smoke.py --url https://skydiver1118.github.io/Automation/multi-bagger/ --output public-proof
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: multibagger-public-verification
+          path: public-proof/
+          retention-days: 30
+          if-no-files-found: error
