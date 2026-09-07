@@ -26,7 +26,7 @@ def _dedupe(values):
 
 
 def assess(stock: dict) -> dict:
-    """Return the current investment-score eligibility without changing the stock."""
+    """Return current investment-score eligibility without changing the stock."""
     m=stock.get('metadata',{});r=m.get('research',{});a=m.get('audit') or {}
     reasons=[];noncritical=[]
     if not a:
@@ -40,6 +40,9 @@ def assess(stock: dict) -> dict:
         if missing:text+=': '+', '.join(sorted(missing))
         reasons.append(text+'. Missing factor weight is not reweighted into a comparable headline score.')
     for w in a.get('warnings',[]):
+        # A prior application of this policy is a presentation consequence, not an
+        # independent underlying reason. Ignoring it allows recovery when data is fixed.
+        if w.get('code')=='critical_data_missing':continue
         msg=str(w.get('message') or '')
         if w.get('severity')=='critical' or w.get('code') in CRITICAL_WARNING_CODES:
             reasons.append(msg or 'Critical source/reconciliation warning is unresolved.')
@@ -65,7 +68,16 @@ def assess(stock: dict) -> dict:
 
 def apply(stock: dict) -> dict:
     """Apply policy to a current snapshot. Preserve raw diagnostics but withhold headlines."""
-    out=copy.deepcopy(stock);m=out.setdefault('metadata',{});r=m.setdefault('research',{});a=m.setdefault('audit',{})
+    out=copy.deepcopy(stock);m=out.setdefault('metadata',{});r=m.setdefault('research',{})
+    # A never-researched Candidate remains structurally empty. The eligibility state is
+    # metadata; do not manufacture empty score fields merely to say it is unscored.
+    if not m.get('audit') and not r:
+        q=assess(out);m['score_eligibility']=q
+        out['data_confidence']='unknown'
+        out['action']='MISSING CRITICAL DATA — unscored; source-linked research required before ranking'
+        m['promotion_blocker']='Missing critical data — unscored: '+'; '.join(q['critical_reasons'])
+        return out
+    a=m.setdefault('audit',{})
     # Restore a previously withheld diagnostic before reassessment after a new refresh.
     if r.get('research_mb_score') is None and finite(r.get('research_mb_score_diagnostic')):
         r['research_mb_score']=r['research_mb_score_diagnostic']
