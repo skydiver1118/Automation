@@ -1,4 +1,5 @@
 name: Apply Multi Bagger critical-data score gate
+# Research-only migration: September 7 is a full-day market closure; retain September 4 market data.
 on:
   push:
     branches: ['feature/mb-critical-data-gate-20260907']
