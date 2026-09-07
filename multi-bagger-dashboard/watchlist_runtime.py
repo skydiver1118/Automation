@@ -23,6 +23,7 @@ import pandas as pd
 import exchange_calendars as xcals
 from research_scoring import calculate, technical as technical_score
 from evidence_gate import evidence_status,audit_summary
+from critical_data_policy import apply as apply_score_policy, rank_key, headline_mb
 from watchlist import APP, REGISTRY, load, members, now_iso, validate
 
 DATA = APP / 'monitoring'
@@ -114,17 +115,21 @@ def view_rank(snapshot: dict, registry: dict) -> dict:
         rows=[]
         for rec in registry['stocks']:
             if rec['tier']!=tier:continue
-            s=src.get(rec['ticker'],empty_stock(rec['ticker']));m=s.setdefault('metadata',{})
+            s=apply_score_policy(src.get(rec['ticker'],empty_stock(rec['ticker'])));m=s.setdefault('metadata',{})
             m['membership']=copy.deepcopy(rec);m['tier']=tier;m['new_member']=rec['origin']=='photo_back_pocket'
             r=m.get('research',{});m['promotion_blocker']=rec['promotion_blocker']
             m['research_reviewed_at']=m.get('research_reviewed_at') or m.get('data_collected_at')
             rows.append(s)
-        rows.sort(key=lambda s:(-(s['metadata'].get('research',{}).get('research_mb_score') if finite(s['metadata'].get('research',{}).get('research_mb_score')) else -1),s['ticker']))
-        for i,s in enumerate(rows,1):s['metadata']['tier_rank']=i;s['rank']=len(out)+1;out.append(s)
+        rows.sort(key=rank_key)
+        score_rank=0
+        for s in rows:
+            if finite(headline_mb(s)):score_rank+=1;s['metadata']['tier_rank']=score_rank
+            else:s['metadata']['tier_rank']=None
+            s['rank']=len(out)+1;out.append(s)
     x['stocks']=out;x['universe_size']=len(out)
     x.setdefault('metadata',{}).update({'display_mode':'common_calibration_research','watchlist_schema':'action_candidate_v1',
        'registry':copy.deepcopy(registry),'action_count':len(members(registry,'action')),'candidate_count':len(members(registry,'candidate')),
-       'ranking_basis':'Within each tier at its own stated market-data date. Cross-list comparisons occur only in the common-date weekly review.'})
+       'ranking_basis':'Within each tier, only scoreable stocks receive an MB rank. Missing critical score data is unscored. Cross-list comparisons occur only in the common-date weekly review.'})
     return x
 
 def snapshot_id(x: dict) -> str: return x['metadata']['monitoring_id']
@@ -197,11 +202,12 @@ def weekly_comparison(x: dict, reg: dict, previous: dict | None, target: str) ->
     records=[];week=pd.Timestamp(target).isocalendar();week_id=f'{week.year}-W{week.week:02d}'
     prev_map={p['candidate']:p for p in (previous or {}).get('proposals',[])}
     for c in candidates:
-        cr=c['metadata'].get('research',{});cv=cr.get('research_mb_score')
-        valid_actions=[a for a in actions if finite(a['metadata'].get('research',{}).get('research_mb_score'))]
+        cr=c['metadata'].get('research',{});cv=headline_mb(c)
+        valid_actions=[a for a in actions if a['metadata'].get('score_eligibility',{}).get('scoreable') and finite(headline_mb(a))]
         a=min(valid_actions,key=lambda s:s['metadata']['research']['research_mb_score']) if valid_actions else None
         ar=a['metadata']['research'] if a else {};gap=cv-ar['research_mb_score'] if a and finite(cv) else None
         blockers=[]
+        if not c['metadata'].get('score_eligibility',{}).get('scoreable'):blockers.append('Missing critical score data — unscored')
         if c['metadata'].get('research_review_required') or c['metadata'].get('refresh_status')!='market_and_estimates_refreshed':blockers.append('Pending or failed evidence refresh')
         if cr.get('price_date')!=target or ar.get('price_date')!=target:blockers.append('Price dates not aligned')
         if cr.get('mb_input_weight_coverage',0)<.9:blockers.append('Less than 90% numerical input coverage')
@@ -334,7 +340,8 @@ def refresh(mode: str, at: datetime | None=None) -> dict:
             if finite(z.get('low')) and finite(z.get('high')):
                 z['hit_status']='hit' if z['low']<=tech['price']<=z['high'] else 'above' if tech['price']>z['high'] else 'below'
             evidence_status(s,m.get('review_queue',[]))
-            if m.get('research_review_required'):s['action']='RESEARCH HOLD — new or unresolved evidence'
+            if not m.get('score_eligibility',{}).get('scoreable'):s['action']='MISSING CRITICAL DATA — unscored; resolve required evidence before ranking'
+            elif m.get('research_review_required'):s['action']='RESEARCH HOLD — new or unresolved evidence'
             elif z.get('hit_status')=='hit':s['action']='Within entry band — timing remains weak' if result['technical_score']<60 else 'WATCH — in legacy band; validate entry thesis'
             elif result['technical_score']>=60:s['action']='WATCH — improving timing; no verified entry signal'
             else:s['action']='WAIT — technical stabilization'
