@@ -11,9 +11,9 @@
   "research_values_reconciled": 30,
   "unverified_official_scores_withheld": true,
   "market_session_date": "2026-09-04",
-  "research_data_collected_at": "2026-09-06T13:22:26.871829+00:00",
-  "watchlist_recorded_at": "2026-09-06T19:10:52+00:00",
-  "snapshot_sha256": "8129a27885ee92ebfb99692235d551288dcbab7b21000f10763b391e9f66daaf",
+  "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
+  "watchlist_recorded_at": "2026-09-07T01:58:22+00:00",
+  "snapshot_sha256": "198d873f1781919d184ca0611a8f8b099e316ca236f8e68f14ea3449c1cdf87f",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,28 +29,29 @@
   "candidate_count": 20,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-09-06T191052Z-weekly",
-  "registry_sha256": "edbf24a8cbfb1cbd13d291d7f44843bab1f57029feed977fe4f773bf08a3d29c",
-  "monitoring_sha256": "8129a27885ee92ebfb99692235d551288dcbab7b21000f10763b391e9f66daaf",
-  "monitoring_history_count": 2,
-  "refresh_kind": "weekly",
+  "monitoring_id": "2026-09-07T015822Z-evidence_repair",
+  "registry_sha256": "f86259c19210a5e1f7f98d7e20aaa872c46ce7dcc3b91f764fdf418917d73965",
+  "monitoring_sha256": "198d873f1781919d184ca0611a8f8b099e316ca236f8e68f14ea3449c1cdf87f",
+  "monitoring_history_count": 3,
+  "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+  "refresh_kind": "evidence_repair",
   "action_members": [
     "ETN",
     "ZETA",
     "HUBB",
-    "VST",
-    "FIGR",
     "CRMD",
     "AXTI",
     "KTOS",
     "EVLV",
-    "RKLB"
-  ],
-  "candidate_members": [
     "AVAV",
     "BKSY",
+    "AMPX"
+  ],
+  "candidate_members": [
+    "VST",
+    "FIGR",
+    "RKLB",
     "GRRR",
-    "AMPX",
     "NBIS",
     "SSII",
     "IREN",
@@ -68,5 +69,17 @@
     "SMR",
     "EOSE"
   ],
-  "built_at": "2026-09-06T19:15:23+00:00"
+  "evidence_audit": {
+    "stock_count": 30,
+    "scorecards_with_audit": 30,
+    "eight_factor_scorecards": 30,
+    "full_numeric_input_coverage": 22,
+    "reviewed_within_scope": 13,
+    "input_audited": 13,
+    "full_research_verified": 0,
+    "provisional": 17,
+    "critical_hold": 7,
+    "full_six_pass_complete": false
+  },
+  "built_at": "2026-09-07T02:04:16+00:00"
 }
