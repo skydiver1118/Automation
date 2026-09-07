@@ -10,6 +10,7 @@ import json
 import math
 from datetime import datetime, timezone
 from pathlib import Path
+from critical_data_policy import apply as apply_score_policy
 
 APP = Path(__file__).resolve().parent
 CORE_DEPENDENCIES = ('revenue_ttm','gross_profit_ttm','operating_income_ttm',
@@ -67,7 +68,7 @@ def evidence_status(stock: dict, reasons: list[str] | None = None) -> dict:
             p['status']='partial'
             p['missing_fields']=list(dict.fromkeys(p.get('missing_fields',[])+[v['message'] for v in dynamic]))
     a['completed_passes']=sum(p.get('status')=='complete' for p in stock.get('passes',{}).values())
-    return stock
+    return apply_score_policy(stock)
 
 
 def audit_summary(snapshot: dict) -> dict:
@@ -81,6 +82,8 @@ def audit_summary(snapshot: dict) -> dict:
       'full_research_verified':sum(s.get('metadata',{}).get('audit',{}).get('verified_mb_score') is not None for s in rows),
       'provisional':sum(s.get('metadata',{}).get('audit',{}).get('input_audited_mb_score') is None for s in rows),
       'critical_hold':sum(any(w.get('severity')=='critical' for w in s.get('metadata',{}).get('audit',{}).get('warnings',[])) for s in rows),
+      'scoreable':sum(s.get('metadata',{}).get('score_eligibility',{}).get('scoreable') is True for s in rows),
+      'critical_data_unscored':sum(s.get('metadata',{}).get('score_eligibility',{}).get('status')=='missing_critical_data' for s in rows),
       'full_six_pass_complete':all(s.get('metadata',{}).get('research',{}).get('full_research_validation_complete') is True for s in rows)}
 
 
@@ -103,6 +106,10 @@ def verify_audit(stock: dict, root: Path = APP) -> None:
     if abs(contributions-doc['screening_mb_score'])>1e-8:raise ValueError('Audit factor contributions do not sum')
     if a.get('verified_mb_score') is not None or m['research'].get('full_research_validation_complete'):
         raise ValueError('Full research verification is not supported by this bounded input-audit version')
+    q=m.get('score_eligibility',{})
+    if q.get('status')=='missing_critical_data':
+        if m['research'].get('research_mb_score') is not None or m['research'].get('research_ev_score') is not None:
+            raise ValueError('Critical-data stock must have current headline investment scores withheld')
     if a.get('input_audited_mb_score') is not None:
         r=m['research']
         if r.get('mb_input_weight_coverage')!=1 or any(p['status']!='complete' for p in stock['passes'].values()):

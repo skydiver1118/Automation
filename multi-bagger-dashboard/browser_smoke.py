@@ -23,10 +23,12 @@ def run(base: str, output: Path, public: bool=False) -> dict:
         context=browser.new_context(viewport={'width':1440,'height':1000},reduced_motion='reduce')
         page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
         page.goto(base,wait_until='networkidle');page.wait_for_function("document.querySelectorAll('#ranking tr').length===10")
-        assert 'source-backed scorecards' in page.locator('#auditBanner').inner_text()
-        assert 'not yet certified' in page.locator('#auditBanner').inner_text()
+        banner=page.locator('#auditBanner').inner_text().lower()
+        assert 'source-backed scorecards' in banner
+        assert 'not certified' in banner
         assert page.locator('#error').is_hidden()
         page.locator('#group').select_option('all')
+        assert 'Missing Critical Data' in page.locator('#ranking').inner_text()
         assert page.locator('#ranking tr').count()==len(data['stocks'])
         for stock in data['stocks']:
             if not stock['metadata'].get('audit_file'):continue
@@ -36,7 +38,8 @@ def run(base: str, output: Path, public: bool=False) -> dict:
             assert 'Source-backed score audit' in page.locator('#evidenceDetail').inner_text()
             assert page.locator('#evidenceDetail .quarter-table thead th').count()==9
             assert page.locator('#evidenceDetail .audit-pass').count()==6
-            if ticker=='POET':assert 'Missing' in page.locator('#evidenceDetail').inner_text()
+            if ticker=='POET':assert 'Missing Critical Data' in page.locator('#evidenceDetail').inner_text()
+            if ticker=='IREN':assert 'Missing Critical Data — no score' not in page.locator('#evidenceDetail').inner_text()
             if ticker=='FIGR':assert 'Kiavi' in page.locator('#dialogBody').inner_text()
             checked.append(ticker);page.locator('#close').click()
         page.locator('#search').fill('ZZZ_NO_SUCH_ISSUER')

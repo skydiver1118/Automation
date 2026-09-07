@@ -69,9 +69,14 @@ def verify():
         if r.get('analyst_grades'):
             import copy
             calculated=calculate(copy.deepcopy(r),{'technical':m['technical']},m['benchmarks'])
+            q=m.get('score_eligibility',{});scoreable=q.get('scoreable') is not False
             for k in ['research_mb_score','research_ev_score','technical_score']:
-                if r.get(k) is None and calculated[k] is None:continue
-                if r.get(k) is None or calculated[k] is None or abs(r[k]-calculated[k])>1e-8:
+                observed=r.get(k)
+                if not scoreable and k in ['research_mb_score','research_ev_score']:
+                    if observed is not None:raise ValueError(f'{s["ticker"]}: critical-data headline score not withheld')
+                    observed=r.get(k+'_diagnostic')
+                if observed is None and calculated[k] is None:continue
+                if observed is None or calculated[k] is None or abs(observed-calculated[k])>1e-8:
                     raise ValueError(f'{s["ticker"]}: monitoring calculation mismatch {k}')
         if 'membership' not in m:raise ValueError('Membership provenance missing')
         verify_audit(s)
@@ -84,7 +89,9 @@ def verify():
         'monitoring_history_count':len(list((APP/'monitoring/runs').glob('*.json'))),
         'research_data_collected_at':latest['metadata'].get('data_collected_at'),'audit_reviewed_at':latest['metadata'].get('audit_reviewed_at'),'market_session_date':latest['market_session_date'],'refresh_kind':latest['metadata']['refresh_kind'],'watchlist_recorded_at':latest['recorded_at'],
         'additions':['RGTI','QBTS','OKLO','SMR','EOSE'],'action_members':members(registry,'action'),'candidate_members':members(registry,'candidate'),
-        'research_values_reconciled':sum(bool(s['metadata'].get('research',{}).get('analyst_grades')) for s in latest['stocks'])})
+        'research_values_reconciled':sum(bool(s['metadata'].get('research',{}).get('analyst_grades')) for s in latest['stocks']),
+        'scoreable_count':sum(s['metadata'].get('score_eligibility',{}).get('scoreable') is True for s in latest['stocks']),
+        'critical_data_unscored_count':sum(s['metadata'].get('score_eligibility',{}).get('status')=='missing_critical_data' for s in latest['stocks'])})
     receipt['evidence_audit']=audit_summary(latest)
     receipt['full_six_pass_complete']=receipt['evidence_audit']['full_six_pass_complete']
     return latest,receipt,script
@@ -121,11 +128,11 @@ def build(dest):
         'prices':{s['ticker']:{'price_usd':s['metadata'].get('research',{}).get('price'),
             'as_of':s['metadata'].get('research',{}).get('price_date'),'currency':'USD'} for s in latest['stocks']}}
     (dest/'data/prices').mkdir(exist_ok=True);(dest/'data/prices/latest.json').write_text(json.dumps(prices,indent=2)+'\n')
-    columns=['snapshot','tier','list_rank','ticker','price','price_date','mb_research','ev_research','technical_research','market_refreshed_at','source_reviewed_at','promotion_blocker','evidence_status','input_audited_mb_score','mb_input_coverage','ev_input_coverage','completed_passes','warning_count','warnings','audit_file']
+    columns=['snapshot','tier','list_rank','ticker','score_status','critical_data_reasons','price','price_date','mb_research','ev_research','technical_research','market_refreshed_at','source_reviewed_at','promotion_blocker','evidence_status','input_audited_mb_score','mb_input_coverage','ev_input_coverage','completed_passes','warning_count','warnings','audit_file']
     def csv_rows(x):
         for s in x['stocks']:
             m=s['metadata'];r=m.get('research',{})
-            yield dict(zip(columns,[snapshot_id(x),m['tier'],m['tier_rank'],s['ticker'],r.get('price'),r.get('price_date'),r.get('research_mb_score'),r.get('research_ev_score'),r.get('technical_score'),m.get('last_market_refresh_at'),m.get('research_reviewed_at'),m.get('promotion_blocker'),m.get('audit',{}).get('status','unreviewed'),m.get('audit',{}).get('input_audited_mb_score'),r.get('mb_input_weight_coverage'),r.get('ev_input_weight_coverage'),m.get('audit',{}).get('completed_passes'),len(m.get('audit',{}).get('warnings',[])),'; '.join(w['message'] for w in m.get('audit',{}).get('warnings',[])),m.get('audit_file')]))
+            yield dict(zip(columns,[snapshot_id(x),m['tier'],m['tier_rank'],s['ticker'],m.get('score_eligibility',{}).get('status','legacy'),'; '.join(m.get('score_eligibility',{}).get('critical_reasons',[])),r.get('price'),r.get('price_date'),r.get('research_mb_score'),r.get('research_ev_score'),r.get('technical_score'),m.get('last_market_refresh_at'),m.get('research_reviewed_at'),m.get('promotion_blocker'),m.get('audit',{}).get('status','unreviewed'),m.get('audit',{}).get('input_audited_mb_score'),r.get('mb_input_weight_coverage'),r.get('ev_input_weight_coverage'),m.get('audit',{}).get('completed_passes'),len(m.get('audit',{}).get('warnings',[])),'; '.join(w['message'] for w in m.get('audit',{}).get('warnings',[])),m.get('audit_file')]))
     with (dest/'monitoring/current_scores.csv').open('w',newline='') as h:
         w=csv.DictWriter(h,fieldnames=columns);w.writeheader();w.writerows(csv_rows(latest))
     with (dest/'monitoring/history_scores.csv').open('w',newline='') as h:
