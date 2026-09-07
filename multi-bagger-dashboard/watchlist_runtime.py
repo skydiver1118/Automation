@@ -22,6 +22,7 @@ import numpy as np
 import pandas as pd
 import exchange_calendars as xcals
 from research_scoring import calculate, technical as technical_score
+from evidence_gate import evidence_status,audit_summary
 from watchlist import APP, REGISTRY, load, members, now_iso, validate
 
 DATA = APP / 'monitoring'
@@ -132,7 +133,7 @@ def save_snapshot(snapshot: dict, mode: str, timestamp: str | None=None) -> dict
     x=copy.deepcopy(snapshot);ts=timestamp or now_iso();tag=ts.replace(':','').replace('+0000','Z').replace('+00:00','Z')
     sid=tag+'-'+mode
     x['metadata'].update({'monitoring_id':sid,'refresh_kind':mode,'recorded_at':ts})
-    x['recorded_at']=ts;x['run_date']=ts[:10]
+    x['recorded_at']=ts;x['run_date']=datetime.fromisoformat(ts.replace('Z','+00:00')).astimezone(ET).date().isoformat()
     path=DATA/'runs'/f'{sid}.json'
     if path.exists():
         if load(path)!=x:raise ValueError('Conflicting immutable monitoring snapshot')
@@ -275,7 +276,11 @@ def refresh(mode: str, at: datetime | None=None) -> dict:
         event=_filings(yf_t,m.get('research_reviewed_at') or '2026-09-06');m['event_scan']=event
         if event['new_filings']:
             m['research_review_required']=True;material.append(t+': new filing requires review')
-        if t not in selected:continue # Candidates retain their true weekly score/price date.
+        if t not in selected:
+            pending=['New filed disclosure requires source review'] if event['new_filings'] else []
+            if event['status']!='checked':pending.append('Current filing inventory unavailable')
+            evidence_status(s,pending)
+            continue # Candidates retain their true weekly score/price date.
         try:
             tech=technical(frame(t),target);old=copy.deepcopy(m.get('research',{}));info=yf_t.get_info()
             if not old.get('analyst_grades'):
@@ -287,6 +292,7 @@ def refresh(mode: str, at: datetime | None=None) -> dict:
                 succeeded.append(t)
                 continue
             f=copy.deepcopy(old);review=[]
+            if event['new_filings']:review.append('New filed disclosure requires source review')
             if info.get('mostRecentQuarter'):
                 reported=datetime.fromtimestamp(info['mostRecentQuarter'],timezone.utc).date().isoformat()
                 if reported>str(f.get('financial_period_end') or ''):review.append('New financial period; audited statement bridge not yet updated')
@@ -316,7 +322,7 @@ def refresh(mode: str, at: datetime | None=None) -> dict:
                 review.append('Fresh consensus unavailable; affected components withheld')
             result=calculate(clean(f),{'technical':tech},bench)
             m.update({'research':result,'technical':tech,'benchmarks':bench,'last_market_refresh_at':ts,
-                'refresh_status':'market_and_estimates_refreshed','input_scope':'Prices/estimates updated; reviewed statements and analyst grades carried forward with original dates.',
+                'refresh_status':'market_and_estimates_refreshed','delta_basis':'market_estimate_refresh','input_scope':'Prices/estimates updated; reviewed statements and analyst grades carried forward with original dates.',
                 'research_review_required':bool(review or m.get('research_review_required')),'review_queue':review,
                 'deltas':{k:(result[k]-old[k] if finite(result.get(k)) and finite(old.get(k)) else None) for k in ['research_mb_score','research_ev_score','technical_score']}})
             if event['status']!='checked':m['review_queue'].append('Filing inventory unavailable');m['research_review_required']=True
@@ -327,6 +333,7 @@ def refresh(mode: str, at: datetime | None=None) -> dict:
             z=s['entry_zone']
             if finite(z.get('low')) and finite(z.get('high')):
                 z['hit_status']='hit' if z['low']<=tech['price']<=z['high'] else 'above' if tech['price']>z['high'] else 'below'
+            evidence_status(s,m.get('review_queue',[]))
             if m.get('research_review_required'):s['action']='RESEARCH HOLD — new or unresolved evidence'
             elif z.get('hit_status')=='hit':s['action']='Within entry band — timing remains weak' if result['technical_score']<60 else 'WATCH — in legacy band; validate entry thesis'
             elif result['technical_score']>=60:s['action']='WATCH — improving timing; no verified entry signal'
@@ -336,9 +343,11 @@ def refresh(mode: str, at: datetime | None=None) -> dict:
         except Exception as e:
             # Keep last good measurement and its date, but never call it refreshed.
             m['refresh_status']='stale_refresh_failed';m['refresh_error']=type(e).__name__+': '+str(e)[:200]
-            m['research_review_required']=True;errors[t]=m['refresh_error']
+            m['research_review_required']=True;errors[t]=m['refresh_error'];evidence_status(s,[m['refresh_error']])
     if len(succeeded)<max(1,math.ceil(.8*len(selected))):
         raise RuntimeError('Insufficient refresh coverage; retain last published snapshot. '+json.dumps(errors))
+    x['metadata']['audit_summary']=audit_summary(x)
+    x['metadata']['full_six_pass_complete']=x['metadata']['audit_summary']['full_six_pass_complete']
     previous=original['metadata'].get('weekly_review')
     x['metadata'].update({'scope':'Incremental automated monitoring, not a complete new six-pass research certification.',
         'refresh_summary':{'requested':len(selected),'refreshed':len(succeeded),'failed':errors,'candidate_event_scan_only':mode=='daily',

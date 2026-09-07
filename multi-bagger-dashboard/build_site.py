@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 from research_scoring import compute_all
+from evidence_gate import verify_audit,audit_summary
 
 APP=Path(__file__).resolve().parent
 ROOT=APP.parent
@@ -73,6 +74,7 @@ def verify():
                 if r.get(k) is None or calculated[k] is None or abs(r[k]-calculated[k])>1e-8:
                     raise ValueError(f'{s["ticker"]}: monitoring calculation mismatch {k}')
         if 'membership' not in m:raise ValueError('Membership provenance missing')
+        verify_audit(s)
     receipt.update({'legacy_history':receipt.pop('history'),'members':len(seen),
         'action_count':len(members(registry,'action')),'candidate_count':len(members(registry,'candidate')),
         'candidate_first':True,'automatic_swaps':False,'monitoring_id':snapshot_id(latest),
@@ -80,9 +82,11 @@ def verify():
         'monitoring_sha256':digest(APP/'monitoring/latest.json'),
         'snapshot_sha256':digest(APP/'monitoring/latest.json'),
         'monitoring_history_count':len(list((APP/'monitoring/runs').glob('*.json'))),
-        'market_session_date':latest['market_session_date'],'refresh_kind':latest['metadata']['refresh_kind'],'watchlist_recorded_at':latest['recorded_at'],
+        'research_data_collected_at':latest['metadata'].get('data_collected_at'),'audit_reviewed_at':latest['metadata'].get('audit_reviewed_at'),'market_session_date':latest['market_session_date'],'refresh_kind':latest['metadata']['refresh_kind'],'watchlist_recorded_at':latest['recorded_at'],
         'additions':['RGTI','QBTS','OKLO','SMR','EOSE'],'action_members':members(registry,'action'),'candidate_members':members(registry,'candidate'),
         'research_values_reconciled':sum(bool(s['metadata'].get('research',{}).get('analyst_grades')) for s in latest['stocks'])})
+    receipt['evidence_audit']=audit_summary(latest)
+    receipt['full_six_pass_complete']=receipt['evidence_audit']['full_six_pass_complete']
     return latest,receipt,script
 
 
@@ -101,6 +105,7 @@ def build(dest):
     shutil.copy(APP/'watchlist_registry.json',dest/'watchlist_registry.json')
     shutil.copytree(BASE,dest/'data')
     shutil.copytree(APP/'monitoring',dest/'monitoring')
+    if (APP/'evidence_audit').exists():shutil.copytree(APP/'evidence_audit',dest/'evidence_audit')
     shutil.copytree(PROJECT/'reports/multi_bagger',dest/'reports')
     shutil.copytree(APP/'research/2026-09-06',dest/'research')
     shutil.copy(APP/'research_scoring.py',dest/'research/research_scoring.py')
@@ -116,11 +121,11 @@ def build(dest):
         'prices':{s['ticker']:{'price_usd':s['metadata'].get('research',{}).get('price'),
             'as_of':s['metadata'].get('research',{}).get('price_date'),'currency':'USD'} for s in latest['stocks']}}
     (dest/'data/prices').mkdir(exist_ok=True);(dest/'data/prices/latest.json').write_text(json.dumps(prices,indent=2)+'\n')
-    columns=['snapshot','tier','list_rank','ticker','price','price_date','mb_research','ev_research','technical_research','market_refreshed_at','source_reviewed_at','promotion_blocker']
+    columns=['snapshot','tier','list_rank','ticker','price','price_date','mb_research','ev_research','technical_research','market_refreshed_at','source_reviewed_at','promotion_blocker','evidence_status','input_audited_mb_score','mb_input_coverage','ev_input_coverage','completed_passes','warning_count','warnings','audit_file']
     def csv_rows(x):
         for s in x['stocks']:
             m=s['metadata'];r=m.get('research',{})
-            yield dict(zip(columns,[snapshot_id(x),m['tier'],m['tier_rank'],s['ticker'],r.get('price'),r.get('price_date'),r.get('research_mb_score'),r.get('research_ev_score'),r.get('technical_score'),m.get('last_market_refresh_at'),m.get('research_reviewed_at'),m.get('promotion_blocker')]))
+            yield dict(zip(columns,[snapshot_id(x),m['tier'],m['tier_rank'],s['ticker'],r.get('price'),r.get('price_date'),r.get('research_mb_score'),r.get('research_ev_score'),r.get('technical_score'),m.get('last_market_refresh_at'),m.get('research_reviewed_at'),m.get('promotion_blocker'),m.get('audit',{}).get('status','unreviewed'),m.get('audit',{}).get('input_audited_mb_score'),r.get('mb_input_weight_coverage'),r.get('ev_input_weight_coverage'),m.get('audit',{}).get('completed_passes'),len(m.get('audit',{}).get('warnings',[])),'; '.join(w['message'] for w in m.get('audit',{}).get('warnings',[])),m.get('audit_file')]))
     with (dest/'monitoring/current_scores.csv').open('w',newline='') as h:
         w=csv.DictWriter(h,fieldnames=columns);w.writeheader();w.writerows(csv_rows(latest))
     with (dest/'monitoring/history_scores.csv').open('w',newline='') as h:
@@ -128,11 +133,15 @@ def build(dest):
         for p in sorted((APP/'monitoring/runs').glob('*.json')):w.writerows(csv_rows(load(p)))
     report=['# Multi Bagger Action 10 + Candidates','',f'Recorded: {latest["recorded_at"]}',
         'Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.','',
-        '| Tier | Rank | Ticker | Price | Market date | MB research | E&V research | Technical |',
-        '|---|---:|---|---:|---|---:|---:|---:|']
+        '| Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |',
+        '|---|---:|---|---:|---|---:|---:|---:|---|']
     for s in latest['stocks']:
         m=s['metadata'];r=m.get('research',{});fmt=lambda v:'—' if v is None else f'{v:.1f}'
-        report.append(f'| {m["tier"]} | {m["tier_rank"]} | {s["ticker"]} | {r.get("price","—")} | {r.get("price_date","—")} | {fmt(r.get("research_mb_score"))} | {fmt(r.get("research_ev_score"))} | {fmt(r.get("technical_score"))} |')
+        report.append(f'| {m["tier"]} | {m["tier_rank"]} | {s["ticker"]} | {r.get("price","—")} | {r.get("price_date","—")} | {fmt(r.get("research_mb_score"))} | {fmt(r.get("research_ev_score"))} | {fmt(r.get("technical_score"))} | {m.get('audit',{}).get('status','unreviewed')} |')
+    for s in latest['stocks']:
+        m=s['metadata'];a=m.get('audit',{})
+        report+=['',f"## {s['ticker']} — {a.get('status','unreviewed')}",f"Audit: {m.get('audit_file','not available')}. Reviewed: {a.get('reviewed_at','not recorded')}"]
+        report+=['- '+w['message'] for w in a.get('warnings',[])]
     report+=['','## Policy','Candidate-first intake. Action limit 10. Weekly swaps require explicit approval. No automated orders.','',
        '## Limitations']+['- '+v for v in latest['record_limitations']]
     (dest/'monitoring/current_report.md').write_text('\n'.join(report)+'\n')
