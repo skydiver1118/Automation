@@ -45,7 +45,9 @@ def run(base: str, output: Path, public: bool=False) -> dict:
         page.locator('#tabWeekly').click();assert page.locator('#weeklyPanel').is_visible()
         page.locator('#tabCandidates').click();assert page.locator('#ranking tr').count()==counts['candidate']
         page.locator('#history').select_option('2026-09-03')
-        page.wait_for_function("document.querySelectorAll('#ranking tr').length===20")
+        # Candidate20 and the old snapshot both have 20 rows. Wait for the actual
+        # historical state to finish loading rather than accepting that row count early.
+        page.wait_for_function("document.querySelector('#auditBanner').textContent.includes('Historical snapshot') && document.querySelectorAll('#ranking tr').length===20")
         assert 'Historical snapshot' in page.locator('#auditBanner').inner_text()
         page.screenshot(path=str(output/'desktop_history.png'))
         context.close()
