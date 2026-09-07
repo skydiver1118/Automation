@@ -12,8 +12,8 @@
   "unverified_official_scores_withheld": true,
   "market_session_date": "2026-09-04",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-09-07T01:58:22+00:00",
-  "snapshot_sha256": "198d873f1781919d184ca0611a8f8b099e316ca236f8e68f14ea3449c1cdf87f",
+  "watchlist_recorded_at": "2026-09-07T15:59:15+00:00",
+  "snapshot_sha256": "36bec37b1e18f01d7aaa36dc157ede1ce298a1c8a6ccbe3c81a3098de1268b4c",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,29 +29,29 @@
   "candidate_count": 20,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-09-07T015822Z-evidence_repair",
-  "registry_sha256": "f86259c19210a5e1f7f98d7e20aaa872c46ce7dcc3b91f764fdf418917d73965",
-  "monitoring_sha256": "198d873f1781919d184ca0611a8f8b099e316ca236f8e68f14ea3449c1cdf87f",
-  "monitoring_history_count": 3,
+  "monitoring_id": "2026-09-07T155915Z-critical_data_rerank",
+  "registry_sha256": "54c0ca5446b988b72b20ea6bc1cc41fa9daa0c36d1dc16f0b31fd3b8c0ab6dbb",
+  "monitoring_sha256": "36bec37b1e18f01d7aaa36dc157ede1ce298a1c8a6ccbe3c81a3098de1268b4c",
+  "monitoring_history_count": 4,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
-  "refresh_kind": "evidence_repair",
+  "refresh_kind": "critical_data_rerank",
   "action_members": [
     "ETN",
     "ZETA",
     "HUBB",
+    "VST",
     "CRMD",
     "AXTI",
     "KTOS",
     "EVLV",
     "AVAV",
-    "BKSY",
-    "AMPX"
+    "BKSY"
   ],
   "candidate_members": [
-    "VST",
     "FIGR",
     "RKLB",
     "GRRR",
+    "AMPX",
     "NBIS",
     "SSII",
     "IREN",
@@ -69,6 +69,8 @@
     "SMR",
     "EOSE"
   ],
+  "scoreable_count": 18,
+  "critical_data_unscored_count": 12,
   "evidence_audit": {
     "stock_count": 30,
     "scorecards_with_audit": 30,
@@ -78,8 +80,10 @@
     "input_audited": 13,
     "full_research_verified": 0,
     "provisional": 17,
-    "critical_hold": 7,
+    "critical_hold": 12,
+    "scoreable": 18,
+    "critical_data_unscored": 12,
     "full_six_pass_complete": false
   },
-  "built_at": "2026-09-07T02:07:01+00:00"
+  "built_at": "2026-09-07T16:04:49+00:00"
 }

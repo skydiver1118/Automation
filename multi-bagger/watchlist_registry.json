@@ -4,8 +4,8 @@
   "action_limit": 10,
   "intake_default": "candidate",
   "automatic_swaps": false,
-  "updated_at": "2026-09-07T01:58:22+00:00",
-  "initial_selection_basis": "Top 10 of the existing same-calibration September 6 research ranking; not a BUY signal. Existing provisional flags retained.",
+  "updated_at": "2026-09-07T15:59:15+00:00",
+  "initial_selection_basis": "Action10 contains the 10 highest current MB screening scores among stocks that pass MB_CRITICAL_DATA_GATE_V1. Missing critical data is unscored, not reweighted.",
   "schedules": {
     "timezone": "America/New_York",
     "action": "08:00 each NYSE/Nasdaq trading day",
@@ -15,11 +15,12 @@
   "promotion_policy": {
     "min_mb_gap": 5,
     "consecutive_weeks": 2,
-    "min_input_coverage": 0.9,
+    "min_input_coverage": 1.0,
     "max_weekly_swaps": 2,
     "cooldown_days": 28,
     "requires_recorded_approval": true,
-    "requires_cleared_research_and_valuation_blockers": true
+    "requires_cleared_research_and_valuation_blockers": true,
+    "requires_no_critical_score_data_gaps": true
   },
   "stocks": [
     {
@@ -33,7 +34,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "ZETA",
@@ -46,7 +48,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "HUBB",
@@ -59,20 +62,22 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "VST",
-      "tier": "candidate",
-      "membership_since": "2026-09-07T01:58:22+00:00",
+      "tier": "action",
+      "membership_since": "2026-09-07T15:59:15+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "8 required financial-history cells unavailable; blanks are not zero.",
+      "promotion_blocker": "No score-critical data gap. Eight historical display cells remain unavailable but all current MB factor inputs are populated; retain the visible noncritical warning.",
       "next_review_trigger": "Contracted power demand, hedge roll-off and disciplined integration/capital spending.",
-      "priority": "weekly",
+      "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "FIGR",
@@ -80,12 +85,13 @@
       "membership_since": "2026-09-07T01:58:22+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Post-Kiavi full pro forma cash, debt, shares and combined earnings are not reconciled.; Operating-business valuation model is not validated for this finance-company accounting.; 11 required financial-history cells unavailable; blanks are not zero.; Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Post-Kiavi full pro forma cash, debt, shares and combined earnings are not reconciled.; Operating-business valuation model is not validated for this finance-company accounting.",
       "next_review_trigger": "Post-Kiavi combined financial disclosures and acquisition integration.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "CRMD",
@@ -98,7 +104,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "AXTI",
@@ -111,7 +118,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "KTOS",
@@ -124,7 +132,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "EVLV",
@@ -137,7 +146,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "RKLB",
@@ -145,12 +155,13 @@
       "membership_since": "2026-09-07T01:58:22+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Latest-quarter acquisition-excluded growth not fully separated; half of the growth factor remains unavailable.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.",
       "next_review_trigger": "Neutron development milestones and funded space-systems/launch backlog execution.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "AVAV",
@@ -163,7 +174,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "BKSY",
@@ -176,7 +188,8 @@
       "priority": "daily",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "GRRR",
@@ -184,25 +197,27 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "July $125M convertible financing and its net proceeds, derivative/economic claims need a current pro forma reconciliation.; Issuer reports interim half-years; eight independently reported quarterly cash-flow observations are not available.; 2 required financial-history cells unavailable; blanks are not zero.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.; Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: July $125M convertible financing and its net proceeds, derivative/economic claims need a current pro forma reconciliation.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.",
       "next_review_trigger": "Collections, cash conversion and economics of financed project delivery.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "AMPX",
-      "tier": "action",
-      "membership_since": "2026-09-07T01:58:22+00:00",
+      "tier": "candidate",
+      "membership_since": "2026-09-07T15:59:15+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
       "promotion_blocker": "No material evidence gap; valuation, entry and weekly persistence gates still apply.",
       "next_review_trigger": "Repeat commercial orders and a sustainable positive gross-margin/FCF ramp.",
-      "priority": "daily",
+      "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "NBIS",
@@ -215,7 +230,8 @@
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "SSII",
@@ -228,7 +244,8 @@
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "IREN",
@@ -241,7 +258,8 @@
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "TSSI",
@@ -254,7 +272,8 @@
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "SOUN",
@@ -262,12 +281,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Post-LivePerson combined cash, debt, economic share count and forecast perimeter remain unresolved.; Comparable acquisition-excluded current revenue growth is not fully reconciled.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.; Post-LivePerson combined cash, debt, economic share count and forecast perimeter remain unresolved.",
       "next_review_trigger": "Reconcile the closed LivePerson transaction: combined revenue, cash, debt, share issuance and integration costs.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "POET",
@@ -275,12 +295,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Gross-profit and valuation coverage are insufficient for a fully populated, comparable MB score.; A consistent eight-quarter gross-profit series is not available in the retained evidence.; Only 91.0% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.; 8 required financial-history cells unavailable; blanks are not zero.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: valuation. Missing factor weight is not reweighted into a comparable headline score.; Gross-profit and valuation coverage are insufficient for a fully populated, comparable MB score.",
       "next_review_trigger": "Verify shipment conversion, gross economics and the cash cost of ramping optical-engine production.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "WULF",
@@ -293,7 +314,8 @@
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "APLD",
@@ -301,12 +323,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Comparable acquisition/divestiture-adjusted current growth remains unavailable.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.; 2 required financial-history cells unavailable; blanks are not zero.; Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.",
       "next_review_trigger": "Funded campus construction, commissioning and conversion of contracted HPC leases into recognized revenue.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "RR",
@@ -319,7 +342,8 @@
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "RZLV",
@@ -327,12 +351,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Going-concern and financing risks remain material; eight separately reported quarterly cash-flow observations are unavailable.; Acquisition-excluded current revenue growth remains unverified; issuer reports interim half-years.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.; 1 required financial-history cells unavailable; blanks are not zero.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.; Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.; Going-concern and financing risks remain material; eight separately reported quarterly cash-flow observations are unavailable.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.",
       "next_review_trigger": "Collections and cash conversion, organic customer growth and financing without excessive dilution.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "SERV",
@@ -340,12 +365,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "approved_final25",
       "intake_reason": "Existing approved universe; retained under the user-approved Action10/Candidates structure.",
-      "promotion_blocker": "Comparable acquisition-excluded current growth remains unavailable.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.; Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.",
       "next_review_trigger": "Recovery of delivery demand, revenue conversion and a credible path to positive deployment economics.",
       "priority": "weekly",
       "model_scope": "operating_business_research",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "RGTI",
@@ -358,7 +384,8 @@
       "priority": "weekly",
       "model_scope": "early_commercial_quantum",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00"
+      "input_audit_reviewed_at": "2026-09-07T01:58:22+00:00",
+      "score_eligibility": "scoreable"
     },
     {
       "ticker": "QBTS",
@@ -366,12 +393,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "photo_back_pocket",
       "intake_reason": "Evidence of paid usage, but bookings are not sales and current valuation is demanding.",
-      "promotion_blocker": "Quantum Circuits acquisition revenue and comparable current growth are not fully separated.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.",
       "next_review_trigger": "Bookings and RPO become repeat recognized revenue with better operating economics.",
       "priority": "weekly",
       "model_scope": "early_commercial_quantum",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "OKLO",
@@ -379,12 +407,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "photo_back_pocket",
       "intake_reason": "Long-duration development option; business-score proxy is not project NPV.",
-      "promotion_blocker": "Operating-business formula is only a project-stage proxy; probability-adjusted reactor project economics are not valued.; Project-by-project funding, licensing probabilities and risk-adjusted valuation remain uncalibrated.; Only 92.5% of intended MB factor weight is populated. Missing-weight bounds are not confidence intervals.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.; 12 required financial-history cells unavailable; blanks are not zero.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.; Operating-business formula is only a project-stage proxy; probability-adjusted reactor project economics are not valued.",
       "next_review_trigger": "Commercial Aurora licensing, funded construction, fuel and customer commitments leading to actual power sales.",
       "priority": "weekly",
       "model_scope": "project_stage_proxy",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "SMR",
@@ -392,12 +421,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "photo_back_pocket",
       "intake_reason": "Stronger design-approval evidence does not yet establish an investable commercial fleet.",
-      "promotion_blocker": "The operating-business screen is a development-stage proxy, not a risk-adjusted commercial-reactor project valuation.; Site-specific final investment decisions, capital commitments and project valuation probabilities are not fully verified.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.; 9 required financial-history cells unavailable; blanks are not zero.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: The operating-business screen is a development-stage proxy, not a risk-adjusted commercial-reactor project valuation.",
       "next_review_trigger": "Binding, funded customer projects and reconciliation of ENTRA1 milestone obligations and economic ownership.",
       "priority": "weekly",
       "model_scope": "project_stage_proxy",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     },
     {
       "ticker": "EOSE",
@@ -405,12 +435,13 @@
       "membership_since": "2026-09-06T18:40:00+00:00",
       "origin": "photo_back_pocket",
       "intake_reason": "Below AMPX on demonstrated unit economics; require gross-margin and financing improvement.",
-      "promotion_blocker": "Preferred, derivative and subsequent financing claims require continued current-date reconciliation.; Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.",
+      "promotion_blocker": "Missing critical data — no MB/E&V headline score: Preferred, derivative and subsequent financing claims require continued current-date reconciliation.",
       "next_review_trigger": "Positive sustainable gross margin, collections, diversified non-related-party demand and a clearer capital-claims bridge.",
       "priority": "weekly",
       "model_scope": "manufacturing_scaleup",
       "full_research_reviewed_at": null,
-      "input_audit_reviewed_at": null
+      "input_audit_reviewed_at": null,
+      "score_eligibility": "missing_critical_data"
     }
   ],
   "events": [
@@ -671,6 +702,22 @@
       "to": "action",
       "reason": "User-authorized 30-stock evidence audit and re-selection; provisional financial-model scores do not override critical eligibility warnings.",
       "approval_ref": "Conversation 2026-09-06: Get full scores for all 30 stocks and reassign action 10 if needed."
+    },
+    {
+      "at": "2026-09-07T15:59:15+00:00",
+      "ticker": "VST",
+      "from": "candidate",
+      "to": "action",
+      "reason": "Critical-data gating: only stocks with all score-critical inputs may enter the ranked Action10; rerank scoreable stocks by unchanged MB screening score.",
+      "approval_ref": "Conversation 2026-09-07: If any missing data are critical and needed, label stock missing critical data and not score it. Refresh again and rerank."
+    },
+    {
+      "at": "2026-09-07T15:59:15+00:00",
+      "ticker": "AMPX",
+      "from": "action",
+      "to": "candidate",
+      "reason": "Critical-data gating: only stocks with all score-critical inputs may enter the ranked Action10; rerank scoreable stocks by unchanged MB screening score.",
+      "approval_ref": "Conversation 2026-09-07: If any missing data are critical and needed, label stock missing critical data and not score it. Refresh again and rerank."
     }
   ],
   "score_methodology": "MB25_RESEARCH_V1_20260906",
