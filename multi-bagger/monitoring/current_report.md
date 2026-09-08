@@ -1,13 +1,13 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-07T15:59:15+00:00
+Recorded: 2026-09-08T12:20:02+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
 | action | 1 | ETN | 410.8500061035156 | 2026-09-04 | 73.8 | 55.9 | 40.5 | reviewed_within_scope |
-| action | 2 | ZETA | 31.350000381469727 | 2026-09-04 | 72.7 | 66.0 | 83.2 | reviewed_within_scope |
-| action | 3 | HUBB | 460.7200012207031 | 2026-09-04 | 70.3 | 63.7 | 25.1 | reviewed_within_scope |
+| action | 2 | ZETA | 31.350000381469727 | 2026-09-04 | 72.7 | 65.9 | 83.2 | reviewed_within_scope |
+| action | 3 | HUBB | 460.7200012207031 | 2026-09-04 | 70.3 | 63.7 | 25.0 | reviewed_within_scope |
 | action | 4 | CRMD | 8.430000305175781 | 2026-09-04 | 68.5 | 67.2 | 76.6 | reviewed_within_scope |
 | action | 5 | VST | 149.3000030517578 | 2026-09-04 | 68.3 | 60.6 | 60.1 | provisional_with_explicit_gaps |
 | action | 6 | AXTI | 61.63999938964844 | 2026-09-04 | 63.2 | 51.9 | 33.1 | reviewed_within_scope |
