@@ -1,17 +1,17 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-12T03:39:34+00:00
+Recorded: 2026-09-12T15:55:44+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
 | action | 1 | ETN | 425.3699951171875 | 2026-09-11 | 73.8 | 55.7 | 72.8 | reviewed_within_scope |
-| action | 2 | ZETA | 30.18000030517578 | 2026-09-11 | 72.8 | 66.5 | 75.9 | reviewed_within_scope |
+| action | 2 | ZETA | 30.18000030517578 | 2026-09-11 | 72.8 | 66.6 | 75.9 | reviewed_within_scope |
 | action | 3 | HUBB | 460.3999938964844 | 2026-09-11 | 70.3 | 63.7 | 32.8 | reviewed_within_scope |
 | action | 4 | CRMD | 7.829999923706055 | 2026-09-11 | 68.5 | 67.7 | 29.3 | reviewed_within_scope |
 | action | 5 | VST | 148.3800048828125 | 2026-09-11 | 68.4 | 60.7 | 55.4 | provisional_with_explicit_gaps |
 | action | 6 | AXTI | 64.7699966430664 | 2026-09-11 | 63.0 | 51.2 | 51.7 | reviewed_within_scope |
-| action | 7 | KTOS | 46.689998626708984 | 2026-09-11 | 62.2 | 46.0 | 12.5 | reviewed_within_scope |
+| action | 7 | KTOS | 46.689998626708984 | 2026-09-11 | 62.2 | 45.9 | 12.5 | reviewed_within_scope |
 | action | 8 | AVAV | 146.7100067138672 | 2026-09-11 | 59.7 | 30.2 | 19.7 | provisional_with_explicit_gaps |
 | action | 9 | EVLV | 4.949999809265137 | 2026-09-11 | 59.0 | 54.3 | 21.2 | reviewed_within_scope |
 | action | 10 | BKSY | 20.610000610351562 | 2026-09-11 | 57.5 | 45.1 | 11.3 | reviewed_within_scope |
@@ -110,7 +110,6 @@ Audit: ./evidence_audit/2026-09-06/NBIS.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- More than 5% economic-share change; reconcile financing/splits/classes
 
 ## SSII — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/SSII.json. Reviewed: 2026-09-07T01:58:22+00:00
@@ -193,7 +192,6 @@ Audit: ./evidence_audit/2026-09-06/OKLO.json. Reviewed: 2026-09-07T01:58:22+00:0
 - 12 required financial-history cells unavailable; blanks are not zero.
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- New filed disclosure requires source review
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.; Operating-business formula is only a project-stage proxy; probability-adjusted reactor project economics are not valued.
 
 ## POET — provisional_with_explicit_gaps
