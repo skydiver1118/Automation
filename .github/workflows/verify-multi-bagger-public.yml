@@ -1,7 +1,7 @@
 name: Verify public Multi Bagger dashboard
 on:
   workflow_run:
-    workflows: ['Publish Multi Bagger Dashboard']
+    workflows: ['Publish Multi Bagger Dashboard', 'Refresh Multi Bagger Action10 and Candidates']
     types: [completed]
     branches: [main]
   workflow_dispatch:
@@ -48,16 +48,37 @@ jobs:
                   payload=get('monitoring/latest.json')
                   actual=hashlib.sha256(payload).hexdigest()
                   assert build['monitoring_sha256']==expected and actual==expected,'Waiting for Pages/CDN snapshot propagation'
+                  snapshot=json.loads(payload)
                   assert build['action_count']==10 and build['candidate_count']>=20
                   assert build['evidence_audit']['scorecards_with_audit']>=30
                   assert not build['full_six_pass_complete']
-                  receipt={'status':'passed','expected_snapshot_sha256':expected,'public_snapshot_sha256':actual,'public_build':build,'verified_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source':'Public HTTPS responses compared with main checkout'}
+                  freshness={'scope':'Publication verification; not a new research certification'}
+                  summary=snapshot.get('metadata',{}).get('refresh_summary',{})
+                  kind=snapshot.get('metadata',{}).get('refresh_kind')
+                  if kind in ['daily','weekly'] and summary:
+                      target=snapshot['metadata']['calendar_gate']['market_session_date']
+                      assert snapshot['market_session_date']==target
+                      selected=[s for s in snapshot['stocks'] if kind=='weekly' or s['metadata']['tier']=='action']
+                      failed=summary.get('failed',{})
+                      exact=[]
+                      for stock in selected:
+                          m=stock['metadata'];ticker=stock['ticker']
+                          if ticker in failed:
+                              assert m.get('refresh_status')=='stale_refresh_failed'
+                              continue
+                          assert m['research']['price_date']==target,(ticker,'Stale quote cannot count as refreshed')
+                          assert m['technical']['price_date']==target,(ticker,'Stale technical inputs')
+                          assert m['last_market_refresh_at']==snapshot['generated_at'],(ticker,'Timestamp-only rebuild')
+                          exact.append(ticker)
+                      assert len(exact)==summary['refreshed']
+                      freshness={'mode':kind,'target_session':target,'selected':len(selected),'exact_session_count':len(exact),'explicit_failures':failed,'candidate_dates_preserved_on_daily':kind=='daily'}
+                  receipt={'status':'passed','expected_snapshot_sha256':expected,'public_snapshot_sha256':actual,'public_build':build,'freshness_checks':freshness,'verified_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source':'Public HTTPS responses compared with main checkout; each refreshed stock checked against run target'}
                   Path('public-proof/public_data_verification.json').write_text(json.dumps(receipt,indent=2)+'\n')
                   print(json.dumps(receipt,indent=2));success=True;break
               except Exception as e:
                   print('Attempt',attempt+1,str(e),flush=True)
                   if attempt<23:time.sleep(15)
-          if not success:raise SystemExit('Public deployment did not match; do not report publication verified')
+          if not success:raise SystemExit('Public deployment/freshness did not match; do not report publication verified')
           PY
       - name: Verify all 30 public scorecards on desktop and mobile
         run: python multi-bagger-dashboard/browser_smoke.py --url https://skydiver1118.github.io/Automation/multi-bagger/ --output public-proof
