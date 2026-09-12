@@ -1,0 +1,106 @@
+name: Repair Multi Bagger refresh date regression
+on:
+  push:
+    branches: ['fix/mb-refresh-date-regression-20260911']
+    paths: ['.github/workflows/repair-mb-refresh-date.yml']
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/mb-refresh-date-regression-20260911
+          submodules: false
+          sparse-checkout: |
+            multi-bagger-dashboard
+            stock-project-v2/data/multi_bagger
+            stock-project-v2/scripts
+            stock-project-v2/tests
+            stock-project-v2/reports/multi_bagger
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Save membership, score engine and historical-file checksums
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          app=Path('multi-bagger-dashboard')
+          roots=[app/'monitoring/runs',Path('stock-project-v2')]
+          files=[p for root in roots for p in root.rglob('*') if p.is_file()]
+          files += [app/'watchlist_registry.json',app/'research_scoring.py']
+          Path('/tmp/mb-preserved.json').write_text(json.dumps({str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}))
+          Path('/tmp/mb-before.json').write_bytes((app/'monitoring/latest.json').read_bytes())
+          PY
+      - name: Install application and browser dependencies
+        run: |
+          pip install -r multi-bagger-dashboard/requirements.txt playwright
+          python -m playwright install --with-deps chromium
+      - name: Real catch-up for both tiers on the latest completed exchange session
+        run: |
+          python multi-bagger-dashboard/watchlist_runtime.py --mode weekly --gate-only
+          python multi-bagger-dashboard/watchlist_runtime.py --mode weekly
+      - name: Validate refreshed data without freezing current dates or rankings
+        run: |
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v
+          python multi-bagger-dashboard/watchlist.py validate
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
+      - name: Prove actual price-date advancement and unchanged investment rules
+        run: |
+          mkdir -p repair-proof
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          app=Path('multi-bagger-dashboard');before=json.loads(Path('/tmp/mb-before.json').read_text());x=json.loads((app/'monitoring/latest.json').read_text())
+          for name,h in json.loads(Path('/tmp/mb-preserved.json').read_text()).items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h,name
+          target=x['metadata']['calendar_gate']['market_session_date']
+          assert target>before['market_session_date'],'No new completed market data; do not label timestamp-only rebuild a repair'
+          assert x['market_session_date']==target
+          assert x['metadata']['refresh_summary']['refreshed']==len(x['stocks'])
+          assert not x['metadata']['refresh_summary']['failed']
+          rows=[]
+          for s in x['stocks']:
+              m=s['metadata'];r=m['research'];q=m['score_eligibility']
+              assert r['price_date']==target and m['technical']['price_date']==target,s['ticker']
+              assert m['last_market_refresh_at']==x['generated_at'],s['ticker']
+              if not q['scoreable']:
+                  assert r['research_mb_score'] is None and r['research_ev_score'] is None and m['tier_rank'] is None,s['ticker']
+              rows.append({'ticker':s['ticker'],'tier':m['tier'],'price':r['price'],'price_date':r['price_date'],'scoreable':q['scoreable'],'mb_score':r['research_mb_score']})
+          assert x['metadata']['action_count']==10 and x['metadata']['candidate_count']==20
+          assert not x['metadata']['full_six_pass_complete']
+          receipt={'status':'passed','previous_market_session':before['market_session_date'],'new_market_session':target,'recorded_at':x['recorded_at'],'coverage':len(rows),'snapshot_sha256':hashlib.sha256((app/'monitoring/latest.json').read_bytes()).hexdigest(),'stock_v2_and_old_snapshots_preserved':True,'membership_and_scoring_engine_unchanged':True,'rows':rows}
+          Path('repair-proof/refresh_verification.json').write_text(json.dumps(receipt,indent=2))
+          print(json.dumps(receipt,indent=2))
+          PY
+      - name: Build and verify actual desktop and mobile rendering
+        run: |
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          python multi-bagger-dashboard/browser_smoke.py --site .multi-bagger-pages --output repair-proof/browser
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Preserve verification evidence
+        if: always()
+        run: |
+          mkdir -p repair-proof
+          cp -r .multi-bagger-pages repair-proof/site 2>/dev/null || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mb-refresh-date-repair-proof
+          path: repair-proof/
+          retention-days: 30
+      - name: Commit only the validated catch-up snapshot; no notification or publication
+        run: |
+          git diff --exit-code -- stock-project-v2 .github/workflows multi-bagger-dashboard/watchlist_registry.json multi-bagger-dashboard/research_scoring.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add multi-bagger-dashboard/monitoring
+          git commit -m 'Multi Bagger real-data catch-up after date-regression repair; preserve membership and missing-data gates'
+          git push origin HEAD:fix/mb-refresh-date-regression-20260911
