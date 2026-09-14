@@ -1,6 +1,6 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-12T15:55:44+00:00
+Recorded: 2026-09-14T17:19:41+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
@@ -14,7 +14,7 @@ Research scores, not calibrated fivefold-return probabilities. Each row preserve
 | action | 7 | KTOS | 46.689998626708984 | 2026-09-11 | 62.2 | 45.9 | 12.5 | reviewed_within_scope |
 | action | 8 | AVAV | 146.7100067138672 | 2026-09-11 | 59.7 | 30.2 | 19.7 | provisional_with_explicit_gaps |
 | action | 9 | EVLV | 4.949999809265137 | 2026-09-11 | 59.0 | 54.3 | 21.2 | reviewed_within_scope |
-| action | 10 | BKSY | 20.610000610351562 | 2026-09-11 | 57.5 | 45.1 | 11.3 | reviewed_within_scope |
+| action | 10 | BKSY | 20.610000610351562 | 2026-09-11 | 57.5 | 45.2 | 11.3 | reviewed_within_scope |
 | candidate | 1 | AMPX | 9.4399995803833 | 2026-09-11 | 55.3 | 44.7 | 20.0 | reviewed_within_scope |
 | candidate | 2 | RGTI | 15.270000457763672 | 2026-09-11 | 53.6 | 9.1 | 24.4 | provisional_with_explicit_gaps |
 | candidate | 3 | NBIS | 224.5500030517578 | 2026-09-11 | 52.5 | 43.2 | 60.6 | provisional_with_explicit_gaps |
