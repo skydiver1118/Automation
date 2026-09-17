@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-16T15:51:16+00:00
+Recorded: 2026-09-17T15:57:09+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 392.3999938964844 | 2026-09-15 | 74.1 | 57.1 | 38.8 | reviewed_within_scope |
-| action | 2 | ZETA | 31.040000915527344 | 2026-09-15 | 72.7 | 66.1 | 78.0 | reviewed_within_scope |
-| action | 3 | HUBB | 438.5299987792969 | 2026-09-15 | 70.4 | 61.7 | 22.4 | reviewed_within_scope |
-| action | 4 | CRMD | 7.760000228881836 | 2026-09-15 | 68.6 | 67.7 | 25.1 | reviewed_within_scope |
-| action | 5 | VST | 141.52999877929688 | 2026-09-15 | 68.5 | 61.5 | 37.9 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 57.70000076293945 | 2026-09-15 | 63.3 | 52.7 | 33.8 | reviewed_within_scope |
-| action | 7 | KTOS | 47.619998931884766 | 2026-09-15 | 62.1 | 44.1 | 18.9 | reviewed_within_scope |
-| action | 8 | AVAV | 156.99000549316406 | 2026-09-15 | 59.5 | 29.6 | 47.9 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 5.110000133514404 | 2026-09-15 | 58.9 | 53.7 | 31.9 | reviewed_within_scope |
-| action | 10 | BKSY | 21.3799991607666 | 2026-09-15 | 57.4 | 44.7 | 18.0 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 397.79998779296875 | 2026-09-16 | 74.0 | 56.9 | 43.0 | reviewed_within_scope |
+| action | 2 | ZETA | 30.850000381469727 | 2026-09-16 | 72.8 | 66.3 | 78.0 | reviewed_within_scope |
+| action | 3 | HUBB | 439.07000732421875 | 2026-09-16 | 70.4 | 61.7 | 23.3 | reviewed_within_scope |
+| action | 4 | VST | 140.38999938964844 | 2026-09-16 | 68.6 | 61.6 | 35.0 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 7.820000171661377 | 2026-09-16 | 68.6 | 67.7 | 26.2 | reviewed_within_scope |
+| action | 6 | AXTI | 64.30000305175781 | 2026-09-16 | 63.1 | 51.3 | 60.9 | reviewed_within_scope |
+| action | 7 | KTOS | 47.59000015258789 | 2026-09-16 | 62.1 | 44.1 | 20.9 | reviewed_within_scope |
+| action | 8 | AVAV | 156.4499969482422 | 2026-09-16 | 59.5 | 29.6 | 49.2 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 5.045000076293945 | 2026-09-16 | 58.9 | 53.9 | 30.8 | reviewed_within_scope |
+| action | 10 | BKSY | 21.520000457763672 | 2026-09-16 | 57.4 | 44.6 | 21.7 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 9.4399995803833 | 2026-09-11 | 55.3 | 44.7 | 20.0 | reviewed_within_scope |
 | candidate | 2 | RGTI | 15.270000457763672 | 2026-09-11 | 53.6 | 9.1 | 24.4 | provisional_with_explicit_gaps |
 | candidate | 3 | NBIS | 224.5500030517578 | 2026-09-11 | 52.5 | 43.2 | 60.6 | provisional_with_explicit_gaps |
@@ -51,14 +51,14 @@ Audit: ./evidence_audit/2026-09-06/HUBB.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 
-## CRMD — reviewed_within_scope
-Audit: ./evidence_audit/2026-09-06/CRMD.json. Reviewed: 2026-09-07T01:58:22+00:00
-- Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
-- The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-
 ## VST — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/VST.json. Reviewed: 2026-09-07T01:58:22+00:00
 - 8 required financial-history cells unavailable; blanks are not zero.
+- Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
+- The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+
+## CRMD — reviewed_within_scope
+Audit: ./evidence_audit/2026-09-06/CRMD.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 
