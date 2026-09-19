@@ -1,40 +1,40 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-18T15:32:17+00:00
+Recorded: 2026-09-19T16:08:50+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 409.4599914550781 | 2026-09-17 | 73.9 | 56.4 | 62.2 | reviewed_within_scope |
-| action | 2 | ZETA | 30.3700008392334 | 2026-09-17 | 72.8 | 66.5 | 76.9 | reviewed_within_scope |
-| action | 3 | HUBB | 443.2300109863281 | 2026-09-17 | 70.4 | 61.5 | 24.7 | reviewed_within_scope |
-| action | 4 | CRMD | 7.789999961853027 | 2026-09-17 | 68.6 | 67.7 | 23.6 | reviewed_within_scope |
-| action | 5 | VST | 143.55999755859375 | 2026-09-17 | 68.5 | 61.2 | 48.1 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 67.75 | 2026-09-17 | 62.9 | 50.6 | 66.7 | reviewed_within_scope |
-| action | 7 | KTOS | 47.65999984741211 | 2026-09-17 | 62.1 | 44.0 | 22.5 | reviewed_within_scope |
-| action | 8 | AVAV | 163.3800048828125 | 2026-09-17 | 59.4 | 29.1 | 64.5 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 5.039999961853027 | 2026-09-17 | 58.9 | 53.9 | 32.2 | reviewed_within_scope |
-| action | 10 | BKSY | 22.760000228881836 | 2026-09-17 | 57.3 | 43.7 | 30.4 | provisional_with_explicit_gaps |
-| candidate | 1 | AMPX | 9.4399995803833 | 2026-09-11 | 55.3 | 44.7 | 20.0 | reviewed_within_scope |
-| candidate | 2 | RGTI | 15.270000457763672 | 2026-09-11 | 53.6 | 9.1 | 24.4 | provisional_with_explicit_gaps |
-| candidate | 3 | NBIS | 224.5500030517578 | 2026-09-11 | 52.5 | 43.2 | 60.6 | provisional_with_explicit_gaps |
-| candidate | 4 | SSII | 3.309999942779541 | 2026-09-11 | 52.4 | 30.8 | 24.0 | provisional_with_explicit_gaps |
-| candidate | 5 | IREN | 43.83000183105469 | 2026-09-11 | 50.0 | 50.2 | 60.2 | provisional_with_explicit_gaps |
-| candidate | 6 | TSSI | 8.930000305175781 | 2026-09-11 | 49.5 | 43.8 | 45.3 | provisional_with_explicit_gaps |
-| candidate | 7 | WULF | 16.739999771118164 | 2026-09-11 | 45.5 | 17.5 | 50.0 | reviewed_within_scope |
-| candidate | 8 | RR | 1.649999976158142 | 2026-09-11 | 44.0 | 42.2 | 27.5 | provisional_with_explicit_gaps |
-| candidate | None | APLD | 26.420000076293945 | 2026-09-11 | — | — | 30.2 | provisional_with_explicit_gaps |
-| candidate | None | EOSE | 3.950000047683716 | 2026-09-11 | — | — | 56.5 | provisional_with_explicit_gaps |
-| candidate | None | FIGR | 34.869998931884766 | 2026-09-11 | — | — | 51.4 | provisional_with_explicit_gaps |
-| candidate | None | GRRR | 13.59000015258789 | 2026-09-11 | — | — | 24.3 | provisional_with_explicit_gaps |
-| candidate | None | OKLO | 36.220001220703125 | 2026-09-11 | — | — | 13.8 | provisional_with_explicit_gaps |
-| candidate | None | POET | 7.949999809265137 | 2026-09-11 | — | — | 33.2 | provisional_with_explicit_gaps |
-| candidate | None | QBTS | 16.799999237060547 | 2026-09-11 | — | — | 22.0 | provisional_with_explicit_gaps |
-| candidate | None | RKLB | 62.95000076293945 | 2026-09-11 | — | — | 18.7 | provisional_with_explicit_gaps |
-| candidate | None | RZLV | 2.2899999618530273 | 2026-09-11 | — | — | 23.0 | provisional_with_explicit_gaps |
-| candidate | None | SERV | 4.480000019073486 | 2026-09-11 | — | — | 23.1 | provisional_with_explicit_gaps |
-| candidate | None | SMR | 8.609999656677246 | 2026-09-11 | — | — | 21.8 | provisional_with_explicit_gaps |
-| candidate | None | SOUN | 6.260000228881836 | 2026-09-11 | — | — | 18.4 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 424.7699890136719 | 2026-09-18 | 73.8 | 55.7 | 80.4 | reviewed_within_scope |
+| action | 2 | ZETA | 30.229999542236328 | 2026-09-18 | 72.8 | 66.6 | 67.2 | reviewed_within_scope |
+| action | 3 | HUBB | 446.9200134277344 | 2026-09-18 | 70.4 | 61.4 | 27.2 | reviewed_within_scope |
+| action | 4 | CRMD | 7.71999979019165 | 2026-09-18 | 68.6 | 67.7 | 19.2 | reviewed_within_scope |
+| action | 5 | VST | 140.6699981689453 | 2026-09-18 | 68.6 | 61.6 | 32.9 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 70.02999877929688 | 2026-09-18 | 62.8 | 50.1 | 75.0 | reviewed_within_scope |
+| action | 7 | KTOS | 47.459999084472656 | 2026-09-18 | 62.1 | 44.1 | 22.5 | reviewed_within_scope |
+| action | 8 | AVAV | 159.9499969482422 | 2026-09-18 | 59.5 | 29.3 | 63.6 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 5.010000228881836 | 2026-09-18 | 59.0 | 54.1 | 28.2 | reviewed_within_scope |
+| action | 10 | BKSY | 21.670000076293945 | 2026-09-18 | 57.4 | 44.5 | 23.9 | provisional_with_explicit_gaps |
+| candidate | 1 | AMPX | 9.5 | 2026-09-18 | 55.3 | 44.6 | 28.7 | reviewed_within_scope |
+| candidate | 2 | RGTI | 15.760000228881836 | 2026-09-18 | 53.6 | 9.3 | 43.8 | provisional_with_explicit_gaps |
+| candidate | 3 | NBIS | 223.5399932861328 | 2026-09-18 | 52.5 | 43.3 | 67.7 | provisional_with_explicit_gaps |
+| candidate | 4 | SSII | 3.259999990463257 | 2026-09-18 | 52.4 | 31.2 | 27.1 | provisional_with_explicit_gaps |
+| candidate | 5 | IREN | 46.68000030517578 | 2026-09-18 | 50.0 | 50.1 | 75.4 | provisional_with_explicit_gaps |
+| candidate | 6 | TSSI | 8.460000038146973 | 2026-09-18 | 49.6 | 44.1 | 44.1 | provisional_with_explicit_gaps |
+| candidate | 7 | WULF | 17.010000228881836 | 2026-09-18 | 45.4 | 17.1 | 50.9 | reviewed_within_scope |
+| candidate | 8 | RR | 1.6699999570846558 | 2026-09-18 | 43.6 | 39.5 | 39.7 | provisional_with_explicit_gaps |
+| candidate | None | APLD | 28.1200008392334 | 2026-09-18 | — | — | 59.8 | provisional_with_explicit_gaps |
+| candidate | None | EOSE | 3.9600000381469727 | 2026-09-18 | — | — | 57.0 | provisional_with_explicit_gaps |
+| candidate | None | FIGR | 35.4900016784668 | 2026-09-18 | — | — | 42.8 | provisional_with_explicit_gaps |
+| candidate | None | GRRR | 12.890000343322754 | 2026-09-18 | — | — | 21.4 | provisional_with_explicit_gaps |
+| candidate | None | OKLO | 38.0 | 2026-09-18 | — | — | 27.0 | provisional_with_explicit_gaps |
+| candidate | None | POET | 7.800000190734863 | 2026-09-18 | — | — | 42.8 | provisional_with_explicit_gaps |
+| candidate | None | QBTS | 17.110000610351562 | 2026-09-18 | — | — | 31.7 | provisional_with_explicit_gaps |
+| candidate | None | RKLB | 64.56999969482422 | 2026-09-18 | — | — | 28.4 | provisional_with_explicit_gaps |
+| candidate | None | RZLV | 2.2699999809265137 | 2026-09-18 | — | — | 24.0 | provisional_with_explicit_gaps |
+| candidate | None | SERV | 4.409999847412109 | 2026-09-18 | — | — | 22.7 | provisional_with_explicit_gaps |
+| candidate | None | SMR | 8.270000457763672 | 2026-09-18 | — | — | 17.1 | provisional_with_explicit_gaps |
+| candidate | None | SOUN | 5.929999828338623 | 2026-09-18 | — | — | 16.3 | provisional_with_explicit_gaps |
 
 ## ETN — reviewed_within_scope
 Audit: ./evidence_audit/2026-09-06/ETN.json. Reviewed: 2026-09-07T01:58:22+00:00
