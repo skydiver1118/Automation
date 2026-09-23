@@ -1,0 +1,88 @@
+name: Stock V2 audited saved-session rescore
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/stock-v2-rescore-saved.yml'
+      - 'stock-project-v2/rescore_saved.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stock-project-v2-daily
+  cancel-in-progress: false
+
+jobs:
+  rescore:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: stock-project-v2/requirements.txt
+      - run: pip install -r stock-project-v2/requirements.txt
+      - name: Test unchanged production scorer and new policy
+        run: |
+          python stock-project-v2/tests/test_normalization.py
+          python stock-project-v2/tests/test_investment_dashboard.py
+          python -m py_compile stock-project-v2/rescore_saved.py
+      - name: Re-score saved latest completed-session inputs without redating data
+        run: python stock-project-v2/rescore_saved.py
+      - name: Rebuild Stock V2 dashboard from the recalculated records
+        run: |
+          python stock-project-v2/dashboard.py
+          python stock-project-v2/enhance_dashboard.py
+          python stock-project-v2/add_metric_comments.py
+          python stock-project-v2/apply_decision_model.py
+          python stock-project-v2/ensure_universe_rows.py
+      - name: Verify score and canonical consistency
+        run: |
+          python - <<'PY'
+          import json
+          import pandas as pd
+          df=pd.read_csv('stock-project-v2/latest_scores.csv')
+          canonical=json.load(open('stock-project-v2/canonical_market.json'))
+          assert df.scoring_version.eq('2.3-no-leverage-penalty').all()
+          for _, row in df.iterrows():
+              c=canonical['stocks'][row.ticker]
+              assert c['long_term_score']==row.long_term_score
+              assert c['long_term_rating']==row.long_term_rating
+              assert c['short_put_eligible']==bool(row.short_put_eligible)
+              assert str(row.as_of)==canonical['as_of']
+          print('All',len(df),'securities agree with the canonical ownership layer.')
+          print(df.loc[df.ticker.eq('SOXL'), ['ticker','as_of','long_term_score','long_term_rating','entry_score','buy_now_score','short_put_eligible']].to_string(index=False))
+          PY
+      - name: Commit audited scores, preserved input archives, and dashboard
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/history/ stock-project-v2/dashboard/
+          if git diff --cached --quiet; then echo 'No change'; else
+            git commit -m 'Stock V2: audited latest-session rescore without leverage penalty'
+            git push origin HEAD:main
+          fi
+      - name: Stage dashboard without altering other published sites
+        run: |
+          mkdir -p .pages/stock-project-v2
+          cp -R stock-project-v2/dashboard/. .pages/stock-project-v2/
+          cat > .pages/index.html <<'HTML'
+          <!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=./stock-project-v2/"><title>Stock Project V2</title></head><body><a href="./stock-project-v2/">Open Stock Project V2 dashboard</a></body></html>
+          HTML
+      - name: Publish Stock V2 to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.pages
+          publish_branch: gh-pages
+          keep_files: true
+          force_orphan: false
+          enable_jekyll: false
