@@ -98,7 +98,7 @@
       "short_term": 0.5,
       "technical": 0.15
     },
-    "leveraged_long_term_penalty": 15
+    "leveraged_long_term_penalty": 0
   },
   "technical_inputs": [
     "RSI14",
@@ -131,7 +131,7 @@
     "timezone": "America/New_York",
     "trading_days_only": true
   },
-  "scoring_version": "2.2-universe-normalization",
+  "scoring_version": "2.3-no-leverage-penalty",
   "image_mentions": {
     "source": "IMG_4639.jpeg",
     "study_date": "2026-09-06",
