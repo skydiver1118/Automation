@@ -513,12 +513,12 @@
       "ticker": "SOXL",
       "as_of": "2026-09-22",
       "price": 151.95,
-      "long_term_score": 59.0,
-      "long_term_rating": "BUY",
+      "long_term_score": 44.0,
+      "long_term_rating": "AVOID",
       "entry_score": 63.4,
       "entry_quality": "FAIR",
-      "composite_score": 60.4,
-      "short_put_eligible": true,
+      "composite_score": 55.2,
+      "short_put_eligible": false,
       "technical": {
         "rsi14": 62.73,
         "macd": null,
@@ -1660,9 +1660,5 @@
         }
       }
     }
-  },
-  "scoring_version": "2.3-no-leverage-penalty",
-  "scoring_fingerprint": "2b1cdf0a1d18475acdb6",
-  "scores_recomputed_at": "2026-09-23T15:33:05.427921-04:00",
-  "score_input_mode": "Saved latest-completed-session factor replay; original technical snapshot retained"
+  }
 }
