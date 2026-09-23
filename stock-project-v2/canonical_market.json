@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "as_of": "2026-09-22",
+  "as_of": "2026-09-23",
   "source": "Stock Project V2 canonical daily market/technical layer",
   "policy": {
     "long_term_rating_thresholds": {
@@ -21,96 +21,35 @@
     ]
   },
   "stocks": {
-    "MU": {
-      "ticker": "MU",
-      "as_of": "2026-09-22",
-      "price": 1096.16,
-      "long_term_score": 67.3,
-      "long_term_rating": "STRONG BUY",
-      "entry_score": 66.3,
-      "entry_quality": "GOOD",
-      "composite_score": 67.5,
-      "short_put_eligible": true,
-      "technical": {
-        "rsi14": 66.06,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 10.13,
-        "adx14": 12.58,
-        "dist_20dma": 0.1268717991568104,
-        "dist_50dma": 0.1764739052067381,
-        "dist_200dma": 0.6906868116893283,
-        "sma20": 972.75,
-        "sma50": 931.73,
-        "sma200": 648.35,
-        "trend": "STRONG BULLISH"
-      },
-      "support": {
-        "key_support": 1032.17,
-        "supports": [
-          {
-            "level": 1032.17,
-            "source": "6M Fib 0.236"
-          },
-          {
-            "level": 972.75,
-            "source": "20DMA"
-          },
-          {
-            "level": 931.73,
-            "source": "50DMA"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 1032.17,
-          "0.382": 894.44,
-          "0.500": 783.12,
-          "0.618": 671.81,
-          "0.786": 513.32
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Bullish",
-        "positive_pct": 100,
-        "counts": {
-          "bullish": 13,
-          "favorable": 3,
-          "bearish": 0,
-          "neutral": 6,
-          "context": 2
-        }
-      }
-    },
     "NVDA": {
       "ticker": "NVDA",
-      "as_of": "2026-09-22",
-      "price": 228.87,
-      "long_term_score": 70.3,
+      "as_of": "2026-09-23",
+      "price": 225.51,
+      "long_term_score": 71.7,
       "long_term_rating": "STRONG BUY",
-      "entry_score": 63.5,
+      "entry_score": 62.8,
       "entry_quality": "FAIR",
-      "composite_score": 67.4,
+      "composite_score": 68.2,
       "short_put_eligible": true,
       "technical": {
-        "rsi14": 59.51,
+        "rsi14": 55.85,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 0.43,
-        "adx14": 13.79,
-        "dist_20dma": 0.0384551242048276,
-        "dist_50dma": 0.0649502468766876,
-        "dist_200dma": 0.152987677440469,
-        "sma20": 220.39,
-        "sma50": 214.91,
-        "sma200": 198.5,
+        "macd_hist": 0.49,
+        "adx14": 13.8,
+        "dist_20dma": 0.0202705820474795,
+        "dist_50dma": 0.0479557519464644,
+        "dist_200dma": 0.1348443327106359,
+        "sma20": 221.03,
+        "sma50": 215.19,
+        "sma200": 198.71,
         "trend": "STRONG BULLISH"
       },
       "support": {
-        "key_support": 220.39,
+        "key_support": 221.03,
         "supports": [
           {
-            "level": 220.39,
+            "level": 221.03,
             "source": "20DMA + 6M Fib 0.236"
           },
           {
@@ -129,7 +68,7 @@
           "0.618": 191.44,
           "0.786": 179.33
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
@@ -143,176 +82,237 @@
         }
       }
     },
-    "LITE": {
-      "ticker": "LITE",
-      "as_of": "2026-09-22",
-      "price": 945.67,
-      "long_term_score": 60.9,
-      "long_term_rating": "BUY",
-      "entry_score": 64.1,
-      "entry_quality": "FAIR",
-      "composite_score": 59.2,
+    "MU": {
+      "ticker": "MU",
+      "as_of": "2026-09-23",
+      "price": 1071.88,
+      "long_term_score": 67.0,
+      "long_term_rating": "STRONG BUY",
+      "entry_score": 68.8,
+      "entry_quality": "GOOD",
+      "composite_score": 67.9,
       "short_put_eligible": true,
       "technical": {
-        "rsi14": 55.0,
+        "rsi14": 62.19,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 1.0,
-        "adx14": 11.55,
-        "dist_20dma": 0.0388002375410905,
-        "dist_50dma": 0.1146874806817315,
-        "dist_200dma": 0.3130664742976301,
-        "sma20": 910.35,
-        "sma50": 848.37,
-        "sma200": 720.2,
+        "macd_hist": 11.43,
+        "adx14": 14.12,
+        "dist_20dma": 0.0940995241337838,
+        "dist_50dma": 0.1482272388789141,
+        "dist_200dma": 0.6425286739467726,
+        "sma20": 979.69,
+        "sma50": 933.51,
+        "sma200": 652.58,
         "trend": "STRONG BULLISH"
       },
       "support": {
-        "key_support": 910.35,
+        "key_support": 1032.17,
         "supports": [
           {
-            "level": 910.35,
-            "source": "20DMA + 6M Fib 0.382"
+            "level": 1032.17,
+            "source": "6M Fib 0.236"
           },
           {
-            "level": 848.37,
-            "source": "50DMA + 6M Fib 0.500 + swing low"
+            "level": 979.69,
+            "source": "20DMA"
           },
           {
-            "level": 818.89,
-            "source": "20D low"
+            "level": 933.51,
+            "source": "50DMA"
           }
         ],
         "fib_6m": {
-          "0.236": 969.84,
-          "0.382": 898.18,
-          "0.500": 840.26,
-          "0.618": 782.34,
-          "0.786": 699.88
+          "0.236": 1032.17,
+          "0.382": 894.44,
+          "0.500": 783.12,
+          "0.618": 671.81,
+          "0.786": 513.32
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
-        "positive_pct": 80,
+        "positive_pct": 100,
         "counts": {
-          "bullish": 11,
-          "favorable": 1,
-          "bearish": 3,
-          "neutral": 7,
+          "bullish": 13,
+          "favorable": 3,
+          "bearish": 0,
+          "neutral": 6,
           "context": 2
         }
       }
     },
-    "ETN": {
-      "ticker": "ETN",
-      "as_of": "2026-09-22",
-      "price": 442.49,
-      "long_term_score": 54.2,
-      "long_term_rating": "HOLD",
-      "entry_score": 64.5,
+    "QTUM": {
+      "ticker": "QTUM",
+      "as_of": "2026-09-23",
+      "price": 152.45,
+      "long_term_score": 62.2,
+      "long_term_rating": "BUY",
+      "entry_score": 62.9,
       "entry_quality": "FAIR",
-      "composite_score": 59.1,
-      "short_put_eligible": false,
+      "composite_score": 62.9,
+      "short_put_eligible": true,
       "technical": {
-        "rsi14": 60.51,
+        "rsi14": 57.99,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 4.03,
-        "adx14": 13.58,
-        "dist_20dma": 0.078421914711144,
-        "dist_50dma": 0.0614900209368749,
-        "dist_200dma": 0.1532649294459793,
-        "sma20": 410.31,
-        "sma50": 416.86,
-        "sma200": 383.68,
+        "macd_hist": 0.74,
+        "adx14": 15.83,
+        "dist_20dma": 0.0347624346868524,
+        "dist_50dma": 0.0339981335679833,
+        "dist_200dma": 0.1473654831559459,
+        "sma20": 147.33,
+        "sma50": 147.44,
+        "sma200": 132.87,
         "trend": "BULLISH"
       },
       "support": {
-        "key_support": 425.37,
+        "key_support": 149.51,
         "supports": [
           {
-            "level": 425.37,
+            "level": 149.51,
+            "source": "swing low"
+          },
+          {
+            "level": 147.44,
+            "source": "50DMA + 20DMA + swing low"
+          },
+          {
+            "level": 143.56,
             "source": "6M Fib 0.382"
-          },
-          {
-            "level": 416.86,
-            "source": "50DMA"
-          },
-          {
-            "level": 410.31,
-            "source": "20DMA"
           }
         ],
         "fib_6m": {
-          "0.236": 445.48,
-          "0.382": 425.37,
-          "0.500": 409.11,
-          "0.618": 392.85,
-          "0.786": 369.71
+          "0.236": 153.56,
+          "0.382": 143.56,
+          "0.500": 135.48,
+          "0.618": 127.4,
+          "0.786": 115.9
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Mixed / neutral",
+        "positive_pct": 50,
+        "counts": {
+          "bullish": 4,
+          "favorable": 0,
+          "bearish": 4,
+          "neutral": 2,
+          "context": 14
+        }
+      }
+    },
+    "SOXL": {
+      "ticker": "SOXL",
+      "as_of": "2026-09-23",
+      "price": 146.25,
+      "long_term_score": 61.9,
+      "long_term_rating": "BUY",
+      "entry_score": 64.4,
+      "entry_quality": "FAIR",
+      "composite_score": 62.8,
+      "short_put_eligible": true,
+      "technical": {
+        "rsi14": 59.66,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 5.51,
+        "adx14": 16.4,
+        "dist_20dma": 0.2334170675031277,
+        "dist_50dma": 0.1515998052263401,
+        "dist_200dma": 0.2851633421740478,
+        "sma20": 118.57,
+        "sma50": 127.0,
+        "sma200": 113.8,
+        "trend": "BULLISH"
+      },
+      "support": {
+        "key_support": 139.7,
+        "supports": [
+          {
+            "level": 139.7,
+            "source": "6M Fib 0.618"
+          },
+          {
+            "level": 127.0,
+            "source": "50DMA"
+          },
+          {
+            "level": 120.67,
+            "source": "swing low"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 239.9,
+          "0.382": 201.6,
+          "0.500": 170.65,
+          "0.618": 139.7,
+          "0.786": 95.63
+        },
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
-        "positive_pct": 77,
+        "positive_pct": 83,
         "counts": {
-          "bullish": 9,
-          "favorable": 1,
-          "bearish": 3,
-          "neutral": 9,
-          "context": 2
+          "bullish": 5,
+          "favorable": 0,
+          "bearish": 1,
+          "neutral": 4,
+          "context": 14
         }
       }
     },
     "META": {
       "ticker": "META",
-      "as_of": "2026-09-22",
-      "price": 736.59,
-      "long_term_score": 56.4,
+      "as_of": "2026-09-23",
+      "price": 744.1,
+      "long_term_score": 56.7,
       "long_term_rating": "BUY",
-      "entry_score": 56.9,
+      "entry_score": 59.1,
       "entry_quality": "FAIR",
-      "composite_score": 58.3,
+      "composite_score": 59.2,
       "short_put_eligible": true,
       "technical": {
-        "rsi14": 76.11,
+        "rsi14": 77.01,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 11.8,
-        "adx14": 32.26,
-        "dist_20dma": 0.1643647598057467,
-        "dist_50dma": 0.2076138140285741,
-        "dist_200dma": 0.1803787333039888,
-        "sma20": 632.62,
-        "sma50": 609.96,
-        "sma200": 624.03,
+        "macd_hist": 12.03,
+        "adx14": 34.78,
+        "dist_20dma": 0.160226021558828,
+        "dist_50dma": 0.2165836135009751,
+        "dist_200dma": 0.1915956152040709,
+        "sma20": 641.34,
+        "sma50": 611.63,
+        "sma200": 624.46,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 701.13,
+        "key_support": 706.19,
         "supports": [
           {
-            "level": 701.13,
+            "level": 706.19,
             "source": "6M Fib 0.236"
           },
           {
-            "level": 666.39,
-            "source": "6M Fib 0.382 + swing low"
+            "level": 670.49,
+            "source": "6M Fib 0.382"
           },
           {
-            "level": 648.54,
+            "level": 660.28,
             "source": "swing low"
           }
         ],
         "fib_6m": {
-          "0.236": 701.13,
-          "0.382": 666.39,
-          "0.500": 638.32,
-          "0.618": 610.25,
-          "0.786": 570.28
+          "0.236": 706.19,
+          "0.382": 670.49,
+          "0.500": 641.63,
+          "0.618": 612.78,
+          "0.786": 571.7
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
@@ -326,37 +326,94 @@
         }
       }
     },
-    "AVGO": {
-      "ticker": "AVGO",
-      "as_of": "2026-09-22",
-      "price": 364.54,
-      "long_term_score": 62.8,
-      "long_term_rating": "BUY",
-      "entry_score": 43.2,
-      "entry_quality": "WAIT",
-      "composite_score": 57.7,
-      "short_put_eligible": true,
+    "ETN": {
+      "ticker": "ETN",
+      "as_of": "2026-09-23",
+      "price": 438.76,
+      "long_term_score": 54.3,
+      "long_term_rating": "HOLD",
+      "entry_score": 64.8,
+      "entry_quality": "FAIR",
+      "composite_score": 59.2,
+      "short_put_eligible": false,
       "technical": {
-        "rsi14": 50.13,
+        "rsi14": 59.4,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 1.68,
-        "adx14": 23.87,
-        "dist_20dma": 0.0161946992186501,
-        "dist_50dma": -0.0354988308283248,
-        "dist_200dma": -0.0082425890122705,
-        "sma20": 358.73,
-        "sma50": 377.96,
-        "sma200": 367.57,
+        "macd_hist": 3.79,
+        "adx14": 13.58,
+        "dist_20dma": 0.0698175935036875,
+        "dist_50dma": 0.0527305578315608,
+        "dist_200dma": 0.1435990397901008,
+        "sma20": 410.13,
+        "sma50": 416.78,
+        "sma200": 383.67,
+        "trend": "BULLISH"
+      },
+      "support": {
+        "key_support": 425.37,
+        "supports": [
+          {
+            "level": 425.37,
+            "source": "6M Fib 0.382"
+          },
+          {
+            "level": 416.78,
+            "source": "50DMA"
+          },
+          {
+            "level": 410.13,
+            "source": "20DMA"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 445.48,
+          "0.382": 425.37,
+          "0.500": 409.11,
+          "0.618": 392.85,
+          "0.786": 369.71
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Bullish",
+        "positive_pct": 75,
+        "counts": {
+          "bullish": 8,
+          "favorable": 1,
+          "bearish": 3,
+          "neutral": 10,
+          "context": 2
+        }
+      }
+    },
+    "AVGO": {
+      "ticker": "AVGO",
+      "as_of": "2026-09-23",
+      "price": 354.99,
+      "long_term_score": 63.7,
+      "long_term_rating": "BUY",
+      "entry_score": 41.2,
+      "entry_quality": "WAIT",
+      "composite_score": 57.6,
+      "short_put_eligible": true,
+      "technical": {
+        "rsi14": 44.72,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 1.62,
+        "adx14": 23.24,
+        "dist_20dma": -0.010275051029303,
+        "dist_50dma": -0.0591027291340924,
+        "dist_200dma": -0.0339188545213345,
+        "sma20": 358.68,
+        "sma50": 377.29,
+        "sma200": 367.45,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 358.73,
+        "key_support": 349.42,
         "supports": [
-          {
-            "level": 358.73,
-            "source": "20DMA + swing low"
-          },
           {
             "level": 349.42,
             "source": "swing low"
@@ -364,6 +421,10 @@
           {
             "level": 341.71,
             "source": "swing low"
+          },
+          {
+            "level": 335.2,
+            "source": "20D low"
           }
         ],
         "fib_6m": {
@@ -373,103 +434,42 @@
           "0.618": 367.03,
           "0.786": 332.71
         },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Moderately bullish",
-        "positive_pct": 62,
-        "counts": {
-          "bullish": 9,
-          "favorable": 1,
-          "bearish": 6,
-          "neutral": 6,
-          "context": 2
-        }
-      }
-    },
-    "QTUM": {
-      "ticker": "QTUM",
-      "as_of": "2026-09-22",
-      "price": 154.43,
-      "long_term_score": 59.1,
-      "long_term_rating": "BUY",
-      "entry_score": 54.4,
-      "entry_quality": "WAIT",
-      "composite_score": 57.0,
-      "short_put_eligible": true,
-      "technical": {
-        "rsi14": 61.09,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 0.87,
-        "adx14": 15.87,
-        "dist_20dma": 0.0474978773642855,
-        "dist_50dma": 0.0471462819856121,
-        "dist_200dma": 0.1621806845892761,
-        "sma20": 147.43,
-        "sma50": 147.48,
-        "sma200": 132.88,
-        "trend": "BULLISH"
-      },
-      "support": {
-        "key_support": 154.13,
-        "supports": [
-          {
-            "level": 154.13,
-            "source": "swing low + 6M Fib 0.236"
-          },
-          {
-            "level": 149.51,
-            "source": "swing low"
-          },
-          {
-            "level": 147.48,
-            "source": "50DMA"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 153.56,
-          "0.382": 143.56,
-          "0.500": 135.48,
-          "0.618": 127.4,
-          "0.786": 115.9
-        },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Moderately bullish",
         "positive_pct": 56,
         "counts": {
-          "bullish": 5,
-          "favorable": 0,
-          "bearish": 4,
-          "neutral": 1,
-          "context": 14
+          "bullish": 8,
+          "favorable": 1,
+          "bearish": 7,
+          "neutral": 6,
+          "context": 2
         }
       }
     },
     "MRVL": {
       "ticker": "MRVL",
-      "as_of": "2026-09-22",
-      "price": 262.36,
-      "long_term_score": 56.4,
+      "as_of": "2026-09-23",
+      "price": 260.9,
+      "long_term_score": 57.3,
       "long_term_rating": "BUY",
-      "entry_score": 62.4,
+      "entry_score": 64.0,
       "entry_quality": "FAIR",
-      "composite_score": 56.4,
+      "composite_score": 57.3,
       "short_put_eligible": true,
       "technical": {
-        "rsi14": 63.96,
+        "rsi14": 63.14,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 3.76,
-        "adx14": 18.02,
-        "dist_20dma": 0.1399694755266931,
-        "dist_50dma": 0.2075086165985245,
-        "dist_200dma": 0.6397843949845472,
-        "sma20": 230.15,
-        "sma50": 217.27,
-        "sma200": 160.0,
+        "macd_hist": 3.99,
+        "adx14": 19.17,
+        "dist_20dma": 0.1285944222115269,
+        "dist_50dma": 0.196552947848392,
+        "dist_200dma": 0.622402380835178,
+        "sma20": 231.17,
+        "sma50": 218.04,
+        "sma200": 160.81,
         "trend": "STRONG BULLISH"
       },
       "support": {
@@ -480,7 +480,7 @@
             "source": "6M Fib 0.382"
           },
           {
-            "level": 230.15,
+            "level": 231.17,
             "source": "20DMA"
           },
           {
@@ -495,115 +495,119 @@
           "0.618": 179.47,
           "0.786": 138.6
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
-        "positive_pct": 73,
+        "positive_pct": 75,
         "counts": {
-          "bullish": 10,
+          "bullish": 11,
           "favorable": 1,
           "bearish": 4,
+          "neutral": 6,
+          "context": 2
+        }
+      }
+    },
+    "LITE": {
+      "ticker": "LITE",
+      "as_of": "2026-09-23",
+      "price": 937.0,
+      "long_term_score": 58.8,
+      "long_term_rating": "BUY",
+      "entry_score": 61.8,
+      "entry_quality": "FAIR",
+      "composite_score": 57.1,
+      "short_put_eligible": true,
+      "technical": {
+        "rsi14": 54.07,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 1.04,
+        "adx14": 12.0,
+        "dist_20dma": 0.0263768956916758,
+        "dist_50dma": 0.1012953073441014,
+        "dist_200dma": 0.2955492449924835,
+        "sma20": 912.92,
+        "sma50": 850.82,
+        "sma200": 723.25,
+        "trend": "STRONG BULLISH"
+      },
+      "support": {
+        "key_support": 924.55,
+        "supports": [
+          {
+            "level": 924.55,
+            "source": "swing low + 20DMA"
+          },
+          {
+            "level": 898.18,
+            "source": "6M Fib 0.382"
+          },
+          {
+            "level": 850.82,
+            "source": "50DMA"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 969.84,
+          "0.382": 898.18,
+          "0.500": 840.26,
+          "0.618": 782.34,
+          "0.786": 699.88
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Bullish",
+        "positive_pct": 80,
+        "counts": {
+          "bullish": 11,
+          "favorable": 1,
+          "bearish": 3,
           "neutral": 7,
           "context": 2
         }
       }
     },
-    "SOXL": {
-      "ticker": "SOXL",
-      "as_of": "2026-09-22",
-      "price": 151.95,
-      "long_term_score": 59.0,
-      "long_term_rating": "BUY",
-      "entry_score": 63.4,
-      "entry_quality": "FAIR",
-      "composite_score": 60.4,
-      "short_put_eligible": true,
-      "technical": {
-        "rsi14": 62.73,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 5.08,
-        "adx14": 15.71,
-        "dist_20dma": 0.2974759040638288,
-        "dist_50dma": 0.1900398274677761,
-        "dist_200dma": 0.3403377003138237,
-        "sma20": 117.11,
-        "sma50": 127.68,
-        "sma200": 113.37,
-        "trend": "BULLISH"
-      },
-      "support": {
-        "key_support": 150.08,
-        "supports": [
-          {
-            "level": 150.08,
-            "source": "swing low"
-          },
-          {
-            "level": 139.79,
-            "source": "6M Fib 0.618"
-          },
-          {
-            "level": 127.68,
-            "source": "50DMA"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 240.05,
-          "0.382": 201.73,
-          "0.500": 170.76,
-          "0.618": 139.79,
-          "0.786": 95.69
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Bullish",
-        "positive_pct": 86,
-        "counts": {
-          "bullish": 6,
-          "favorable": 0,
-          "bearish": 1,
-          "neutral": 3,
-          "context": 14
-        }
-      }
-    },
     "HUBB": {
       "ticker": "HUBB",
-      "as_of": "2026-09-22",
-      "price": 458.83,
-      "long_term_score": 55.3,
+      "as_of": "2026-09-23",
+      "price": 463.7,
+      "long_term_score": 55.4,
       "long_term_rating": "BUY",
-      "entry_score": 41.5,
+      "entry_score": 47.1,
       "entry_quality": "WAIT",
-      "composite_score": 54.8,
+      "composite_score": 56.5,
       "short_put_eligible": true,
       "technical": {
-        "rsi14": 48.86,
+        "rsi14": 51.66,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 1.53,
-        "adx14": 16.82,
-        "dist_20dma": 0.0098531391381149,
-        "dist_50dma": -0.0328659131183716,
-        "dist_200dma": -0.0527482352679986,
-        "sma20": 454.35,
-        "sma50": 474.42,
-        "sma200": 484.38,
+        "macd_hist": 2.38,
+        "adx14": 16.19,
+        "dist_20dma": 0.0204657194767876,
+        "dist_50dma": -0.0218298246105465,
+        "dist_200dma": -0.0429887625581613,
+        "sma20": 454.4,
+        "sma50": 474.05,
+        "sma200": 484.53,
         "trend": "BEARISH"
       },
       "support": {
-        "key_support": 454.35,
+        "key_support": 464.61,
         "supports": [
           {
-            "level": 454.35,
+            "level": 464.61,
+            "source": "swing low + 6M Fib 0.786"
+          },
+          {
+            "level": 454.4,
             "source": "20DMA + swing low"
           },
           {
             "level": 439.89,
-            "source": "swing low + 20D low + 60D low"
+            "source": "swing low"
           }
         ],
         "fib_6m": {
@@ -613,7 +617,7 @@
           "0.618": 483.98,
           "0.786": 462.75
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Moderately bullish",
@@ -627,96 +631,35 @@
         }
       }
     },
-    "DRAM": {
-      "ticker": "DRAM",
-      "as_of": "2026-09-22",
-      "price": 63.62,
-      "long_term_score": 52.5,
-      "long_term_rating": "HOLD",
-      "entry_score": 54.5,
-      "entry_quality": "WAIT",
-      "composite_score": 54.4,
-      "short_put_eligible": false,
-      "technical": {
-        "rsi14": 62.42,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 0.5,
-        "adx14": 10.92,
-        "dist_20dma": 0.0995411128969869,
-        "dist_50dma": 0.1436891955261083,
-        "dist_200dma": null,
-        "sma20": 57.86,
-        "sma50": 55.63,
-        "sma200": null,
-        "trend": "MIXED"
-      },
-      "support": {
-        "key_support": 60.25,
-        "supports": [
-          {
-            "level": 60.25,
-            "source": "6M Fib 0.382"
-          },
-          {
-            "level": 57.86,
-            "source": "20DMA"
-          },
-          {
-            "level": 55.63,
-            "source": "50DMA"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 68.31,
-          "0.382": 60.25,
-          "0.500": 53.74,
-          "0.618": 47.23,
-          "0.786": 37.95
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Bullish",
-        "positive_pct": 83,
-        "counts": {
-          "bullish": 5,
-          "favorable": 0,
-          "bearish": 1,
-          "neutral": 1,
-          "context": 17
-        }
-      }
-    },
     "PANW": {
       "ticker": "PANW",
-      "as_of": "2026-09-22",
-      "price": 374.57,
+      "as_of": "2026-09-23",
+      "price": 393.3,
       "long_term_score": 50.8,
       "long_term_rating": "HOLD",
-      "entry_score": 60.5,
+      "entry_score": 64.7,
       "entry_quality": "FAIR",
-      "composite_score": 52.1,
+      "composite_score": 53.3,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 56.88,
+        "rsi14": 62.32,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 2.55,
-        "adx14": 16.25,
-        "dist_20dma": 0.0518054442676803,
-        "dist_50dma": 0.0563718128857007,
-        "dist_200dma": 0.5453029807477932,
-        "sma20": 356.12,
-        "sma50": 354.58,
-        "sma200": 242.39,
+        "macd_hist": 3.74,
+        "adx14": 17.04,
+        "dist_20dma": 0.1015032260325601,
+        "dist_50dma": 0.108023999928317,
+        "dist_200dma": 0.6219475863753658,
+        "sma20": 357.06,
+        "sma50": 354.96,
+        "sma200": 242.49,
         "trend": "STRONG BULLISH"
       },
       "support": {
-        "key_support": 356.12,
+        "key_support": 357.06,
         "supports": [
           {
-            "level": 356.12,
+            "level": 357.06,
             "source": "20DMA + swing low + 50DMA"
           },
           {
@@ -735,58 +678,180 @@
           "0.618": 241.06,
           "0.786": 198.15
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
-        "positive_pct": 71,
+        "positive_pct": 78,
         "counts": {
-          "bullish": 11,
+          "bullish": 13,
           "favorable": 1,
-          "bearish": 5,
-          "neutral": 5,
+          "bearish": 4,
+          "neutral": 4,
+          "context": 2
+        }
+      }
+    },
+    "DRAM": {
+      "ticker": "DRAM",
+      "as_of": "2026-09-23",
+      "price": 61.9,
+      "long_term_score": 51.1,
+      "long_term_rating": "HOLD",
+      "entry_score": 52.6,
+      "entry_quality": "WAIT",
+      "composite_score": 53.0,
+      "short_put_eligible": false,
+      "technical": {
+        "rsi14": 58.18,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 0.52,
+        "adx14": 11.6,
+        "dist_20dma": 0.064607414012221,
+        "dist_50dma": 0.1125010142058031,
+        "dist_200dma": null,
+        "sma20": 58.14,
+        "sma50": 55.64,
+        "sma200": null,
+        "trend": "MIXED"
+      },
+      "support": {
+        "key_support": 60.25,
+        "supports": [
+          {
+            "level": 60.25,
+            "source": "6M Fib 0.382"
+          },
+          {
+            "level": 58.14,
+            "source": "20DMA"
+          },
+          {
+            "level": 55.64,
+            "source": "50DMA"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 68.31,
+          "0.382": 60.25,
+          "0.500": 53.74,
+          "0.618": 47.23,
+          "0.786": 37.95
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Bullish",
+        "positive_pct": 80,
+        "counts": {
+          "bullish": 4,
+          "favorable": 0,
+          "bearish": 1,
+          "neutral": 2,
+          "context": 17
+        }
+      }
+    },
+    "AXTI": {
+      "ticker": "AXTI",
+      "as_of": "2026-09-23",
+      "price": 72.98,
+      "long_term_score": 52.0,
+      "long_term_rating": "HOLD",
+      "entry_score": 66.3,
+      "entry_quality": "GOOD",
+      "composite_score": 52.6,
+      "short_put_eligible": false,
+      "technical": {
+        "rsi14": 54.65,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 1.68,
+        "adx14": 16.45,
+        "dist_20dma": 0.1247419023172535,
+        "dist_50dma": 0.1346746413447634,
+        "dist_200dma": 0.2566444488498414,
+        "sma20": 64.89,
+        "sma50": 64.32,
+        "sma200": 58.08,
+        "trend": "STRONG BULLISH"
+      },
+      "support": {
+        "key_support": 71.61,
+        "supports": [
+          {
+            "level": 71.61,
+            "source": "swing low"
+          },
+          {
+            "level": 64.89,
+            "source": "20DMA + 50DMA"
+          },
+          {
+            "level": 61.86,
+            "source": "swing low"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 118.04,
+          "0.382": 102.5,
+          "0.500": 89.95,
+          "0.618": 77.39,
+          "0.786": 59.51
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Moderately bullish",
+        "positive_pct": 61,
+        "counts": {
+          "bullish": 10,
+          "favorable": 1,
+          "bearish": 7,
+          "neutral": 4,
           "context": 2
         }
       }
     },
     "AMZN": {
       "ticker": "AMZN",
-      "as_of": "2026-09-22",
-      "price": 254.98,
-      "long_term_score": 49.6,
+      "as_of": "2026-09-23",
+      "price": 249.27,
+      "long_term_score": 49.9,
       "long_term_rating": "HOLD",
-      "entry_score": 49.2,
+      "entry_score": 46.9,
       "entry_quality": "WAIT",
-      "composite_score": 51.8,
+      "composite_score": 51.5,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 49.22,
+        "rsi14": 44.07,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": -0.06,
-        "adx14": 11.57,
-        "dist_20dma": -0.003088728029979,
-        "dist_50dma": -0.0049770828536095,
-        "dist_200dma": 0.060058460844335,
-        "sma20": 255.77,
-        "sma50": 256.26,
-        "sma200": 240.53,
+        "macd_hist": -0.29,
+        "adx14": 10.91,
+        "dist_20dma": -0.0231620196580452,
+        "dist_50dma": -0.0273946248089171,
+        "dist_200dma": 0.035885532464136,
+        "sma20": 255.18,
+        "sma50": 256.29,
+        "sma200": 240.63,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 255.02,
+        "key_support": 249.58,
         "supports": [
           {
-            "level": 255.02,
-            "source": "swing low + 6M Fib 0.382"
-          },
-          {
-            "level": 251.93,
+            "level": 249.58,
             "source": "swing low"
           },
           {
             "level": 244.3,
-            "source": "20D low"
+            "source": "20D low + swing low + 6M Fib 0.500"
+          },
+          {
+            "level": 240.63,
+            "source": "200DMA"
           }
         ],
         "fib_6m": {
@@ -796,7 +861,7 @@
           "0.618": 232.78,
           "0.786": 217.98
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Mixed / neutral",
@@ -812,41 +877,41 @@
     },
     "SPCX": {
       "ticker": "SPCX",
-      "as_of": "2026-09-22",
-      "price": 154.72,
+      "as_of": "2026-09-23",
+      "price": 148.36,
       "long_term_score": 54.5,
       "long_term_rating": "HOLD",
-      "entry_score": 61.4,
+      "entry_score": 57.6,
       "entry_quality": "FAIR",
-      "composite_score": 51.2,
+      "composite_score": 50.0,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 61.33,
+        "rsi14": 54.57,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 0.35,
-        "adx14": 27.3,
-        "dist_20dma": 0.0520553904481502,
-        "dist_50dma": 0.1454716493606256,
+        "macd_hist": -0.08,
+        "adx14": 26.81,
+        "dist_20dma": 0.0052512059480915,
+        "dist_50dma": 0.0963917255547399,
         "dist_200dma": null,
-        "sma20": 147.06,
-        "sma50": 135.07,
+        "sma20": 147.59,
+        "sma50": 135.32,
         "sma200": null,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 150.98,
+        "key_support": 147.89,
         "supports": [
           {
-            "level": 150.98,
-            "source": "6M Fib 0.618 + swing low"
+            "level": 147.89,
+            "source": "swing low + 20DMA"
           },
           {
-            "level": 147.06,
-            "source": "20DMA + swing low"
+            "level": 144.89,
+            "source": "swing low"
           },
           {
-            "level": 142.87,
+            "level": 138.17,
             "source": "swing low"
           }
         ],
@@ -857,103 +922,42 @@
           "0.618": 150.98,
           "0.786": 130.68
         },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Moderately bullish",
-        "positive_pct": 62,
-        "counts": {
-          "bullish": 9,
-          "favorable": 1,
-          "bearish": 6,
-          "neutral": 1,
-          "context": 7
-        }
-      }
-    },
-    "AXTI": {
-      "ticker": "AXTI",
-      "as_of": "2026-09-22",
-      "price": 77.79,
-      "long_term_score": 51.5,
-      "long_term_rating": "HOLD",
-      "entry_score": 61.1,
-      "entry_quality": "FAIR",
-      "composite_score": 50.8,
-      "short_put_eligible": false,
-      "technical": {
-        "rsi14": 59.22,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 1.87,
-        "adx14": 15.74,
-        "dist_20dma": 0.2040025228209416,
-        "dist_50dma": 0.2152826793023248,
-        "dist_200dma": 0.3465256892164678,
-        "sma20": 64.61,
-        "sma50": 64.01,
-        "sma200": 57.77,
-        "trend": "STRONG BULLISH"
-      },
-      "support": {
-        "key_support": 77.39,
-        "supports": [
-          {
-            "level": 77.39,
-            "source": "6M Fib 0.618"
-          },
-          {
-            "level": 71.61,
-            "source": "swing low"
-          },
-          {
-            "level": 64.61,
-            "source": "20DMA"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 118.04,
-          "0.382": 102.5,
-          "0.500": 89.95,
-          "0.618": 77.39,
-          "0.786": 59.51
-        },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Mixed / neutral",
         "positive_pct": 50,
         "counts": {
-          "bullish": 7,
+          "bullish": 6,
           "favorable": 1,
-          "bearish": 8,
-          "neutral": 6,
-          "context": 2
+          "bearish": 7,
+          "neutral": 3,
+          "context": 7
         }
       }
     },
     "CRWD": {
       "ticker": "CRWD",
-      "as_of": "2026-09-22",
-      "price": 250.06,
-      "long_term_score": 45.8,
+      "as_of": "2026-09-23",
+      "price": 262.49,
+      "long_term_score": 45.4,
       "long_term_rating": "HOLD",
       "entry_score": 64.6,
       "entry_quality": "FAIR",
-      "composite_score": 48.3,
+      "composite_score": 47.8,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 64.89,
+        "rsi14": 68.69,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 3.24,
-        "adx14": 22.47,
-        "dist_20dma": 0.1279485773075248,
-        "dist_50dma": 0.1932017066693736,
-        "dist_200dma": 0.6877077388912858,
-        "sma20": 221.69,
-        "sma50": 209.57,
-        "sma200": 148.17,
+        "macd_hist": 4.04,
+        "adx14": 23.2,
+        "dist_20dma": 0.1807066918313553,
+        "dist_50dma": 0.2510294122185861,
+        "dist_200dma": 0.7708575751710223,
+        "sma20": 222.32,
+        "sma50": 209.82,
+        "sma200": 148.23,
         "trend": "STRONG BULLISH"
       },
       "support": {
@@ -964,125 +968,64 @@
             "source": "swing low"
           },
           {
-            "level": 221.69,
-            "source": "20DMA"
+            "level": 222.42,
+            "source": "6M Fib 0.236 + 20DMA"
           },
           {
-            "level": 212.96,
-            "source": "6M Fib 0.236"
+            "level": 209.82,
+            "source": "50DMA"
           }
         ],
         "fib_6m": {
-          "0.236": 212.96,
-          "0.382": 189.55,
-          "0.500": 170.63,
-          "0.618": 151.7,
-          "0.786": 124.77
+          "0.236": 222.42,
+          "0.382": 197.2,
+          "0.500": 176.82,
+          "0.618": 156.44,
+          "0.786": 127.42
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bullish",
-        "positive_pct": 74,
+        "positive_pct": 72,
         "counts": {
-          "bullish": 13,
+          "bullish": 12,
           "favorable": 1,
           "bearish": 5,
-          "neutral": 3,
-          "context": 2
-        }
-      }
-    },
-    "AAOI": {
-      "ticker": "AAOI",
-      "as_of": "2026-09-22",
-      "price": 107.0,
-      "long_term_score": 48.4,
-      "long_term_rating": "HOLD",
-      "entry_score": 41.4,
-      "entry_quality": "WAIT",
-      "composite_score": 46.5,
-      "short_put_eligible": false,
-      "technical": {
-        "rsi14": 48.49,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 0.92,
-        "adx14": 11.95,
-        "dist_20dma": 0.0183880912258846,
-        "dist_50dma": -0.0474155588033148,
-        "dist_200dma": 0.0104200730874002,
-        "sma20": 105.07,
-        "sma50": 112.33,
-        "sma200": 105.9,
-        "trend": "MIXED"
-      },
-      "support": {
-        "key_support": 105.9,
-        "supports": [
-          {
-            "level": 105.9,
-            "source": "200DMA + 20DMA"
-          },
-          {
-            "level": 102.1,
-            "source": "swing low"
-          },
-          {
-            "level": 96.96,
-            "source": "swing low"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 196.46,
-          "0.382": 173.44,
-          "0.500": 154.84,
-          "0.618": 136.24,
-          "0.786": 109.75
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Mixed / neutral",
-        "positive_pct": 47,
-        "counts": {
-          "bullish": 7,
-          "favorable": 1,
-          "bearish": 9,
           "neutral": 4,
-          "context": 3
+          "context": 2
         }
       }
     },
     "GEV": {
       "ticker": "GEV",
-      "as_of": "2026-09-22",
-      "price": 950.28,
-      "long_term_score": 45.2,
+      "as_of": "2026-09-23",
+      "price": 951.82,
+      "long_term_score": 45.4,
       "long_term_rating": "HOLD",
-      "entry_score": 38.8,
+      "entry_score": 38.2,
       "entry_quality": "WAIT",
-      "composite_score": 46.0,
+      "composite_score": 45.9,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 50.38,
+        "rsi14": 50.64,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 5.61,
-        "adx14": 11.34,
-        "dist_20dma": 0.0220086798729624,
-        "dist_50dma": -0.0291029783747989,
-        "dist_200dma": 0.0501079853918531,
-        "sma20": 929.82,
-        "sma50": 978.77,
+        "macd_hist": 5.71,
+        "adx14": 11.4,
+        "dist_20dma": 0.023580134301983,
+        "dist_50dma": -0.0275601899637709,
+        "dist_200dma": 0.0518007902616217,
+        "sma20": 929.89,
+        "sma50": 978.8,
         "sma200": 904.94,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 929.82,
+        "key_support": 929.89,
         "supports": [
           {
-            "level": 929.82,
+            "level": 929.89,
             "source": "20DMA"
           },
           {
@@ -1101,7 +1044,7 @@
           "0.618": 955.32,
           "0.786": 889.91
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Mixed / neutral",
@@ -1115,218 +1058,100 @@
         }
       }
     },
-    "APLD": {
-      "ticker": "APLD",
-      "as_of": "2026-09-22",
-      "price": 28.54,
-      "long_term_score": 42.9,
-      "long_term_rating": "AVOID",
-      "entry_score": 45.4,
+    "AAOI": {
+      "ticker": "AAOI",
+      "as_of": "2026-09-23",
+      "price": 101.06,
+      "long_term_score": 47.9,
+      "long_term_rating": "HOLD",
+      "entry_score": 33.9,
       "entry_quality": "WAIT",
-      "composite_score": 45.2,
+      "composite_score": 44.0,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 54.73,
+        "rsi14": 44.33,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 0.47,
-        "adx14": 16.4,
-        "dist_20dma": 0.0838112147144489,
-        "dist_50dma": 0.0309762787634821,
-        "dist_200dma": -0.1161103625809401,
-        "sma20": 26.33,
-        "sma50": 27.68,
-        "sma200": 32.29,
+        "macd_hist": 0.77,
+        "adx14": 11.71,
+        "dist_20dma": -0.0325807796888687,
+        "dist_50dma": -0.0963731757806354,
+        "dist_200dma": -0.0490319070022412,
+        "sma20": 104.46,
+        "sma50": 111.84,
+        "sma200": 106.27,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 27.97,
+        "key_support": 100.42,
         "supports": [
           {
-            "level": 27.97,
-            "source": "swing low + 50DMA"
-          },
-          {
-            "level": 26.64,
-            "source": "swing low + 6M Fib 0.786 + 20DMA"
-          },
-          {
-            "level": 26.06,
+            "level": 100.42,
             "source": "swing low"
+          },
+          {
+            "level": 96.96,
+            "source": "swing low"
+          },
+          {
+            "level": 94.0,
+            "source": "20D low"
           }
         ],
         "fib_6m": {
-          "0.236": 43.47,
-          "0.382": 38.99,
-          "0.500": 35.36,
-          "0.618": 31.74,
-          "0.786": 26.58
+          "0.236": 196.46,
+          "0.382": 173.44,
+          "0.500": 154.84,
+          "0.618": 136.24,
+          "0.786": 109.75
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Moderately bearish",
         "positive_pct": 35,
         "counts": {
-          "bullish": 6,
-          "favorable": 0,
+          "bullish": 5,
+          "favorable": 1,
           "bearish": 11,
-          "neutral": 3,
-          "context": 4
-        }
-      }
-    },
-    "NBIS": {
-      "ticker": "NBIS",
-      "as_of": "2026-09-22",
-      "price": 236.12,
-      "long_term_score": 39.9,
-      "long_term_rating": "AVOID",
-      "entry_score": 51.4,
-      "entry_quality": "WAIT",
-      "composite_score": 42.9,
-      "short_put_eligible": false,
-      "technical": {
-        "rsi14": 56.55,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 1.19,
-        "adx14": 10.77,
-        "dist_20dma": 0.0765022147088188,
-        "dist_50dma": 0.1099306873664216,
-        "dist_200dma": 0.45687591117897,
-        "sma20": 219.34,
-        "sma50": 212.73,
-        "sma200": 162.07,
-        "trend": "STRONG BULLISH"
-      },
-      "support": {
-        "key_support": 234.4,
-        "supports": [
-          {
-            "level": 234.4,
-            "source": "swing low"
-          },
-          {
-            "level": 219.56,
-            "source": "6M Fib 0.382 + 20DMA"
-          },
-          {
-            "level": 212.73,
-            "source": "50DMA"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 250.25,
-          "0.382": 219.56,
-          "0.500": 194.76,
-          "0.618": 169.95,
-          "0.786": 134.64
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Mixed / neutral",
-        "positive_pct": 53,
-        "counts": {
-          "bullish": 9,
-          "favorable": 0,
-          "bearish": 8,
           "neutral": 4,
           "context": 3
         }
       }
     },
-    "VST": {
-      "ticker": "VST",
-      "as_of": "2026-09-22",
-      "price": 140.41,
-      "long_term_score": 42.1,
-      "long_term_rating": "AVOID",
-      "entry_score": 25.1,
-      "entry_quality": "WAIT",
-      "composite_score": 42.1,
-      "short_put_eligible": false,
-      "technical": {
-        "rsi14": 45.06,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": -0.17,
-        "adx14": 11.1,
-        "dist_20dma": -0.0148402460902172,
-        "dist_50dma": -0.041629293627639,
-        "dist_200dma": -0.0977424267149169,
-        "sma20": 142.53,
-        "sma50": 146.51,
-        "sma200": 155.62,
-        "trend": "BEARISH"
-      },
-      "support": {
-        "key_support": 140.56,
-        "supports": [
-          {
-            "level": 140.56,
-            "source": "6M Fib 0.786 + swing low"
-          },
-          {
-            "level": 134.68,
-            "source": "20D low + swing low + 60D low"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 161.91,
-          "0.382": 156.24,
-          "0.500": 151.66,
-          "0.618": 147.08,
-          "0.786": 140.56
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Moderately bearish",
-        "positive_pct": 38,
-        "counts": {
-          "bullish": 3,
-          "favorable": 3,
-          "bearish": 10,
-          "neutral": 6,
-          "context": 2
-        }
-      }
-    },
     "IREN": {
       "ticker": "IREN",
-      "as_of": "2026-09-22",
-      "price": 48.55,
-      "long_term_score": 39.2,
+      "as_of": "2026-09-23",
+      "price": 47.05,
+      "long_term_score": 39.1,
       "long_term_rating": "AVOID",
-      "entry_score": 49.3,
-      "entry_quality": "WAIT",
-      "composite_score": 41.6,
+      "entry_score": 55.6,
+      "entry_quality": "FAIR",
+      "composite_score": 43.4,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 62.34,
+        "rsi14": 58.36,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 0.61,
-        "adx14": 16.31,
-        "dist_20dma": 0.1413928102443804,
-        "dist_50dma": 0.1930476221093719,
-        "dist_200dma": 0.0648219814859913,
-        "sma20": 42.54,
-        "sma50": 40.69,
-        "sma200": 45.59,
+        "macd_hist": 0.56,
+        "adx14": 17.22,
+        "dist_20dma": 0.0998708258446938,
+        "dist_50dma": 0.1513998933003504,
+        "dist_200dma": 0.0318553653001656,
+        "sma20": 42.78,
+        "sma50": 40.86,
+        "sma200": 45.6,
         "trend": "MIXED"
       },
       "support": {
-        "key_support": 45.59,
+        "key_support": 45.6,
         "supports": [
           {
-            "level": 45.59,
+            "level": 45.6,
             "source": "200DMA + 6M Fib 0.618"
           },
           {
-            "level": 42.54,
+            "level": 42.78,
             "source": "20DMA"
           },
           {
@@ -1341,41 +1166,220 @@
           "0.618": 44.89,
           "0.786": 37.87
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Moderately bearish",
-        "positive_pct": 45,
+        "positive_pct": 42,
         "counts": {
-          "bullish": 9,
+          "bullish": 8,
           "favorable": 0,
           "bearish": 11,
-          "neutral": 1,
+          "neutral": 2,
           "context": 3
+        }
+      }
+    },
+    "APLD": {
+      "ticker": "APLD",
+      "as_of": "2026-09-23",
+      "price": 27.23,
+      "long_term_score": 40.8,
+      "long_term_rating": "AVOID",
+      "entry_score": 39.7,
+      "entry_quality": "WAIT",
+      "composite_score": 42.4,
+      "short_put_eligible": false,
+      "technical": {
+        "rsi14": 50.16,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 0.42,
+        "adx14": 15.5,
+        "dist_20dma": 0.0372542814198657,
+        "dist_50dma": -0.0154640674164753,
+        "dist_200dma": -0.1561704604266881,
+        "sma20": 26.25,
+        "sma50": 27.66,
+        "sma200": 32.27,
+        "trend": "BEARISH"
+      },
+      "support": {
+        "key_support": 27.2,
+        "supports": [
+          {
+            "level": 27.2,
+            "source": "swing low"
+          },
+          {
+            "level": 26.58,
+            "source": "6M Fib 0.786 + 20DMA + swing low"
+          },
+          {
+            "level": 24.03,
+            "source": "swing low"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 43.47,
+          "0.382": 38.99,
+          "0.500": 35.36,
+          "0.618": 31.74,
+          "0.786": 26.58
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Bearish",
+        "positive_pct": 29,
+        "counts": {
+          "bullish": 5,
+          "favorable": 0,
+          "bearish": 12,
+          "neutral": 3,
+          "context": 4
+        }
+      }
+    },
+    "NBIS": {
+      "ticker": "NBIS",
+      "as_of": "2026-09-23",
+      "price": 226.61,
+      "long_term_score": 40.0,
+      "long_term_rating": "AVOID",
+      "entry_score": 49.6,
+      "entry_quality": "WAIT",
+      "composite_score": 42.4,
+      "short_put_eligible": false,
+      "technical": {
+        "rsi14": 52.28,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 1.02,
+        "adx14": 11.27,
+        "dist_20dma": 0.0320532730574145,
+        "dist_50dma": 0.0619801647183846,
+        "dist_200dma": 0.3928784097678186,
+        "sma20": 219.57,
+        "sma50": 213.38,
+        "sma200": 162.69,
+        "trend": "STRONG BULLISH"
+      },
+      "support": {
+        "key_support": 219.57,
+        "supports": [
+          {
+            "level": 219.57,
+            "source": "20DMA + 6M Fib 0.382"
+          },
+          {
+            "level": 213.38,
+            "source": "50DMA"
+          },
+          {
+            "level": 203.87,
+            "source": "swing low"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 250.25,
+          "0.382": 219.56,
+          "0.500": 194.76,
+          "0.618": 169.95,
+          "0.786": 134.64
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Mixed / neutral",
+        "positive_pct": 47,
+        "counts": {
+          "bullish": 8,
+          "favorable": 0,
+          "bearish": 9,
+          "neutral": 4,
+          "context": 3
+        }
+      }
+    },
+    "VST": {
+      "ticker": "VST",
+      "as_of": "2026-09-23",
+      "price": 137.97,
+      "long_term_score": 42.0,
+      "long_term_rating": "AVOID",
+      "entry_score": 24.2,
+      "entry_quality": "WAIT",
+      "composite_score": 41.7,
+      "short_put_eligible": false,
+      "technical": {
+        "rsi14": 41.76,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": -0.35,
+        "adx14": 11.13,
+        "dist_20dma": -0.0316771873760397,
+        "dist_50dma": -0.0556794736637189,
+        "dist_200dma": -0.1123640059091708,
+        "sma20": 142.48,
+        "sma50": 146.11,
+        "sma200": 155.44,
+        "trend": "BEARISH"
+      },
+      "support": {
+        "key_support": 137.65,
+        "supports": [
+          {
+            "level": 137.65,
+            "source": "swing low"
+          },
+          {
+            "level": 134.68,
+            "source": "20D low + swing low + 60D low"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 161.91,
+          "0.382": 156.24,
+          "0.500": 151.66,
+          "0.618": 147.08,
+          "0.786": 140.56
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Moderately bearish",
+        "positive_pct": 38,
+        "counts": {
+          "bullish": 3,
+          "favorable": 3,
+          "bearish": 10,
+          "neutral": 6,
+          "context": 2
         }
       }
     },
     "CEG": {
       "ticker": "CEG",
-      "as_of": "2026-09-22",
-      "price": 263.46,
+      "as_of": "2026-09-23",
+      "price": 263.88,
       "long_term_score": 38.8,
       "long_term_rating": "AVOID",
-      "entry_score": 33.2,
+      "entry_score": 36.6,
       "entry_quality": "WAIT",
-      "composite_score": 40.5,
+      "composite_score": 41.6,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 43.51,
+        "rsi14": 43.83,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": -3.21,
-        "adx14": 21.3,
-        "dist_20dma": -0.0483612682275458,
-        "dist_50dma": -0.0288400309617659,
-        "dist_200dma": -0.0947902731656598,
-        "sma20": 276.85,
-        "sma50": 271.28,
+        "macd_hist": -3.19,
+        "adx14": 21.35,
+        "dist_20dma": -0.0469164430801777,
+        "dist_50dma": -0.027321906281994,
+        "dist_200dma": -0.0933537117661325,
+        "sma20": 276.87,
+        "sma50": 271.29,
         "sma200": 291.05,
         "trend": "BEARISH"
       },
@@ -1402,7 +1406,7 @@
           "0.618": 266.29,
           "0.786": 249.57
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Moderately bearish",
@@ -1416,43 +1420,104 @@
         }
       }
     },
+    "RKLB": {
+      "ticker": "RKLB",
+      "as_of": "2026-09-23",
+      "price": 70.31,
+      "long_term_score": 40.0,
+      "long_term_rating": "AVOID",
+      "entry_score": 45.9,
+      "entry_quality": "WAIT",
+      "composite_score": 39.8,
+      "short_put_eligible": false,
+      "technical": {
+        "rsi14": 53.94,
+        "macd": null,
+        "macd_signal": null,
+        "macd_hist": 1.34,
+        "adx14": 16.75,
+        "dist_20dma": 0.0784155453423132,
+        "dist_50dma": 0.0130306140041429,
+        "dist_200dma": -0.1304334702208185,
+        "sma20": 65.2,
+        "sma50": 69.41,
+        "sma200": 80.86,
+        "trend": "MIXED"
+      },
+      "support": {
+        "key_support": 69.41,
+        "supports": [
+          {
+            "level": 69.41,
+            "source": "50DMA"
+          },
+          {
+            "level": 65.2,
+            "source": "20DMA + swing low"
+          },
+          {
+            "level": 61.45,
+            "source": "swing low"
+          }
+        ],
+        "fib_6m": {
+          "0.236": 128.61,
+          "0.382": 114.76,
+          "0.500": 103.57,
+          "0.618": 92.37,
+          "0.786": 76.43
+        },
+        "series_as_of": "2026-09-23"
+      },
+      "diagnostic_sentiment": {
+        "label": "Moderately bearish",
+        "positive_pct": 39,
+        "counts": {
+          "bullish": 6,
+          "favorable": 1,
+          "bearish": 11,
+          "neutral": 3,
+          "context": 3
+        }
+      }
+    },
     "AVAV": {
       "ticker": "AVAV",
-      "as_of": "2026-09-22",
-      "price": 156.15,
+      "as_of": "2026-09-23",
+      "price": 155.94,
       "long_term_score": 39.8,
       "long_term_rating": "AVOID",
-      "entry_score": 33.4,
+      "entry_score": 33.6,
       "entry_quality": "WAIT",
       "composite_score": 39.7,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 50.02,
+        "rsi14": 49.84,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 1.8,
-        "adx14": 16.76,
-        "dist_20dma": 0.0358655156545957,
-        "dist_50dma": -0.0118689995661315,
-        "dist_200dma": -0.2413952216471202,
-        "sma20": 150.74,
-        "sma50": 158.03,
+        "macd_hist": 1.78,
+        "adx14": 16.95,
+        "dist_20dma": 0.0345445354546161,
+        "dist_50dma": -0.0131716172745753,
+        "dist_200dma": -0.2424115335667532,
+        "sma20": 150.73,
+        "sma50": 158.02,
         "sma200": 205.84,
         "trend": "BEARISH"
       },
       "support": {
-        "key_support": 153.86,
+        "key_support": 154.94,
         "supports": [
           {
-            "level": 153.86,
-            "source": "6M Fib 0.786 + swing low + 20DMA"
+            "level": 154.94,
+            "source": "swing low + 6M Fib 0.786"
+          },
+          {
+            "level": 150.73,
+            "source": "20DMA"
           },
           {
             "level": 144.55,
-            "source": "swing low"
-          },
-          {
-            "level": 140.62,
             "source": "swing low"
           }
         ],
@@ -1463,7 +1528,7 @@
           "0.618": 168.51,
           "0.786": 153.86
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Moderately bearish",
@@ -1479,8 +1544,8 @@
     },
     "KTOS": {
       "ticker": "KTOS",
-      "as_of": "2026-09-22",
-      "price": 46.97,
+      "as_of": "2026-09-23",
+      "price": 46.16,
       "long_term_score": 44.9,
       "long_term_rating": "AVOID",
       "entry_score": 28.7,
@@ -1488,43 +1553,39 @@
       "composite_score": 39.2,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 38.01,
+        "rsi14": 35.76,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": 0.04,
-        "adx14": 17.5,
-        "dist_20dma": -0.038839294125037,
-        "dist_50dma": -0.0925985752202337,
-        "dist_200dma": -0.3313398154907195,
-        "sma20": 48.87,
-        "sma50": 51.76,
-        "sma200": 70.24,
+        "macd_hist": 0.01,
+        "adx14": 17.2,
+        "dist_20dma": -0.0491100861487111,
+        "dist_50dma": -0.1067973175241682,
+        "dist_200dma": -0.3413932777319413,
+        "sma20": 48.54,
+        "sma50": 51.68,
+        "sma200": 70.09,
         "trend": "BEARISH"
       },
       "support": {
-        "key_support": 46.92,
+        "key_support": 46.01,
         "supports": [
-          {
-            "level": 46.92,
-            "source": "swing low"
-          },
           {
             "level": 46.01,
             "source": "swing low + 20D low"
           },
           {
             "level": 43.09,
-            "source": "60D low"
+            "source": "60D low + swing low"
           }
         ],
         "fib_6m": {
-          "0.236": 73.6,
-          "0.382": 67.77,
-          "0.500": 63.05,
-          "0.618": 58.34,
-          "0.786": 51.64
+          "0.236": 72.01,
+          "0.382": 66.48,
+          "0.500": 62.02,
+          "0.618": 57.55,
+          "0.786": 51.19
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bearish",
@@ -1538,105 +1599,44 @@
         }
       }
     },
-    "RKLB": {
-      "ticker": "RKLB",
-      "as_of": "2026-09-22",
-      "price": 71.98,
-      "long_term_score": 39.1,
-      "long_term_rating": "AVOID",
-      "entry_score": 45.5,
-      "entry_quality": "WAIT",
-      "composite_score": 39.2,
-      "short_put_eligible": false,
-      "technical": {
-        "rsi14": 57.2,
-        "macd": null,
-        "macd_signal": null,
-        "macd_hist": 1.29,
-        "adx14": 16.81,
-        "dist_20dma": 0.1069163504194998,
-        "dist_50dma": 0.0345581408164841,
-        "dist_200dma": -0.1086252612345272,
-        "sma20": 65.03,
-        "sma50": 69.58,
-        "sma200": 80.75,
-        "trend": "MIXED"
-      },
-      "support": {
-        "key_support": 69.58,
-        "supports": [
-          {
-            "level": 69.58,
-            "source": "50DMA"
-          },
-          {
-            "level": 65.03,
-            "source": "20DMA + swing low"
-          },
-          {
-            "level": 61.45,
-            "source": "swing low"
-          }
-        ],
-        "fib_6m": {
-          "0.236": 128.61,
-          "0.382": 114.76,
-          "0.500": 103.57,
-          "0.618": 92.37,
-          "0.786": 76.43
-        },
-        "series_as_of": "2026-09-22"
-      },
-      "diagnostic_sentiment": {
-        "label": "Moderately bearish",
-        "positive_pct": 39,
-        "counts": {
-          "bullish": 6,
-          "favorable": 1,
-          "bearish": 11,
-          "neutral": 3,
-          "context": 3
-        }
-      }
-    },
     "MP": {
       "ticker": "MP",
-      "as_of": "2026-09-22",
-      "price": 51.04,
-      "long_term_score": 43.5,
+      "as_of": "2026-09-23",
+      "price": 48.89,
+      "long_term_score": 43.2,
       "long_term_rating": "AVOID",
-      "entry_score": 32.6,
+      "entry_score": 27.7,
       "entry_quality": "WAIT",
-      "composite_score": 37.6,
+      "composite_score": 36.0,
       "short_put_eligible": false,
       "technical": {
-        "rsi14": 47.08,
+        "rsi14": 42.2,
         "macd": null,
         "macd_signal": null,
-        "macd_hist": -0.55,
-        "adx14": 17.22,
-        "dist_20dma": -0.0407457317356581,
-        "dist_50dma": 0.0027977934246934,
-        "dist_200dma": -0.107462915111573,
-        "sma20": 53.21,
-        "sma50": 50.9,
-        "sma200": 57.19,
-        "trend": "MIXED"
+        "macd_hist": -0.5,
+        "adx14": 16.93,
+        "dist_20dma": -0.0713091802069615,
+        "dist_50dma": -0.0387262292312852,
+        "dist_200dma": -0.1440938812586716,
+        "sma20": 52.64,
+        "sma50": 50.86,
+        "sma200": 57.12,
+        "trend": "BEARISH"
       },
       "support": {
-        "key_support": 50.9,
+        "key_support": 47.26,
         "supports": [
           {
-            "level": 50.9,
-            "source": "50DMA"
-          },
-          {
-            "level": 49.25,
-            "source": "swing low"
-          },
-          {
             "level": 47.26,
-            "source": "20D low"
+            "source": "20D low + swing low"
+          },
+          {
+            "level": 46.15,
+            "source": "6M Fib 0.786"
+          },
+          {
+            "level": 43.82,
+            "source": "swing low"
           }
         ],
         "fib_6m": {
@@ -1646,23 +1646,19 @@
           "0.618": 52.7,
           "0.786": 46.15
         },
-        "series_as_of": "2026-09-22"
+        "series_as_of": "2026-09-23"
       },
       "diagnostic_sentiment": {
         "label": "Bearish",
-        "positive_pct": 26,
+        "positive_pct": 21,
         "counts": {
-          "bullish": 4,
+          "bullish": 3,
           "favorable": 1,
-          "bearish": 14,
+          "bearish": 15,
           "neutral": 3,
           "context": 2
         }
       }
     }
-  },
-  "scoring_version": "2.3-no-leverage-penalty",
-  "scoring_fingerprint": "2b1cdf0a1d18475acdb6",
-  "scores_recomputed_at": "2026-09-23T15:33:05.427921-04:00",
-  "score_input_mode": "Saved latest-completed-session factor replay; original technical snapshot retained"
+  }
 }
