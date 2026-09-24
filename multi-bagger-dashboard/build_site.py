@@ -132,7 +132,7 @@ def build(dest):
     def csv_rows(x):
         for s in x['stocks']:
             m=s['metadata'];r=m.get('research',{})
-            yield dict(zip(columns,[snapshot_id(x),m['tier'],m['tier_rank'],s['ticker'],m.get('score_eligibility',{}).get('status','legacy'),'; '.join(m.get('score_eligibility',{}).get('critical_reasons',[])),r.get('price'),r.get('price_date'),r.get('research_mb_score'),r.get('research_ev_score'),r.get('technical_score'),m.get('last_market_refresh_at'),m.get('research_reviewed_at'),m.get('promotion_blocker'),m.get('audit',{}).get('status','unreviewed'),m.get('audit',{}).get('input_audited_mb_score'),r.get('mb_input_weight_coverage'),r.get('ev_input_weight_coverage'),m.get('audit',{}).get('completed_passes'),len(m.get('audit',{}).get('warnings',[])),'; '.join(w['message'] for w in m.get('audit',{}).get('warnings',[])),m.get('audit_file')]))
+            yield dict(zip(columns,[snapshot_id(x),m['tier'],m.get('tier_rank'),s['ticker'],m.get('score_eligibility',{}).get('status','legacy'),'; '.join(m.get('score_eligibility',{}).get('critical_reasons',[])),r.get('price'),r.get('price_date'),r.get('research_mb_score'),r.get('research_ev_score'),r.get('technical_score'),m.get('last_market_refresh_at'),m.get('research_reviewed_at'),m.get('promotion_blocker'),m.get('audit',{}).get('status','unreviewed'),m.get('audit',{}).get('input_audited_mb_score'),r.get('mb_input_weight_coverage'),r.get('ev_input_weight_coverage'),m.get('audit',{}).get('completed_passes'),len(m.get('audit',{}).get('warnings',[])),'; '.join(w['message'] for w in m.get('audit',{}).get('warnings',[])),m.get('audit_file')]))
     with (dest/'monitoring/current_scores.csv').open('w',newline='') as h:
         w=csv.DictWriter(h,fieldnames=columns);w.writeheader();w.writerows(csv_rows(latest))
     with (dest/'monitoring/history_scores.csv').open('w',newline='') as h:
@@ -144,7 +144,7 @@ def build(dest):
         '|---|---:|---|---:|---|---:|---:|---:|---|']
     for s in latest['stocks']:
         m=s['metadata'];r=m.get('research',{});fmt=lambda v:'—' if v is None else f'{v:.1f}'
-        report.append(f'| {m["tier"]} | {m["tier_rank"]} | {s["ticker"]} | {r.get("price","—")} | {r.get("price_date","—")} | {fmt(r.get("research_mb_score"))} | {fmt(r.get("research_ev_score"))} | {fmt(r.get("technical_score"))} | {m.get('audit',{}).get('status','unreviewed')} |')
+        report.append(f'| {m["tier"]} | {m.get("tier_rank")} | {s["ticker"]} | {r.get("price","—")} | {r.get("price_date","—")} | {fmt(r.get("research_mb_score"))} | {fmt(r.get("research_ev_score"))} | {fmt(r.get("technical_score"))} | {m.get('audit',{}).get('status','unreviewed')} |')
     for s in latest['stocks']:
         m=s['metadata'];a=m.get('audit',{})
         report+=['',f"## {s['ticker']} — {a.get('status','unreviewed')}",f"Audit: {m.get('audit_file','not available')}. Reviewed: {a.get('reviewed_at','not recorded')}"]
