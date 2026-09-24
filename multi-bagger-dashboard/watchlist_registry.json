@@ -4,7 +4,7 @@
   "action_limit": 10,
   "intake_default": "candidate",
   "automatic_swaps": false,
-  "updated_at": "2026-09-07T15:59:15+00:00",
+  "updated_at": "2026-09-24T10:38:01+00:00",
   "initial_selection_basis": "Action10 contains the 10 highest current MB screening scores among stocks that pass MB_CRITICAL_DATA_GATE_V1. Missing critical data is unscored, not reweighted.",
   "schedules": {
     "timezone": "America/New_York",
@@ -15,7 +15,7 @@
   "promotion_policy": {
     "min_mb_gap": 5,
     "consecutive_weeks": 2,
-    "min_input_coverage": 1.0,
+    "min_input_coverage": 1,
     "max_weekly_swaps": 2,
     "cooldown_days": 28,
     "requires_recorded_approval": true,
@@ -442,6 +442,30 @@
       "full_research_reviewed_at": null,
       "input_audit_reviewed_at": null,
       "score_eligibility": "missing_critical_data"
+    },
+    {
+      "ticker": "MU",
+      "tier": "candidate",
+      "membership_since": "2026-09-24T10:38:00+00:00",
+      "origin": "candidate_intake",
+      "intake_reason": "User-approved 2026-09-24 Multi-Bagger comparison: add Micron (MU) for common-calibration research against the existing universe; candidate-first intake.",
+      "promotion_blocker": "Unreviewed intake: complete sourced research and common-date comparison.",
+      "next_review_trigger": "Next weekly candidate review",
+      "priority": "unreviewed",
+      "model_scope": "unreviewed",
+      "full_research_reviewed_at": null
+    },
+    {
+      "ticker": "LITE",
+      "tier": "candidate",
+      "membership_since": "2026-09-24T10:38:01+00:00",
+      "origin": "candidate_intake",
+      "intake_reason": "User-approved 2026-09-24 Multi-Bagger comparison: add Lumentum (LITE) for common-calibration research against the existing universe; candidate-first intake.",
+      "promotion_blocker": "Unreviewed intake: complete sourced research and common-date comparison.",
+      "next_review_trigger": "Next weekly candidate review",
+      "priority": "unreviewed",
+      "model_scope": "unreviewed",
+      "full_research_reviewed_at": null
     }
   ],
   "events": [
@@ -718,6 +742,20 @@
       "to": "candidate",
       "reason": "Critical-data gating: only stocks with all score-critical inputs may enter the ranked Action10; rerank scoreable stocks by unchanged MB screening score.",
       "approval_ref": "Conversation 2026-09-07: If any missing data are critical and needed, label stock missing critical data and not score it. Refresh again and rerank."
+    },
+    {
+      "at": "2026-09-24T10:38:00+00:00",
+      "ticker": "MU",
+      "from": null,
+      "to": "candidate",
+      "reason": "User-approved 2026-09-24 Multi-Bagger comparison: add Micron (MU) for common-calibration research against the existing universe; candidate-first intake."
+    },
+    {
+      "at": "2026-09-24T10:38:01+00:00",
+      "ticker": "LITE",
+      "from": null,
+      "to": "candidate",
+      "reason": "User-approved 2026-09-24 Multi-Bagger comparison: add Lumentum (LITE) for common-calibration research against the existing universe; candidate-first intake."
     }
   ],
   "score_methodology": "MB25_RESEARCH_V1_20260906",
