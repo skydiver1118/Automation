@@ -1,16 +1,26 @@
 {
-  "latest_date": "2026-09-24",
+  "latest_date": "2026-09-25",
   "transitions": [
     {
       "ticker": "AVAV",
-      "date": "2026-09-24",
-      "previous_date": "2026-09-23",
-      "from": "Moderately bearish",
-      "to": "Mixed / neutral",
-      "from_score": 39,
-      "to_score": 50,
-      "direction": "bearish_to_neutral"
+      "date": "2026-09-25",
+      "previous_date": "2026-09-24",
+      "from": "Mixed / neutral",
+      "to": "Moderately bearish",
+      "from_score": 50,
+      "to_score": 39,
+      "direction": "neutral_to_bearish"
+    },
+    {
+      "ticker": "SPCX",
+      "date": "2026-09-25",
+      "previous_date": "2026-09-24",
+      "from": "Mixed / neutral",
+      "to": "Moderately bearish",
+      "from_score": 50,
+      "to_score": 43,
+      "direction": "neutral_to_bearish"
     }
   ],
-  "all_transition_count": 85
+  "all_transition_count": 87
 }
