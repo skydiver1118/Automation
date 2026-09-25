@@ -1,0 +1,47 @@
+name: Multi Bagger v2.2 Free Calibration
+on:
+  workflow_dispatch:
+    inputs:
+      start_year:
+        description: First June-30 formation year
+        required: true
+        default: '2010'
+      end_year:
+        description: Last June-30 formation year
+        required: true
+        default: '2021'
+permissions:
+  contents: write
+concurrency:
+  group: multi-bagger-v22-calibration
+  cancel-in-progress: false
+jobs:
+  sec-pit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pandas
+      - name: Build SEC point-in-time cohorts
+        run: |
+          python stock-project-v2/scripts/build_v22_free_calibration.py \
+            --start "${{ inputs.start_year }}" --end "${{ inputs.end_year }}"
+      - name: Validate outputs
+        run: |
+          test -s stock-project-v2/data/multi_bagger/v22_free/sec_pit_cohorts.csv
+          test -s stock-project-v2/data/multi_bagger/v22_free/metadata.json
+      - name: Commit calibration evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add stock-project-v2/data/multi_bagger/v22_free
+          git diff --cached --quiet && exit 0
+          git commit -m 'Multi Bagger v2.2: SEC PIT calibration cohorts'
+          git pull --rebase origin main
+          git push origin HEAD:main
