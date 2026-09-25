@@ -33,8 +33,12 @@ jobs:
       - run: pip install pandas
       - name: Build SEC point-in-time cohorts
         run: |
+          START_YEAR="${{ inputs.start_year }}"
+          END_YEAR="${{ inputs.end_year }}"
+          START_YEAR="${START_YEAR:-2010}"
+          END_YEAR="${END_YEAR:-2021}"
           python stock-project-v2/scripts/build_v22_free_calibration.py \
-            --start "${{ inputs.start_year }}" --end "${{ inputs.end_year }}"
+            --start "$START_YEAR" --end "$END_YEAR"
       - name: Validate outputs
         run: |
           test -s stock-project-v2/data/multi_bagger/v22_free/sec_pit_cohorts.csv
