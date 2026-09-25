@@ -1,6 +1,6 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-22T16:01:14+00:00
+Recorded: 2026-09-24T23:31:00+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
@@ -27,7 +27,9 @@ Research scores, not calibrated fivefold-return probabilities. Each row preserve
 | candidate | None | EOSE | 3.9600000381469727 | 2026-09-18 | — | — | 57.0 | provisional_with_explicit_gaps |
 | candidate | None | FIGR | 35.4900016784668 | 2026-09-18 | — | — | 42.8 | provisional_with_explicit_gaps |
 | candidate | None | GRRR | 12.890000343322754 | 2026-09-18 | — | — | 21.4 | provisional_with_explicit_gaps |
-| candidate | None | OKLO | 38.0 | 2026-09-18 | — | — | 27.0 | provisional_with_explicit_gaps |
+| candidate | None | LITE | — | — | — | — | — | unreviewed |
+| candidate | None | MU | — | — | — | — | — | unreviewed |
+| candidate | None | OKLO | 38 | 2026-09-18 | — | — | 27.0 | provisional_with_explicit_gaps |
 | candidate | None | POET | 7.800000190734863 | 2026-09-18 | — | — | 42.8 | provisional_with_explicit_gaps |
 | candidate | None | QBTS | 17.110000610351562 | 2026-09-18 | — | — | 31.7 | provisional_with_explicit_gaps |
 | candidate | None | RKLB | 64.56999969482422 | 2026-09-18 | — | — | 28.4 | provisional_with_explicit_gaps |
@@ -185,6 +187,12 @@ Audit: ./evidence_audit/2026-09-06/GRRR.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - Headline investment scores withheld: July $125M convertible financing and its net proceeds, derivative/economic claims need a current pro forma reconciliation.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.
+
+## LITE — unreviewed
+Audit: not available. Reviewed: not recorded
+
+## MU — unreviewed
+Audit: not available. Reviewed: not recorded
 
 ## OKLO — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/OKLO.json. Reviewed: 2026-09-07T01:58:22+00:00

@@ -1,5 +1,5 @@
 {
-  "members": 30,
+  "members": 32,
   "additions": [
     "RGTI",
     "QBTS",
@@ -12,8 +12,8 @@
   "unverified_official_scores_withheld": true,
   "market_session_date": "2026-09-21",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-09-22T16:01:14+00:00",
-  "snapshot_sha256": "b139e49bc4b77286615dfe4db38a34cbdf1c082a8950956ffa30a765580f4ebb",
+  "watchlist_recorded_at": "2026-09-24T23:31:00+00:00",
+  "snapshot_sha256": "db04c04209ad44ddc6e46d995bcfc875bde26caade6c5c71106ae9bbf495fe5b",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -26,15 +26,15 @@
     "stocks_in_latest": 25
   },
   "action_count": 10,
-  "candidate_count": 20,
+  "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-09-22T160114Z-daily",
-  "registry_sha256": "54c0ca5446b988b72b20ea6bc1cc41fa9daa0c36d1dc16f0b31fd3b8c0ab6dbb",
-  "monitoring_sha256": "b139e49bc4b77286615dfe4db38a34cbdf1c082a8950956ffa30a765580f4ebb",
-  "monitoring_history_count": 15,
+  "monitoring_id": "2026-09-24T233100Z-membership_repair_r2",
+  "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
+  "monitoring_sha256": "db04c04209ad44ddc6e46d995bcfc875bde26caade6c5c71106ae9bbf495fe5b",
+  "monitoring_history_count": 19,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
-  "refresh_kind": "daily",
+  "refresh_kind": "membership_repair",
   "action_members": [
     "ETN",
     "ZETA",
@@ -67,23 +67,25 @@
     "QBTS",
     "OKLO",
     "SMR",
-    "EOSE"
+    "EOSE",
+    "MU",
+    "LITE"
   ],
   "scoreable_count": 18,
-  "critical_data_unscored_count": 12,
+  "critical_data_unscored_count": 14,
   "evidence_audit": {
-    "stock_count": 30,
+    "stock_count": 32,
     "scorecards_with_audit": 30,
     "eight_factor_scorecards": 30,
     "full_numeric_input_coverage": 22,
     "reviewed_within_scope": 9,
     "input_audited": 9,
     "full_research_verified": 0,
-    "provisional": 21,
+    "provisional": 23,
     "critical_hold": 12,
     "scoreable": 18,
-    "critical_data_unscored": 12,
+    "critical_data_unscored": 14,
     "full_six_pass_complete": false
   },
-  "built_at": "2026-09-22T16:01:31+00:00"
+  "built_at": "2026-09-25T00:00:11+00:00"
 }
