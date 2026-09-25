@@ -126,7 +126,18 @@ def main():
     ap.add_argument("--prices",type=Path);ap.add_argument("--start",type=int,default=2010);ap.add_argument("--end",type=int,default=2021)
     a=ap.parse_args();a.output.mkdir(parents=True,exist_ok=True);all_rows=[]
     for y,q,d in formation_quarters(a.start,a.end):
-        snap=build_snapshot(read_fsds(y,q,a.cache),d);all_rows.append(snap)
+        # SEC FSDS archives are organized by filing quarter, not fiscal period.
+        # Build each formation cohort from all filing archives available up to June 30.
+        frames=[]
+        for yy in range(2009,y+1):
+            maxq=2 if yy==y else 4
+            for qq in range(1,maxq+1):
+                try: frames.append(read_fsds(yy,qq,a.cache))
+                except Exception as exc:
+                    print(f"warning: skipped {yy}q{qq}: {type(exc).__name__}: {exc}")
+        if not frames: raise RuntimeError(f"No SEC archives available for {d}")
+        merged={k:pd.concat([f[k] for f in frames],ignore_index=True) for k in ["sub","num","pre"]}
+        snap=build_snapshot(merged,d);all_rows.append(snap)
     cohort=pd.concat(all_rows,ignore_index=True);cohort.to_csv(a.output/"sec_pit_cohorts.csv",index=False)
     meta={"source":"SEC Financial Statement Data Sets","formation_dates":[f"{y}-06-30" for y in range(a.start,a.end+1)],
       "point_in_time":True,"prices_attached":bool(a.prices),"calibrated_probability_5x":False}
