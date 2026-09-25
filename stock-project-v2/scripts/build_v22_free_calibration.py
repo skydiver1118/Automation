@@ -30,7 +30,7 @@ def fetch_zip(url:str)->zipfile.ZipFile:
     return zipfile.ZipFile(io.BytesIO(data))
 
 def sec_quarter_url(year:int,q:int)->str:
-    return f"https://www.sec.gov/files/dera/data/financial-statement-data-sets/{year}q{q}.zip"
+    return f"https://dcm.sec.gov/files/dera/data/financial-statement-data-sets/{year}q{q}.zip"
 
 def read_fsds(year:int,q:int,cache:Path)->dict[str,pd.DataFrame]:
     cache.mkdir(parents=True,exist_ok=True); zpath=cache/f"{year}q{q}.zip"
