@@ -1,5 +1,8 @@
 name: Multi Bagger v2.2 Free Calibration
 on:
+  push:
+    paths:
+      - 'stock-project-v2/calibration-trigger.txt'
   workflow_dispatch:
     inputs:
       start_year:
