@@ -10,10 +10,10 @@
   "removals": [],
   "research_values_reconciled": 30,
   "unverified_official_scores_withheld": true,
-  "market_session_date": "2026-09-21",
+  "market_session_date": "2026-09-29",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-09-24T23:31:00+00:00",
-  "snapshot_sha256": "db04c04209ad44ddc6e46d995bcfc875bde26caade6c5c71106ae9bbf495fe5b",
+  "watchlist_recorded_at": "2026-09-30T01:32:46+00:00",
+  "snapshot_sha256": "3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,12 +29,12 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-09-24T233100Z-membership_repair_r2",
+  "monitoring_id": "2026-09-30T013246Z-weekly",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "db04c04209ad44ddc6e46d995bcfc875bde26caade6c5c71106ae9bbf495fe5b",
-  "monitoring_history_count": 19,
+  "monitoring_sha256": "3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73",
+  "monitoring_history_count": 20,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
-  "refresh_kind": "membership_repair",
+  "refresh_kind": "weekly",
   "action_members": [
     "ETN",
     "ZETA",
@@ -78,14 +78,39 @@
     "scorecards_with_audit": 30,
     "eight_factor_scorecards": 30,
     "full_numeric_input_coverage": 22,
-    "reviewed_within_scope": 9,
-    "input_audited": 9,
+    "reviewed_within_scope": 0,
+    "input_audited": 0,
     "full_research_verified": 0,
-    "provisional": 23,
-    "critical_hold": 12,
+    "provisional": 32,
+    "critical_hold": 14,
     "scoreable": 18,
     "critical_data_unscored": 14,
     "full_six_pass_complete": false
   },
-  "built_at": "2026-09-25T00:00:11+00:00"
+  "v22": {
+    "version": "2.2.1",
+    "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
+    "mode": "shadow_only",
+    "artifact": "./v22/latest.json",
+    "artifact_sha256": "9f593184b5719dc8314ecc3b5d1481b817a6321d87c4e96089a88b31bbd6cb70",
+    "source_snapshot_sha256": "3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73",
+    "run_id": "52d8270bb8c34717dbd2f10e",
+    "counts": {
+      "members": 32,
+      "action": 10,
+      "candidate": 22,
+      "capitalization_hurdles": 30,
+      "reviewed_scenario_sets": 0,
+      "missing_critical_scenario_data": 32
+    },
+    "production_rank_effect": false,
+    "calibration_status": "blocked_not_calibrated",
+    "last_refresh_attempt": {
+      "at": "2026-09-30T01:32:46+00:00",
+      "status": "success",
+      "mode": "weekly",
+      "errors": {}
+    }
+  },
+  "built_at": "2026-09-30T01:39:14+00:00"
 }
