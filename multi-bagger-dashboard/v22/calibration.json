@@ -1,0 +1,20 @@
+{
+  "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
+  "status": "blocked_not_calibrated",
+  "production_adoption_allowed": false,
+  "checks": {
+    "point_in_time_security_master": false,
+    "survivorship_and_delisting_adjusted_outcomes": false,
+    "formation_date_fundamentals_verified": false,
+    "untouched_chronological_oos": false,
+    "out_of_sample_5x_improvement_demonstrated": false,
+    "coverage_and_false_negative_tradeoff_reviewed": false,
+    "scenario_and_sector_sensitivity_passed": false
+  },
+  "last_known_collection_attempt": "https://github.com/skydiver1118/Automation/actions/runs/36105542663",
+  "last_known_collection_result": "failed",
+  "last_known_collection_scope": "SEC point-in-time cohort collection only; not a completed historical backtest",
+  "probability_5x": null,
+  "final_v22_score": null,
+  "note": "Unit tests validate arithmetic and missing-data behavior, not investment performance or probabilities. The runtime cannot enable production reranking from this file. A separately reviewed calibration release is required."
+}

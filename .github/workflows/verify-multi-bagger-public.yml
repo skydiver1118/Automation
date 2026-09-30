@@ -52,6 +52,11 @@ jobs:
                   assert build['action_count']==10 and build['candidate_count']>=20
                   assert build['evidence_audit']['scorecards_with_audit']>=30
                   assert not build['full_six_pass_complete']
+                  assert build.get('v22',{}).get('version')=='2.2.1','Waiting for v2.2 deployment'
+                  v22_raw=get('v22/latest.json');v22=json.loads(v22_raw)
+                  assert v22['source_snapshot_sha256']==expected
+                  assert hashlib.sha256(v22_raw).hexdigest()==build['v22']['artifact_sha256']
+                  assert not v22['production_rank_effect']
                   freshness={'scope':'Publication verification; not a new research certification'}
                   summary=snapshot.get('metadata',{}).get('refresh_summary',{})
                   kind=snapshot.get('metadata',{}).get('refresh_kind')
@@ -72,7 +77,7 @@ jobs:
                           exact.append(ticker)
                       assert len(exact)==summary['refreshed']
                       freshness={'mode':kind,'target_session':target,'selected':len(selected),'exact_session_count':len(exact),'explicit_failures':failed,'candidate_dates_preserved_on_daily':kind=='daily'}
-                  receipt={'status':'passed','expected_snapshot_sha256':expected,'public_snapshot_sha256':actual,'public_build':build,'freshness_checks':freshness,'verified_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source':'Public HTTPS responses compared with main checkout; each refreshed stock checked against run target'}
+                  receipt={'status':'passed','expected_snapshot_sha256':expected,'public_snapshot_sha256':actual,'public_build':build,'freshness_checks':freshness,'v22_counts':v22['counts'],'verified_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'source':'Public HTTPS responses compared with main checkout; each refreshed stock and v2.2 sidecar checked against run target'}
                   Path('public-proof/public_data_verification.json').write_text(json.dumps(receipt,indent=2)+'\n')
                   print(json.dumps(receipt,indent=2));success=True;break
               except Exception as e:
@@ -80,8 +85,10 @@ jobs:
                   if attempt<23:time.sleep(15)
           if not success:raise SystemExit('Public deployment/freshness did not match; do not report publication verified')
           PY
-      - name: Verify all 30 public scorecards on desktop and mobile
+      - name: Verify published scorecards on desktop and mobile
         run: python multi-bagger-dashboard/browser_smoke.py --url https://skydiver1118.github.io/Automation/multi-bagger/ --output public-proof
+      - name: Verify v2.2 scenarios, missing-data gates and reverse hurdles on desktop and mobile
+        run: python multi-bagger-dashboard/v22_browser_smoke.py --url https://skydiver1118.github.io/Automation/multi-bagger/ --output public-proof/v22
       - uses: actions/upload-artifact@v4
         if: always()
         with:

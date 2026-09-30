@@ -152,6 +152,8 @@ def build(dest):
     report+=['','## Policy','Candidate-first intake. Action limit 10. Weekly swaps require explicit approval. No automated orders.','',
        '## Limitations']+['- '+v for v in latest['record_limitations']]
     (dest/'monitoring/current_report.md').write_text('\n'.join(report)+'\n')
+    from v22_pipeline import export_site
+    receipt['v22']=export_site(APP,dest,latest)
     built=datetime.now(timezone.utc).replace(microsecond=0).isoformat();receipt['built_at']=built
     for name in ['build.json','verification.json']:(dest/name).write_text(json.dumps(receipt,indent=2)+'\n')
     (dest/'.nojekyll').touch();(dest/'app.syntax-check.js').write_text(script)

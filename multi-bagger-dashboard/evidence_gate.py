@@ -74,7 +74,7 @@ def evidence_status(stock: dict, reasons: list[str] | None = None) -> dict:
 def audit_summary(snapshot: dict) -> dict:
     rows=snapshot.get('stocks',[])
     return {'stock_count':len(rows),
-      'scorecards_with_audit':sum(bool(s.get('metadata',{}).get('audit')) for s in rows),
+      'scorecards_with_audit':sum(bool(s.get('metadata',{}).get('audit')) and bool(s.get('metadata',{}).get('audit_file')) for s in rows),
       'eight_factor_scorecards':sum(len(s.get('metadata',{}).get('research',{}).get('factor_scores',{}))==8 for s in rows),
       'full_numeric_input_coverage':sum(s.get('metadata',{}).get('research',{}).get('mb_input_weight_coverage')==1 for s in rows),
       'reviewed_within_scope':sum(s.get('metadata',{}).get('audit',{}).get('input_audited_mb_score') is not None for s in rows),
@@ -89,9 +89,32 @@ def audit_summary(snapshot: dict) -> dict:
 
 def verify_audit(stock: dict, root: Path = APP) -> None:
     """Validate source lineage, score arithmetic, and the positive claim of sign-off."""
-    m=stock['metadata'];a=m.get('audit')
+    m=stock['metadata'];a=m.get('audit');r=m.get('research',{})
+    if r.get('full_research_validation_complete') or (a or {}).get('verified_mb_score') is not None:
+        raise ValueError('Full research verification is not supported by this bounded input-audit version')
     if not a:return
-    rel=m.get('audit_file','').removeprefix('./')
+    rel=m.get('audit_file','')
+    if not rel:
+        # A price-only Candidate receives a policy/warning envelope after its first
+        # technical refresh. That envelope is not a source audit. Permit only an
+        # explicitly unscored, unranked, unreviewed Candidate; never waive source
+        # lineage for an investment score or relax path containment.
+        q=m.get('score_eligibility',{})
+        claims=[r.get('research_mb_score'),r.get('research_ev_score'),
+                a.get('input_audited_mb_score'),a.get('headline_mb_score'),a.get('headline_ev_score'),
+                q.get('headline_mb_score'),q.get('headline_ev_score'),
+                stock.get('multi_bagger_score'),stock.get('expectation_valuation_score'),
+                stock.get('probability_5x_pct')]
+        empty_candidate=(m.get('tier')=='candidate' and not r.get('analyst_grades')
+            and not r.get('factor_scores') and r.get('mb_input_weight_coverage') is None
+            and m.get('tier_rank') is None and q.get('scoreable') is False
+            and q.get('status')=='missing_critical_data' and bool(q.get('critical_reasons'))
+            and a.get('status')!='reviewed_within_scope' and a.get('baseline_status')!='reviewed_within_scope'
+            and all(v is None for v in claims))
+        if not empty_candidate:raise ValueError('Missing source audit file cannot support investment scores or a reviewed claim')
+        return
+    if not isinstance(rel,str):raise ValueError('Audit path must be a relative string')
+    rel=rel.removeprefix('./')
     p=(root/rel).resolve()
     if not p.is_relative_to((root/'evidence_audit').resolve()):raise ValueError('Audit path outside evidence directory')
     doc=json.loads(p.read_text())
