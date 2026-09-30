@@ -1,0 +1,139 @@
+name: Validate v22 company research release
+on:
+  push:
+    branches: ['research/mb-v22-scenarios-20260929']
+    paths: ['.github/workflows/install-v22-company-research.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  research-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      V22_EVIDENCE_ROOT: ${{ github.workspace }}/retained_current_evidence
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/mb-v22-scenarios-20260929
+          submodules: false
+          sparse-checkout: |
+            multi-bagger-dashboard
+            stock-project-v2
+            .migration/v22-research
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Preserve existing investment state; install checksum-verified company research
+        run: |
+          mkdir -p research-proof
+          python - <<'PY'
+          import base64,hashlib,json,lzma,subprocess
+          from pathlib import Path,PurePosixPath
+          app=Path('multi-bagger-dashboard')
+          roots=['stock-project-v2','multi-bagger-dashboard/monitoring/runs','multi-bagger-dashboard/monitoring/v22/runs']
+          files=[p for root in roots for p in Path(root).rglob('*') if p.is_file()]
+          files += [app/'watchlist_registry.json',app/'research_scoring.py',app/'monitoring/latest.json']
+          Path('/tmp/v22-company-preserved.json').write_text(json.dumps({str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}))
+          expected='3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73'
+          assert hashlib.sha256((app/'monitoring/latest.json').read_bytes()).hexdigest()==expected,'Research review must match the preserved source snapshot'
+          chunks=[Path(f'.migration/v22-research/part{i}.b64').read_text().strip() for i in range(4)]
+          packed=base64.b64decode(''.join(chunks),validate=True)
+          assert hashlib.sha256(packed).hexdigest()=='56820d24e4e27ff17de5ab4eaf486fa17d20c24883aa3d87f50c340779e23f77','Transfer checksum mismatch'
+          raw=lzma.decompress(packed)
+          assert hashlib.sha256(raw).hexdigest()=='a72ca0285d74a4234e8738c9890a6cb2738ce6c732991f8690a1c30e45bd4d8d','Source checksum mismatch'
+          b=json.loads(raw);assert set(b)=={'patch','generator_reviews','generator_report'}
+          paths={line[6:] for line in b['patch'].splitlines() if line.startswith('+++ b/')}
+          assert len(paths)==11
+          for p in paths:
+              assert p.startswith('multi-bagger-dashboard/') and '..' not in PurePosixPath(p).parts
+              assert p not in ['multi-bagger-dashboard/watchlist_registry.json','multi-bagger-dashboard/research_scoring.py']
+              assert not p.startswith('multi-bagger-dashboard/monitoring/')
+          Path('/tmp/v22-company.patch').write_text(b['patch'])
+          subprocess.run(['git','apply','--unidiff-zero','--check','/tmp/v22-company.patch'],check=True)
+          subprocess.run(['git','apply','--unidiff-zero','/tmp/v22-company.patch'],check=True)
+          tools=app/'v22/tools';tools.mkdir(parents=True,exist_ok=True)
+          (tools/'build_company_review_release.py').write_text(b['generator_reviews'])
+          (tools/'build_company_review_report.py').write_text(b['generator_report'])
+          print('Installed 11 scoped app files and two source-defined research generators; no market refresh, ranking or membership edits.')
+          PY
+      - uses: actions/download-artifact@v4
+        with:
+          name: v22-reviewed-source-capture
+          run-id: 36661061224
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: retained_current_evidence
+      - name: Install application and real browser test dependencies
+        run: |
+          pip install -r multi-bagger-dashboard/requirements.txt playwright
+          python -m playwright install --with-deps chromium
+      - name: Persist 32 company decisions and 16 documented three-case scenarios
+        run: |
+          python multi-bagger-dashboard/v22/tools/build_company_review_release.py
+          python multi-bagger-dashboard/v22/tools/build_company_review_report.py
+      - name: Test scenario arithmetic, evidence gates, corrections, expiry and original data safeguards
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v 2>&1 | tee research-proof/application_tests.log
+          python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v 2>&1 | tee research-proof/legacy_tests.log
+          python multi-bagger-dashboard/watchlist.py validate
+          python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
+      - name: Build main dashboard with scenarios and verify actual desktop/mobile behavior
+        run: |
+          python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
+          node --check .multi-bagger-pages/app.syntax-check.js
+          node --check .multi-bagger-pages/v22/app.js
+          python multi-bagger-dashboard/browser_smoke.py --site .multi-bagger-pages --output research-proof/main-browser
+          python multi-bagger-dashboard/v22_browser_smoke.py --site .multi-bagger-pages --output research-proof/v22-browser
+          rm .multi-bagger-pages/app.syntax-check.js
+      - name: Verify evidence completeness, conditional scores and preserved unrelated files
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          app=Path('multi-bagger-dashboard')
+          for name,h in json.loads(Path('/tmp/v22-company-preserved.json').read_text()).items():
+              assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h,name
+          v=json.loads((app/'monitoring/v22/latest.json').read_text());a=json.loads((app/'v22/assumptions.json').read_text())
+          assert len(a['company_reviews'])==32 and len(a['records'])==16
+          assert v['counts']['members']==32 and v['counts']['reviewed_scenario_sets']==16 and v['counts']['missing_critical_scenario_data']==16
+          assert not v['production_rank_effect']
+          scenarios=0
+          for row in v['stocks']:
+              assert row['company_review'] and row['v22_rank'] is None and row['v22_final_score'] is None and row['probability_5x'] is None
+              if row['critical_reasons']:
+                  assert row['shadow_feasibility_score'] is None and not row['scenarios']
+              else:
+                  assert set(row['scenarios'])=={'bear','base','bull'}
+                  scenarios+=3
+          assert scenarios==48
+          receipt={'status':'passed','information_cutoff':'2026-09-29','reviewed_at':a.get('reviewed_at'),'market_session':v['source_market_session_date'],'counts':v['counts'],'source_snapshot_sha256':v['source_snapshot_sha256'],'company_scenario_cases':scenarios,'membership_unchanged':True,'frozen_quality_calculator_unchanged':True,'stock_project_v2_unchanged':True,'all_prior_snapshots_unchanged':True,'full_six_pass_or_probability_certification_claimed':False,'historical_calibration':'blocked_missing_point_in_time_delisting_data','scenario_assumptions':'Explicit source-informed analyst hypotheses, not reported forecasts or probabilities'}
+          Path('research-proof/company_research_verification.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))
+          PY
+      - name: Preserve test receipts and built site
+        if: always()
+        run: |
+          mkdir -p research-proof
+          cp -r .multi-bagger-pages research-proof/site 2>/dev/null || true
+          tar -czf research-proof/source.tar.gz multi-bagger-dashboard
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v22-company-research-validated
+          path: research-proof/
+          retention-days: 30
+      - name: Commit only tested app and research; no email, broker or membership operations
+        run: |
+          git diff --exit-code -- stock-project-v2 .github/workflows multi-bagger-dashboard/watchlist_registry.json multi-bagger-dashboard/research_scoring.py multi-bagger-dashboard/monitoring/latest.json
+          rm -rf .migration/v22-research
+          find multi-bagger-dashboard -type d -name __pycache__ -prune -exec rm -rf {} +
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git add multi-bagger-dashboard
+          git diff --cached --stat
+          git commit -m 'Populate v2.2 company research:16 scenario sets,16 critical holds, source-backed financial corrections and unified dashboard'
+          git push origin HEAD:research/mb-v22-scenarios-20260929
