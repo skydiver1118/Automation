@@ -11,10 +11,12 @@
     "coverage_and_false_negative_tradeoff_reviewed": false,
     "scenario_and_sector_sensitivity_passed": false
   },
-  "last_known_collection_attempt": "https://github.com/skydiver1118/Automation/actions/runs/36105542663",
-  "last_known_collection_result": "failed",
-  "last_known_collection_scope": "SEC point-in-time cohort collection only; not a completed historical backtest",
+  "last_known_collection_attempt": "https://github.com/skydiver1118/Automation/actions/runs/36661061224",
+  "last_known_collection_result": "current_company_capture_succeeded_historical_calibration_access_blocked",
+  "last_known_collection_scope": "32-company vendor capture and 94 filed documents completed. Separate SEC historical endpoints returned HTTP 403; SHARADAR SF1/SEP returned API-key-required errors. No survivorship-safe 5-year outcome cohort available.",
   "probability_5x": null,
   "final_v22_score": null,
-  "note": "Unit tests validate arithmetic and missing-data behavior, not investment performance or probabilities. The runtime cannot enable production reranking from this file. A separately reviewed calibration release is required."
+  "note": "Company-specific scenarios now have individual source reviews. Current-company scenario analysis is not historical validation; all production adoption checks remain false. No final combined score or calibrated probability is emitted. Required historical data: formation-date security universe including failures, as-filed fundamentals and delisting-adjusted five-year total returns. No data purchase or credential change was made.",
+  "access_evidence": "./research/calibration_access_checks.json",
+  "current_company_research_complete_for_ranking": false
 }

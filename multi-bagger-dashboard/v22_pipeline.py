@@ -15,6 +15,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 from critical_data_policy import assess
+from v22_review_bridge import resolve, validate_funding
 from feasibility_v22 import METHODOLOGY, VERSION, _finite, reverse_requirements, scenario_set
 
 SCENARIOS = ('bear', 'base', 'bull')
@@ -110,14 +111,18 @@ def build_payload(snapshot, definitions, calibration, *, source_bytes=None, as_o
             raise ValueError('Duplicate ticker: '+ticker)
         seen.add(ticker)
         m = stock.get('metadata', {}); r = m.get('research', {}); q = assess(stock)
-        cap = r.get('market_cap')
+        definition = definitions.get('records', {}).get(ticker)
+        review = definitions.get('company_reviews', {}).get(ticker)
+        model_r, queue_gaps, review_notes, resolution = resolve(stock, definition, financial_basis(stock))
+        cap = model_r.get('market_cap')
         if not _finite(cap) or cap <= 0:
             cap = None
-        revenue = r.get('revenue_ttm')
+        revenue = model_r.get('revenue_ttm')
         if not _finite(revenue) or revenue <= 0:
             revenue = None
-        definition = definitions.get('records', {}).get(ticker)
         reasons = list(q['critical_reasons'])
+        if review:
+            reasons.extend(review.get('critical_gaps') or [])
         if cap is None:
             reasons.append('Current economic market capitalization is missing.')
         if revenue is None:
@@ -133,17 +138,24 @@ def build_payload(snapshot, definitions, calibration, *, source_bytes=None, as_o
                 reasons.append('Quote date cannot be verified.')
         if m.get('refresh_status') == 'stale_refresh_failed':
             reasons.append('Latest market refresh failed; old prices cannot establish a current scenario score.')
-        reasons.extend(m.get('review_queue') or [])
+        reasons.extend(queue_gaps)
+        reasons.extend(validate_funding(definition))
         reasons.extend(_definition_errors(definition, stock, as_of))
         warnings = [w.get('message', '') for w in m.get('audit', {}).get('warnings', []) if w.get('message')]
         if m.get('research_review_required'):
             warnings.append('Broader research remains incomplete; neither numerical coverage nor a scenario calculation certifies six passes.')
+        warnings.extend(review_notes)
         # Estimates and technical data keep their original timestamps; no freshness manufactured.
         out = {'ticker': ticker, 'tier': m.get('tier', 'candidate'), 'list_rank': m.get('tier_rank'),
             'price': r.get('price'), 'price_date': r.get('price_date'),
-            'reference_market_cap': cap, 'market_cap_basis': r.get('market_cap_basis', 'Saved market-vendor reference; see source audit'),
+            'reference_market_cap': cap, 'market_cap_basis': model_r.get('market_cap_basis', 'Saved market-vendor reference; see source audit'),
             'market_source': r.get('market_source'), 'primary_source': r.get('primary_source'),
-            'financial_period_end': r.get('financial_period_end'), 'financial_reviewed_at': m.get('research_reviewed_at'),
+            'financial_period_end': model_r.get('financial_period_end'), 'financial_reviewed_at': m.get('research_reviewed_at'),
+            'scenario_reviewed_at': (definition or {}).get('reviewed_at'), 'company_review': copy.deepcopy(review),
+            'scenario_financial_resolution':resolution,
+            'legacy_reference_market_cap':r.get('market_cap'),
+            'cash_basis':model_r.get('cash'), 'debt_basis':model_r.get('debt'),
+            'market_cap_correction_pct':cap/r['market_cap']-1 if cap and r.get('market_cap') else None,
             'revenue_ttm': revenue, 'financial_basis_sha256': financial_basis(stock),
             'mb_quality_score_v1': r.get('research_mb_score') if q['scoreable'] else None,
             'quality_score_status': q['status'], 'technical_score': r.get('technical_score'),
@@ -167,8 +179,28 @@ def build_payload(snapshot, definitions, calibration, *, source_bytes=None, as_o
                     required_5x_market_cap_dilution_adjusted=base['required_5x_market_cap_dilution_adjusted'],
                     supportable_terminal_equity_value_base=base['terminal_equity_value_5y'],
                     supportable_5y_multiple_base=base['supportable_5y_multiple'], feasibility_gap_base=base['feasibility_gap'])
+                out['scenario_price_5y']={n:result['scenarios'][n]['supportable_5y_multiple']*r['price'] for n in SCENARIOS}
+                out['scenario_cagr_5y']={n:result['scenarios'][n]['supportable_5y_multiple']**.2-1 for n in SCENARIOS}
+                # Prespecified conservative stress, not optimized against returns.
+                stress=copy.deepcopy(definition['scenarios']['base']['inputs'])
+                stress['revenue_cagr']-=.05
+                stress['dilution_5y']+=.10
+                if definition['model']=='equity_pe':
+                    stress['net_margin']=max(0,stress['net_margin']-.05);stress['terminal_pe']*=.8
+                    from feasibility_v22 import scenario
+                    stressed=scenario(market_cap=cap,revenue_ttm=revenue,**stress)
+                else:
+                    stress['ebitda_margin']=max(0,stress['ebitda_margin']-.05);stress['terminal_ev_ebitda']*=.8
+                    from feasibility_v22 import enterprise_scenario
+                    stressed=enterprise_scenario(market_cap=cap,revenue_ttm=revenue,**stress)
+                out['stressed_base']={'supportable_5y_multiple':stressed['supportable_5y_multiple'],'rule':'Growth minus 5 percentage points, normalized margin minus 5 points, terminal multiple minus 20%, cumulative dilution plus 10 points; debt/claims held unchanged. This is not a full cash-flow or probability stress test.'}
             except (ValueError, TypeError, OverflowError) as exc:
                 reasons.append('Invalid/inconsistent scenario: '+str(exc))
+        if reasons:
+            out.update(status='missing_critical_data',scenarios=None,shadow_feasibility_score=None,
+                required_5x_market_cap_dilution_adjusted=None,supportable_terminal_equity_value_base=None,
+                supportable_5y_multiple_base=None,feasibility_gap_base=None)
+            for key in ('scenario_price_5y','scenario_cagr_5y','stressed_base'):out.pop(key,None)
         out['critical_reasons'] = list(dict.fromkeys(reasons))
         # Reverse hurdles are conditional arithmetic, not an analyst forecast or score.
         if cap is not None:
@@ -179,22 +211,27 @@ def build_payload(snapshot, definitions, calibration, *, source_bytes=None, as_o
     definition_hash = sha(canonical(definitions)); source_hash = sha(source_bytes)
     engine_hash = sha(Path(__file__).with_name('feasibility_v22.py').read_bytes())
     code_hash = sha(Path(__file__).read_bytes())
-    run_id = sha(canonical([source_hash, definition_hash, sha(canonical(calibration)), engine_hash, code_hash, str(as_of)]))[:24]
+    bridge_hash = sha(Path(__file__).with_name('v22_review_bridge.py').read_bytes())
+    run_id = sha(canonical([source_hash, definition_hash, sha(canonical(calibration)), engine_hash, code_hash, bridge_hash, str(as_of)]))[:24]
     return {'schema_version': VERSION, 'methodology': METHODOLOGY, 'mode': 'shadow_only',
         'run_id': run_id, 'evaluation_date_utc': str(as_of),
         'source_snapshot_id': snapshot.get('metadata', {}).get('monitoring_id'),
         'source_snapshot_sha256': source_hash, 'source_recorded_at': snapshot.get('recorded_at'),
         'source_market_session_date': snapshot.get('market_session_date'),
-        'assumptions_sha256': definition_hash, 'engine_sha256': engine_hash, 'adapter_sha256': code_hash,
+        'assumptions_sha256': definition_hash, 'engine_sha256': engine_hash, 'adapter_sha256': code_hash, 'review_bridge_sha256': bridge_hash,
         'production_methodology': snapshot.get('methodology_version'),
         'production_rank_effect': False, 'probability_5x': None, 'final_v22_score': None,
         'calibration': calibration, 'counts': {'members': len(rows),
             'action': sum(r['tier']=='action' for r in rows), 'candidate': sum(r['tier']=='candidate' for r in rows),
             'capitalization_hurdles': sum(r['reference_market_cap'] is not None for r in rows),
+            'company_reviews':sum(bool(r['company_review']) for r in rows),
             'reviewed_scenario_sets': sum(r['status']=='shadow_uncalibrated' for r in rows),
             'missing_critical_scenario_data': sum(r['status']=='missing_critical_data' for r in rows)},
         'limitations': [
             'v1 quality score, scenario feasibility and technical timing are separate measures. No new blended score is invented.',
+            'Bear/base/bull are analyst hypotheses, not confidence intervals, assigned probabilities, issuer forecasts or current fair values. Zero P/E-supported equity is not a liquidation appraisal.',
+            'Five-year revenue endpoints are translated to equivalent CAGR for calculation; transitional businesses need not grow at that rate in every year.',
+            'Funding budgets balance arithmetic, not access to committed capital. Debt, equity, capex and cash-generation assumptions must actually be achievable.',
             'A 5x stock-price outcome requires 5x current equity value only with unchanged economic shares; dilution raises the hurdle.',
             'P/E values common equity after interest and tax; the enterprise route deducts net debt and non-common claims exactly once.',
             'Reverse sensitivities are hypothetical requirements, not company forecasts, probabilities, targets or certified valuations.',
@@ -240,14 +277,20 @@ def export_site(app, dest, snapshot):
         shutil.copy(app/'v22'/name, output/name)
     shutil.copytree(app/'monitoring/v22', output, dirs_exist_ok=True)
     shutil.copy(app/'feasibility_v22.py', output/'feasibility_v22.py')
+    if (app/'v22/research').exists():shutil.copytree(app/'v22/research',output/'research',dirs_exist_ok=True)
     fields = ('ticker','tier','list_rank','price','price_date','reference_market_cap','mb_quality_score_v1',
         'required_5x_market_cap_no_dilution','required_5x_market_cap_dilution_adjusted',
         'supportable_terminal_equity_value_base','supportable_5y_multiple_base','feasibility_gap_base',
+        'bear_multiple','bull_multiple','stressed_base_multiple','company_review_status','scenario_reviewed_at',
         'shadow_feasibility_score','v22_final_score','probability_5x','status','critical_reasons')
     with (output/'current.csv').open('w',newline='') as h:
         writer = csv.DictWriter(h, fieldnames=fields); writer.writeheader()
         for row in data['stocks']:
             record = {k:row.get(k) for k in fields}
+            record['bear_multiple']=(row.get('scenarios') or {}).get('bear',{}).get('supportable_5y_multiple')
+            record['bull_multiple']=(row.get('scenarios') or {}).get('bull',{}).get('supportable_5y_multiple')
+            record['stressed_base_multiple']=row.get('stressed_base',{}).get('supportable_5y_multiple')
+            record['company_review_status']=(row.get('company_review') or {}).get('status')
             record['critical_reasons'] = '; '.join(row['critical_reasons'])
             writer.writerow(record)
     return {'version': VERSION, 'methodology': METHODOLOGY, 'mode': 'shadow_only',

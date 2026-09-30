@@ -30,13 +30,41 @@ def run(base, output):
         browser=p.chromium.launch(headless=True,args=['--no-sandbox'])
         page=browser.new_page(viewport={'width':1440,'height':1000})
         page.on('pageerror',lambda e:failures.append(str(e)))
-        page.goto(base,wait_until='networkidle');page.locator('#tabV22').click()
+        page.goto(base,wait_until='networkidle')
+        page.wait_for_selector('#ranking tr')
+        assert page.locator('#error').is_hidden()
+        # The user's main dashboard now displays scenarios, not a second empty shell.
+        page.locator('#group').select_option('all')
+        for row in data['stocks']:
+            text=page.locator('#ranking [data-t="'+row['ticker']+'"]').locator('xpath=ancestor::tr').inner_text()
+            if row['scenarios']:
+                expected=' / '.join(f"{row['scenarios'][n]['supportable_5y_multiple']:.2f}×" for n in ('bear','base','bull'))
+                assert expected in text,(row['ticker'],'Missing main-page scenarios')
+            else:assert 'Missing critical scenario data' in text
+        page.locator('#ranking [data-t="IREN"]').click()
+        assert 'v2.2 company analysis' in page.locator('#dialogBody').inner_text()
+        page.locator('#close').click()
+        page.locator('#history').select_option('2026-09-03')
+        page.wait_for_function("document.querySelector('#auditBanner').textContent.includes('Historical snapshot')")
+        assert 'No matching v2.2 record for this snapshot' in page.locator('#ranking').inner_text()
+        page.locator('#tabV22').click()
         page.wait_for_function("document.querySelectorAll('#rows tr').length==="+str(build['members']))
         assert page.locator('#error').is_hidden()
         for stock in data['stocks']:
             ticker=stock['ticker'];page.locator('#rows [data-t="'+ticker+'"]').click()
             page.wait_for_selector('#reverseOutput')
             if stock['status']=='missing_critical_data':assert 'Missing Critical Data' in page.locator('#body').inner_text()
+            if stock.get('company_review'):
+                assert stock['company_review']['facts'] in page.locator('#body').inner_text()
+                assert stock['company_review']['risk'] in page.locator('#body').inner_text()
+            if stock['scenarios']:
+                assert page.locator('#body .scenario-table tbody tr').count()==3
+                assert page.locator('#body .scenario-case').count()==3
+                if stock['scenario_assumptions']['model']=='enterprise_ebitda':
+                    assert page.locator('#body .funding-table').count()==3
+                    page.locator('#body .scenario-case').nth(1).locator('summary').click()
+                    assert 'funding bridge' in page.locator('#body').inner_text().lower()
+                if ticker=='IREN':page.screenshot(path=str(output/'v22_iren_funding_desktop.png'))
             if stock['reference_market_cap']:
                 before=page.locator('#reverseOutput').inner_text();page.locator('#dilution').select_option('0.2')
                 assert page.locator('#reverseOutput').inner_text()!=before
@@ -67,7 +95,7 @@ def run(base, output):
     assert not failures,failures
     receipt={'status':'passed','base_url':base,'v22_version':build['v22']['version'],
         'source_market_session':data['source_market_session_date'], 'source_snapshot_sha256':data['source_snapshot_sha256'],
-        'artifact_sha256':build['v22']['artifact_sha256'],'counts':data['counts'],
+        'artifact_sha256':build['v22']['artifact_sha256'],'counts':data['counts'],'integrated_main_page_scenarios_verified':True,'historical_source_linkage_verified':True,'scenario_and_funding_details_verified':True,
         'details_opened':opened,'desktop_mobile_passed':True,'missing_data_and_failure_tests_passed':True,
         'javascript_errors':failures,'production_rank_effect':False}
     (output/'v22_verification.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))

@@ -178,3 +178,20 @@ node --check .multi-bagger-pages/app.syntax-check.js
 Tests cover intake, cap, approval, holiday silence, early closes, DST, closure override,
 fail-closed behavior, numerical reconciliation, stale-comparison gates and immutable history.
 The old `build_final25.py` is blocked from replacing the current membership structure.
+
+## v2.2 company research — September 29 release
+
+The main dashboard now integrates source-linked bear/base/bull results for the
+reviewed scenario set, with critical-gap warnings for unscored members. All 32
+current companies have a review disposition; 16 have scenario assumptions at this
+release and 16 retain critical gaps. See `v22/research/company_review_report.md`.
+
+The review bridge resolves only the captured financial/share/filing state and
+keeps the frozen v1 scoring data unchanged. Financial corrections for AVAV and
+RGTI apply to the scenario overlay only. Future disclosures, revised financial
+inputs, share counts, stale quotes or expiration invalidate the old scenario.
+The main page never attaches today's scenarios to a different historical snapshot.
+
+The broader six-pass opinion and historical out-of-sample calibration are NOT
+claimed complete. P(5x), a final combined score and production v2.2 rank remain
+withheld. No Action/Candidate memberships or other dashboards change.

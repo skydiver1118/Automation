@@ -22,14 +22,32 @@ missing-data reasons, reverse-valuation sensitivities, and calibration status.
 The final v2.2 score, P(5×), and v2.2 rank stay null. No list re-normalization or
 arbitrary large-cap exclusion is introduced.
 
-**Initial scenario coverage:** No approved company-specific, source-linked
-bear/base/bull records were found in the repository. `assumptions.json` starts
-with no reviewed records. It does not turn one-year consensus into five-year
-growth, treat incomplete capital claims as zero, or reuse a chat illustration
-as an approved valuation. Therefore a numerical feasibility score remains
-withheld for each company until its required scenario evidence is supplied.
-The reverse-valuation view is useful immediately without pretending that a
-hypothetical requirement is a forecast.
+## Company research release — September 29, 2026
+
+The initial release contained zero reviewed company-specific scenarios. This
+research release adds 32 company review dispositions and 16 complete, source-linked
+bear/base/bull sets; 16 remain unscored with documented critical gaps. Read
+[the company report](./research/company_review_report.md) for every assumption,
+reported anchor, financing risk and next review trigger. As future facts or source
+queues change, these counts may fall until a new review is saved.
+
+Scenarios are analyst hypotheses, not probabilities, confidence intervals or
+institutionally approved forecasts. The main Action/Candidate page now shows
+these cases alongside business and technical screens. Action membership is not
+changed and no v2.2 production rank is emitted.
+
+AVAV's latest quarter and TTM, and RGTI's disclosed government-share issuance,
+receive source-specific v2.2 overlays. The overlays are hash-bound to the original
+financial/share/filing state. They clear only that reviewed event queue. Future
+filings or share-count changes block reuse; existing critical-data holds cannot
+be bypassed. Historical quality inputs are not silently overwritten.
+
+Enterprise cases include explicit five-year capex/CFO/common-capital cash bridges
+to ending net debt. A balanced budget is not evidence that financing is committed.
+The conservative stress is disclosed separately and is not a historical backtest.
+The final score, P(5×) and production rank remain withheld: historical calibration
+still requires an authorized point-in-time and delisting-adjusted dataset. Actual
+access probes and their failures are retained in the research folder.
 
 ## Math and a correction to the original prototype
 
