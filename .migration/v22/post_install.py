@@ -31,3 +31,5 @@ s=s.replace(anchor,"""    def test_stale_quotes_do_not_get_scenario_scores(self)
 p=APP/'v22/README.md';s=p.read_text().replace('All available stock prices retain their actual\nmarket dates.', 'All available stock prices retain their actual\nmarket dates. A failed market catch-up retains the last good snapshot and shows\nan explicit failure/date warning; quotes beyond four calendar days cannot\nproduce a new scenario score.')
 p.write_text(s)
 print('Added conservative stale-quote gate and explicit failed-refresh banner without changing the frozen quality engine.')
+import runpy
+runpy.run_path('.migration/v22/fix_candidate_audit.py',run_name='__main__')
