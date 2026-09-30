@@ -1,0 +1,67 @@
+name: Research v22 completion evidence
+on:
+  push:
+    branches: ['research/mb-v22-scenarios-20260929']
+    paths: ['.github/workflows/research-v22-completion.yml']
+permissions:
+  contents: read
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+          sparse-checkout: |
+            multi-bagger-dashboard
+            stock-project-v2/methodology
+            stock-project-v2/scripts
+            .github/workflows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r multi-bagger-dashboard/requirements.txt requests beautifulsoup4 lxml
+      - run: python -u multi-bagger-dashboard/v22/tools/collect_current_review.py
+      - name: Retain baseline and probe documented public historical-data endpoints
+        if: always()
+        run: |
+          mkdir -p v22_current_evidence/workspace
+          git archive HEAD multi-bagger-dashboard stock-project-v2/methodology stock-project-v2/scripts .github/workflows > v22_current_evidence/workspace/source.tar
+          git ls-tree -r HEAD stock-project-v2 > v22_current_evidence/workspace/stock_v2_tree.txt
+          git rev-parse HEAD > v22_current_evidence/workspace/commit.txt
+          python - <<'PY'
+          import hashlib,json,time,requests
+          from pathlib import Path
+          urls=[
+           'https://www.sec.gov/files/company_tickers.json',
+           'https://data.sec.gov/submissions/CIK0000320193.json',
+           'https://www.sec.gov/Archives/edgar/full-index/2015/QTR4/company.idx',
+           'https://www.sec.gov/files/dera/data/financial-statement-data-sets/2015q4.zip',
+           'https://data.nasdaq.com/api/v3/datatables/SHARADAR/SF1.json?ticker=AAPL&dimension=ART&qopts.per_page=1',
+           'https://data.nasdaq.com/api/v3/datatables/SHARADAR/SEP.json?ticker=AAPL&qopts.per_page=1']
+          records=[]
+          for u in urls:
+           record={'url':u,'checked_at_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())}
+           try:
+            r=requests.get(u,headers={'User-Agent':'MultiBaggerResearch skydiver1118@users.noreply.github.com'},timeout=20)
+            record.update(status_code=r.status_code,bytes=len(r.content),sha256=hashlib.sha256(r.content).hexdigest(),content_type=r.headers.get('Content-Type'))
+            if r.status_code==200:
+             name='probe-'+str(len(records))+('.zip' if 'zip' in r.headers.get('Content-Type','') else '.txt')
+             Path('v22_current_evidence/workspace',name).write_bytes(r.content)
+            else:record['error_excerpt']=r.text[:200]
+           except Exception as e:record['error']=str(e)[:200]
+           records.append(record);time.sleep(.5)
+          Path('v22_current_evidence/calibration_access_checks.json').write_text(json.dumps(records,indent=2))
+          print(json.dumps(records,indent=2))
+          PY
+          git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: v22-current-review-evidence
+          path: v22_current_evidence/
+          retention-days: 30
+          if-no-files-found: error
