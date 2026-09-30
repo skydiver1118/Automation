@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Preserve investment policy and history; verify and apply scoped integration
+      - name: Preserve investment policy and apply checksum-verified integration
         run: |
           mkdir -p v22-proof
           python - <<'PY'
@@ -33,15 +33,13 @@ jobs:
           app=Path('multi-bagger-dashboard')
           protected=[p for root in ['stock-project-v2','multi-bagger-dashboard/monitoring/runs'] for p in Path(root).rglob('*') if p.is_file()]
           protected += [app/'watchlist_registry.json',app/'research_scoring.py',app/'monitoring/latest.json']
-          before={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in protected}
-          Path('/tmp/v22-preserved.json').write_text(json.dumps(before))
+          Path('/tmp/v22-preserved.json').write_text(json.dumps({str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in protected}))
           Path('/tmp/v22-before.json').write_bytes((app/'monitoring/latest.json').read_bytes())
           packed=base64.b64decode(''.join(Path(f'.migration/v22/part{i}.b64').read_text().strip() for i in range(3)),validate=True)
-          assert hashlib.sha256(packed).hexdigest()=='f18c23453d6f14275454cc243883b301ac7aab8d5abe04b2ec3bfa01ff31ab1d','Transfer checksum mismatch'
+          assert hashlib.sha256(packed).hexdigest()=='f18c23453d6f14275454cc243883b301ac7aab8d5abe04b2ec3bfa01ff31ab1d'
           raw=lzma.decompress(packed)
           assert hashlib.sha256(raw).hexdigest()=='2dcf92fcc4b11a31bd36daea7f0dbf7b7181894f4c5babb0d63d12f8753b2a9e'
-          paths={line[6:] for line in raw.decode().splitlines() if line.startswith('+++ b/')}
-          assert len(paths)==12
+          paths={line[6:] for line in raw.decode().splitlines() if line.startswith('+++ b/')};assert len(paths)==12
           for p in paths:
               assert p.startswith('multi-bagger-dashboard/') and '..' not in PurePosixPath(p).parts
               assert p not in ['multi-bagger-dashboard/research_scoring.py','multi-bagger-dashboard/watchlist_registry.json']
@@ -49,36 +47,44 @@ jobs:
           Path('/tmp/v22.patch').write_bytes(raw)
           subprocess.run(['git','apply','--check','/tmp/v22.patch'],check=True)
           subprocess.run(['git','apply','/tmp/v22.patch'],check=True)
-          print('Applied verified 12-file patch. Frozen scorer and membership preserved.')
           PY
-      - name: Install tests and browser dependencies
+          python .migration/v22/post_install.py
+      - name: Install test and browser dependencies
         run: |
           pip install -r multi-bagger-dashboard/requirements.txt playwright
           python -m playwright install --with-deps chromium
-      - name: Catch up both tiers only when today has a regular exchange session
+      - name: Attempt real market catch-up; retain last good snapshot on feed failure
         run: |
           python - <<'PY'
-          import json,sys
+          import json,sys,time
           from datetime import datetime,timezone
           from pathlib import Path
           sys.path.insert(0,'multi-bagger-dashboard')
-          from watchlist_runtime import market_gate,refresh
+          from watchlist_runtime import market_gate,refresh,write
+          app=Path('multi-bagger-dashboard');before=(app/'monitoring/latest.json').read_bytes()
           gate=market_gate(datetime.now(timezone.utc),'daily')
-          Path('v22-proof/market_gate.json').write_text(json.dumps(gate,indent=2))
-          print(json.dumps(gate))
+          Path('v22-proof/market_gate.json').write_text(json.dumps(gate,indent=2));print(json.dumps(gate))
           if gate['run']:
-              x=refresh('weekly')
-              print(json.dumps(x['metadata']['refresh_summary'],indent=2))
-          else:
-              print('Market closed: software migration only; no market refresh or notification.')
+              for attempt in range(2):
+                  try:
+                      x=refresh('weekly');print(json.dumps(x['metadata']['refresh_summary'],indent=2));break
+                  except Exception as exc:
+                      assert (app/'monitoring/latest.json').read_bytes()==before,'Failed catch-up must preserve the last good snapshot'
+                      failure={'at':datetime.now(timezone.utc).isoformat(),'status':'failed_preserved_last_good','mode':'weekly','requested_session':gate['market_session_date'],'error':type(exc).__name__+': '+str(exc),'market_refresh_performed':False}
+                      if attempt==0:time.sleep(8);continue
+                      write(app/'monitoring/last_attempt.json',failure)
+                      Path('v22-proof/market_refresh_failure.json').write_text(json.dumps(failure,indent=2));print(json.dumps(failure))
+          else:print('Full-day closure: software update only; no market refresh or notification.')
           PY
-      - name: Test model, critical-data rules, preservation and date-independent behavior
+      - name: Test model, critical-data rules, preservation and live-data invariants
+        shell: bash
         run: |
+          set -o pipefail
           python -m unittest discover -s multi-bagger-dashboard -p 'test_*.py' -v 2>&1 | tee v22-proof/application_tests.log
           python -m unittest discover -s stock-project-v2/tests -p 'test_multibagger_pass_score_storage.py' -v 2>&1 | tee v22-proof/legacy_tests.log
           python multi-bagger-dashboard/watchlist.py validate
           python stock-project-v2/scripts/store_multibagger_pass_scores.py --project-root stock-project-v2 --verify-repository
-      - name: Build separate v22 sidecar and validate desktop/mobile for both views
+      - name: Build sidecar and validate both views in a real desktop/mobile browser
         run: |
           python multi-bagger-dashboard/build_site.py --output .multi-bagger-pages
           node --check .multi-bagger-pages/app.syntax-check.js
@@ -86,29 +92,27 @@ jobs:
           python multi-bagger-dashboard/browser_smoke.py --site .multi-bagger-pages --output v22-proof/old-view
           python multi-bagger-dashboard/v22_browser_smoke.py --site .multi-bagger-pages --output v22-proof/v22-view
           rm .multi-bagger-pages/app.syntax-check.js
-      - name: Prove policy boundaries and immutable sidecar linkage
+      - name: Verify immutable history and v2.2 evidence boundaries
         run: |
           python - <<'PY'
           import hashlib,json
           from pathlib import Path
           app=Path('multi-bagger-dashboard')
           old=json.loads(Path('/tmp/v22-before.json').read_text());new=json.loads((app/'monitoring/latest.json').read_text())
-          preserve=json.loads(Path('/tmp/v22-preserved.json').read_text());preserve.pop(str(app/'monitoring/latest.json'))
-          for name,h in preserve.items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h,name
+          preserved=json.loads(Path('/tmp/v22-preserved.json').read_text());preserved.pop(str(app/'monitoring/latest.json'))
+          for name,h in preserved.items():assert hashlib.sha256(Path(name).read_bytes()).hexdigest()==h,name
           rows=lambda x:{s['ticker']:s['metadata']['tier'] for s in x['stocks']}
           assert rows(old)==rows(new)
-          v22=json.loads((app/'monitoring/v22/latest.json').read_text())
-          assert v22['source_snapshot_sha256']==hashlib.sha256((app/'monitoring/latest.json').read_bytes()).hexdigest()
-          assert len(v22['stocks'])==len(new['stocks'])
-          for s in v22['stocks']:
+          v=json.loads((app/'monitoring/v22/latest.json').read_text())
+          assert v['source_snapshot_sha256']==hashlib.sha256((app/'monitoring/latest.json').read_bytes()).hexdigest()
+          assert len(v['stocks'])==len(new['stocks']) and not v['production_rank_effect']
+          for s in v['stocks']:
               assert s['v22_final_score'] is None and s['probability_5x'] is None and s['v22_rank'] is None
               if s['critical_reasons']:assert s['shadow_feasibility_score'] is None
-          assert not v22['production_rank_effect']
-          receipt={'status':'passed','version':v22['schema_version'],'mode':'shadow_only','market_session':new['market_session_date'],'recorded_at':new['recorded_at'],'refresh_summary':new['metadata'].get('refresh_summary'),'counts':v22['counts'],'membership_unchanged':True,'frozen_quality_calculator_unchanged':True,'stock_project_v2_unchanged':True,'prior_snapshots_unchanged':True,'source_snapshot_sha256':v22['source_snapshot_sha256'],'scenario_assumptions_fabricated':False}
-          Path('v22-proof/integration_verification.json').write_text(json.dumps(receipt,indent=2)+'\n')
-          print(json.dumps(receipt,indent=2))
+          receipt={'status':'passed','version':v['schema_version'],'mode':'shadow_only','market_session':new['market_session_date'],'source_recorded_at':new['recorded_at'],'last_market_refresh_attempt':json.loads((app/'monitoring/last_attempt.json').read_text()),'counts':v['counts'],'membership_unchanged':True,'frozen_quality_calculator_unchanged':True,'stock_project_v2_unchanged':True,'prior_snapshots_unchanged':True,'source_snapshot_sha256':v['source_snapshot_sha256'],'scenario_assumptions_fabricated':False}
+          Path('v22-proof/integration_verification.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))
           PY
-      - name: Retain validation source and site
+      - name: Retain actual verification source and site
         if: always()
         run: |
           mkdir -p v22-proof
@@ -130,5 +134,5 @@ jobs:
           git add -u
           git add multi-bagger-dashboard
           git diff --cached --stat
-          git commit -m 'Implement v2.2 feasibility shadow dashboard with dilution-aware reverse hurdles, evidence gates and verification'
+          git commit -m 'Implement v2.2 feasibility shadow dashboard with source-linked scenarios, dilution-aware hurdles and failure warnings'
           git push origin HEAD:feature/mb-v22-integration-20260929
