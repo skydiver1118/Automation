@@ -2,7 +2,7 @@
 """Public evidence collection only. Never scores, promotes, publishes or sends mail."""
 from __future__ import annotations
 import concurrent.futures, hashlib, json, math, re, time
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 import requests
@@ -22,28 +22,30 @@ def clean(x):
  if isinstance(x,(list,tuple)):return [clean(v) for v in x]
  if isinstance(x,(float,np.floating)):return float(x) if math.isfinite(x) else None
  if isinstance(x,np.integer):return int(x)
- return str(x) if isinstance(x,(pd.Timestamp,datetime)) else x
+ return str(x) if isinstance(x,(pd.Timestamp,datetime,date)) else x
 def save(p,x):
  p=OUT/p;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(clean(x),default=str,allow_nan=False,ensure_ascii=False,indent=2)+'\n')
 def frame(d):return {} if d is None or d.empty else {str(c):{str(k):clean(v) for k,v in d[c].items()} for c in d}
 INFO='longName currency financialCurrency marketCap enterpriseValue sharesOutstanding impliedSharesOutstanding totalCash totalDebt mostRecentQuarter lastFiscalYearEnd revenueGrowth grossMargins operatingMargins totalRevenue trailingPE forwardPE regularMarketPrice regularMarketTime'.split()
 def company(ticker):
+ existing=OUT/ticker/'vendor.json'
+ if existing.exists():
+  r=json.loads(existing.read_text());assert r['ticker']==ticker;print('REUSE',ticker,r['retrieved_at'],flush=True);return r
  t=yf.Ticker(ticker);r={'ticker':ticker,'retrieved_at':datetime.now(timezone.utc).isoformat(),'errors':{}}
- try:r['info']={k:t.get_info().get(k) for k in INFO}
+ try:i=t.get_info();r['info']={k:i.get(k) for k in INFO}
  except Exception as e:r['errors']['info']=str(e)
  for n,fn in [('income_quarterly',lambda:t.get_income_stmt(freq='quarterly')),('cashflow_quarterly',lambda:t.get_cashflow(freq='quarterly')),('balance_quarterly',lambda:t.get_balance_sheet(freq='quarterly')),('income_annual',lambda:t.get_income_stmt(freq='yearly')),('cashflow_annual',lambda:t.get_cashflow(freq='yearly')),('balance_annual',lambda:t.get_balance_sheet(freq='yearly')),('revenue_estimate',t.get_revenue_estimate),('earnings_estimate',t.get_earnings_estimate)]:
   try:r[n]=frame(fn())
   except Exception as e:r['errors'][n]=str(e)
- try:r['filings']=t.get_sec_filings() or []
+ try:r['filings']=clean(t.get_sec_filings() or [])
  except Exception as e:r['filings']=[];r['errors']['filings']=str(e)
  save(Path(ticker)/'vendor.json',r);print('VENDOR',ticker,len(r['filings']),r['errors'],flush=True);return r
 with concurrent.futures.ThreadPoolExecutor(max_workers=3) as ex:companies=list(ex.map(company,TICKERS))
-# Retain recent primary SEC-filed exhibits using their publicly supplied mirror URL.
 jobs=[]
 for r in companies:
  t=r['ticker'];annual=quarter=0
- for f in sorted(r.get('filings',[]),key=lambda f:f.get('date',''),reverse=True):
-  filed=f.get('date','');form=f.get('type','');ex=f.get('exhibits',{})
+ for f in sorted(r.get('filings',[]),key=lambda f:str(f.get('date','')),reverse=True):
+  filed=str(f.get('date',''))[:10];form=f.get('type','');ex=f.get('exhibits',{})
   if filed>CUTOFF:continue
   keys=[]
   if form in ['10-K','20-F','40-F'] and annual<1:keys=[form];annual+=1
