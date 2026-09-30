@@ -12,8 +12,8 @@
   "unverified_official_scores_withheld": true,
   "market_session_date": "2026-09-29",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-09-30T01:32:46+00:00",
-  "snapshot_sha256": "3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73",
+  "watchlist_recorded_at": "2026-09-30T17:20:00+00:00",
+  "snapshot_sha256": "9b7af12d7b7e24ef6278628f8958be42da2b8660b42066819eef7ea6edd833ed",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,12 +29,12 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-09-30T013246Z-weekly",
+  "monitoring_id": "2026-09-30T172000Z-daily",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73",
-  "monitoring_history_count": 20,
+  "monitoring_sha256": "9b7af12d7b7e24ef6278628f8958be42da2b8660b42066819eef7ea6edd833ed",
+  "monitoring_history_count": 21,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
-  "refresh_kind": "weekly",
+  "refresh_kind": "daily",
   "action_members": [
     "ETN",
     "ZETA",
@@ -92,9 +92,9 @@
     "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
     "mode": "shadow_only",
     "artifact": "./v22/latest.json",
-    "artifact_sha256": "9f593184b5719dc8314ecc3b5d1481b817a6321d87c4e96089a88b31bbd6cb70",
-    "source_snapshot_sha256": "3caf173b55e9d7368fcdc366d95cfaa90a05be8c039aac49352fcc52bf54ed73",
-    "run_id": "52d8270bb8c34717dbd2f10e",
+    "artifact_sha256": "e2c76897a9fa2a5245dc864eeb2f49de59142d590a1b06bda454061d6437e57d",
+    "source_snapshot_sha256": "9b7af12d7b7e24ef6278628f8958be42da2b8660b42066819eef7ea6edd833ed",
+    "run_id": "728456118eca9109d7237d55",
     "counts": {
       "members": 32,
       "action": 10,
@@ -106,11 +106,13 @@
     "production_rank_effect": false,
     "calibration_status": "blocked_not_calibrated",
     "last_refresh_attempt": {
-      "at": "2026-09-30T01:32:46+00:00",
-      "status": "success",
-      "mode": "weekly",
-      "errors": {}
+      "at": "2026-09-30T17:20:00+00:00",
+      "status": "success_with_disclosed_gaps",
+      "mode": "daily",
+      "errors": {
+        "AXTI": "ValueError: Insufficient/exact-session price data"
+      }
     }
   },
-  "built_at": "2026-09-30T01:39:14+00:00"
+  "built_at": "2026-09-30T17:20:16+00:00"
 }

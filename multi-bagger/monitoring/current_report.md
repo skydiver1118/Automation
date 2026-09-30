@@ -1,14 +1,14 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-09-30T01:32:46+00:00
+Recorded: 2026-09-30T17:20:00+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 433.2699890136719 | 2026-09-29 | 73.7 | 55.1 | 78.0 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 28.959999084472656 | 2026-09-29 | 72.9 | 67.1 | 54.9 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 459.0899963378906 | 2026-09-29 | 70.3 | 61.0 | 52.2 | provisional_with_explicit_gaps |
-| action | 4 | VST | 140.8300018310547 | 2026-09-29 | 68.8 | 60.2 | 33.1 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 433.2699890136719 | 2026-09-29 | 73.7 | 55.3 | 78.0 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 28.959999084472656 | 2026-09-29 | 73.0 | 70.1 | 54.9 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 459.0899963378906 | 2026-09-29 | 70.3 | 60.5 | 52.2 | provisional_with_explicit_gaps |
+| action | 4 | VST | 140.8300018310547 | 2026-09-29 | 69.0 | 58.7 | 33.1 | provisional_with_explicit_gaps |
 | action | 5 | CRMD | 7.929999828338623 | 2026-09-29 | 68.6 | 67.6 | 44.6 | provisional_with_explicit_gaps |
 | action | 6 | AXTI | 78.18000030517578 | 2026-09-29 | 62.4 | 48.4 | 84.1 | provisional_with_explicit_gaps |
 | action | 7 | KTOS | 43.04999923706055 | 2026-09-29 | 62.4 | 45.4 | 16.2 | provisional_with_explicit_gaps |
@@ -27,8 +27,8 @@ Research scores, not calibrated fivefold-return probabilities. Each row preserve
 | candidate | None | EOSE | 3.109999895095825 | 2026-09-29 | — | — | 14.1 | provisional_with_explicit_gaps |
 | candidate | None | FIGR | 29.299999237060547 | 2026-09-29 | — | — | 17.2 | provisional_with_explicit_gaps |
 | candidate | None | GRRR | 13.850000381469727 | 2026-09-29 | — | — | 66.4 | provisional_with_explicit_gaps |
-| candidate | None | LITE | 973.489990234375 | 2026-09-29 | — | — | 78.0 | unreviewed |
-| candidate | None | MU | 1065.0799560546875 | 2026-09-29 | — | — | 77.4 | unreviewed |
+| candidate | None | LITE | 973.489990234375 | 2026-09-29 | — | — | 78.0 | provisional_with_explicit_gaps |
+| candidate | None | MU | 1065.0799560546875 | 2026-09-29 | — | — | 77.4 | provisional_with_explicit_gaps |
 | candidate | None | OKLO | 37.11000061035156 | 2026-09-29 | — | — | 27.9 | provisional_with_explicit_gaps |
 | candidate | None | POET | 7.670000076293945 | 2026-09-29 | — | — | 35.1 | provisional_with_explicit_gaps |
 | candidate | None | QBTS | 16.43000030517578 | 2026-09-29 | — | — | 29.2 | provisional_with_explicit_gaps |
@@ -74,6 +74,8 @@ Audit: ./evidence_audit/2026-09-06/CRMD.json. Reviewed: 2026-09-07T01:58:22+00:0
 Audit: ./evidence_audit/2026-09-06/AXTI.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- ValueError: Insufficient/exact-session price data
+- Latest market refresh failed; retained values keep their original dates.
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## KTOS — provisional_with_explicit_gaps
@@ -135,7 +137,6 @@ Audit: ./evidence_audit/2026-09-06/NBIS.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## IREN — provisional_with_explicit_gaps
@@ -177,7 +178,6 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
@@ -214,13 +214,13 @@ Audit: ./evidence_audit/2026-09-06/GRRR.json. Reviewed: 2026-09-07T01:58:22+00:0
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: July $125M convertible financing and its net proceeds, derivative/economic claims need a current pro forma reconciliation.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.
 
-## LITE — unreviewed
+## LITE — provisional_with_explicit_gaps
 Audit: not available. Reviewed: not recorded
-- Headline investment scores withheld: No source-linked audit is attached to the current stock record.; Required MB factor input is missing. Missing factor weight is not reweighted into a comparable headline score.
+- Headline investment scores withheld: Required MB factor input is missing. Missing factor weight is not reweighted into a comparable headline score.
 
-## MU — unreviewed
+## MU — provisional_with_explicit_gaps
 Audit: not available. Reviewed: not recorded
-- Headline investment scores withheld: No source-linked audit is attached to the current stock record.; Required MB factor input is missing. Missing factor weight is not reweighted into a comparable headline score.
+- Headline investment scores withheld: Required MB factor input is missing. Missing factor weight is not reweighted into a comparable headline score.
 
 ## OKLO — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/OKLO.json. Reviewed: 2026-09-07T01:58:22+00:00
