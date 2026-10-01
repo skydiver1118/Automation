@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "as_of": "2026-09-30",
-  "created_at": "Oct 01, 2026 01:30 PM EDT",
+  "created_at": "Oct 01, 2026 01:40 PM EDT",
   "scoring_version": "2.3-no-leverage-penalty",
-  "current_era": 15,
-  "era_start": "2026-09-22",
+  "current_era": 16,
+  "era_start": "2026-09-30",
   "dates": [
     "2026-08-17",
     "2026-08-18",
@@ -42,28 +42,28 @@
     "weekly": "2026-09-23"
   },
   "comparison_status": {
-    "daily": "Comparable",
-    "weekly": "Comparable"
+    "daily": "Method / universe reset",
+    "weekly": "Method / universe reset"
   },
   "records": [
     {
-      "buy_now_score": 69.4,
-      "long_term_score": 72.5,
-      "short_term_score": 65.2,
-      "quality_score": 88.1,
-      "valuation_score": 66.1,
-      "growth_score": 75.4,
-      "revision_score": 70.4,
-      "relative_strength_score": 63.0,
+      "buy_now_score": 70.0,
+      "long_term_score": 73.0,
+      "short_term_score": 64.9,
+      "quality_score": 87.0,
+      "valuation_score": 68.9,
+      "growth_score": 73.1,
+      "revision_score": 72.9,
+      "relative_strength_score": 60.3,
       "technical_score": 64.2,
       "price": 228.3800048828125,
-      "market_cap": 5574093176832.0,
-      "rsi14": 57.84098115886078,
-      "adx14": 14.588541419080055,
+      "market_cap": 5578318938112.0,
+      "rsi14": 57.84098115125654,
+      "adx14": 14.588541435520792,
       "dist_50dma": 0.0513287031319615,
       "dist_200dma": 0.1430002445572271,
-      "fcf_yield": 0.007500749201283,
-      "forward_pe": 14.707794,
+      "fcf_yield": 0.0074950671354317,
+      "forward_pe": 14.718944,
       "forward_revenue_growth": 0.6589,
       "operating_margin": 0.66236997,
       "ticker": "NVDA",
@@ -73,8 +73,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Quality 88.1/100",
-        "Growth 75.4/100"
+        "Quality 87.0/100",
+        "Growth 73.1/100"
       ],
       "risks": [
         "ADX below 20; weak trend strength"
@@ -85,7 +85,7 @@
       "entry": {
         "rank": 1,
         "ticker": "NVDA",
-        "buy_now_score": 69.4,
+        "buy_now_score": 70.0,
         "price": 228.38,
         "atr14": 5.95,
         "rsi14": 57.8,
@@ -137,34 +137,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 1.2,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 1.2,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.9,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.8,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 2.1,
-            "rank_delta": 3
-          },
-          "weekly": {
-            "delta": 2.4,
-            "rank_delta": 3
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -373,10 +355,10 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 69.4,
-          "long_term_score": 72.5,
-          "short_term_score": 65.2
+          "era": 16,
+          "buy_now_score": 70.0,
+          "long_term_score": 73.0,
+          "short_term_score": 64.9
         }
       ],
       "ranks": {
@@ -386,300 +368,23 @@
       }
     },
     {
-      "buy_now_score": 62.1,
-      "long_term_score": 63.4,
-      "short_term_score": 60.9,
-      "quality_score": null,
-      "valuation_score": null,
-      "growth_score": null,
-      "revision_score": null,
-      "relative_strength_score": 66.5,
-      "technical_score": 62.7,
-      "price": 147.86000061035156,
-      "market_cap": 19311783936.0,
-      "rsi14": 58.70936926252219,
-      "adx14": 16.698557306186398,
-      "dist_50dma": 0.1649075770069108,
-      "dist_200dma": 0.2716886059018202,
-      "fcf_yield": null,
-      "forward_pe": null,
-      "forward_revenue_growth": null,
-      "operating_margin": null,
-      "ticker": "SOXL",
-      "asset_type": "ETF",
-      "name": "Direxion Daily Semiconductor Bull 3X Shares",
-      "sector": "Thematic ETF",
-      "coverage": 100,
-      "missing": [],
-      "strengths": [
-        "Relative strength 66.5/100",
-        "Technical 62.7/100"
-      ],
-      "risks": [
-        "ADX below 20; weak trend strength",
-        "Daily leveraged ETF; compounding risk"
-      ],
-      "state": "In zone; timing weak",
-      "supported": false,
-      "value_quality": false,
-      "entry": {
-        "rank": 2,
-        "ticker": "SOXL",
-        "buy_now_score": 62.1,
-        "price": 147.86,
-        "atr14": 11.95,
-        "rsi14": 58.7,
-        "adx14": 16.7,
-        "sma20": 126.85,
-        "sma50": 126.93,
-        "sma200": 116.27,
-        "supports": [
-          {
-            "level": 143.73,
-            "source": "6M Fib 0.618"
-          },
-          {
-            "level": 135.21,
-            "source": "swing low"
-          },
-          {
-            "level": 126.93,
-            "source": "50DMA"
-          }
-        ],
-        "entry_zone": [
-          139.55,
-          147.91
-        ],
-        "deep_entry_zone": [
-          131.03,
-          139.39
-        ],
-        "breakout_trigger": 155.1,
-        "stop_reference": 125.65,
-        "stance": "Near support \u2014 starter entry acceptable",
-        "distance_to_support_pct": 2.9,
-        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-        "series_as_of": "2026-09-30"
-      },
-      "support": 143.73,
-      "trend": "BULLISH",
-      "sentiment": {
-        "label": "Bullish",
-        "positive_pct": 86,
-        "counts": {
-          "bullish": 6,
-          "favorable": 0,
-          "bearish": 1,
-          "neutral": 3,
-          "context": 14
-        }
-      },
-      "changes": {
-        "buy_now_score": {
-          "daily": {
-            "delta": -2.3,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": -0.7,
-            "rank_delta": 2
-          }
-        },
-        "long_term_score": {
-          "daily": {
-            "delta": -1.5,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 1.5,
-            "rank_delta": 2
-          }
-        },
-        "short_term_score": {
-          "daily": {
-            "delta": -3.0,
-            "rank_delta": -3
-          },
-          "weekly": {
-            "delta": -3.5,
-            "rank_delta": -4
-          }
-        }
-      },
-      "history": [
-        {
-          "date": "2026-08-31",
-          "era": 10,
-          "buy_now_score": 43.2,
-          "long_term_score": 37.1,
-          "short_term_score": 46.1
-        },
-        {
-          "date": "2026-09-01",
-          "era": 11,
-          "buy_now_score": 48.9,
-          "long_term_score": 39.1,
-          "short_term_score": 54.9
-        },
-        {
-          "date": "2026-09-02",
-          "era": 12,
-          "buy_now_score": 40.9,
-          "long_term_score": 32.8,
-          "short_term_score": 45.5
-        },
-        {
-          "date": "2026-09-03",
-          "era": 13,
-          "buy_now_score": 42.7,
-          "long_term_score": 34.7,
-          "short_term_score": 47.3
-        },
-        {
-          "date": "2026-09-04",
-          "era": 14,
-          "buy_now_score": 52.4,
-          "long_term_score": 44.9,
-          "short_term_score": 56.6
-        },
-        {
-          "date": "2026-09-08",
-          "era": 14,
-          "buy_now_score": 49.8,
-          "long_term_score": 41.9,
-          "short_term_score": 52.9
-        },
-        {
-          "date": "2026-09-09",
-          "era": 14,
-          "buy_now_score": 51.4,
-          "long_term_score": 42.8,
-          "short_term_score": 55.3
-        },
-        {
-          "date": "2026-09-10",
-          "era": 14,
-          "buy_now_score": 52.6,
-          "long_term_score": 44.1,
-          "short_term_score": 57.0
-        },
-        {
-          "date": "2026-09-11",
-          "era": 14,
-          "buy_now_score": 57.1,
-          "long_term_score": 47.0,
-          "short_term_score": 62.1
-        },
-        {
-          "date": "2026-09-14",
-          "era": 14,
-          "buy_now_score": 44.8,
-          "long_term_score": 33.4,
-          "short_term_score": 51.8
-        },
-        {
-          "date": "2026-09-15",
-          "era": 14,
-          "buy_now_score": 41.9,
-          "long_term_score": 33.4,
-          "short_term_score": 46.9
-        },
-        {
-          "date": "2026-09-16",
-          "era": 14,
-          "buy_now_score": 45.1,
-          "long_term_score": 35.5,
-          "short_term_score": 51.4
-        },
-        {
-          "date": "2026-09-17",
-          "era": 14,
-          "buy_now_score": 47.1,
-          "long_term_score": 38.3,
-          "short_term_score": 51.9
-        },
-        {
-          "date": "2026-09-18",
-          "era": 14,
-          "buy_now_score": 54.3,
-          "long_term_score": 46.7,
-          "short_term_score": 56.3
-        },
-        {
-          "date": "2026-09-21",
-          "era": 14,
-          "buy_now_score": 57.1,
-          "long_term_score": 47.0,
-          "short_term_score": 62.9
-        },
-        {
-          "date": "2026-09-22",
-          "era": 15,
-          "buy_now_score": 60.4,
-          "long_term_score": 59.0,
-          "short_term_score": 63.4
-        },
-        {
-          "date": "2026-09-23",
-          "era": 15,
-          "buy_now_score": 62.8,
-          "long_term_score": 61.9,
-          "short_term_score": 64.4
-        },
-        {
-          "date": "2026-09-24",
-          "era": 15,
-          "buy_now_score": 62.2,
-          "long_term_score": 61.2,
-          "short_term_score": 63.5
-        },
-        {
-          "date": "2026-09-25",
-          "era": 15,
-          "buy_now_score": 64.2,
-          "long_term_score": 63.8,
-          "short_term_score": 65.9
-        },
-        {
-          "date": "2026-09-29",
-          "era": 15,
-          "buy_now_score": 64.4,
-          "long_term_score": 64.9,
-          "short_term_score": 63.9
-        },
-        {
-          "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 62.1,
-          "long_term_score": 63.4,
-          "short_term_score": 60.9
-        }
-      ],
-      "ranks": {
-        "buy_now_score": 2,
-        "long_term_score": 3,
-        "short_term_score": 10
-      }
-    },
-    {
-      "buy_now_score": 61.5,
-      "long_term_score": 55.6,
-      "short_term_score": 68.4,
-      "quality_score": 78.8,
-      "valuation_score": 69.5,
-      "growth_score": 18.5,
-      "revision_score": 35.7,
+      "buy_now_score": 62.9,
+      "long_term_score": 57.2,
+      "short_term_score": 68.9,
+      "quality_score": 79.5,
+      "valuation_score": 71.9,
+      "growth_score": 20.2,
+      "revision_score": 39.0,
       "relative_strength_score": 86.2,
-      "technical_score": 66.2,
+      "technical_score": 64.7,
       "price": 1065.1099853515625,
-      "market_cap": 1213595123712.0,
-      "rsi14": 59.66120261262975,
-      "adx14": 16.554086281110155,
+      "market_cap": 1216599162880.0,
+      "rsi14": 59.661202612629474,
+      "adx14": 16.554086281184208,
       "dist_50dma": 0.1192903539516834,
       "dist_200dma": 0.5825675041473788,
-      "fcf_yield": 0.0062949328212799,
-      "forward_pe": 5.278442,
+      "fcf_yield": 0.0062793893084024,
+      "forward_pe": 5.2915077,
       "forward_revenue_growth": 0.0754,
       "operating_margin": 0.80370003,
       "ticker": "MU",
@@ -690,7 +395,7 @@
       "missing": [],
       "strengths": [
         "Relative strength 86.2/100",
-        "Quality 78.8/100"
+        "Quality 79.5/100"
       ],
       "risks": [
         "More than 40% above 200DMA",
@@ -701,9 +406,9 @@
       "supported": true,
       "value_quality": true,
       "entry": {
-        "rank": 3,
+        "rank": 2,
         "ticker": "MU",
-        "buy_now_score": 61.5,
+        "buy_now_score": 62.9,
         "price": 1065.11,
         "atr14": 45.08,
         "rsi14": 59.7,
@@ -755,34 +460,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": -6.8,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": -6.6,
-            "rank_delta": -1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": -11.5,
-            "rank_delta": -7
-          },
-          "weekly": {
-            "delta": -11.5,
-            "rank_delta": -7
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -1.1,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -0.5,
-            "rank_delta": -1
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -991,36 +678,295 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 61.5,
-          "long_term_score": 55.6,
-          "short_term_score": 68.4
+          "era": 16,
+          "buy_now_score": 62.9,
+          "long_term_score": 57.2,
+          "short_term_score": 68.9
         }
       ],
       "ranks": {
-        "buy_now_score": 3,
-        "long_term_score": 9,
+        "buy_now_score": 2,
+        "long_term_score": 8,
         "short_term_score": 2
       }
     },
     {
-      "buy_now_score": 59.9,
-      "long_term_score": 57.4,
-      "short_term_score": 60.1,
-      "quality_score": 81.0,
-      "valuation_score": 68.8,
-      "growth_score": 31.3,
-      "revision_score": 30.0,
-      "relative_strength_score": 64.1,
-      "technical_score": 71.9,
+      "buy_now_score": 62.5,
+      "long_term_score": 63.8,
+      "short_term_score": 61.2,
+      "quality_score": null,
+      "valuation_score": null,
+      "growth_score": null,
+      "revision_score": null,
+      "relative_strength_score": 66.2,
+      "technical_score": 63.7,
+      "price": 147.86000061035156,
+      "market_cap": 19311783936.0,
+      "rsi14": 58.70936926252219,
+      "adx14": 16.6985573061868,
+      "dist_50dma": 0.1649075770069108,
+      "dist_200dma": 0.2716886059018202,
+      "fcf_yield": null,
+      "forward_pe": null,
+      "forward_revenue_growth": null,
+      "operating_margin": null,
+      "ticker": "SOXL",
+      "asset_type": "ETF",
+      "name": "Direxion Daily Semiconductor Bull 3X Shares",
+      "sector": "Thematic ETF",
+      "coverage": 100,
+      "missing": [],
+      "strengths": [
+        "Relative strength 66.2/100",
+        "Technical 63.7/100"
+      ],
+      "risks": [
+        "ADX below 20; weak trend strength",
+        "Daily leveraged ETF; compounding risk"
+      ],
+      "state": "In zone; timing weak",
+      "supported": false,
+      "value_quality": false,
+      "entry": {
+        "rank": 3,
+        "ticker": "SOXL",
+        "buy_now_score": 62.5,
+        "price": 147.86,
+        "atr14": 11.95,
+        "rsi14": 58.7,
+        "adx14": 16.7,
+        "sma20": 126.85,
+        "sma50": 126.93,
+        "sma200": 116.27,
+        "supports": [
+          {
+            "level": 143.73,
+            "source": "6M Fib 0.618"
+          },
+          {
+            "level": 135.21,
+            "source": "swing low"
+          },
+          {
+            "level": 126.93,
+            "source": "50DMA"
+          }
+        ],
+        "entry_zone": [
+          139.55,
+          147.91
+        ],
+        "deep_entry_zone": [
+          131.03,
+          139.39
+        ],
+        "breakout_trigger": 155.1,
+        "stop_reference": 125.65,
+        "stance": "Near support \u2014 starter entry acceptable",
+        "distance_to_support_pct": 2.9,
+        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+        "series_as_of": "2026-09-30"
+      },
+      "support": 143.73,
+      "trend": "BULLISH",
+      "sentiment": {
+        "label": "Bullish",
+        "positive_pct": 86,
+        "counts": {
+          "bullish": 6,
+          "favorable": 0,
+          "bearish": 1,
+          "neutral": 3,
+          "context": 14
+        }
+      },
+      "changes": {
+        "buy_now_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "long_term_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "short_term_score": {
+          "daily": null,
+          "weekly": null
+        }
+      },
+      "history": [
+        {
+          "date": "2026-08-31",
+          "era": 10,
+          "buy_now_score": 43.2,
+          "long_term_score": 37.1,
+          "short_term_score": 46.1
+        },
+        {
+          "date": "2026-09-01",
+          "era": 11,
+          "buy_now_score": 48.9,
+          "long_term_score": 39.1,
+          "short_term_score": 54.9
+        },
+        {
+          "date": "2026-09-02",
+          "era": 12,
+          "buy_now_score": 40.9,
+          "long_term_score": 32.8,
+          "short_term_score": 45.5
+        },
+        {
+          "date": "2026-09-03",
+          "era": 13,
+          "buy_now_score": 42.7,
+          "long_term_score": 34.7,
+          "short_term_score": 47.3
+        },
+        {
+          "date": "2026-09-04",
+          "era": 14,
+          "buy_now_score": 52.4,
+          "long_term_score": 44.9,
+          "short_term_score": 56.6
+        },
+        {
+          "date": "2026-09-08",
+          "era": 14,
+          "buy_now_score": 49.8,
+          "long_term_score": 41.9,
+          "short_term_score": 52.9
+        },
+        {
+          "date": "2026-09-09",
+          "era": 14,
+          "buy_now_score": 51.4,
+          "long_term_score": 42.8,
+          "short_term_score": 55.3
+        },
+        {
+          "date": "2026-09-10",
+          "era": 14,
+          "buy_now_score": 52.6,
+          "long_term_score": 44.1,
+          "short_term_score": 57.0
+        },
+        {
+          "date": "2026-09-11",
+          "era": 14,
+          "buy_now_score": 57.1,
+          "long_term_score": 47.0,
+          "short_term_score": 62.1
+        },
+        {
+          "date": "2026-09-14",
+          "era": 14,
+          "buy_now_score": 44.8,
+          "long_term_score": 33.4,
+          "short_term_score": 51.8
+        },
+        {
+          "date": "2026-09-15",
+          "era": 14,
+          "buy_now_score": 41.9,
+          "long_term_score": 33.4,
+          "short_term_score": 46.9
+        },
+        {
+          "date": "2026-09-16",
+          "era": 14,
+          "buy_now_score": 45.1,
+          "long_term_score": 35.5,
+          "short_term_score": 51.4
+        },
+        {
+          "date": "2026-09-17",
+          "era": 14,
+          "buy_now_score": 47.1,
+          "long_term_score": 38.3,
+          "short_term_score": 51.9
+        },
+        {
+          "date": "2026-09-18",
+          "era": 14,
+          "buy_now_score": 54.3,
+          "long_term_score": 46.7,
+          "short_term_score": 56.3
+        },
+        {
+          "date": "2026-09-21",
+          "era": 14,
+          "buy_now_score": 57.1,
+          "long_term_score": 47.0,
+          "short_term_score": 62.9
+        },
+        {
+          "date": "2026-09-22",
+          "era": 15,
+          "buy_now_score": 60.4,
+          "long_term_score": 59.0,
+          "short_term_score": 63.4
+        },
+        {
+          "date": "2026-09-23",
+          "era": 15,
+          "buy_now_score": 62.8,
+          "long_term_score": 61.9,
+          "short_term_score": 64.4
+        },
+        {
+          "date": "2026-09-24",
+          "era": 15,
+          "buy_now_score": 62.2,
+          "long_term_score": 61.2,
+          "short_term_score": 63.5
+        },
+        {
+          "date": "2026-09-25",
+          "era": 15,
+          "buy_now_score": 64.2,
+          "long_term_score": 63.8,
+          "short_term_score": 65.9
+        },
+        {
+          "date": "2026-09-29",
+          "era": 15,
+          "buy_now_score": 64.4,
+          "long_term_score": 64.9,
+          "short_term_score": 63.9
+        },
+        {
+          "date": "2026-09-30",
+          "era": 16,
+          "buy_now_score": 62.5,
+          "long_term_score": 63.8,
+          "short_term_score": 61.2
+        }
+      ],
+      "ranks": {
+        "buy_now_score": 3,
+        "long_term_score": 3,
+        "short_term_score": 9
+      }
+    },
+    {
+      "buy_now_score": 61.0,
+      "long_term_score": 57.9,
+      "short_term_score": 60.7,
+      "quality_score": 80.4,
+      "valuation_score": 72.6,
+      "growth_score": 29.0,
+      "revision_score": 31.0,
+      "relative_strength_score": 63.2,
+      "technical_score": 73.3,
       "price": 725.1799926757812,
-      "market_cap": 1857766817792.0,
-      "rsi14": 61.02695748848411,
-      "adx14": 39.575191510836376,
+      "market_cap": 1858100002816.0,
+      "rsi14": 61.0269574881824,
+      "adx14": 39.57519149927152,
       "dist_50dma": 0.1692134348012441,
       "dist_200dma": 0.1574052653224023,
-      "fcf_yield": 0.0116019001316952,
-      "forward_pe": 20.933987,
+      "fcf_yield": 0.0115998197380845,
+      "forward_pe": 20.93774,
       "forward_revenue_growth": 0.2056,
       "operating_margin": 0.34827,
       "ticker": "META",
@@ -1030,8 +976,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Quality 81.0/100",
-        "Technical 71.9/100"
+        "Quality 80.4/100",
+        "Technical 73.3/100"
       ],
       "risks": [
         "Earnings catalyst and business thesis need review"
@@ -1042,7 +988,7 @@
       "entry": {
         "rank": 4,
         "ticker": "META",
-        "buy_now_score": 59.9,
+        "buy_now_score": 61.0,
         "price": 725.18,
         "atr14": 27.09,
         "rsi14": 61.0,
@@ -1094,34 +1040,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": -0.6,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.8,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.7,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.8,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -3.5,
-            "rank_delta": -3
-          },
-          "weekly": {
-            "delta": 1.1,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -1330,587 +1258,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 59.9,
-          "long_term_score": 57.4,
-          "short_term_score": 60.1
+          "era": 16,
+          "buy_now_score": 61.0,
+          "long_term_score": 57.9,
+          "short_term_score": 60.7
         }
       ],
       "ranks": {
         "buy_now_score": 4,
         "long_term_score": 7,
-        "short_term_score": 11
+        "short_term_score": 10
       }
     },
     {
-      "buy_now_score": 59.2,
-      "long_term_score": 65.1,
-      "short_term_score": 43.3,
-      "quality_score": 84.0,
-      "valuation_score": 69.2,
-      "growth_score": 69.1,
-      "revision_score": 38.7,
-      "relative_strength_score": 36.9,
-      "technical_score": 46.2,
-      "price": 351.19000244140625,
-      "market_cap": 1667667591168.0,
-      "rsi14": 43.94016657347488,
-      "adx14": 21.199905546341743,
-      "dist_50dma": -0.0621283128940175,
-      "dist_200dma": -0.0410888824305107,
-      "fcf_yield": 0.0183468813677495,
-      "forward_pe": 18.02268,
-      "forward_revenue_growth": 0.6404,
-      "operating_margin": 0.54307,
-      "ticker": "AVGO",
-      "asset_type": "Stock",
-      "name": "Broadcom Inc.",
-      "sector": "Technology",
-      "coverage": 100,
-      "missing": [],
-      "strengths": [
-        "Quality 84.0/100",
-        "Value 69.2/100"
-      ],
-      "risks": [
-        "Earnings catalyst and business thesis need review"
-      ],
-      "state": "In zone; timing weak",
-      "supported": true,
-      "value_quality": true,
-      "entry": {
-        "rank": 5,
-        "ticker": "AVGO",
-        "buy_now_score": 59.2,
-        "price": 351.19,
-        "atr14": 10.61,
-        "rsi14": 43.9,
-        "adx14": 21.2,
-        "sma20": 355.0,
-        "sma50": 374.45,
-        "sma200": 366.24,
-        "supports": [
-          {
-            "level": 349.42,
-            "source": "swing low"
-          },
-          {
-            "level": 341.71,
-            "source": "swing low"
-          },
-          {
-            "level": 335.2,
-            "source": "20D low"
-          }
-        ],
-        "entry_zone": [
-          345.71,
-          353.13
-        ],
-        "deep_entry_zone": [
-          338.0,
-          345.42
-        ],
-        "breakout_trigger": 373.08,
-        "stop_reference": 333.22,
-        "stance": "Near support \u2014 starter entry acceptable",
-        "distance_to_support_pct": 0.5,
-        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-        "series_as_of": "2026-09-30"
-      },
-      "support": 349.42,
-      "trend": "MIXED",
-      "sentiment": {
-        "label": "Moderately bullish",
-        "positive_pct": 56,
-        "counts": {
-          "bullish": 8,
-          "favorable": 1,
-          "bearish": 7,
-          "neutral": 6,
-          "context": 2
-        }
-      },
-      "changes": {
-        "buy_now_score": {
-          "daily": {
-            "delta": 1.1,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": 1.6,
-            "rank_delta": 2
-          }
-        },
-        "long_term_score": {
-          "daily": {
-            "delta": 1.6,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": 1.4,
-            "rank_delta": 1
-          }
-        },
-        "short_term_score": {
-          "daily": {
-            "delta": -0.7,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": 2.1,
-            "rank_delta": 1
-          }
-        }
-      },
-      "history": [
-        {
-          "date": "2026-08-31",
-          "era": 10,
-          "buy_now_score": 58.1,
-          "long_term_score": 62.2,
-          "short_term_score": 47.2
-        },
-        {
-          "date": "2026-09-01",
-          "era": 11,
-          "buy_now_score": 59.6,
-          "long_term_score": 62.4,
-          "short_term_score": 51.6
-        },
-        {
-          "date": "2026-09-02",
-          "era": 12,
-          "buy_now_score": 58.8,
-          "long_term_score": 61.8,
-          "short_term_score": 50.4
-        },
-        {
-          "date": "2026-09-03",
-          "era": 13,
-          "buy_now_score": 59.0,
-          "long_term_score": 61.9,
-          "short_term_score": 49.7
-        },
-        {
-          "date": "2026-09-04",
-          "era": 14,
-          "buy_now_score": 56.7,
-          "long_term_score": 61.7,
-          "short_term_score": 42.6
-        },
-        {
-          "date": "2026-09-08",
-          "era": 14,
-          "buy_now_score": 56.9,
-          "long_term_score": 62.2,
-          "short_term_score": 42.4
-        },
-        {
-          "date": "2026-09-09",
-          "era": 14,
-          "buy_now_score": 57.1,
-          "long_term_score": 62.5,
-          "short_term_score": 42.6
-        },
-        {
-          "date": "2026-09-10",
-          "era": 14,
-          "buy_now_score": 57.6,
-          "long_term_score": 62.2,
-          "short_term_score": 44.8
-        },
-        {
-          "date": "2026-09-11",
-          "era": 14,
-          "buy_now_score": 57.4,
-          "long_term_score": 62.2,
-          "short_term_score": 44.0
-        },
-        {
-          "date": "2026-09-14",
-          "era": 14,
-          "buy_now_score": 57.5,
-          "long_term_score": 62.5,
-          "short_term_score": 43.0
-        },
-        {
-          "date": "2026-09-15",
-          "era": 14,
-          "buy_now_score": 57.0,
-          "long_term_score": 62.1,
-          "short_term_score": 42.3
-        },
-        {
-          "date": "2026-09-16",
-          "era": 14,
-          "buy_now_score": 56.9,
-          "long_term_score": 62.1,
-          "short_term_score": 41.8
-        },
-        {
-          "date": "2026-09-17",
-          "era": 14,
-          "buy_now_score": 56.5,
-          "long_term_score": 62.1,
-          "short_term_score": 40.5
-        },
-        {
-          "date": "2026-09-18",
-          "era": 14,
-          "buy_now_score": 57.9,
-          "long_term_score": 62.1,
-          "short_term_score": 45.1
-        },
-        {
-          "date": "2026-09-21",
-          "era": 14,
-          "buy_now_score": 57.8,
-          "long_term_score": 62.8,
-          "short_term_score": 43.6
-        },
-        {
-          "date": "2026-09-22",
-          "era": 15,
-          "buy_now_score": 57.7,
-          "long_term_score": 62.8,
-          "short_term_score": 43.2
-        },
-        {
-          "date": "2026-09-23",
-          "era": 15,
-          "buy_now_score": 57.6,
-          "long_term_score": 63.7,
-          "short_term_score": 41.2
-        },
-        {
-          "date": "2026-09-24",
-          "era": 15,
-          "buy_now_score": 57.8,
-          "long_term_score": 64.1,
-          "short_term_score": 40.5
-        },
-        {
-          "date": "2026-09-25",
-          "era": 15,
-          "buy_now_score": 57.4,
-          "long_term_score": 63.7,
-          "short_term_score": 40.5
-        },
-        {
-          "date": "2026-09-29",
-          "era": 15,
-          "buy_now_score": 58.1,
-          "long_term_score": 63.5,
-          "short_term_score": 44.0
-        },
-        {
-          "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 59.2,
-          "long_term_score": 65.1,
-          "short_term_score": 43.3
-        }
-      ],
-      "ranks": {
-        "buy_now_score": 5,
-        "long_term_score": 2,
-        "short_term_score": 18
-      }
-    },
-    {
-      "buy_now_score": 59.2,
-      "long_term_score": 59.5,
-      "short_term_score": 58.7,
-      "quality_score": null,
-      "valuation_score": null,
-      "growth_score": null,
-      "revision_score": null,
-      "relative_strength_score": 55.7,
-      "technical_score": 60.4,
-      "price": 151.6199951171875,
-      "market_cap": 5561583104.0,
-      "rsi14": 55.00196317546384,
-      "adx14": 13.48730978730908,
-      "dist_50dma": 0.0245947372736408,
-      "dist_200dma": 0.1343958428709712,
-      "fcf_yield": null,
-      "forward_pe": null,
-      "forward_revenue_growth": null,
-      "operating_margin": null,
-      "ticker": "QTUM",
-      "asset_type": "ETF",
-      "name": "Defiance Quantum ETF",
-      "sector": "Thematic ETF",
-      "coverage": 100,
-      "missing": [],
-      "strengths": [
-        "Technical 60.4/100"
-      ],
-      "risks": [
-        "ADX below 20; weak trend strength"
-      ],
-      "state": "Wait for pullback",
-      "supported": false,
-      "value_quality": false,
-      "entry": {
-        "rank": 6,
-        "ticker": "QTUM",
-        "buy_now_score": 59.2,
-        "price": 151.62,
-        "atr14": 2.9,
-        "rsi14": 55.0,
-        "adx14": 13.5,
-        "sma20": 148.33,
-        "sma50": 147.98,
-        "sma200": 133.66,
-        "supports": [
-          {
-            "level": 149.45,
-            "source": "swing low + 20DMA + 50DMA"
-          },
-          {
-            "level": 146.2,
-            "source": "swing low + 6M Fib 0.382"
-          },
-          {
-            "level": 142.47,
-            "source": "swing low"
-          }
-        ],
-        "entry_zone": [
-          148.44,
-          150.46
-        ],
-        "deep_entry_zone": [
-          145.19,
-          147.21
-        ],
-        "breakout_trigger": 155.02,
-        "stop_reference": 143.88,
-        "stance": "Prefer pullback into first support",
-        "distance_to_support_pct": 1.5,
-        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-        "series_as_of": "2026-09-30"
-      },
-      "support": 149.45,
-      "trend": "STRONG BULLISH",
-      "sentiment": {
-        "label": "Mixed / neutral",
-        "positive_pct": 50,
-        "counts": {
-          "bullish": 4,
-          "favorable": 0,
-          "bearish": 4,
-          "neutral": 2,
-          "context": 14
-        }
-      },
-      "changes": {
-        "buy_now_score": {
-          "daily": {
-            "delta": -5.0,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": -3.7,
-            "rank_delta": -2
-          }
-        },
-        "long_term_score": {
-          "daily": {
-            "delta": -4.0,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -2.7,
-            "rank_delta": 0
-          }
-        },
-        "short_term_score": {
-          "daily": {
-            "delta": -5.9,
-            "rank_delta": -6
-          },
-          "weekly": {
-            "delta": -4.2,
-            "rank_delta": -4
-          }
-        }
-      },
-      "history": [
-        {
-          "date": "2026-08-31",
-          "era": 10,
-          "buy_now_score": 61.2,
-          "long_term_score": 61.3,
-          "short_term_score": 61.0
-        },
-        {
-          "date": "2026-09-01",
-          "era": 11,
-          "buy_now_score": 65.8,
-          "long_term_score": 65.9,
-          "short_term_score": 66.7
-        },
-        {
-          "date": "2026-09-02",
-          "era": 12,
-          "buy_now_score": 62.7,
-          "long_term_score": 63.9,
-          "short_term_score": 61.7
-        },
-        {
-          "date": "2026-09-03",
-          "era": 13,
-          "buy_now_score": 58.5,
-          "long_term_score": 61.9,
-          "short_term_score": 55.9
-        },
-        {
-          "date": "2026-09-04",
-          "era": 14,
-          "buy_now_score": 51.9,
-          "long_term_score": 54.7,
-          "short_term_score": 50.0
-        },
-        {
-          "date": "2026-09-08",
-          "era": 14,
-          "buy_now_score": 45.5,
-          "long_term_score": 49.1,
-          "short_term_score": 43.7
-        },
-        {
-          "date": "2026-09-09",
-          "era": 14,
-          "buy_now_score": 47.3,
-          "long_term_score": 51.1,
-          "short_term_score": 45.4
-        },
-        {
-          "date": "2026-09-10",
-          "era": 14,
-          "buy_now_score": 47.0,
-          "long_term_score": 51.1,
-          "short_term_score": 45.2
-        },
-        {
-          "date": "2026-09-11",
-          "era": 14,
-          "buy_now_score": 47.0,
-          "long_term_score": 50.7,
-          "short_term_score": 45.9
-        },
-        {
-          "date": "2026-09-14",
-          "era": 14,
-          "buy_now_score": 56.1,
-          "long_term_score": 58.3,
-          "short_term_score": 55.0
-        },
-        {
-          "date": "2026-09-15",
-          "era": 14,
-          "buy_now_score": 57.1,
-          "long_term_score": 59.8,
-          "short_term_score": 55.3
-        },
-        {
-          "date": "2026-09-16",
-          "era": 14,
-          "buy_now_score": 52.1,
-          "long_term_score": 55.9,
-          "short_term_score": 49.6
-        },
-        {
-          "date": "2026-09-17",
-          "era": 14,
-          "buy_now_score": 53.4,
-          "long_term_score": 57.1,
-          "short_term_score": 51.9
-        },
-        {
-          "date": "2026-09-18",
-          "era": 14,
-          "buy_now_score": 50.3,
-          "long_term_score": 54.4,
-          "short_term_score": 49.3
-        },
-        {
-          "date": "2026-09-21",
-          "era": 14,
-          "buy_now_score": 64.1,
-          "long_term_score": 63.8,
-          "short_term_score": 64.2
-        },
-        {
-          "date": "2026-09-22",
-          "era": 15,
-          "buy_now_score": 57.0,
-          "long_term_score": 59.1,
-          "short_term_score": 54.4
-        },
-        {
-          "date": "2026-09-23",
-          "era": 15,
-          "buy_now_score": 62.9,
-          "long_term_score": 62.2,
-          "short_term_score": 62.9
-        },
-        {
-          "date": "2026-09-24",
-          "era": 15,
-          "buy_now_score": 56.2,
-          "long_term_score": 58.9,
-          "short_term_score": 54.3
-        },
-        {
-          "date": "2026-09-25",
-          "era": 15,
-          "buy_now_score": 65.5,
-          "long_term_score": 66.0,
-          "short_term_score": 64.6
-        },
-        {
-          "date": "2026-09-29",
-          "era": 15,
-          "buy_now_score": 64.2,
-          "long_term_score": 63.5,
-          "short_term_score": 64.6
-        },
-        {
-          "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 59.2,
-          "long_term_score": 59.5,
-          "short_term_score": 58.7
-        }
-      ],
-      "ranks": {
-        "buy_now_score": 5,
-        "long_term_score": 4,
-        "short_term_score": 12
-      }
-    },
-    {
-      "buy_now_score": 58.9,
-      "long_term_score": 59.3,
-      "short_term_score": 68.0,
-      "quality_score": 70.6,
-      "valuation_score": 39.4,
-      "growth_score": 62.8,
-      "revision_score": 73.9,
-      "relative_strength_score": 82.8,
-      "technical_score": 53.9,
+      "buy_now_score": 60.1,
+      "long_term_score": 59.9,
+      "short_term_score": 68.8,
+      "quality_score": 70.2,
+      "valuation_score": 43.2,
+      "growth_score": 59.3,
+      "revision_score": 76.7,
+      "relative_strength_score": 81.9,
+      "technical_score": 54.5,
       "price": 971.260009765625,
-      "market_cap": 94583259136.0,
+      "market_cap": 94150909952.0,
       "rsi14": 57.04608173238744,
       "adx14": 12.992058232535838,
       "dist_50dma": 0.1168166156335817,
       "dist_200dma": 0.3159506020810489,
-      "fcf_yield": 0.0023756846830252,
-      "forward_pe": 30.36383,
+      "fcf_yield": 0.0023865940341368,
+      "forward_pe": 30.225035,
       "forward_revenue_growth": 0.52779996,
       "operating_margin": 0.27954,
       "ticker": "LITE",
@@ -1920,20 +1297,19 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Relative strength 82.8/100",
-        "Revisions 73.9/100"
+        "Relative strength 81.9/100",
+        "Revisions 76.7/100"
       ],
       "risks": [
-        "ADX below 20; weak trend strength",
-        "Low relative valuation score"
+        "ADX below 20; weak trend strength"
       ],
       "state": "In entry zone",
       "supported": true,
       "value_quality": false,
       "entry": {
-        "rank": 7,
+        "rank": 5,
         "ticker": "LITE",
-        "buy_now_score": 58.9,
+        "buy_now_score": 60.1,
         "price": 971.26,
         "atr14": 63.69,
         "rsi14": 57.0,
@@ -1985,34 +1361,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.8,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 1.4,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 1.0,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.3,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 0.8,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 6.1,
-            "rank_delta": 7
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -2221,284 +1579,294 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 58.9,
-          "long_term_score": 59.3,
-          "short_term_score": 68.0
+          "era": 16,
+          "buy_now_score": 60.1,
+          "long_term_score": 59.9,
+          "short_term_score": 68.8
         }
       ],
       "ranks": {
-        "buy_now_score": 7,
-        "long_term_score": 5,
+        "buy_now_score": 5,
+        "long_term_score": 4,
         "short_term_score": 3
       }
     },
     {
-      "buy_now_score": 58.8,
-      "long_term_score": 55.4,
-      "short_term_score": 61.4,
-      "quality_score": 58.8,
-      "valuation_score": 66.1,
-      "growth_score": 27.2,
-      "revision_score": 64.7,
-      "relative_strength_score": 59.4,
-      "technical_score": 60.3,
-      "price": 429.7099914550781,
-      "market_cap": 170175512576.0,
-      "rsi14": 53.600156795278096,
-      "adx14": 12.134886989644173,
-      "dist_50dma": 0.0215156069570328,
-      "dist_200dma": 0.111774656348504,
-      "fcf_yield": 0.018252479507666,
-      "forward_pe": 27.08265,
-      "forward_revenue_growth": 0.121800005,
-      "operating_margin": 0.16563,
-      "ticker": "ETN",
+      "buy_now_score": 59.7,
+      "long_term_score": 64.8,
+      "short_term_score": 43.9,
+      "quality_score": 82.4,
+      "valuation_score": 72.3,
+      "growth_score": 66.2,
+      "revision_score": 38.1,
+      "relative_strength_score": 36.4,
+      "technical_score": 48.3,
+      "price": 351.19000244140625,
+      "market_cap": 1670102122496.0,
+      "rsi14": 43.940166624202334,
+      "adx14": 21.199905073097582,
+      "dist_50dma": -0.0621283128940175,
+      "dist_200dma": -0.0410888876242241,
+      "fcf_yield": 0.0183201368610159,
+      "forward_pe": 18.051374,
+      "forward_revenue_growth": 0.6404,
+      "operating_margin": 0.54307,
+      "ticker": "AVGO",
       "asset_type": "Stock",
-      "name": "Eaton Corporation plc",
-      "sector": "Industrials",
+      "name": "Broadcom Inc.",
+      "sector": "Technology",
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Value 66.1/100",
-        "Revisions 64.7/100"
+        "Quality 82.4/100",
+        "Value 72.3/100"
       ],
       "risks": [
-        "ADX below 20; weak trend strength"
+        "Earnings catalyst and business thesis need review"
       ],
       "state": "In zone; timing weak",
       "supported": true,
-      "value_quality": false,
+      "value_quality": true,
       "entry": {
-        "rank": 8,
-        "ticker": "ETN",
-        "buy_now_score": 58.8,
-        "price": 429.71,
-        "atr14": 13.41,
-        "rsi14": 53.6,
-        "adx14": 12.1,
-        "sma20": 418.97,
-        "sma50": 420.66,
-        "sma200": 386.51,
+        "rank": 6,
+        "ticker": "AVGO",
+        "buy_now_score": 59.7,
+        "price": 351.19,
+        "atr14": 10.61,
+        "rsi14": 43.9,
+        "adx14": 21.2,
+        "sma20": 355.0,
+        "sma50": 374.45,
+        "sma200": 366.24,
         "supports": [
           {
-            "level": 429.03,
-            "source": "6M Fib 0.382 + swing low"
+            "level": 349.42,
+            "source": "swing low"
           },
           {
-            "level": 420.66,
-            "source": "50DMA + 20DMA"
+            "level": 341.71,
+            "source": "swing low"
           },
           {
-            "level": 413.91,
-            "source": "6M Fib 0.500"
+            "level": 335.2,
+            "source": "20D low"
           }
         ],
         "entry_zone": [
-          424.34,
-          433.72
+          345.71,
+          353.13
         ],
         "deep_entry_zone": [
-          415.97,
-          425.35
+          338.0,
+          345.42
         ],
-        "breakout_trigger": 448.67,
-        "stop_reference": 409.94,
+        "breakout_trigger": 373.08,
+        "stop_reference": 333.22,
         "stance": "Near support \u2014 starter entry acceptable",
-        "distance_to_support_pct": 0.2,
+        "distance_to_support_pct": 0.5,
         "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
         "series_as_of": "2026-09-30"
       },
-      "support": 429.03,
-      "trend": "BULLISH",
+      "support": 349.42,
+      "trend": "MIXED",
       "sentiment": {
-        "label": "Bullish",
-        "positive_pct": 75,
+        "label": "Moderately bullish",
+        "positive_pct": 56,
         "counts": {
           "bullish": 8,
           "favorable": 1,
-          "bearish": 3,
-          "neutral": 10,
+          "bearish": 7,
+          "neutral": 6,
           "context": 2
         }
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.4,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": -0.4,
-            "rank_delta": -3
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.5,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 1.1,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 1.2,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": -3.4,
-            "rank_delta": -6
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
         {
+          "date": "2026-08-31",
+          "era": 10,
+          "buy_now_score": 58.1,
+          "long_term_score": 62.2,
+          "short_term_score": 47.2
+        },
+        {
+          "date": "2026-09-01",
+          "era": 11,
+          "buy_now_score": 59.6,
+          "long_term_score": 62.4,
+          "short_term_score": 51.6
+        },
+        {
+          "date": "2026-09-02",
+          "era": 12,
+          "buy_now_score": 58.8,
+          "long_term_score": 61.8,
+          "short_term_score": 50.4
+        },
+        {
+          "date": "2026-09-03",
+          "era": 13,
+          "buy_now_score": 59.0,
+          "long_term_score": 61.9,
+          "short_term_score": 49.7
+        },
+        {
           "date": "2026-09-04",
           "era": 14,
-          "buy_now_score": 56.4,
-          "long_term_score": 54.4,
-          "short_term_score": 54.2
+          "buy_now_score": 56.7,
+          "long_term_score": 61.7,
+          "short_term_score": 42.6
         },
         {
           "date": "2026-09-08",
           "era": 14,
-          "buy_now_score": 57.6,
-          "long_term_score": 54.7,
-          "short_term_score": 57.0
+          "buy_now_score": 56.9,
+          "long_term_score": 62.2,
+          "short_term_score": 42.4
         },
         {
           "date": "2026-09-09",
           "era": 14,
-          "buy_now_score": 57.0,
-          "long_term_score": 54.6,
-          "short_term_score": 56.1
+          "buy_now_score": 57.1,
+          "long_term_score": 62.5,
+          "short_term_score": 42.6
         },
         {
           "date": "2026-09-10",
           "era": 14,
-          "buy_now_score": 57.2,
-          "long_term_score": 54.6,
-          "short_term_score": 56.8
+          "buy_now_score": 57.6,
+          "long_term_score": 62.2,
+          "short_term_score": 44.8
         },
         {
           "date": "2026-09-11",
           "era": 14,
-          "buy_now_score": 58.7,
-          "long_term_score": 54.3,
-          "short_term_score": 62.5
+          "buy_now_score": 57.4,
+          "long_term_score": 62.2,
+          "short_term_score": 44.0
         },
         {
           "date": "2026-09-14",
           "era": 14,
-          "buy_now_score": 56.6,
-          "long_term_score": 54.0,
-          "short_term_score": 56.7
+          "buy_now_score": 57.5,
+          "long_term_score": 62.5,
+          "short_term_score": 43.0
         },
         {
           "date": "2026-09-15",
           "era": 14,
-          "buy_now_score": 56.6,
-          "long_term_score": 53.8,
-          "short_term_score": 57.0
+          "buy_now_score": 57.0,
+          "long_term_score": 62.1,
+          "short_term_score": 42.3
         },
         {
           "date": "2026-09-16",
           "era": 14,
-          "buy_now_score": 56.7,
-          "long_term_score": 54.1,
-          "short_term_score": 56.3
+          "buy_now_score": 56.9,
+          "long_term_score": 62.1,
+          "short_term_score": 41.8
         },
         {
           "date": "2026-09-17",
           "era": 14,
-          "buy_now_score": 57.0,
-          "long_term_score": 54.1,
-          "short_term_score": 57.7
+          "buy_now_score": 56.5,
+          "long_term_score": 62.1,
+          "short_term_score": 40.5
         },
         {
           "date": "2026-09-18",
           "era": 14,
-          "buy_now_score": 57.8,
-          "long_term_score": 53.9,
-          "short_term_score": 60.6
+          "buy_now_score": 57.9,
+          "long_term_score": 62.1,
+          "short_term_score": 45.1
         },
         {
           "date": "2026-09-21",
           "era": 14,
-          "buy_now_score": 57.7,
-          "long_term_score": 54.3,
-          "short_term_score": 59.6
+          "buy_now_score": 57.8,
+          "long_term_score": 62.8,
+          "short_term_score": 43.6
         },
         {
           "date": "2026-09-22",
           "era": 15,
-          "buy_now_score": 59.1,
-          "long_term_score": 54.2,
-          "short_term_score": 64.5
+          "buy_now_score": 57.7,
+          "long_term_score": 62.8,
+          "short_term_score": 43.2
         },
         {
           "date": "2026-09-23",
           "era": 15,
-          "buy_now_score": 59.2,
-          "long_term_score": 54.3,
-          "short_term_score": 64.8
+          "buy_now_score": 57.6,
+          "long_term_score": 63.7,
+          "short_term_score": 41.2
         },
         {
           "date": "2026-09-24",
           "era": 15,
-          "buy_now_score": 58.3,
-          "long_term_score": 54.0,
-          "short_term_score": 63.0
+          "buy_now_score": 57.8,
+          "long_term_score": 64.1,
+          "short_term_score": 40.5
         },
         {
           "date": "2026-09-25",
           "era": 15,
-          "buy_now_score": 58.5,
-          "long_term_score": 54.4,
-          "short_term_score": 62.2
+          "buy_now_score": 57.4,
+          "long_term_score": 63.7,
+          "short_term_score": 40.5
         },
         {
           "date": "2026-09-29",
           "era": 15,
-          "buy_now_score": 58.4,
-          "long_term_score": 54.9,
-          "short_term_score": 60.2
+          "buy_now_score": 58.1,
+          "long_term_score": 63.5,
+          "short_term_score": 44.0
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 58.8,
-          "long_term_score": 55.4,
-          "short_term_score": 61.4
+          "era": 16,
+          "buy_now_score": 59.7,
+          "long_term_score": 64.8,
+          "short_term_score": 43.9
         }
       ],
       "ranks": {
-        "buy_now_score": 8,
-        "long_term_score": 10,
-        "short_term_score": 9
+        "buy_now_score": 6,
+        "long_term_score": 2,
+        "short_term_score": 16
       }
     },
     {
-      "buy_now_score": 58.3,
-      "long_term_score": 57.9,
-      "short_term_score": 67.1,
-      "quality_score": 67.8,
-      "valuation_score": 42.3,
-      "growth_score": 62.4,
-      "revision_score": 69.3,
-      "relative_strength_score": 76.6,
-      "technical_score": 61.2,
+      "buy_now_score": 59.5,
+      "long_term_score": 58.8,
+      "short_term_score": 67.5,
+      "quality_score": 68.3,
+      "valuation_score": 46.4,
+      "growth_score": 58.8,
+      "revision_score": 71.7,
+      "relative_strength_score": 75.9,
+      "technical_score": 60.7,
       "price": 264.2099914550781,
-      "market_cap": 242425577472.0,
-      "rsi14": 61.91510031943892,
-      "adx14": 21.18025247241581,
+      "market_cap": 240493363200.0,
+      "rsi14": 61.91510031933226,
+      "adx14": 21.18025248393401,
       "dist_50dma": 0.1777968818659265,
       "dist_200dma": 0.601203901889479,
-      "fcf_yield": 0.009933151217421,
-      "forward_pe": 39.850025,
+      "fcf_yield": 0.0100129578960455,
+      "forward_pe": 39.532406,
       "forward_revenue_growth": 0.5123,
       "operating_margin": 0.16679001,
       "ticker": "MRVL",
@@ -2508,8 +1876,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Relative strength 76.6/100",
-        "Revisions 69.3/100"
+        "Relative strength 75.9/100",
+        "Revisions 71.7/100"
       ],
       "risks": [
         "More than 40% above 200DMA"
@@ -2518,9 +1886,9 @@
       "supported": true,
       "value_quality": false,
       "entry": {
-        "rank": 9,
+        "rank": 7,
         "ticker": "MRVL",
-        "buy_now_score": 58.3,
+        "buy_now_score": 59.5,
         "price": 264.21,
         "atr14": 13.12,
         "rsi14": 61.9,
@@ -2572,34 +1940,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.2,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": 1.0,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.7,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.6,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 0.0,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 3.1,
-            "rank_delta": 3
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -2808,284 +2158,293 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 58.3,
-          "long_term_score": 57.9,
-          "short_term_score": 67.1
+          "era": 16,
+          "buy_now_score": 59.5,
+          "long_term_score": 58.8,
+          "short_term_score": 67.5
         }
       ],
       "ranks": {
-        "buy_now_score": 9,
-        "long_term_score": 6,
+        "buy_now_score": 7,
+        "long_term_score": 5,
         "short_term_score": 4
       }
     },
     {
-      "buy_now_score": 56.5,
-      "long_term_score": 56.2,
-      "short_term_score": 46.3,
-      "quality_score": 57.6,
-      "valuation_score": 78.2,
-      "growth_score": 22.8,
-      "revision_score": 62.7,
-      "relative_strength_score": 28.4,
-      "technical_score": 48.5,
-      "price": 453.6000061035156,
-      "market_cap": 24497670144.0,
-      "rsi14": 44.62286036625453,
-      "adx14": 13.41987941209292,
-      "dist_50dma": -0.0391968765362092,
-      "dist_200dma": -0.0647866540930859,
-      "fcf_yield": 0.020239170055175,
-      "forward_pe": 20.200998,
-      "forward_revenue_growth": 0.1028,
-      "operating_margin": 0.21666999,
-      "ticker": "HUBB",
-      "asset_type": "Stock",
-      "name": "Hubbell Incorporated",
-      "sector": "Industrials",
+      "buy_now_score": 58.0,
+      "long_term_score": 58.3,
+      "short_term_score": 57.2,
+      "quality_score": null,
+      "valuation_score": null,
+      "growth_score": null,
+      "revision_score": null,
+      "relative_strength_score": 53.7,
+      "technical_score": 60.1,
+      "price": 151.6199951171875,
+      "market_cap": 5561583104.0,
+      "rsi14": 55.00196317713503,
+      "adx14": 13.487309540543146,
+      "dist_50dma": 0.0245947372736408,
+      "dist_200dma": 0.1343958402808336,
+      "fcf_yield": null,
+      "forward_pe": null,
+      "forward_revenue_growth": null,
+      "operating_margin": null,
+      "ticker": "QTUM",
+      "asset_type": "ETF",
+      "name": "Defiance Quantum ETF",
+      "sector": "Thematic ETF",
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Value 78.2/100",
-        "Revisions 62.7/100"
+        "Technical 60.1/100"
       ],
       "risks": [
         "ADX below 20; weak trend strength"
       ],
       "state": "Wait for pullback",
-      "supported": true,
+      "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 10,
-        "ticker": "HUBB",
-        "buy_now_score": 56.5,
-        "price": 453.6,
-        "atr14": 12.38,
-        "rsi14": 44.6,
-        "adx14": 13.4,
-        "sma20": 455.23,
-        "sma50": 472.11,
-        "sma200": 485.02,
+        "rank": 8,
+        "ticker": "QTUM",
+        "buy_now_score": 58.0,
+        "price": 151.62,
+        "atr14": 2.9,
+        "rsi14": 55.0,
+        "adx14": 13.5,
+        "sma20": 148.33,
+        "sma50": 147.98,
+        "sma200": 133.66,
         "supports": [
           {
-            "level": 439.89,
-            "source": "swing low + 20D low + 60D low"
+            "level": 149.45,
+            "source": "swing low + 20DMA + 50DMA"
           },
           {
-            "level": 422.65,
-            "source": "ATR fallback"
+            "level": 146.2,
+            "source": "swing low + 6M Fib 0.382"
           },
           {
-            "level": 410.27,
-            "source": "ATR fallback"
+            "level": 142.47,
+            "source": "swing low"
           }
         ],
         "entry_zone": [
-          435.56,
-          444.22
+          148.44,
+          150.46
         ],
         "deep_entry_zone": [
-          418.32,
-          426.98
+          145.19,
+          147.21
         ],
-        "breakout_trigger": 473.58,
-        "stop_reference": 412.75,
+        "breakout_trigger": 155.02,
+        "stop_reference": 143.88,
         "stance": "Prefer pullback into first support",
-        "distance_to_support_pct": 3.1,
+        "distance_to_support_pct": 1.5,
         "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
         "series_as_of": "2026-09-30"
       },
-      "support": 453.59,
-      "trend": "BEARISH",
+      "support": 149.45,
+      "trend": "STRONG BULLISH",
       "sentiment": {
         "label": "Mixed / neutral",
-        "positive_pct": 53,
+        "positive_pct": 50,
         "counts": {
-          "bullish": 6,
-          "favorable": 2,
-          "bearish": 7,
-          "neutral": 7,
-          "context": 2
+          "bullish": 4,
+          "favorable": 0,
+          "bearish": 4,
+          "neutral": 2,
+          "context": 14
         }
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.1,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.0,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 1.0,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.8,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -1.4,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": -0.8,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
         {
+          "date": "2026-08-31",
+          "era": 10,
+          "buy_now_score": 61.2,
+          "long_term_score": 61.3,
+          "short_term_score": 61.0
+        },
+        {
+          "date": "2026-09-01",
+          "era": 11,
+          "buy_now_score": 65.8,
+          "long_term_score": 65.9,
+          "short_term_score": 66.7
+        },
+        {
+          "date": "2026-09-02",
+          "era": 12,
+          "buy_now_score": 62.7,
+          "long_term_score": 63.9,
+          "short_term_score": 61.7
+        },
+        {
+          "date": "2026-09-03",
+          "era": 13,
+          "buy_now_score": 58.5,
+          "long_term_score": 61.9,
+          "short_term_score": 55.9
+        },
+        {
           "date": "2026-09-04",
           "era": 14,
-          "buy_now_score": 53.3,
-          "long_term_score": 51.9,
-          "short_term_score": 43.0
+          "buy_now_score": 51.9,
+          "long_term_score": 54.7,
+          "short_term_score": 50.0
         },
         {
           "date": "2026-09-08",
           "era": 14,
-          "buy_now_score": 53.4,
-          "long_term_score": 53.0,
-          "short_term_score": 41.3
+          "buy_now_score": 45.5,
+          "long_term_score": 49.1,
+          "short_term_score": 43.7
         },
         {
           "date": "2026-09-09",
           "era": 14,
-          "buy_now_score": 53.4,
-          "long_term_score": 52.9,
-          "short_term_score": 41.4
+          "buy_now_score": 47.3,
+          "long_term_score": 51.1,
+          "short_term_score": 45.4
         },
         {
           "date": "2026-09-10",
           "era": 14,
-          "buy_now_score": 54.2,
-          "long_term_score": 52.9,
-          "short_term_score": 44.0
+          "buy_now_score": 47.0,
+          "long_term_score": 51.1,
+          "short_term_score": 45.2
         },
         {
           "date": "2026-09-11",
           "era": 14,
-          "buy_now_score": 55.1,
-          "long_term_score": 53.0,
-          "short_term_score": 47.0
+          "buy_now_score": 47.0,
+          "long_term_score": 50.7,
+          "short_term_score": 45.9
         },
         {
           "date": "2026-09-14",
           "era": 14,
-          "buy_now_score": 52.0,
-          "long_term_score": 49.7,
-          "short_term_score": 42.4
+          "buy_now_score": 56.1,
+          "long_term_score": 58.3,
+          "short_term_score": 55.0
         },
         {
           "date": "2026-09-15",
           "era": 14,
-          "buy_now_score": 57.5,
-          "long_term_score": 54.9,
-          "short_term_score": 50.7
+          "buy_now_score": 57.1,
+          "long_term_score": 59.8,
+          "short_term_score": 55.3
         },
         {
           "date": "2026-09-16",
           "era": 14,
-          "buy_now_score": 56.1,
-          "long_term_score": 54.9,
-          "short_term_score": 46.0
+          "buy_now_score": 52.1,
+          "long_term_score": 55.9,
+          "short_term_score": 49.6
         },
         {
           "date": "2026-09-17",
           "era": 14,
-          "buy_now_score": 55.9,
-          "long_term_score": 54.9,
-          "short_term_score": 45.3
+          "buy_now_score": 53.4,
+          "long_term_score": 57.1,
+          "short_term_score": 51.9
         },
         {
           "date": "2026-09-18",
           "era": 14,
-          "buy_now_score": 54.9,
+          "buy_now_score": 50.3,
           "long_term_score": 54.4,
-          "short_term_score": 44.2
+          "short_term_score": 49.3
         },
         {
           "date": "2026-09-21",
           "era": 14,
-          "buy_now_score": 54.9,
-          "long_term_score": 55.3,
-          "short_term_score": 41.9
+          "buy_now_score": 64.1,
+          "long_term_score": 63.8,
+          "short_term_score": 64.2
         },
         {
           "date": "2026-09-22",
           "era": 15,
-          "buy_now_score": 54.8,
-          "long_term_score": 55.3,
-          "short_term_score": 41.5
+          "buy_now_score": 57.0,
+          "long_term_score": 59.1,
+          "short_term_score": 54.4
         },
         {
           "date": "2026-09-23",
           "era": 15,
-          "buy_now_score": 56.5,
-          "long_term_score": 55.4,
-          "short_term_score": 47.1
+          "buy_now_score": 62.9,
+          "long_term_score": 62.2,
+          "short_term_score": 62.9
         },
         {
           "date": "2026-09-24",
           "era": 15,
-          "buy_now_score": 55.9,
-          "long_term_score": 55.5,
-          "short_term_score": 45.0
+          "buy_now_score": 56.2,
+          "long_term_score": 58.9,
+          "short_term_score": 54.3
         },
         {
           "date": "2026-09-25",
           "era": 15,
-          "buy_now_score": 56.4,
-          "long_term_score": 55.5,
-          "short_term_score": 46.5
+          "buy_now_score": 65.5,
+          "long_term_score": 66.0,
+          "short_term_score": 64.6
         },
         {
           "date": "2026-09-29",
           "era": 15,
-          "buy_now_score": 56.4,
-          "long_term_score": 55.2,
-          "short_term_score": 47.7
+          "buy_now_score": 64.2,
+          "long_term_score": 63.5,
+          "short_term_score": 64.6
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 56.5,
-          "long_term_score": 56.2,
-          "short_term_score": 46.3
+          "era": 16,
+          "buy_now_score": 58.0,
+          "long_term_score": 58.3,
+          "short_term_score": 57.2
         }
       ],
       "ranks": {
-        "buy_now_score": 10,
-        "long_term_score": 8,
-        "short_term_score": 16
+        "buy_now_score": 8,
+        "long_term_score": 6,
+        "short_term_score": 12
       }
     },
     {
-      "buy_now_score": 54.9,
-      "long_term_score": 51.6,
-      "short_term_score": 75.1,
-      "quality_score": 33.5,
-      "valuation_score": 26.3,
-      "growth_score": 82.2,
-      "revision_score": 88.8,
-      "relative_strength_score": 86.9,
+      "buy_now_score": 55.7,
+      "long_term_score": 52.4,
+      "short_term_score": 75.2,
+      "quality_score": 34.3,
+      "valuation_score": 28.8,
+      "growth_score": 80.5,
+      "revision_score": 90.4,
+      "relative_strength_score": 85.7,
       "technical_score": 66.7,
       "price": 77.41000366210938,
-      "market_cap": 5417003008.0,
+      "market_cap": 5350773760.0,
       "rsi14": 56.54820141219252,
       "adx14": 17.17701879343599,
       "dist_50dma": 0.1554387221742021,
       "dist_200dma": 0.297952277444268,
-      "fcf_yield": -0.008199552397221,
-      "forward_pe": 36.715557,
+      "fcf_yield": -0.0083010424271797,
+      "forward_pe": 36.266666,
       "forward_revenue_growth": 1.1135,
       "operating_margin": 0.21902001,
       "ticker": "AXTI",
@@ -3095,8 +2454,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Revisions 88.8/100",
-        "Relative strength 86.9/100"
+        "Revisions 90.4/100",
+        "Relative strength 85.7/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -3107,9 +2466,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 11,
+        "rank": 9,
         "ticker": "AXTI",
-        "buy_now_score": 54.9,
+        "buy_now_score": 55.7,
         "price": 77.41,
         "atr14": 7.2,
         "rsi14": 56.5,
@@ -3161,34 +2520,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.6,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 2.3,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.1,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -0.4,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 1.8,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 8.8,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -3397,286 +2738,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 54.9,
-          "long_term_score": 51.6,
-          "short_term_score": 75.1
+          "era": 16,
+          "buy_now_score": 55.7,
+          "long_term_score": 52.4,
+          "short_term_score": 75.2
         }
       ],
       "ranks": {
-        "buy_now_score": 11,
-        "long_term_score": 12,
+        "buy_now_score": 9,
+        "long_term_score": 10,
         "short_term_score": 1
       }
     },
     {
-      "buy_now_score": 52.5,
-      "long_term_score": 51.1,
-      "short_term_score": 62.1,
-      "quality_score": 67.1,
-      "valuation_score": 38.2,
-      "growth_score": 42.2,
-      "revision_score": 44.1,
-      "relative_strength_score": 72.8,
-      "technical_score": 67.7,
-      "price": 397.30999755859375,
-      "market_cap": 320369688576.0,
-      "rsi14": 60.9228419517944,
-      "adx14": 15.301800516161377,
-      "dist_50dma": 0.106438171205601,
-      "dist_200dma": 0.6005688166114236,
-      "fcf_yield": 0.0132366607928765,
-      "forward_pe": 80.27145,
-      "forward_revenue_growth": 0.1449,
-      "operating_margin": 0.05396,
-      "ticker": "PANW",
-      "asset_type": "Stock",
-      "name": "Palo Alto Networks, Inc.",
-      "sector": "Technology",
-      "coverage": 100,
-      "missing": [],
-      "strengths": [
-        "Relative strength 72.8/100",
-        "Technical 67.7/100"
-      ],
-      "risks": [
-        "More than 40% above 200DMA",
-        "ADX below 20; weak trend strength",
-        "Low relative valuation score"
-      ],
-      "state": "Watch only",
-      "supported": false,
-      "value_quality": false,
-      "entry": {
-        "rank": 12,
-        "ticker": "PANW",
-        "buy_now_score": 52.5,
-        "price": 397.31,
-        "atr14": 18.02,
-        "rsi14": 60.9,
-        "adx14": 15.3,
-        "sma20": 364.02,
-        "sma50": 359.09,
-        "sma200": 248.23,
-        "supports": [
-          {
-            "level": 367.27,
-            "source": "swing low + 20DMA"
-          },
-          {
-            "level": 359.09,
-            "source": "50DMA + swing low"
-          },
-          {
-            "level": 349.0,
-            "source": "swing low"
-          }
-        ],
-        "entry_zone": [
-          360.96,
-          373.58
-        ],
-        "deep_entry_zone": [
-          352.78,
-          365.4
-        ],
-        "breakout_trigger": 398.1,
-        "stop_reference": 344.67,
-        "stance": "Wait for pullback or confirmed breakout",
-        "distance_to_support_pct": 8.2,
-        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-        "series_as_of": "2026-09-30"
-      },
-      "support": 367.27,
-      "trend": "STRONG BULLISH",
-      "sentiment": {
-        "label": "Bullish",
-        "positive_pct": 72,
-        "counts": {
-          "bullish": 12,
-          "favorable": 1,
-          "bearish": 5,
-          "neutral": 4,
-          "context": 2
-        }
-      },
-      "changes": {
-        "buy_now_score": {
-          "daily": {
-            "delta": 0.4,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -0.5,
-            "rank_delta": -1
-          }
-        },
-        "long_term_score": {
-          "daily": {
-            "delta": 0.6,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.5,
-            "rank_delta": 1
-          }
-        },
-        "short_term_score": {
-          "daily": {
-            "delta": 0.2,
-            "rank_delta": 3
-          },
-          "weekly": {
-            "delta": -2.5,
-            "rank_delta": -3
-          }
-        }
-      },
-      "history": [
-        {
-          "date": "2026-09-04",
-          "era": 14,
-          "buy_now_score": 51.6,
-          "long_term_score": 54.1,
-          "short_term_score": 52.8
-        },
-        {
-          "date": "2026-09-08",
-          "era": 14,
-          "buy_now_score": 51.6,
-          "long_term_score": 54.9,
-          "short_term_score": 51.2
-        },
-        {
-          "date": "2026-09-09",
-          "era": 14,
-          "buy_now_score": 51.9,
-          "long_term_score": 55.5,
-          "short_term_score": 51.1
-        },
-        {
-          "date": "2026-09-10",
-          "era": 14,
-          "buy_now_score": 52.8,
-          "long_term_score": 55.4,
-          "short_term_score": 54.6
-        },
-        {
-          "date": "2026-09-11",
-          "era": 14,
-          "buy_now_score": 51.6,
-          "long_term_score": 54.5,
-          "short_term_score": 52.2
-        },
-        {
-          "date": "2026-09-14",
-          "era": 14,
-          "buy_now_score": 53.7,
-          "long_term_score": 50.5,
-          "short_term_score": 66.9
-        },
-        {
-          "date": "2026-09-15",
-          "era": 14,
-          "buy_now_score": 53.6,
-          "long_term_score": 49.9,
-          "short_term_score": 68.4
-        },
-        {
-          "date": "2026-09-16",
-          "era": 14,
-          "buy_now_score": 53.5,
-          "long_term_score": 49.9,
-          "short_term_score": 68.1
-        },
-        {
-          "date": "2026-09-17",
-          "era": 14,
-          "buy_now_score": 53.4,
-          "long_term_score": 50.2,
-          "short_term_score": 66.5
-        },
-        {
-          "date": "2026-09-18",
-          "era": 14,
-          "buy_now_score": 51.8,
-          "long_term_score": 50.2,
-          "short_term_score": 61.1
-        },
-        {
-          "date": "2026-09-21",
-          "era": 14,
-          "buy_now_score": 52.1,
-          "long_term_score": 50.8,
-          "short_term_score": 60.4
-        },
-        {
-          "date": "2026-09-22",
-          "era": 15,
-          "buy_now_score": 52.1,
-          "long_term_score": 50.8,
-          "short_term_score": 60.5
-        },
-        {
-          "date": "2026-09-23",
-          "era": 15,
-          "buy_now_score": 53.0,
-          "long_term_score": 50.6,
-          "short_term_score": 64.6
-        },
-        {
-          "date": "2026-09-24",
-          "era": 15,
-          "buy_now_score": 53.2,
-          "long_term_score": 50.7,
-          "short_term_score": 64.9
-        },
-        {
-          "date": "2026-09-25",
-          "era": 15,
-          "buy_now_score": 51.7,
-          "long_term_score": 50.4,
-          "short_term_score": 60.9
-        },
-        {
-          "date": "2026-09-29",
-          "era": 15,
-          "buy_now_score": 52.1,
-          "long_term_score": 50.5,
-          "short_term_score": 61.9
-        },
-        {
-          "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 52.5,
-          "long_term_score": 51.1,
-          "short_term_score": 62.1
-        }
-      ],
-      "ranks": {
-        "buy_now_score": 12,
-        "long_term_score": 13,
-        "short_term_score": 7
-      }
-    },
-    {
-      "buy_now_score": 52.1,
-      "long_term_score": 50.3,
-      "short_term_score": 48.1,
-      "quality_score": 56.6,
-      "valuation_score": 66.8,
-      "growth_score": 18.3,
-      "revision_score": 45.7,
-      "relative_strength_score": 49.1,
-      "technical_score": 42.1,
+      "buy_now_score": 53.2,
+      "long_term_score": 51.2,
+      "short_term_score": 49.3,
+      "quality_score": 59.2,
+      "valuation_score": 68.0,
+      "growth_score": 14.8,
+      "revision_score": 48.1,
+      "relative_strength_score": 49.6,
+      "technical_score": 43.5,
       "price": 249.1499938964844,
-      "market_cap": 2690753757184.0,
+      "market_cap": 2690915500032.0,
       "rsi14": 45.19836010471548,
       "adx14": 9.669101413601256,
       "dist_50dma": -0.0272100302877542,
       "dist_200dma": 0.0333551796662625,
-      "fcf_yield": 0.0011963655103724,
-      "forward_pe": 23.813185,
+      "fcf_yield": 0.0011962936004351,
+      "forward_pe": 23.814615,
       "forward_revenue_growth": 0.1444,
       "operating_margin": 0.13689,
       "ticker": "AMZN",
@@ -3686,7 +2777,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Value 66.8/100"
+        "Value 68.0/100"
       ],
       "risks": [
         "ADX below 20; weak trend strength"
@@ -3695,9 +2786,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 13,
+        "rank": 10,
         "ticker": "AMZN",
-        "buy_now_score": 52.1,
+        "buy_now_score": 53.2,
         "price": 249.15,
         "atr14": 5.65,
         "rsi14": 45.2,
@@ -3749,34 +2840,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 1.6,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.6,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.5,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.4,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 4.4,
-            "rank_delta": 3
-          },
-          "weekly": {
-            "delta": 1.2,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -3894,36 +2967,267 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 52.1,
-          "long_term_score": 50.3,
-          "short_term_score": 48.1
+          "era": 16,
+          "buy_now_score": 53.2,
+          "long_term_score": 51.2,
+          "short_term_score": 49.3
         }
       ],
       "ranks": {
-        "buy_now_score": 13,
-        "long_term_score": 14,
-        "short_term_score": 15
+        "buy_now_score": 10,
+        "long_term_score": 12,
+        "short_term_score": 14
       }
     },
     {
-      "buy_now_score": 50.1,
-      "long_term_score": 54.5,
-      "short_term_score": 57.9,
-      "quality_score": 43.6,
-      "valuation_score": 18.5,
-      "growth_score": 91.8,
-      "revision_score": 93.3,
+      "buy_now_score": 53.0,
+      "long_term_score": 51.5,
+      "short_term_score": 61.4,
+      "quality_score": 68.2,
+      "valuation_score": 42.0,
+      "growth_score": 36.7,
+      "revision_score": 44.0,
+      "relative_strength_score": 71.1,
+      "technical_score": 66.7,
+      "price": 397.30999755859375,
+      "market_cap": 320058851328.0,
+      "rsi14": 60.9228419517944,
+      "adx14": 15.301800516161377,
+      "dist_50dma": 0.106438171205601,
+      "dist_200dma": 0.6005688166114236,
+      "fcf_yield": 0.0132495160761986,
+      "forward_pe": 80.193565,
+      "forward_revenue_growth": 0.1449,
+      "operating_margin": 0.05396,
+      "ticker": "PANW",
+      "asset_type": "Stock",
+      "name": "Palo Alto Networks, Inc.",
+      "sector": "Technology",
+      "coverage": 100,
+      "missing": [],
+      "strengths": [
+        "Relative strength 71.1/100",
+        "Quality 68.2/100"
+      ],
+      "risks": [
+        "More than 40% above 200DMA",
+        "ADX below 20; weak trend strength"
+      ],
+      "state": "Watch only",
+      "supported": false,
+      "value_quality": false,
+      "entry": {
+        "rank": 11,
+        "ticker": "PANW",
+        "buy_now_score": 53.0,
+        "price": 397.31,
+        "atr14": 18.02,
+        "rsi14": 60.9,
+        "adx14": 15.3,
+        "sma20": 364.02,
+        "sma50": 359.09,
+        "sma200": 248.23,
+        "supports": [
+          {
+            "level": 367.27,
+            "source": "swing low + 20DMA"
+          },
+          {
+            "level": 359.09,
+            "source": "50DMA + swing low"
+          },
+          {
+            "level": 349.0,
+            "source": "swing low"
+          }
+        ],
+        "entry_zone": [
+          360.96,
+          373.58
+        ],
+        "deep_entry_zone": [
+          352.78,
+          365.4
+        ],
+        "breakout_trigger": 398.1,
+        "stop_reference": 344.67,
+        "stance": "Wait for pullback or confirmed breakout",
+        "distance_to_support_pct": 8.2,
+        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+        "series_as_of": "2026-09-30"
+      },
+      "support": 367.27,
+      "trend": "STRONG BULLISH",
+      "sentiment": {
+        "label": "Bullish",
+        "positive_pct": 72,
+        "counts": {
+          "bullish": 12,
+          "favorable": 1,
+          "bearish": 5,
+          "neutral": 4,
+          "context": 2
+        }
+      },
+      "changes": {
+        "buy_now_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "long_term_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "short_term_score": {
+          "daily": null,
+          "weekly": null
+        }
+      },
+      "history": [
+        {
+          "date": "2026-09-04",
+          "era": 14,
+          "buy_now_score": 51.6,
+          "long_term_score": 54.1,
+          "short_term_score": 52.8
+        },
+        {
+          "date": "2026-09-08",
+          "era": 14,
+          "buy_now_score": 51.6,
+          "long_term_score": 54.9,
+          "short_term_score": 51.2
+        },
+        {
+          "date": "2026-09-09",
+          "era": 14,
+          "buy_now_score": 51.9,
+          "long_term_score": 55.5,
+          "short_term_score": 51.1
+        },
+        {
+          "date": "2026-09-10",
+          "era": 14,
+          "buy_now_score": 52.8,
+          "long_term_score": 55.4,
+          "short_term_score": 54.6
+        },
+        {
+          "date": "2026-09-11",
+          "era": 14,
+          "buy_now_score": 51.6,
+          "long_term_score": 54.5,
+          "short_term_score": 52.2
+        },
+        {
+          "date": "2026-09-14",
+          "era": 14,
+          "buy_now_score": 53.7,
+          "long_term_score": 50.5,
+          "short_term_score": 66.9
+        },
+        {
+          "date": "2026-09-15",
+          "era": 14,
+          "buy_now_score": 53.6,
+          "long_term_score": 49.9,
+          "short_term_score": 68.4
+        },
+        {
+          "date": "2026-09-16",
+          "era": 14,
+          "buy_now_score": 53.5,
+          "long_term_score": 49.9,
+          "short_term_score": 68.1
+        },
+        {
+          "date": "2026-09-17",
+          "era": 14,
+          "buy_now_score": 53.4,
+          "long_term_score": 50.2,
+          "short_term_score": 66.5
+        },
+        {
+          "date": "2026-09-18",
+          "era": 14,
+          "buy_now_score": 51.8,
+          "long_term_score": 50.2,
+          "short_term_score": 61.1
+        },
+        {
+          "date": "2026-09-21",
+          "era": 14,
+          "buy_now_score": 52.1,
+          "long_term_score": 50.8,
+          "short_term_score": 60.4
+        },
+        {
+          "date": "2026-09-22",
+          "era": 15,
+          "buy_now_score": 52.1,
+          "long_term_score": 50.8,
+          "short_term_score": 60.5
+        },
+        {
+          "date": "2026-09-23",
+          "era": 15,
+          "buy_now_score": 53.0,
+          "long_term_score": 50.6,
+          "short_term_score": 64.6
+        },
+        {
+          "date": "2026-09-24",
+          "era": 15,
+          "buy_now_score": 53.2,
+          "long_term_score": 50.7,
+          "short_term_score": 64.9
+        },
+        {
+          "date": "2026-09-25",
+          "era": 15,
+          "buy_now_score": 51.7,
+          "long_term_score": 50.4,
+          "short_term_score": 60.9
+        },
+        {
+          "date": "2026-09-29",
+          "era": 15,
+          "buy_now_score": 52.1,
+          "long_term_score": 50.5,
+          "short_term_score": 61.9
+        },
+        {
+          "date": "2026-09-30",
+          "era": 16,
+          "buy_now_score": 53.0,
+          "long_term_score": 51.5,
+          "short_term_score": 61.4
+        }
+      ],
+      "ranks": {
+        "buy_now_score": 11,
+        "long_term_score": 11,
+        "short_term_score": 8
+      }
+    },
+    {
+      "buy_now_score": 50.4,
+      "long_term_score": 54.7,
+      "short_term_score": 58.4,
+      "quality_score": 43.7,
+      "valuation_score": 18.8,
+      "growth_score": 91.1,
+      "revision_score": 95.2,
       "relative_strength_score": 51.2,
-      "technical_score": 56.3,
+      "technical_score": 56.5,
       "price": 150.86000061035156,
-      "market_cap": 1986626191360.0,
+      "market_cap": 1983769083904.0,
       "rsi14": 56.46235267212102,
       "adx14": 24.25115142975861,
       "dist_50dma": 0.0972673826895453,
       "dist_200dma": null,
       "fcf_yield": null,
-      "forward_pe": 86.45843,
+      "forward_pe": 86.38385,
       "forward_revenue_growth": 1.5317,
       "operating_margin": -0.01804,
       "ticker": "SPCX",
@@ -3939,8 +3243,8 @@
         "fcf_margin"
       ],
       "strengths": [
-        "Revisions 93.3/100",
-        "Growth 91.8/100"
+        "Revisions 95.2/100",
+        "Growth 91.1/100"
       ],
       "risks": [
         "5 inputs missing; neutral values affect scores",
@@ -3951,9 +3255,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 14,
+        "rank": 12,
         "ticker": "SPCX",
-        "buy_now_score": 50.1,
+        "buy_now_score": 50.4,
         "price": 150.86,
         "atr14": 6.35,
         "rsi14": 56.5,
@@ -4005,34 +3309,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.9,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.1,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.0,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.0,
-            "rank_delta": -1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 2.9,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.3,
-            "rank_delta": -1
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -4241,36 +3527,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 50.1,
-          "long_term_score": 54.5,
-          "short_term_score": 57.9
+          "era": 16,
+          "buy_now_score": 50.4,
+          "long_term_score": 54.7,
+          "short_term_score": 58.4
         }
       ],
       "ranks": {
-        "buy_now_score": 14,
-        "long_term_score": 11,
-        "short_term_score": 13
+        "buy_now_score": 12,
+        "long_term_score": 9,
+        "short_term_score": 11
       }
     },
     {
-      "buy_now_score": 48.9,
+      "buy_now_score": 49.2,
       "long_term_score": 46.2,
       "short_term_score": 67.1,
       "quality_score": 55.1,
-      "valuation_score": 22.2,
-      "growth_score": 43.5,
-      "revision_score": 62.6,
-      "relative_strength_score": 88.4,
-      "technical_score": 56.5,
+      "valuation_score": 24.5,
+      "growth_score": 38.1,
+      "revision_score": 64.3,
+      "relative_strength_score": 87.3,
+      "technical_score": 56.3,
       "price": 264.75,
-      "market_cap": 271941730304.0,
+      "market_cap": 271434891264.0,
       "rsi14": 66.73730853131273,
       "adx14": 25.105746632168792,
       "dist_50dma": 0.222798223999175,
       "dist_200dma": 0.7406171460834328,
-      "fcf_yield": 0.007337547899579,
-      "forward_pe": 165.37976,
+      "fcf_yield": 0.0073512489964279,
+      "forward_pe": 165.07152,
       "forward_revenue_growth": 0.22600001,
       "operating_margin": -0.02259,
       "ticker": "CRWD",
@@ -4280,8 +3566,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Relative strength 88.4/100",
-        "Revisions 62.6/100"
+        "Relative strength 87.3/100",
+        "Revisions 64.3/100"
       ],
       "risks": [
         "Operating losses",
@@ -4292,9 +3578,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 15,
+        "rank": 13,
         "ticker": "CRWD",
-        "buy_now_score": 48.9,
+        "buy_now_score": 49.2,
         "price": 264.75,
         "atr14": 11.89,
         "rsi14": 66.7,
@@ -4346,34 +3632,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.9,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 1.4,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.8,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": 1.0,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 2.1,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 2.6,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -4491,28 +3759,28 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 48.9,
+          "era": 16,
+          "buy_now_score": 49.2,
           "long_term_score": 46.2,
           "short_term_score": 67.1
         }
       ],
       "ranks": {
-        "buy_now_score": 15,
-        "long_term_score": 17,
-        "short_term_score": 4
+        "buy_now_score": 13,
+        "long_term_score": 16,
+        "short_term_score": 5
       }
     },
     {
-      "buy_now_score": 47.7,
-      "long_term_score": 45.8,
-      "short_term_score": 48.6,
+      "buy_now_score": 48.5,
+      "long_term_score": 46.6,
+      "short_term_score": 49.4,
       "quality_score": null,
       "valuation_score": null,
       "growth_score": null,
       "revision_score": null,
-      "relative_strength_score": 46.5,
-      "technical_score": 49.1,
+      "relative_strength_score": 47.5,
+      "technical_score": 49.9,
       "price": 60.36000061035156,
       "market_cap": 26017624064.0,
       "rsi14": 53.32902266840111,
@@ -4544,9 +3812,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 16,
+        "rank": 14,
         "ticker": "DRAM",
-        "buy_now_score": 47.7,
+        "buy_now_score": 48.5,
         "price": 60.36,
         "atr14": 2.5,
         "rsi14": 53.3,
@@ -4598,34 +3866,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 2.7,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": -5.3,
-            "rank_delta": -5
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 1.4,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": -5.3,
-            "rank_delta": -5
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 4.4,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": -4.0,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -4771,283 +4021,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 47.7,
-          "long_term_score": 45.8,
-          "short_term_score": 48.6
+          "era": 16,
+          "buy_now_score": 48.5,
+          "long_term_score": 46.6,
+          "short_term_score": 49.4
         }
       ],
       "ranks": {
-        "buy_now_score": 16,
-        "long_term_score": 18,
-        "short_term_score": 14
+        "buy_now_score": 14,
+        "long_term_score": 15,
+        "short_term_score": 13
       }
     },
     {
-      "buy_now_score": 46.4,
-      "long_term_score": 45.6,
-      "short_term_score": 40.0,
-      "quality_score": 57.7,
-      "valuation_score": 62.1,
-      "growth_score": 12.9,
-      "revision_score": 9.7,
-      "relative_strength_score": 40.6,
-      "technical_score": 52.1,
-      "price": 950.489990234375,
-      "market_cap": 265721020416.0,
-      "rsi14": 49.996781249454926,
-      "adx14": 7.785053509582837,
-      "dist_50dma": -0.0158959725856491,
-      "dist_200dma": 0.0399985329133687,
-      "fcf_yield": 0.0591677891624313,
-      "forward_pe": 39.708237,
-      "forward_revenue_growth": 0.1408,
-      "operating_margin": 0.07466,
-      "ticker": "GEV",
-      "asset_type": "Stock",
-      "name": "GE Vernova Inc.",
-      "sector": "Industrials",
-      "coverage": 100,
-      "missing": [],
-      "strengths": [
-        "Value 62.1/100"
-      ],
-      "risks": [
-        "ADX below 20; weak trend strength"
-      ],
-      "state": "Watch only",
-      "supported": false,
-      "value_quality": false,
-      "entry": {
-        "rank": 17,
-        "ticker": "GEV",
-        "buy_now_score": 46.4,
-        "price": 950.49,
-        "atr14": 34.32,
-        "rsi14": 50.0,
-        "adx14": 7.8,
-        "sma20": 939.05,
-        "sma50": 965.84,
-        "sma200": 913.93,
-        "supports": [
-          {
-            "level": 939.05,
-            "source": "20DMA"
-          },
-          {
-            "level": 921.53,
-            "source": "swing low + 200DMA"
-          },
-          {
-            "level": 897.68,
-            "source": "swing low"
-          }
-        ],
-        "entry_zone": [
-          927.04,
-          951.06
-        ],
-        "deep_entry_zone": [
-          909.52,
-          933.54
-        ],
-        "breakout_trigger": 986.77,
-        "stop_reference": 894.07,
-        "stance": "Near support \u2014 starter entry acceptable",
-        "distance_to_support_pct": 1.2,
-        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-        "series_as_of": "2026-09-30"
-      },
-      "support": 939.05,
-      "trend": "MIXED",
-      "sentiment": {
-        "label": "Mixed / neutral",
-        "positive_pct": 53,
-        "counts": {
-          "bullish": 7,
-          "favorable": 2,
-          "bearish": 8,
-          "neutral": 5,
-          "context": 2
-        }
-      },
-      "changes": {
-        "buy_now_score": {
-          "daily": {
-            "delta": 0.3,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": 0.5,
-            "rank_delta": 0
-          }
-        },
-        "long_term_score": {
-          "daily": {
-            "delta": 0.2,
-            "rank_delta": -3
-          },
-          "weekly": {
-            "delta": 0.2,
-            "rank_delta": -2
-          }
-        },
-        "short_term_score": {
-          "daily": {
-            "delta": 1.3,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 1.8,
-            "rank_delta": 2
-          }
-        }
-      },
-      "history": [
-        {
-          "date": "2026-09-04",
-          "era": 14,
-          "buy_now_score": 49.4,
-          "long_term_score": 47.8,
-          "short_term_score": 45.8
-        },
-        {
-          "date": "2026-09-08",
-          "era": 14,
-          "buy_now_score": 46.5,
-          "long_term_score": 44.7,
-          "short_term_score": 42.6
-        },
-        {
-          "date": "2026-09-09",
-          "era": 14,
-          "buy_now_score": 46.8,
-          "long_term_score": 45.2,
-          "short_term_score": 42.2
-        },
-        {
-          "date": "2026-09-10",
-          "era": 14,
-          "buy_now_score": 46.3,
-          "long_term_score": 44.7,
-          "short_term_score": 41.4
-        },
-        {
-          "date": "2026-09-11",
-          "era": 14,
-          "buy_now_score": 47.7,
-          "long_term_score": 45.1,
-          "short_term_score": 45.2
-        },
-        {
-          "date": "2026-09-14",
-          "era": 14,
-          "buy_now_score": 46.2,
-          "long_term_score": 44.6,
-          "short_term_score": 41.3
-        },
-        {
-          "date": "2026-09-15",
-          "era": 14,
-          "buy_now_score": 46.9,
-          "long_term_score": 44.9,
-          "short_term_score": 42.3
-        },
-        {
-          "date": "2026-09-16",
-          "era": 14,
-          "buy_now_score": 47.9,
-          "long_term_score": 44.6,
-          "short_term_score": 47.4
-        },
-        {
-          "date": "2026-09-17",
-          "era": 14,
-          "buy_now_score": 46.6,
-          "long_term_score": 45.0,
-          "short_term_score": 41.1
-        },
-        {
-          "date": "2026-09-18",
-          "era": 14,
-          "buy_now_score": 45.8,
-          "long_term_score": 44.7,
-          "short_term_score": 39.8
-        },
-        {
-          "date": "2026-09-21",
-          "era": 14,
-          "buy_now_score": 46.4,
-          "long_term_score": 46.0,
-          "short_term_score": 38.6
-        },
-        {
-          "date": "2026-09-22",
-          "era": 15,
-          "buy_now_score": 46.0,
-          "long_term_score": 45.2,
-          "short_term_score": 38.8
-        },
-        {
-          "date": "2026-09-23",
-          "era": 15,
-          "buy_now_score": 45.9,
-          "long_term_score": 45.4,
-          "short_term_score": 38.2
-        },
-        {
-          "date": "2026-09-24",
-          "era": 15,
-          "buy_now_score": 45.8,
-          "long_term_score": 45.4,
-          "short_term_score": 37.8
-        },
-        {
-          "date": "2026-09-25",
-          "era": 15,
-          "buy_now_score": 46.2,
-          "long_term_score": 45.4,
-          "short_term_score": 38.9
-        },
-        {
-          "date": "2026-09-29",
-          "era": 15,
-          "buy_now_score": 46.1,
-          "long_term_score": 45.4,
-          "short_term_score": 38.7
-        },
-        {
-          "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 46.4,
-          "long_term_score": 45.6,
-          "short_term_score": 40.0
-        }
-      ],
-      "ranks": {
-        "buy_now_score": 17,
-        "long_term_score": 19,
-        "short_term_score": 19
-      }
-    },
-    {
-      "buy_now_score": 46.3,
-      "long_term_score": 40.2,
-      "short_term_score": 61.8,
+      "buy_now_score": 46.7,
+      "long_term_score": 40.7,
+      "short_term_score": 61.6,
       "quality_score": 29.7,
-      "valuation_score": 37.9,
+      "valuation_score": 38.7,
       "growth_score": 54.8,
-      "revision_score": 51.2,
-      "relative_strength_score": 72.0,
-      "technical_score": 63.3,
+      "revision_score": 54.2,
+      "relative_strength_score": 70.9,
+      "technical_score": 61.9,
       "price": 235.8800048828125,
-      "market_cap": 64781742080.0,
+      "market_cap": 59894583296.0,
       "rsi14": 54.535787026363096,
       "adx14": 14.588822426390903,
       "dist_50dma": 0.0813621111316618,
       "dist_200dma": 0.4191834904990998,
-      "fcf_yield": -0.1484160514875737,
-      "forward_pe": -68.26861,
+      "fcf_yield": -0.1605262085301477,
+      "forward_pe": -67.58247,
       "forward_revenue_growth": 2.688,
       "operating_margin": -0.00223,
       "ticker": "NBIS",
@@ -5057,8 +4060,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Relative strength 72.0/100",
-        "Technical 63.3/100"
+        "Relative strength 70.9/100",
+        "Technical 61.9/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -5071,9 +4074,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 18,
+        "rank": 15,
         "ticker": "NBIS",
-        "buy_now_score": 46.3,
+        "buy_now_score": 46.7,
         "price": 235.88,
         "atr14": 16.45,
         "rsi14": 54.5,
@@ -5125,34 +4128,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 2.0,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 3.6,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.2,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": 0.0,
-            "rank_delta": -2
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 5.9,
-            "rank_delta": 4
-          },
-          "weekly": {
-            "delta": 12.1,
-            "rank_delta": 7
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -5361,36 +4346,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 46.3,
-          "long_term_score": 40.2,
-          "short_term_score": 61.8
+          "era": 16,
+          "buy_now_score": 46.7,
+          "long_term_score": 40.7,
+          "short_term_score": 61.6
         }
       ],
       "ranks": {
-        "buy_now_score": 18,
-        "long_term_score": 25,
-        "short_term_score": 8
+        "buy_now_score": 15,
+        "long_term_score": 22,
+        "short_term_score": 7
       }
     },
     {
-      "buy_now_score": 45.7,
-      "long_term_score": 48.0,
-      "short_term_score": 39.4,
-      "quality_score": 23.8,
-      "valuation_score": 49.9,
-      "growth_score": 91.3,
-      "revision_score": 42.3,
-      "relative_strength_score": 37.9,
-      "technical_score": 36.0,
+      "buy_now_score": 46.6,
+      "long_term_score": 48.7,
+      "short_term_score": 40.2,
+      "quality_score": 25.2,
+      "valuation_score": 51.8,
+      "growth_score": 90.5,
+      "revision_score": 42.0,
+      "relative_strength_score": 37.7,
+      "technical_score": 38.4,
       "price": 99.26000213623048,
-      "market_cap": 9038274560.0,
+      "market_cap": 9051858944.0,
       "rsi14": 43.928199622943765,
       "adx14": 13.059485829575792,
       "dist_50dma": -0.1069034400735838,
       "dist_200dma": -0.0808067532028623,
-      "fcf_yield": -0.0981437448167097,
-      "forward_pe": 23.131245,
+      "fcf_yield": -0.0979964576876199,
+      "forward_pe": 23.166014,
       "forward_revenue_growth": 1.5647999,
       "operating_margin": -0.12884,
       "ticker": "AAOI",
@@ -5400,7 +4385,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Growth 91.3/100"
+        "Growth 90.5/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -5411,9 +4396,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 19,
+        "rank": 16,
         "ticker": "AAOI",
-        "buy_now_score": 45.7,
+        "buy_now_score": 46.6,
         "price": 99.26,
         "atr14": 8.12,
         "rsi14": 43.9,
@@ -5465,34 +4450,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.4,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": 1.7,
-            "rank_delta": -1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.0,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.1,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 1.3,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 5.5,
-            "rank_delta": 3
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -5624,36 +4591,265 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 45.7,
-          "long_term_score": 48.0,
-          "short_term_score": 39.4
+          "era": 16,
+          "buy_now_score": 46.6,
+          "long_term_score": 48.7,
+          "short_term_score": 40.2
         }
       ],
       "ranks": {
-        "buy_now_score": 19,
-        "long_term_score": 15,
-        "short_term_score": 20
+        "buy_now_score": 16,
+        "long_term_score": 13,
+        "short_term_score": 17
       }
     },
     {
-      "buy_now_score": 43.1,
-      "long_term_score": 41.3,
-      "short_term_score": 29.9,
-      "quality_score": 46.4,
-      "valuation_score": 75.9,
-      "growth_score": 9.0,
-      "revision_score": 14.3,
-      "relative_strength_score": 21.3,
-      "technical_score": 36.4,
+      "buy_now_score": 46.6,
+      "long_term_score": 45.7,
+      "short_term_score": 39.7,
+      "quality_score": 59.9,
+      "valuation_score": 64.0,
+      "growth_score": 8.9,
+      "revision_score": 8.7,
+      "relative_strength_score": 39.9,
+      "technical_score": 51.8,
+      "price": 950.489990234375,
+      "market_cap": 263936589824.0,
+      "rsi14": 49.99678124947598,
+      "adx14": 7.785053505680769,
+      "dist_50dma": -0.0158959725856491,
+      "dist_200dma": 0.0399985346497213,
+      "fcf_yield": 0.0595678125662074,
+      "forward_pe": 39.441578,
+      "forward_revenue_growth": 0.1408,
+      "operating_margin": 0.07466,
+      "ticker": "GEV",
+      "asset_type": "Stock",
+      "name": "GE Vernova Inc.",
+      "sector": "Industrials",
+      "coverage": 100,
+      "missing": [],
+      "strengths": [
+        "Value 64.0/100"
+      ],
+      "risks": [
+        "ADX below 20; weak trend strength"
+      ],
+      "state": "Watch only",
+      "supported": false,
+      "value_quality": false,
+      "entry": {
+        "rank": 17,
+        "ticker": "GEV",
+        "buy_now_score": 46.6,
+        "price": 950.49,
+        "atr14": 34.32,
+        "rsi14": 50.0,
+        "adx14": 7.8,
+        "sma20": 939.05,
+        "sma50": 965.84,
+        "sma200": 913.93,
+        "supports": [
+          {
+            "level": 939.05,
+            "source": "20DMA"
+          },
+          {
+            "level": 921.53,
+            "source": "swing low + 200DMA"
+          },
+          {
+            "level": 897.68,
+            "source": "swing low"
+          }
+        ],
+        "entry_zone": [
+          927.04,
+          951.06
+        ],
+        "deep_entry_zone": [
+          909.52,
+          933.54
+        ],
+        "breakout_trigger": 986.77,
+        "stop_reference": 894.07,
+        "stance": "Near support \u2014 starter entry acceptable",
+        "distance_to_support_pct": 1.2,
+        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+        "series_as_of": "2026-09-30"
+      },
+      "support": 939.05,
+      "trend": "MIXED",
+      "sentiment": {
+        "label": "Mixed / neutral",
+        "positive_pct": 53,
+        "counts": {
+          "bullish": 7,
+          "favorable": 2,
+          "bearish": 8,
+          "neutral": 5,
+          "context": 2
+        }
+      },
+      "changes": {
+        "buy_now_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "long_term_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "short_term_score": {
+          "daily": null,
+          "weekly": null
+        }
+      },
+      "history": [
+        {
+          "date": "2026-09-04",
+          "era": 14,
+          "buy_now_score": 49.4,
+          "long_term_score": 47.8,
+          "short_term_score": 45.8
+        },
+        {
+          "date": "2026-09-08",
+          "era": 14,
+          "buy_now_score": 46.5,
+          "long_term_score": 44.7,
+          "short_term_score": 42.6
+        },
+        {
+          "date": "2026-09-09",
+          "era": 14,
+          "buy_now_score": 46.8,
+          "long_term_score": 45.2,
+          "short_term_score": 42.2
+        },
+        {
+          "date": "2026-09-10",
+          "era": 14,
+          "buy_now_score": 46.3,
+          "long_term_score": 44.7,
+          "short_term_score": 41.4
+        },
+        {
+          "date": "2026-09-11",
+          "era": 14,
+          "buy_now_score": 47.7,
+          "long_term_score": 45.1,
+          "short_term_score": 45.2
+        },
+        {
+          "date": "2026-09-14",
+          "era": 14,
+          "buy_now_score": 46.2,
+          "long_term_score": 44.6,
+          "short_term_score": 41.3
+        },
+        {
+          "date": "2026-09-15",
+          "era": 14,
+          "buy_now_score": 46.9,
+          "long_term_score": 44.9,
+          "short_term_score": 42.3
+        },
+        {
+          "date": "2026-09-16",
+          "era": 14,
+          "buy_now_score": 47.9,
+          "long_term_score": 44.6,
+          "short_term_score": 47.4
+        },
+        {
+          "date": "2026-09-17",
+          "era": 14,
+          "buy_now_score": 46.6,
+          "long_term_score": 45.0,
+          "short_term_score": 41.1
+        },
+        {
+          "date": "2026-09-18",
+          "era": 14,
+          "buy_now_score": 45.8,
+          "long_term_score": 44.7,
+          "short_term_score": 39.8
+        },
+        {
+          "date": "2026-09-21",
+          "era": 14,
+          "buy_now_score": 46.4,
+          "long_term_score": 46.0,
+          "short_term_score": 38.6
+        },
+        {
+          "date": "2026-09-22",
+          "era": 15,
+          "buy_now_score": 46.0,
+          "long_term_score": 45.2,
+          "short_term_score": 38.8
+        },
+        {
+          "date": "2026-09-23",
+          "era": 15,
+          "buy_now_score": 45.9,
+          "long_term_score": 45.4,
+          "short_term_score": 38.2
+        },
+        {
+          "date": "2026-09-24",
+          "era": 15,
+          "buy_now_score": 45.8,
+          "long_term_score": 45.4,
+          "short_term_score": 37.8
+        },
+        {
+          "date": "2026-09-25",
+          "era": 15,
+          "buy_now_score": 46.2,
+          "long_term_score": 45.4,
+          "short_term_score": 38.9
+        },
+        {
+          "date": "2026-09-29",
+          "era": 15,
+          "buy_now_score": 46.1,
+          "long_term_score": 45.4,
+          "short_term_score": 38.7
+        },
+        {
+          "date": "2026-09-30",
+          "era": 16,
+          "buy_now_score": 46.6,
+          "long_term_score": 45.7,
+          "short_term_score": 39.7
+        }
+      ],
+      "ranks": {
+        "buy_now_score": 16,
+        "long_term_score": 17,
+        "short_term_score": 18
+      }
+    },
+    {
+      "buy_now_score": 44.4,
+      "long_term_score": 42.7,
+      "short_term_score": 31.4,
+      "quality_score": 48.9,
+      "valuation_score": 76.5,
+      "growth_score": 9.9,
+      "revision_score": 15.7,
+      "relative_strength_score": 22.5,
+      "technical_score": 38.7,
       "price": 138.35000610351562,
-      "market_cap": 47156744192.0,
-      "rsi14": 43.69101655556918,
-      "adx14": 11.35932190827927,
+      "market_cap": 46986645504.0,
+      "rsi14": 43.69101655572879,
+      "adx14": 11.359321896439958,
       "dist_50dma": -0.0407804116286142,
-      "dist_200dma": -0.1059090763736987,
-      "fcf_yield": 0.0007872680914705,
-      "forward_pe": 13.554436,
+      "dist_200dma": -0.1059090785778645,
+      "fcf_yield": 0.0007901181197717,
+      "forward_pe": 13.505543,
       "forward_revenue_growth": 0.0734,
       "operating_margin": 0.13766,
       "ticker": "VST",
@@ -5663,7 +4859,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Value 75.9/100"
+        "Value 76.5/100"
       ],
       "risks": [
         "ADX below 20; weak trend strength"
@@ -5672,9 +4868,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 20,
+        "rank": 18,
         "ticker": "VST",
-        "buy_now_score": 43.1,
+        "buy_now_score": 44.4,
         "price": 138.35,
         "atr14": 4.69,
         "rsi14": 43.7,
@@ -5726,34 +4922,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": -1.2,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": 1.4,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": -0.4,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -0.7,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -3.5,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": 5.7,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -5871,36 +5049,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 43.1,
-          "long_term_score": 41.3,
-          "short_term_score": 29.9
+          "era": 16,
+          "buy_now_score": 44.4,
+          "long_term_score": 42.7,
+          "short_term_score": 31.4
         }
       ],
       "ranks": {
-        "buy_now_score": 20,
-        "long_term_score": 21,
-        "short_term_score": 25
+        "buy_now_score": 18,
+        "long_term_score": 19,
+        "short_term_score": 21
       }
     },
     {
-      "buy_now_score": 42.0,
-      "long_term_score": 39.1,
-      "short_term_score": 37.4,
-      "quality_score": 34.5,
-      "valuation_score": 61.5,
-      "growth_score": 12.9,
-      "revision_score": 35.7,
-      "relative_strength_score": 31.5,
-      "technical_score": 38.5,
+      "buy_now_score": 42.7,
+      "long_term_score": 40.2,
+      "short_term_score": 38.4,
+      "quality_score": 36.8,
+      "valuation_score": 60.8,
+      "growth_score": 14.2,
+      "revision_score": 39.0,
+      "relative_strength_score": 31.6,
+      "technical_score": 39.6,
       "price": 254.0200042724609,
-      "market_cap": 92364398592.0,
-      "rsi14": 38.61089022785922,
-      "adx14": 23.29510039195328,
+      "market_cap": 91930370048.0,
+      "rsi14": 38.61089025190132,
+      "adx14": 23.29510025395866,
       "dist_50dma": -0.0660975292455736,
-      "dist_200dma": -0.1180050858536435,
-      "fcf_yield": -0.0717281221443889,
-      "forward_pe": 19.571087,
+      "dist_200dma": -0.1180050909938077,
+      "fcf_yield": -0.072066770323461,
+      "forward_pe": 19.47912,
       "forward_revenue_growth": 0.0341,
       "operating_margin": 0.086619996,
       "ticker": "CEG",
@@ -5910,7 +5088,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Value 61.5/100"
+        "Value 60.8/100"
       ],
       "risks": [
         "Negative free cash flow"
@@ -5919,9 +5097,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 21,
+        "rank": 19,
         "ticker": "CEG",
-        "buy_now_score": 42.0,
+        "buy_now_score": 42.7,
         "price": 254.02,
         "atr14": 9.6,
         "rsi14": 38.6,
@@ -5973,34 +5151,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.3,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.4,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": -0.1,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.3,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 0.4,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.8,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -6118,36 +5278,266 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 42.0,
-          "long_term_score": 39.1,
-          "short_term_score": 37.4
+          "era": 16,
+          "buy_now_score": 42.7,
+          "long_term_score": 40.2,
+          "short_term_score": 38.4
         }
       ],
       "ranks": {
-        "buy_now_score": 21,
-        "long_term_score": 26,
-        "short_term_score": 22
+        "buy_now_score": 19,
+        "long_term_score": 24,
+        "short_term_score": 19
       }
     },
     {
-      "buy_now_score": 40.3,
-      "long_term_score": 40.9,
-      "short_term_score": 45.8,
-      "quality_score": 26.4,
-      "valuation_score": 26.8,
-      "growth_score": 63.9,
+      "buy_now_score": 40.6,
+      "long_term_score": 47.4,
+      "short_term_score": 25.7,
+      "quality_score": 42.4,
+      "valuation_score": 45.7,
+      "growth_score": 42.9,
+      "revision_score": 56.0,
+      "relative_strength_score": 6.6,
+      "technical_score": 24.3,
+      "price": 42.68999862670898,
+      "market_cap": 8082110976.0,
+      "rsi14": 28.987503460580072,
+      "adx14": 20.26912209881863,
+      "dist_50dma": -0.169322755492104,
+      "dist_200dma": -0.3837012337654018,
+      "fcf_yield": -0.0146357188550438,
+      "forward_pe": 39.120293,
+      "forward_revenue_growth": 0.2356,
+      "operating_margin": -0.00174,
+      "ticker": "KTOS",
+      "asset_type": "Stock",
+      "name": "Kratos Defense & Security Solutions, Inc.",
+      "sector": "Industrials",
+      "coverage": 100,
+      "missing": [],
+      "strengths": [
+        "No factor score reaches 60/100"
+      ],
+      "risks": [
+        "Negative free cash flow",
+        "Operating losses"
+      ],
+      "state": "Watch only",
+      "supported": false,
+      "value_quality": false,
+      "entry": {
+        "rank": 20,
+        "ticker": "KTOS",
+        "buy_now_score": 40.6,
+        "price": 42.69,
+        "atr14": 2.33,
+        "rsi14": 29.0,
+        "adx14": 20.3,
+        "sma20": 46.72,
+        "sma50": 51.39,
+        "sma200": 69.27,
+        "supports": [
+          {
+            "level": 42.46,
+            "source": "20D low + 60D low + swing low"
+          },
+          {
+            "level": 36.87,
+            "source": "ATR fallback"
+          },
+          {
+            "level": 34.54,
+            "source": "ATR fallback"
+          }
+        ],
+        "entry_zone": [
+          41.64,
+          43.28
+        ],
+        "deep_entry_zone": [
+          36.05,
+          37.69
+        ],
+        "breakout_trigger": 52.03,
+        "stop_reference": 35.01,
+        "stance": "Near support \u2014 starter entry acceptable",
+        "distance_to_support_pct": 0.5,
+        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+        "series_as_of": "2026-09-30"
+      },
+      "support": 42.46,
+      "trend": "BEARISH",
+      "sentiment": {
+        "label": "Bearish",
+        "positive_pct": 30,
+        "counts": {
+          "bullish": 4,
+          "favorable": 2,
+          "bearish": 14,
+          "neutral": 2,
+          "context": 2
+        }
+      },
+      "changes": {
+        "buy_now_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "long_term_score": {
+          "daily": null,
+          "weekly": null
+        },
+        "short_term_score": {
+          "daily": null,
+          "weekly": null
+        }
+      },
+      "history": [
+        {
+          "date": "2026-09-04",
+          "era": 14,
+          "buy_now_score": 36.5,
+          "long_term_score": 43.3,
+          "short_term_score": 21.9
+        },
+        {
+          "date": "2026-09-08",
+          "era": 14,
+          "buy_now_score": 38.4,
+          "long_term_score": 45.4,
+          "short_term_score": 24.5
+        },
+        {
+          "date": "2026-09-09",
+          "era": 14,
+          "buy_now_score": 39.0,
+          "long_term_score": 45.6,
+          "short_term_score": 26.0
+        },
+        {
+          "date": "2026-09-10",
+          "era": 14,
+          "buy_now_score": 38.9,
+          "long_term_score": 45.4,
+          "short_term_score": 26.0
+        },
+        {
+          "date": "2026-09-11",
+          "era": 14,
+          "buy_now_score": 38.1,
+          "long_term_score": 44.4,
+          "short_term_score": 25.8
+        },
+        {
+          "date": "2026-09-14",
+          "era": 14,
+          "buy_now_score": 38.8,
+          "long_term_score": 44.8,
+          "short_term_score": 27.5
+        },
+        {
+          "date": "2026-09-15",
+          "era": 14,
+          "buy_now_score": 39.7,
+          "long_term_score": 44.4,
+          "short_term_score": 31.2
+        },
+        {
+          "date": "2026-09-16",
+          "era": 14,
+          "buy_now_score": 39.3,
+          "long_term_score": 44.4,
+          "short_term_score": 30.0
+        },
+        {
+          "date": "2026-09-17",
+          "era": 14,
+          "buy_now_score": 39.0,
+          "long_term_score": 44.4,
+          "short_term_score": 28.7
+        },
+        {
+          "date": "2026-09-18",
+          "era": 14,
+          "buy_now_score": 39.3,
+          "long_term_score": 44.4,
+          "short_term_score": 29.7
+        },
+        {
+          "date": "2026-09-21",
+          "era": 14,
+          "buy_now_score": 39.7,
+          "long_term_score": 44.9,
+          "short_term_score": 30.4
+        },
+        {
+          "date": "2026-09-22",
+          "era": 15,
+          "buy_now_score": 39.2,
+          "long_term_score": 44.9,
+          "short_term_score": 28.7
+        },
+        {
+          "date": "2026-09-23",
+          "era": 15,
+          "buy_now_score": 39.2,
+          "long_term_score": 44.9,
+          "short_term_score": 28.7
+        },
+        {
+          "date": "2026-09-24",
+          "era": 15,
+          "buy_now_score": 40.4,
+          "long_term_score": 44.9,
+          "short_term_score": 32.7
+        },
+        {
+          "date": "2026-09-25",
+          "era": 15,
+          "buy_now_score": 38.9,
+          "long_term_score": 44.9,
+          "short_term_score": 27.7
+        },
+        {
+          "date": "2026-09-29",
+          "era": 15,
+          "buy_now_score": 38.9,
+          "long_term_score": 45.2,
+          "short_term_score": 26.2
+        },
+        {
+          "date": "2026-09-30",
+          "era": 16,
+          "buy_now_score": 40.6,
+          "long_term_score": 47.4,
+          "short_term_score": 25.7
+        }
+      ],
+      "ranks": {
+        "buy_now_score": 20,
+        "long_term_score": 14,
+        "short_term_score": 24
+      }
+    },
+    {
+      "buy_now_score": 40.1,
+      "long_term_score": 40.7,
+      "short_term_score": 45.1,
+      "quality_score": 26.1,
+      "valuation_score": 28.0,
+      "growth_score": 60.5,
       "revision_score": 44.3,
-      "relative_strength_score": 36.0,
-      "technical_score": 66.1,
+      "relative_strength_score": 34.3,
+      "technical_score": 65.6,
       "price": 69.68000030517578,
-      "market_cap": 45887332352.0,
+      "market_cap": 45538852864.0,
       "rsi14": 50.86947205473056,
       "adx14": 15.78501125091245,
       "dist_50dma": 0.0001779932151702,
       "dist_200dma": -0.1426801434752769,
-      "fcf_yield": -0.0054909191510022,
-      "forward_pe": 1575.1757,
+      "fcf_yield": -0.0055329376159843,
+      "forward_pe": 1563.2134,
       "forward_revenue_growth": 0.42180002,
       "operating_margin": -0.24572,
       "ticker": "RKLB",
@@ -6157,8 +5547,8 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Technical 66.1/100",
-        "Growth 63.9/100"
+        "Technical 65.6/100",
+        "Growth 60.5/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -6170,9 +5560,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 22,
+        "rank": 21,
         "ticker": "RKLB",
-        "buy_now_score": 40.3,
+        "buy_now_score": 40.1,
         "price": 69.68,
         "atr14": 3.99,
         "rsi14": 50.9,
@@ -6224,34 +5614,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.5,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.5,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.9,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.9,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -0.3,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": -0.1,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -6460,36 +5832,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 40.3,
-          "long_term_score": 40.9,
-          "short_term_score": 45.8
+          "era": 16,
+          "buy_now_score": 40.1,
+          "long_term_score": 40.7,
+          "short_term_score": 45.1
         }
       ],
       "ranks": {
-        "buy_now_score": 22,
-        "long_term_score": 24,
-        "short_term_score": 17
+        "buy_now_score": 21,
+        "long_term_score": 22,
+        "short_term_score": 15
       }
     },
     {
-      "buy_now_score": 39.8,
+      "buy_now_score": 39.9,
       "long_term_score": 41.3,
       "short_term_score": 30.1,
-      "quality_score": 15.2,
-      "valuation_score": 53.5,
-      "growth_score": 72.8,
-      "revision_score": 43.7,
-      "relative_strength_score": 20.9,
-      "technical_score": 25.6,
+      "quality_score": 16.2,
+      "valuation_score": 54.3,
+      "growth_score": 70.2,
+      "revision_score": 43.6,
+      "relative_strength_score": 20.3,
+      "technical_score": 26.1,
       "price": 24.3700008392334,
-      "market_cap": 7349115392.0,
+      "market_cap": 7332661248.0,
       "rsi14": 41.81178959398358,
       "adx14": 14.636264043307255,
       "dist_50dma": -0.1114562424610444,
       "dist_200dma": -0.2412448684751584,
-      "fcf_yield": -0.6751069285700502,
-      "forward_pe": -50.80557,
+      "fcf_yield": -0.6766218364926163,
+      "forward_pe": -50.69182,
       "forward_revenue_growth": 1.3111999,
       "operating_margin": -0.48219,
       "ticker": "APLD",
@@ -6499,7 +5871,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Growth 72.8/100"
+        "Growth 70.2/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -6510,9 +5882,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 24,
+        "rank": 22,
         "ticker": "APLD",
-        "buy_now_score": 39.8,
+        "buy_now_score": 39.9,
         "price": 24.37,
         "atr14": 1.68,
         "rsi14": 41.8,
@@ -6564,34 +5936,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": -1.3,
-            "rank_delta": -1
-          },
-          "weekly": {
-            "delta": -2.6,
-            "rank_delta": -2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.5,
-            "rank_delta": 1
-          },
-          "weekly": {
-            "delta": 0.5,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -5.5,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -9.6,
-            "rank_delta": -3
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -6800,284 +6154,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 39.8,
+          "era": 16,
+          "buy_now_score": 39.9,
           "long_term_score": 41.3,
           "short_term_score": 30.1
         }
       ],
       "ranks": {
-        "buy_now_score": 23,
-        "long_term_score": 21,
+        "buy_now_score": 22,
+        "long_term_score": 20,
         "short_term_score": 23
       }
     },
     {
-      "buy_now_score": 39.8,
-      "long_term_score": 46.7,
-      "short_term_score": 25.1,
-      "quality_score": 39.5,
-      "valuation_score": 43.8,
-      "growth_score": 47.8,
-      "revision_score": 55.0,
-      "relative_strength_score": 6.0,
-      "technical_score": 24.3,
-      "price": 42.68999862670898,
-      "market_cap": 8147105792.0,
-      "rsi14": 28.987503460580072,
-      "adx14": 20.26912209881863,
-      "dist_50dma": -0.169322755492104,
-      "dist_200dma": -0.3837012337654018,
-      "fcf_yield": -0.0145189601092637,
-      "forward_pe": 39.392593,
-      "forward_revenue_growth": 0.2356,
-      "operating_margin": -0.00174,
-      "ticker": "KTOS",
-      "asset_type": "Stock",
-      "name": "Kratos Defense & Security Solutions, Inc.",
-      "sector": "Industrials",
-      "coverage": 100,
-      "missing": [],
-      "strengths": [
-        "No factor score reaches 60/100"
-      ],
-      "risks": [
-        "Negative free cash flow",
-        "Operating losses"
-      ],
-      "state": "Watch only",
-      "supported": false,
-      "value_quality": false,
-      "entry": {
-        "rank": 23,
-        "ticker": "KTOS",
-        "buy_now_score": 39.8,
-        "price": 42.69,
-        "atr14": 2.33,
-        "rsi14": 29.0,
-        "adx14": 20.3,
-        "sma20": 46.72,
-        "sma50": 51.39,
-        "sma200": 69.27,
-        "supports": [
-          {
-            "level": 42.46,
-            "source": "20D low + 60D low + swing low"
-          },
-          {
-            "level": 36.87,
-            "source": "ATR fallback"
-          },
-          {
-            "level": 34.54,
-            "source": "ATR fallback"
-          }
-        ],
-        "entry_zone": [
-          41.64,
-          43.28
-        ],
-        "deep_entry_zone": [
-          36.05,
-          37.69
-        ],
-        "breakout_trigger": 52.03,
-        "stop_reference": 35.01,
-        "stance": "Near support \u2014 starter entry acceptable",
-        "distance_to_support_pct": 0.5,
-        "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-        "series_as_of": "2026-09-30"
-      },
-      "support": 42.46,
-      "trend": "BEARISH",
-      "sentiment": {
-        "label": "Bearish",
-        "positive_pct": 30,
-        "counts": {
-          "bullish": 4,
-          "favorable": 2,
-          "bearish": 14,
-          "neutral": 2,
-          "context": 2
-        }
-      },
-      "changes": {
-        "buy_now_score": {
-          "daily": {
-            "delta": 0.9,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": 0.6,
-            "rank_delta": 3
-          }
-        },
-        "long_term_score": {
-          "daily": {
-            "delta": 1.5,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": 1.8,
-            "rank_delta": 3
-          }
-        },
-        "short_term_score": {
-          "daily": {
-            "delta": -1.1,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -3.6,
-            "rank_delta": -1
-          }
-        }
-      },
-      "history": [
-        {
-          "date": "2026-09-04",
-          "era": 14,
-          "buy_now_score": 36.5,
-          "long_term_score": 43.3,
-          "short_term_score": 21.9
-        },
-        {
-          "date": "2026-09-08",
-          "era": 14,
-          "buy_now_score": 38.4,
-          "long_term_score": 45.4,
-          "short_term_score": 24.5
-        },
-        {
-          "date": "2026-09-09",
-          "era": 14,
-          "buy_now_score": 39.0,
-          "long_term_score": 45.6,
-          "short_term_score": 26.0
-        },
-        {
-          "date": "2026-09-10",
-          "era": 14,
-          "buy_now_score": 38.9,
-          "long_term_score": 45.4,
-          "short_term_score": 26.0
-        },
-        {
-          "date": "2026-09-11",
-          "era": 14,
-          "buy_now_score": 38.1,
-          "long_term_score": 44.4,
-          "short_term_score": 25.8
-        },
-        {
-          "date": "2026-09-14",
-          "era": 14,
-          "buy_now_score": 38.8,
-          "long_term_score": 44.8,
-          "short_term_score": 27.5
-        },
-        {
-          "date": "2026-09-15",
-          "era": 14,
-          "buy_now_score": 39.7,
-          "long_term_score": 44.4,
-          "short_term_score": 31.2
-        },
-        {
-          "date": "2026-09-16",
-          "era": 14,
-          "buy_now_score": 39.3,
-          "long_term_score": 44.4,
-          "short_term_score": 30.0
-        },
-        {
-          "date": "2026-09-17",
-          "era": 14,
-          "buy_now_score": 39.0,
-          "long_term_score": 44.4,
-          "short_term_score": 28.7
-        },
-        {
-          "date": "2026-09-18",
-          "era": 14,
-          "buy_now_score": 39.3,
-          "long_term_score": 44.4,
-          "short_term_score": 29.7
-        },
-        {
-          "date": "2026-09-21",
-          "era": 14,
-          "buy_now_score": 39.7,
-          "long_term_score": 44.9,
-          "short_term_score": 30.4
-        },
-        {
-          "date": "2026-09-22",
-          "era": 15,
-          "buy_now_score": 39.2,
-          "long_term_score": 44.9,
-          "short_term_score": 28.7
-        },
-        {
-          "date": "2026-09-23",
-          "era": 15,
-          "buy_now_score": 39.2,
-          "long_term_score": 44.9,
-          "short_term_score": 28.7
-        },
-        {
-          "date": "2026-09-24",
-          "era": 15,
-          "buy_now_score": 40.4,
-          "long_term_score": 44.9,
-          "short_term_score": 32.7
-        },
-        {
-          "date": "2026-09-25",
-          "era": 15,
-          "buy_now_score": 38.9,
-          "long_term_score": 44.9,
-          "short_term_score": 27.7
-        },
-        {
-          "date": "2026-09-29",
-          "era": 15,
-          "buy_now_score": 38.9,
-          "long_term_score": 45.2,
-          "short_term_score": 26.2
-        },
-        {
-          "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 39.8,
-          "long_term_score": 46.7,
-          "short_term_score": 25.1
-        }
-      ],
-      "ranks": {
-        "buy_now_score": 23,
-        "long_term_score": 16,
-        "short_term_score": 26
-      }
-    },
-    {
-      "buy_now_score": 38.1,
-      "long_term_score": 38.5,
-      "short_term_score": 37.8,
-      "quality_score": 24.6,
-      "valuation_score": 37.0,
-      "growth_score": 59.7,
-      "revision_score": 44.3,
-      "relative_strength_score": 42.6,
-      "technical_score": 27.2,
+      "buy_now_score": 38.8,
+      "long_term_score": 39.4,
+      "short_term_score": 38.4,
+      "quality_score": 25.0,
+      "valuation_score": 37.7,
+      "growth_score": 60.1,
+      "revision_score": 46.7,
+      "relative_strength_score": 42.4,
+      "technical_score": 27.6,
       "price": 40.880001068115234,
-      "market_cap": 16042127360.0,
+      "market_cap": 15974941696.0,
       "rsi14": 44.223029268980056,
       "adx14": 14.126278399006589,
       "dist_50dma": -0.0121785952213445,
       "dist_200dma": -0.1023276017402282,
-      "fcf_yield": -0.2630135757755261,
-      "forward_pe": -10.221863,
+      "fcf_yield": -0.2641197295296845,
+      "forward_pe": -10.179052,
       "forward_revenue_growth": 1.6088,
       "operating_margin": -1.0247,
       "ticker": "IREN",
@@ -7087,7 +6193,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "No factor score reaches 60/100"
+        "Growth 60.1/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -7099,9 +6205,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 25,
+        "rank": 23,
         "ticker": "IREN",
-        "buy_now_score": 38.1,
+        "buy_now_score": 38.8,
         "price": 40.88,
         "atr14": 2.77,
         "rsi14": 44.2,
@@ -7153,34 +6259,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": -1.7,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": -5.3,
-            "rank_delta": -6
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": -0.2,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -0.6,
-            "rank_delta": -1
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -5.3,
-            "rank_delta": -2
-          },
-          "weekly": {
-            "delta": -17.8,
-            "rank_delta": -8
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -7389,36 +6477,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 38.1,
-          "long_term_score": 38.5,
-          "short_term_score": 37.8
+          "era": 16,
+          "buy_now_score": 38.8,
+          "long_term_score": 39.4,
+          "short_term_score": 38.4
         }
       ],
       "ranks": {
-        "buy_now_score": 25,
-        "long_term_score": 27,
-        "short_term_score": 21
+        "buy_now_score": 23,
+        "long_term_score": 25,
+        "short_term_score": 19
       }
     },
     {
-      "buy_now_score": 36.9,
-      "long_term_score": 43.4,
-      "short_term_score": 30.1,
-      "quality_score": 24.3,
-      "valuation_score": 26.8,
-      "growth_score": 84.7,
-      "revision_score": 58.4,
-      "relative_strength_score": 16.7,
-      "technical_score": 30.2,
+      "buy_now_score": 37.7,
+      "long_term_score": 43.7,
+      "short_term_score": 30.8,
+      "quality_score": 23.8,
+      "valuation_score": 29.4,
+      "growth_score": 83.2,
+      "revision_score": 59.6,
+      "relative_strength_score": 16.8,
+      "technical_score": 30.7,
       "price": 47.290000915527344,
-      "market_cap": 8230073856.0,
+      "market_cap": 8174862848.0,
       "rsi14": 41.33068748297213,
       "adx14": 19.49435323161822,
       "dist_50dma": -0.07206095208722,
       "dist_200dma": -0.1674515473256363,
-      "fcf_yield": -0.0526057082324195,
-      "forward_pe": 52.877296,
+      "fcf_yield": -0.0529609942148353,
+      "forward_pe": 52.52257,
       "forward_revenue_growth": 0.7775,
       "operating_margin": -0.1472,
       "ticker": "MP",
@@ -7428,7 +6516,7 @@
       "coverage": 100,
       "missing": [],
       "strengths": [
-        "Growth 84.7/100"
+        "Growth 83.2/100"
       ],
       "risks": [
         "Negative free cash flow",
@@ -7440,9 +6528,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 26,
+        "rank": 24,
         "ticker": "MP",
-        "buy_now_score": 36.9,
+        "buy_now_score": 37.7,
         "price": 47.29,
         "atr14": 2.66,
         "rsi14": 41.3,
@@ -7494,34 +6582,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": 0.3,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.9,
-            "rank_delta": 1
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": -0.1,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 0.2,
-            "rank_delta": 0
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": 1.8,
-            "rank_delta": 2
-          },
-          "weekly": {
-            "delta": 2.4,
-            "rank_delta": 3
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -7639,36 +6709,36 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 36.9,
-          "long_term_score": 43.4,
-          "short_term_score": 30.1
+          "era": 16,
+          "buy_now_score": 37.7,
+          "long_term_score": 43.7,
+          "short_term_score": 30.8
         }
       ],
       "ranks": {
-        "buy_now_score": 26,
-        "long_term_score": 20,
-        "short_term_score": 23
+        "buy_now_score": 24,
+        "long_term_score": 18,
+        "short_term_score": 22
       }
     },
     {
-      "buy_now_score": 36.0,
-      "long_term_score": 41.0,
-      "short_term_score": 18.3,
-      "quality_score": 35.2,
-      "valuation_score": 52.9,
-      "growth_score": 42.6,
-      "revision_score": 21.2,
-      "relative_strength_score": 9.8,
-      "technical_score": 16.2,
+      "buy_now_score": 36.5,
+      "long_term_score": 41.1,
+      "short_term_score": 18.5,
+      "quality_score": 37.7,
+      "valuation_score": 55.6,
+      "growth_score": 37.1,
+      "revision_score": 18.9,
+      "relative_strength_score": 10.6,
+      "technical_score": 16.3,
       "price": 142.22000122070312,
-      "market_cap": 7219081216.0,
+      "market_cap": 7198239232.0,
       "rsi14": 38.62221288790561,
       "adx14": 13.657370522384657,
       "dist_50dma": -0.1036053617808551,
       "dist_200dma": -0.2966749010737816,
-      "fcf_yield": -0.0035906059544738,
-      "forward_pe": 31.868643,
+      "fcf_yield": -0.0036010022957792,
+      "forward_pe": 31.776634,
       "forward_revenue_growth": 0.1523,
       "operating_margin": -0.02269,
       "ticker": "AVAV",
@@ -7689,9 +6759,9 @@
       "supported": false,
       "value_quality": false,
       "entry": {
-        "rank": 27,
+        "rank": 25,
         "ticker": "AVAV",
-        "buy_now_score": 36.0,
+        "buy_now_score": 36.5,
         "price": 142.22,
         "atr14": 8.41,
         "rsi14": 38.6,
@@ -7743,34 +6813,16 @@
       },
       "changes": {
         "buy_now_score": {
-          "daily": {
-            "delta": -0.2,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -3.7,
-            "rank_delta": -2
-          }
+          "daily": null,
+          "weekly": null
         },
         "long_term_score": {
-          "daily": {
-            "delta": 0.8,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": 1.2,
-            "rank_delta": 2
-          }
+          "daily": null,
+          "weekly": null
         },
         "short_term_score": {
-          "daily": {
-            "delta": -1.6,
-            "rank_delta": 0
-          },
-          "weekly": {
-            "delta": -15.3,
-            "rank_delta": -3
-          }
+          "daily": null,
+          "weekly": null
         }
       },
       "history": [
@@ -7888,23 +6940,23 @@
         },
         {
           "date": "2026-09-30",
-          "era": 15,
-          "buy_now_score": 36.0,
-          "long_term_score": 41.0,
-          "short_term_score": 18.3
+          "era": 16,
+          "buy_now_score": 36.5,
+          "long_term_score": 41.1,
+          "short_term_score": 18.5
         }
       ],
       "ranks": {
-        "buy_now_score": 27,
-        "long_term_score": 23,
-        "short_term_score": 27
+        "buy_now_score": 25,
+        "long_term_score": 21,
+        "short_term_score": 25
       }
     }
   ],
   "breadth": {
-    "above_50dma": 12,
-    "observed": 24,
-    "stock_count": 24
+    "above_50dma": 11,
+    "observed": 22,
+    "stock_count": 22
   },
   "image_mentions": {
     "source": "IMG_4639.jpeg",
