@@ -1,36 +1,46 @@
 {
-  "latest_date": "2026-10-01",
+  "latest_date": "2026-10-02",
   "transitions": [
     {
-      "ticker": "AMZN",
-      "date": "2026-10-01",
-      "previous_date": "2026-09-30",
-      "from": "Mixed / neutral",
-      "to": "Moderately bearish",
-      "from_score": 50,
-      "to_score": 43,
-      "direction": "neutral_to_bearish"
+      "ticker": "AAOI",
+      "date": "2026-10-02",
+      "previous_date": "2026-10-01",
+      "from": "Moderately bearish",
+      "to": "Moderately bullish",
+      "from_score": 41,
+      "to_score": 59,
+      "direction": "bearish_to_bullish"
     },
     {
       "ticker": "AVGO",
-      "date": "2026-10-01",
-      "previous_date": "2026-09-30",
-      "from": "Moderately bullish",
-      "to": "Mixed / neutral",
-      "from_score": 56,
-      "to_score": 53,
-      "direction": "bullish_to_neutral"
-    },
-    {
-      "ticker": "GEV",
-      "date": "2026-10-01",
-      "previous_date": "2026-09-30",
+      "date": "2026-10-02",
+      "previous_date": "2026-10-01",
       "from": "Mixed / neutral",
       "to": "Moderately bullish",
       "from_score": 53,
-      "to_score": 59,
+      "to_score": 62,
       "direction": "neutral_to_bullish"
+    },
+    {
+      "ticker": "QTUM",
+      "date": "2026-10-02",
+      "previous_date": "2026-10-01",
+      "from": "Mixed / neutral",
+      "to": "Moderately bullish",
+      "from_score": 50,
+      "to_score": 56,
+      "direction": "neutral_to_bullish"
+    },
+    {
+      "ticker": "SPCX",
+      "date": "2026-10-02",
+      "previous_date": "2026-10-01",
+      "from": "Moderately bearish",
+      "to": "Mixed / neutral",
+      "from_score": 36,
+      "to_score": 53,
+      "direction": "bearish_to_neutral"
     }
   ],
-  "all_transition_count": 91
+  "all_transition_count": 95
 }
