@@ -19,6 +19,7 @@ on:
       - 'stock-project-v2/investment_dashboard.py'
       - 'stock-project-v2/assets/**'
       - 'stock-project-v2/tests/test_investment_dashboard.py'
+      - 'stock-project-v2/tests/test_price_refresh.py'
       - 'stock-project-v2/entry_support.py'
       - 'stock-project-v2/add_metric_comments.py'
       - 'stock-project-v2/sentiment_transitions.py'
@@ -55,6 +56,7 @@ jobs:
       - name: Validate Python scripts
         run: |
           python stock-project-v2/tests/test_normalization.py
+          python stock-project-v2/tests/test_price_refresh.py
           python stock-project-v2/tests/test_investment_dashboard.py
           python -m py_compile stock-project-v2/run_v2.py
           python -m py_compile stock-project-v2/signal_policy.py

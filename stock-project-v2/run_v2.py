@@ -17,7 +17,6 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parent
 CONFIG = json.loads((ROOT / "config.json").read_text())
 TZ = ZoneInfo(CONFIG["refresh"]["timezone"])
-TODAY = datetime.now(TZ).date()
 
 
 def is_trading_day(day) -> bool:
@@ -178,30 +177,112 @@ def scoring_fingerprint():
     return hashlib.sha256((json.dumps(definition,sort_keys=True)+source).encode()).hexdigest()[:20]
 
 
+def latest_completed_session(now):
+    today = now.tz_convert(TZ).date()
+    schedule = mcal.get_calendar("NYSE").schedule(start_date=today-pd.Timedelta(days=14), end_date=today)
+    completed = schedule[schedule["market_close"]+pd.Timedelta(minutes=15) <= now]
+    if completed.empty:
+        raise RuntimeError("No completed NYSE session found")
+    return completed.index[-1].date()
+
+
+def completed_prices(response, ticker, as_of, stage, single=False):
+    """Normalize daily session labels, retaining only actual finite closes."""
+    prices = pd.DataFrame()
+    if response is not None and not response.empty:
+        if isinstance(response.columns, pd.MultiIndex):
+            if ticker in response.columns.get_level_values(0):
+                prices = response[ticker].copy()
+        elif single:
+            prices = response.copy()
+    if not prices.empty:
+        index = pd.DatetimeIndex(prices.index)
+        # Naive daily indexes are session labels, not UTC instants.
+        if index.tz is not None:
+            index = index.tz_convert(TZ).tz_localize(None)
+        prices.index = index.normalize()
+        prices = prices.sort_index()
+        if prices.index.has_duplicates:
+            raise ValueError(f"Duplicate daily session labels for {ticker}")
+    returned = prices.dropna(how="all")
+    latest_row = returned.index[-1].date() if not returned.empty else None
+    if "Close" in prices:
+        closes = pd.to_numeric(prices["Close"], errors="coerce")
+        prices = prices.loc[np.isfinite(closes)].copy()
+        prices["Close"] = closes.loc[prices.index]
+    else:
+        prices = pd.DataFrame()
+    latest_close = prices.index[-1].date() if not prices.empty else None
+    if not prices.empty:
+        prices = prices.loc[prices.index.date <= as_of]
+    completed_close = prices.index[-1].date() if not prices.empty else None
+    print(f"PRICE {stage} {ticker}: latest_row={latest_row}; latest_close={latest_close}; "
+          f"completed_close={completed_close}; expected={as_of}; rows={len(prices)}", flush=True)
+    return prices
+
+
+def download_completed_prices(symbols, as_of):
+    """One batch request, then one explicit 18-month retry per missing symbol.
+
+    Replace the entire adjusted series on retry: splicing a recent bar onto an
+    older adjustment basis would corrupt returns and technical indicators.
+    """
+    options = dict(interval="1d", auto_adjust=True, group_by="ticker", progress=False, timeout=20)
+    print(f"PRICE provider=yfinance version={yf.__version__}; expected={as_of}", flush=True)
+    try:
+        raw = yf.download(symbols, period="18mo", threads=True, **options)
+    except Exception as exc:
+        print(f"WARN batch download: {type(exc).__name__}", flush=True)
+        raw = None
+    result = {}
+    missing = []
+    for ticker in symbols:
+        try:
+            prices = completed_prices(raw, ticker, as_of, "period", single=len(symbols)==1)
+        except (ValueError, TypeError, KeyError) as exc:
+            print(f"WARN period {ticker}: {type(exc).__name__}", flush=True)
+            prices = pd.DataFrame()
+        if prices.empty or prices.index[-1].date() != as_of:
+            missing.append(ticker)
+        else:
+            result[ticker] = prices
+    start = (pd.Timestamp(as_of)-pd.DateOffset(months=18)).date().isoformat()
+    end = (pd.Timestamp(as_of)+pd.Timedelta(days=1)).date().isoformat()
+    for ticker in missing:
+        print(f"PRICE retry {ticker}: start={start}; end={end} (exclusive)", flush=True)
+        try:
+            response = yf.download([ticker], start=start, end=end, threads=False, **options)
+            prices = completed_prices(response, ticker, as_of, "explicit", single=True)
+            if not prices.empty and prices.index[-1].date() == as_of:
+                result[ticker] = prices
+        except Exception as exc:
+            print(f"WARN explicit {ticker}: {type(exc).__name__}", flush=True)
+    failed = [ticker for ticker in symbols if ticker not in result]
+    if failed:
+        raise RuntimeError(f"Incomplete universe/benchmarks for {as_of}; refusing mixed/stale ranking after explicit-date retry: {failed}")
+    return result
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--latest-completed",action="store_true")
     parser.add_argument("--if-needed",action="store_true",help="Reuse an identical completed-session score snapshot on display-only changes")
     args=parser.parse_args()
     now=pd.Timestamp.now(tz=TZ)
-    schedule=mcal.get_calendar("NYSE").schedule(start_date=TODAY-pd.Timedelta(days=14),end_date=TODAY)
-    completed=schedule[schedule["market_close"]+pd.Timedelta(minutes=15)<=now]
-    if completed.empty:raise RuntimeError("No completed NYSE session found")
-    as_of=completed.index[-1].date() if args.latest_completed else TODAY
-    if not args.latest_completed and CONFIG["refresh"].get("trading_days_only",True) and not is_trading_day(TODAY):
-        print(f"{TODAY} is not an NYSE trading day; no update."); return 0
+    today=now.date()
+    completed=latest_completed_session(now)
+    as_of=completed if args.latest_completed else today
+    if not args.latest_completed and CONFIG["refresh"].get("trading_days_only",True) and not is_trading_day(today):
+        print(f"{today} is not an NYSE trading day; no update."); return 0
+    if as_of>completed:raise RuntimeError(f"Session {as_of} is not completed; latest completed session is {completed}")
     fingerprint=scoring_fingerprint()
     if args.if_needed and (ROOT/"latest_scores.csv").exists():
         saved=pd.read_csv(ROOT/"latest_scores.csv")
         if {"scoring_fingerprint","as_of","sector","company_name"}.issubset(saved.columns) and not saved.ticker.duplicated().any() and set(saved.ticker)==set(CONFIG["universe"]) and saved.as_of.eq(str(as_of)).all() and saved.scoring_fingerprint.eq(fingerprint).all():
             print(f"Reusing {as_of} scores: same method and universe; display changes do not rewrite scores.")
             return 0
-    symbols=CONFIG["universe"]+list(CONFIG["benchmarks"].keys()); raw=yf.download(symbols,period="18mo",interval="1d",auto_adjust=True,group_by="ticker",threads=True,progress=False)
-    if raw.empty:raise RuntimeError("No market data returned")
-    raw=raw.loc[raw.index.date<=as_of]
-    latest_dates=[raw[b].dropna(how="all").index[-1].date() for b in CONFIG["benchmarks"] if b in raw.columns.get_level_values(0)]
-    if len(latest_dates)!=len(CONFIG["benchmarks"]) or any(d!=as_of for d in latest_dates):
-        raise RuntimeError(f"Benchmark data does not match completed session {as_of}: {latest_dates}")
+    symbols=CONFIG["universe"]+list(CONFIG["benchmarks"].keys())
+    raw=download_completed_prices(symbols,as_of)
     bench_returns={b:{h:pct_return(raw[b]["Close"].dropna(),d) for h,d in {"1M":21,"3M":63,"6M":126,"12M":252}.items()} for b in CONFIG["benchmarks"]}
     rows=[]
     for ticker in CONFIG["universe"]:
