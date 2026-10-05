@@ -10,10 +10,10 @@
   "removals": [],
   "research_values_reconciled": 30,
   "unverified_official_scores_withheld": true,
-  "market_session_date": "2026-10-02",
+  "market_session_date": "2026-10-05",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-10-03T16:50:10+00:00",
-  "snapshot_sha256": "aec1a3e2613fd52946e7fec79101ab534944645ffb36c2a54372dd9d42534514",
+  "watchlist_recorded_at": "2026-10-05T23:11:27+00:00",
+  "snapshot_sha256": "8614ed4a91c8dc6c583cf15470349c8055dd78745e489765955baf4ace31c70d",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,12 +29,12 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-10-03T165010Z-weekly",
+  "monitoring_id": "2026-10-05T231127Z-daily",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "aec1a3e2613fd52946e7fec79101ab534944645ffb36c2a54372dd9d42534514",
-  "monitoring_history_count": 24,
+  "monitoring_sha256": "8614ed4a91c8dc6c583cf15470349c8055dd78745e489765955baf4ace31c70d",
+  "monitoring_history_count": 25,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
-  "refresh_kind": "weekly",
+  "refresh_kind": "daily",
   "action_members": [
     "ETN",
     "ZETA",
@@ -92,9 +92,9 @@
     "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
     "mode": "shadow_only",
     "artifact": "./v22/latest.json",
-    "artifact_sha256": "ae4431a3f74fafe237060d510a9f3891d0e8c626145f3421f9faea34e1550fd9",
-    "source_snapshot_sha256": "aec1a3e2613fd52946e7fec79101ab534944645ffb36c2a54372dd9d42534514",
-    "run_id": "9e246bfd7b259e758c7c7b5d",
+    "artifact_sha256": "96c03ca7f54e98b681c255129e90ed926c166a591e206391249bf998d454d956",
+    "source_snapshot_sha256": "8614ed4a91c8dc6c583cf15470349c8055dd78745e489765955baf4ace31c70d",
+    "run_id": "a5c0cea43442b8a7f4ab2790",
     "counts": {
       "members": 32,
       "action": 10,
@@ -106,11 +106,11 @@
     "production_rank_effect": false,
     "calibration_status": "blocked_not_calibrated",
     "last_refresh_attempt": {
-      "at": "2026-10-03T16:50:10+00:00",
+      "at": "2026-10-05T23:11:27+00:00",
       "status": "success",
-      "mode": "weekly",
+      "mode": "daily",
       "errors": {}
     }
   },
-  "built_at": "2026-10-03T16:50:31+00:00"
+  "built_at": "2026-10-05T23:11:45+00:00"
 }

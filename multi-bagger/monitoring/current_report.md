@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-03T16:50:10+00:00
+Recorded: 2026-10-05T23:11:27+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 436.1099853515625 | 2026-10-02 | 73.7 | 55.6 | 76.4 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 32.630001068115234 | 2026-10-02 | 72.6 | 68.3 | 85.6 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 475.5199890136719 | 2026-10-02 | 70.2 | 59.8 | 65.6 | provisional_with_explicit_gaps |
-| action | 4 | VST | 140.02000427246094 | 2026-10-02 | 69.0 | 58.8 | 27.2 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 7.190000057220459 | 2026-10-02 | 68.7 | 68.1 | 10.2 | provisional_with_explicit_gaps |
-| action | 6 | KTOS | 43.06999969482422 | 2026-10-02 | 62.4 | 45.4 | 17.8 | provisional_with_explicit_gaps |
-| action | 7 | AXTI | 85.87000274658203 | 2026-10-02 | 62.0 | 46.7 | 86.8 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 140.82000732421875 | 2026-10-02 | 59.8 | 31.4 | 19.7 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.570000171661377 | 2026-10-02 | 59.2 | 55.6 | 13.8 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 21.920000076293945 | 2026-10-02 | 57.4 | 44.3 | 44.9 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 432.6000061035156 | 2026-10-05 | 73.7 | 55.5 | 73.9 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 32.880001068115234 | 2026-10-05 | 72.5 | 68.2 | 82.4 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 480.6499938964844 | 2026-10-05 | 70.1 | 59.7 | 64.9 | provisional_with_explicit_gaps |
+| action | 4 | VST | 144.88999938964844 | 2026-10-05 | 68.9 | 58.1 | 58.5 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 7.260000228881836 | 2026-10-05 | 68.7 | 68.1 | 13.6 | provisional_with_explicit_gaps |
+| action | 6 | KTOS | 42.02000045776367 | 2026-10-05 | 62.5 | 45.7 | 13.7 | provisional_with_explicit_gaps |
+| action | 7 | AXTI | 86.66000366210938 | 2026-10-05 | 62.0 | 46.5 | 86.5 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 139.3000030517578 | 2026-10-05 | 59.8 | 31.5 | 17.9 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.480000019073486 | 2026-10-05 | 59.2 | 55.9 | 12.1 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 21.3700008392334 | 2026-10-05 | 57.4 | 44.7 | 31.3 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 9.670000076293945 | 2026-10-02 | 55.3 | 44.3 | 43.1 | provisional_with_explicit_gaps |
 | candidate | 2 | RGTI | 15.25 | 2026-10-02 | 53.6 | 9.1 | 30.5 | provisional_with_explicit_gaps |
 | candidate | 3 | SSII | 2.6700000762939453 | 2026-10-02 | 53.1 | 35.5 | 11.5 | provisional_with_explicit_gaps |
@@ -176,7 +176,6 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
