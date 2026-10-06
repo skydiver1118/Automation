@@ -1,46 +1,36 @@
 {
-  "latest_date": "2026-10-05",
+  "latest_date": "2026-10-06",
   "transitions": [
     {
-      "ticker": "AMZN",
-      "date": "2026-10-05",
-      "previous_date": "2026-10-02",
+      "ticker": "CEG",
+      "date": "2026-10-06",
+      "previous_date": "2026-10-05",
       "from": "Moderately bearish",
       "to": "Moderately bullish",
-      "from_score": 43,
-      "to_score": 57,
+      "from_score": 41,
+      "to_score": 61,
       "direction": "bearish_to_bullish"
+    },
+    {
+      "ticker": "DRAM",
+      "date": "2026-10-06",
+      "previous_date": "2026-10-05",
+      "from": "Moderately bullish",
+      "to": "Moderately bearish",
+      "from_score": 67,
+      "to_score": 33,
+      "direction": "bullish_to_bearish"
     },
     {
       "ticker": "NBIS",
-      "date": "2026-10-05",
-      "previous_date": "2026-10-02",
-      "from": "Moderately bullish",
-      "to": "Mixed / neutral",
-      "from_score": 59,
-      "to_score": 53,
-      "direction": "bullish_to_neutral"
-    },
-    {
-      "ticker": "SPCX",
-      "date": "2026-10-05",
-      "previous_date": "2026-10-02",
+      "date": "2026-10-06",
+      "previous_date": "2026-10-05",
       "from": "Mixed / neutral",
       "to": "Moderately bullish",
       "from_score": 53,
-      "to_score": 67,
+      "to_score": 59,
       "direction": "neutral_to_bullish"
-    },
-    {
-      "ticker": "VST",
-      "date": "2026-10-05",
-      "previous_date": "2026-10-02",
-      "from": "Moderately bearish",
-      "to": "Moderately bullish",
-      "from_score": 44,
-      "to_score": 56,
-      "direction": "bearish_to_bullish"
     }
   ],
-  "all_transition_count": 99
+  "all_transition_count": 102
 }
