@@ -5,6 +5,7 @@ import argparse
 import hashlib
 import inspect
 import shutil
+import platform
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -186,6 +187,45 @@ def latest_completed_session(now):
     return completed.index[-1].date()
 
 
+def price_diagnostic(prices, ticker, as_of, stage, boundary, response=None):
+    """Bounded, price-only evidence; diagnostics must never affect acceptance."""
+    try:
+        fields = [c for c in ["Open", "High", "Low", "Close", "Adj Close", "Volume"] if c in prices]
+        tail = []
+        for index, row in prices[fields].tail(3).iterrows():
+            item = {"date": pd.Timestamp(index).isoformat()}
+            for field in fields:
+                value = pd.to_numeric(row[field], errors="coerce")
+                item[field] = (float(value) if np.isfinite(value) else
+                               "NaN" if pd.isna(value) else "Infinity" if value > 0 else "-Infinity")
+            tail.append(item)
+        source = prices if response is None else response
+        record = dict(ticker=ticker, expected=str(as_of), stage=stage, boundary=boundary,
+                      shape=list(prices.shape), response_shape=list(source.shape),
+                      column_levels=source.columns.nlevels,
+                      columns=[str(c) for c in prices.columns],
+                      dtypes={c: str(prices[c].dtype) for c in fields},
+                      index_type=type(prices.index).__name__, timezone=str(getattr(prices.index, "tz", None)),
+                      duplicate_dates=bool(prices.index.has_duplicates), tail=tail)
+        print("PRICE_DIAG " + json.dumps(record, allow_nan=False), flush=True)
+    except Exception as exc:
+        print(f"PRICE_DIAG unavailable {stage} {boundary} {ticker}: {type(exc).__name__}", flush=True)
+
+
+def probe_failed_prices(failed, as_of, start, end):
+    """Inspect raw/adjusted closes for at most three failures; never return bars."""
+    sample = list(dict.fromkeys([failed[0]] + [b for b in CONFIG["benchmarks"] if b in failed] + failed))[:3]
+    for ticker in sample:
+        try:
+            response = yf.download([ticker], start=start, end=end, interval="1d",
+                                   auto_adjust=False, group_by="ticker", threads=False,
+                                   progress=False, timeout=20)
+            prices = response[ticker] if isinstance(response.columns, pd.MultiIndex) else response
+            price_diagnostic(prices, ticker, as_of, "explicit", "raw_probe", response=response)
+        except Exception as exc:
+            print(f"PRICE_DIAG raw_probe {ticker}: {type(exc).__name__}", flush=True)
+
+
 def completed_prices(response, ticker, as_of, stage, single=False):
     """Normalize daily session labels, retaining only actual finite closes."""
     prices = pd.DataFrame()
@@ -195,6 +235,7 @@ def completed_prices(response, ticker, as_of, stage, single=False):
                 prices = response[ticker].copy()
         elif single:
             prices = response.copy()
+    price_diagnostic(prices, ticker, as_of, stage, "received", response=response)
     if not prices.empty:
         index = pd.DatetimeIndex(prices.index)
         # Naive daily indexes are session labels, not UTC instants.
@@ -204,6 +245,7 @@ def completed_prices(response, ticker, as_of, stage, single=False):
         prices = prices.sort_index()
         if prices.index.has_duplicates:
             raise ValueError(f"Duplicate daily session labels for {ticker}")
+    price_diagnostic(prices, ticker, as_of, stage, "normalized")
     returned = prices.dropna(how="all")
     latest_row = returned.index[-1].date() if not returned.empty else None
     if "Close" in prices:
@@ -216,6 +258,7 @@ def completed_prices(response, ticker, as_of, stage, single=False):
     if not prices.empty:
         prices = prices.loc[prices.index.date <= as_of]
     completed_close = prices.index[-1].date() if not prices.empty else None
+    price_diagnostic(prices, ticker, as_of, stage, "accepted")
     print(f"PRICE {stage} {ticker}: latest_row={latest_row}; latest_close={latest_close}; "
           f"completed_close={completed_close}; expected={as_of}; rows={len(prices)}", flush=True)
     return prices
@@ -228,7 +271,9 @@ def download_completed_prices(symbols, as_of):
     older adjustment basis would corrupt returns and technical indicators.
     """
     options = dict(interval="1d", auto_adjust=True, group_by="ticker", progress=False, timeout=20)
-    print(f"PRICE provider=yfinance version={yf.__version__}; expected={as_of}", flush=True)
+    print(f"PRICE provider=yfinance version={yf.__version__}; pandas={pd.__version__}; "
+          f"numpy={np.__version__}; python={platform.python_version()}; expected={as_of}; "
+          f"auto_adjust=True; interval=1d; period=18mo; batch_threads=True", flush=True)
     try:
         raw = yf.download(symbols, period="18mo", threads=True, **options)
     except Exception as exc:
@@ -259,6 +304,7 @@ def download_completed_prices(symbols, as_of):
             print(f"WARN explicit {ticker}: {type(exc).__name__}", flush=True)
     failed = [ticker for ticker in symbols if ticker not in result]
     if failed:
+        probe_failed_prices(failed, as_of, start, end)
         raise RuntimeError(f"Incomplete universe/benchmarks for {as_of}; refusing mixed/stale ranking after explicit-date retry: {failed}")
     return result
 

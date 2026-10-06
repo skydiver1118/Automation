@@ -2,6 +2,7 @@
 import contextlib
 import importlib.util
 import io
+import json
 import sys
 import tempfile
 import unittest
@@ -127,7 +128,7 @@ class PriceDownloadTest(unittest.TestCase):
                 with patch.object(run.yf, "download", provider), contextlib.redirect_stdout(io.StringIO()):
                     with self.assertRaisesRegex(RuntimeError, "NVDA.*2026-10-01|2026-10-01.*NVDA"):
                         run.download_completed_prices(["NVDA", "QQQ"], AS_OF)
-                self.assertEqual(provider.call_count, 2)
+                self.assertEqual(provider.call_count, 3)  # diagnostic-only raw probe
 
     def test_missing_close_column_is_retried(self):
         result, provider, _ = self.download([batch(NVDA=bars().drop(columns="Close"), QQQ=bars()), bars()])
@@ -148,13 +149,55 @@ class MainGuardTest(unittest.TestCase):
             saved = root / "latest_scores.csv"
             saved.write_text("previous verified snapshot")
             cfg = dict(run.CONFIG, universe=["NVDA"], benchmarks={"QQQ": 1.})
-            provider = Mock(side_effect=[batch(NVDA=bars(("2026-09-29", "2026-09-30")), QQQ=bars()), pd.DataFrame()])
+            provider = Mock(side_effect=[batch(NVDA=bars(("2026-09-29", "2026-09-30")), QQQ=bars()), pd.DataFrame(), bars()])
             with patch.object(run, "ROOT", root), patch.object(run, "CONFIG", cfg), patch.object(run, "latest_completed_session", return_value=AS_OF), patch.object(run.yf, "download", provider), patch.object(run, "scoring_fingerprint", return_value="unchanged"), patch.object(run, "score") as score, patch.object(sys, "argv", ["run_v2.py", "--latest-completed"]), contextlib.redirect_stdout(io.StringIO()):
                 with self.assertRaises(RuntimeError):
                     run.main()
             score.assert_not_called()
             self.assertEqual(saved.read_text(), "previous verified snapshot")
             self.assertFalse((root / "history").exists())
+
+
+class PriceDiagnosticTest(unittest.TestCase):
+    def test_diagnostics_identify_invalid_input_without_mutating_it(self):
+        frame = bars()
+        frame.loc[pd.Timestamp(AS_OF), "Close"] = np.inf
+        before = frame.copy(deep=True)
+        log = io.StringIO()
+        with contextlib.redirect_stdout(log):
+            run.completed_prices(frame, "NVDA", AS_OF, "explicit", single=True)
+        records = [json.loads(line.split(" ", 1)[1])
+                   for line in log.getvalue().splitlines() if line.startswith("PRICE_DIAG ")]
+        self.assertTrue(records, "missing structured price diagnostics")
+        self.assertEqual([r["boundary"] for r in records], ["received", "normalized", "accepted"])
+        self.assertEqual(records[0]["tail"][-1]["Close"], "Infinity")
+        self.assertEqual(records[-1]["tail"][-1]["date"], "2026-09-30T00:00:00")
+        pd.testing.assert_frame_equal(frame, before)
+
+    def test_raw_probe_cannot_rescue_invalid_adjusted_data(self):
+        stale = bars(("2026-09-29", "2026-09-30"))
+        raw = bars()
+        raw["Adj Close"] = raw.Close / 2
+        provider = Mock(side_effect=[batch(NVDA=stale), stale, raw])
+        log = io.StringIO()
+        with patch.object(run.yf, "download", provider), contextlib.redirect_stdout(log):
+            with self.assertRaisesRegex(RuntimeError, "refusing mixed/stale"):
+                run.download_completed_prices(["NVDA"], AS_OF)
+        self.assertEqual(provider.call_count, 3)
+        self.assertFalse(provider.call_args.kwargs["auto_adjust"])
+        self.assertIn('"Adj Close": 5.5', log.getvalue())
+        self.assertIn('"boundary": "raw_probe"', log.getvalue())
+
+    def test_probe_is_bounded_and_errors_do_not_replace_guard_failure(self):
+        symbols = ["NVDA", "MU", "AVGO", "SMH", "QQQ"]
+        provider = Mock(side_effect=RuntimeError("request failed: private cookie text"))
+        log = io.StringIO()
+        with patch.object(run.yf, "download", provider), contextlib.redirect_stdout(log):
+            with self.assertRaisesRegex(RuntimeError, "Incomplete universe/benchmarks"):
+                run.download_completed_prices(symbols, AS_OF)
+        probes = [c for c in provider.call_args_list if c.kwargs["auto_adjust"] is False]
+        self.assertEqual([c.args[0] for c in probes], [["NVDA"], ["SMH"], ["QQQ"]])
+        self.assertNotIn("private cookie text", log.getvalue())
 
 
 if __name__ == "__main__":
