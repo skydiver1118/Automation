@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-07T18:12:16+00:00
+Recorded: 2026-10-08T18:14:09+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 445.0899963378906 | 2026-10-06 | 73.6 | 55.3 | 77.6 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 32.95000076293945 | 2026-10-06 | 72.5 | 67.3 | 83.6 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 485.4100036621094 | 2026-10-06 | 70.1 | 59.9 | 65.2 | provisional_with_explicit_gaps |
-| action | 4 | CRMD | 7.28000020980835 | 2026-10-06 | 68.7 | 68.1 | 16.6 | provisional_with_explicit_gaps |
-| action | 5 | VST | 160.5 | 2026-10-06 | 68.5 | 56.3 | 80.0 | provisional_with_explicit_gaps |
-| action | 6 | KTOS | 43.709999084472656 | 2026-10-06 | 62.4 | 44.3 | 23.6 | provisional_with_explicit_gaps |
-| action | 7 | AXTI | 84.05999755859375 | 2026-10-06 | 62.1 | 47.1 | 85.9 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 143.5399932861328 | 2026-10-06 | 59.7 | 40.8 | 25.1 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.679999828338623 | 2026-10-06 | 59.1 | 55.2 | 24.2 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 22.65999984741211 | 2026-10-06 | 57.3 | 43.8 | 50.0 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 431.3299865722656 | 2026-10-07 | 73.7 | 55.9 | 73.0 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 33.7400016784668 | 2026-10-07 | 72.5 | 67.0 | 85.6 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 475.4100036621094 | 2026-10-07 | 70.2 | 60.2 | 62.6 | provisional_with_explicit_gaps |
+| action | 4 | CRMD | 7.28000020980835 | 2026-10-07 | 68.7 | 68.1 | 18.2 | provisional_with_explicit_gaps |
+| action | 5 | VST | 166.72000122070312 | 2026-10-07 | 68.4 | 55.7 | 76.6 | provisional_with_explicit_gaps |
+| action | 6 | KTOS | 41.939998626708984 | 2026-10-07 | 62.5 | 44.8 | 18.2 | provisional_with_explicit_gaps |
+| action | 7 | AXTI | 79.79000091552734 | 2026-10-07 | 62.3 | 48.0 | 80.2 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 138.86000061035156 | 2026-10-07 | 59.8 | 41.2 | 21.5 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.690000057220459 | 2026-10-07 | 59.1 | 55.1 | 26.2 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 21.850000381469727 | 2026-10-07 | 57.4 | 44.3 | 36.5 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 9.670000076293945 | 2026-10-02 | 55.3 | 44.3 | 43.1 | provisional_with_explicit_gaps |
 | candidate | 2 | RGTI | 15.25 | 2026-10-02 | 53.6 | 9.1 | 30.5 | provisional_with_explicit_gaps |
 | candidate | 3 | SSII | 2.6700000762939453 | 2026-10-02 | 53.1 | 35.5 | 11.5 | provisional_with_explicit_gaps |
@@ -199,6 +199,7 @@ Audit: ./evidence_audit/2026-09-06/FIGR.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Post-Kiavi full pro forma cash, debt, shares and combined earnings are not reconciled.; Operating-business valuation model is not validated for this finance-company accounting.
 
@@ -280,6 +281,7 @@ Audit: ./evidence_audit/2026-09-06/RZLV.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.; Going-concern and financing risks remain material; eight separately reported quarterly cash-flow observations are unavailable.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.
 
