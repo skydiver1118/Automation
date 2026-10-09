@@ -309,22 +309,77 @@ def download_completed_prices(symbols, as_of):
     return result
 
 
+def validate_snapshot(root, as_of):
+    """Block publication/reuse of incomplete or mixed-session dashboard assets."""
+    expected = set(CONFIG["universe"])
+    day = str(as_of)
+    try:
+        scores = pd.read_csv(root / "latest_scores.csv").set_index("ticker")
+        public = pd.read_csv(root / "dashboard/latest_scores.csv").set_index("ticker")
+        fields = ["price", "long_term_score", "short_term_score", "buy_now_score"]
+        for frame in (scores, public):
+            if frame.index.has_duplicates or set(frame.index) != expected or not frame.as_of.eq(day).all():
+                raise ValueError("CSV universe or session mismatch")
+            values = frame[fields].apply(pd.to_numeric, errors="coerce")
+            if not np.isfinite(values.to_numpy()).all() or not values.price.gt(0).all():
+                raise ValueError("Invalid CSV price or scores")
+        if not np.allclose(scores.sort_index()[fields], public.sort_index()[fields], rtol=1e-12, atol=1e-12):
+            raise ValueError("Public CSV differs from scores")
+        entry = json.loads((root / "entry_analysis.json").read_text(encoding="utf-8"))
+        canonical = json.loads((root / "canonical_market.json").read_text(encoding="utf-8"))
+        dashboard = json.loads((root / "dashboard/investment-data.json").read_text(encoding="utf-8"))
+        for payload in (entry, canonical, dashboard):
+            if payload["as_of"] != day:
+                raise ValueError("JSON session mismatch")
+        if entry.get("errors"):
+            raise ValueError("Incomplete entry analysis")
+        for records in (entry["securities"], dashboard["records"]):
+            if len(records) != len(expected) or {r["ticker"] for r in records} != expected:
+                raise ValueError("JSON universe mismatch")
+        if set(canonical["stocks"]) != expected:
+            raise ValueError("Canonical universe mismatch")
+        for row in entry["securities"]:
+            if row["series_as_of"] != day or not np.isclose(row["price"], scores.loc[row["ticker"], "price"], rtol=0, atol=.005001):
+                raise ValueError("Entry prices are not the ranked completed session")
+        for ticker, row in canonical["stocks"].items():
+            if row["as_of"] != day or row["support"]["series_as_of"] != day or not np.isclose(row["price"], scores.loc[ticker, "price"], rtol=0, atol=.005001):
+                raise ValueError("Canonical prices/support are not the ranked completed session")
+        for row in dashboard["records"]:
+            if row["entry"]["series_as_of"] != day or not np.allclose([row[f] for f in fields], scores.loc[row["ticker"], fields].astype(float), rtol=1e-12, atol=1e-12):
+                raise ValueError("Dashboard differs from the ranked completed session")
+    except (KeyError, ValueError, TypeError, OSError) as exc:
+        raise RuntimeError(f"Incomplete or inconsistent {day} dashboard; refusing publication: {exc}") from exc
+    print(f"Verified complete {day} snapshot: {len(expected)} securities and current support/entry series.", flush=True)
+
+
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--latest-completed",action="store_true")
     parser.add_argument("--if-needed",action="store_true",help="Reuse an identical completed-session score snapshot on display-only changes")
+    parser.add_argument("--validate-snapshot",action="store_true",help="Validate saved dashboard outputs without downloading or writing data")
     args=parser.parse_args()
     now=pd.Timestamp.now(tz=TZ)
     today=now.date()
     completed=latest_completed_session(now)
-    as_of=completed if args.latest_completed else today
+    as_of=completed if args.latest_completed or args.validate_snapshot else today
+    if args.validate_snapshot:
+        validate_snapshot(ROOT, as_of)
+        return 0
     if not args.latest_completed and CONFIG["refresh"].get("trading_days_only",True) and not is_trading_day(today):
         print(f"{today} is not an NYSE trading day; no update."); return 0
     if as_of>completed:raise RuntimeError(f"Session {as_of} is not completed; latest completed session is {completed}")
     fingerprint=scoring_fingerprint()
     if args.if_needed and (ROOT/"latest_scores.csv").exists():
         saved=pd.read_csv(ROOT/"latest_scores.csv")
-        if {"scoring_fingerprint","as_of","sector","company_name"}.issubset(saved.columns) and not saved.ticker.duplicated().any() and set(saved.ticker)==set(CONFIG["universe"]) and saved.as_of.eq(str(as_of)).all() and saved.scoring_fingerprint.eq(fingerprint).all():
+        if (
+            {"ticker","price","scoring_fingerprint","as_of","sector","company_name"}.issubset(saved.columns)
+            and not saved.ticker.duplicated().any()
+            and set(saved.ticker)==set(CONFIG["universe"])
+            and saved.as_of.eq(str(as_of)).all()
+            and saved.scoring_fingerprint.eq(fingerprint).all()
+            and np.isfinite(pd.to_numeric(saved.price, errors="coerce")).all()
+            and pd.to_numeric(saved.price, errors="coerce").gt(0).all()
+        ):
             print(f"Reusing {as_of} scores: same method and universe; display changes do not rewrite scores.")
             return 0
     symbols=CONFIG["universe"]+list(CONFIG["benchmarks"].keys())
