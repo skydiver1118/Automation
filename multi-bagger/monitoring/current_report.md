@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-08T18:14:09+00:00
+Recorded: 2026-10-09T17:47:17+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 431.3299865722656 | 2026-10-07 | 73.7 | 55.9 | 73.0 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 424.510009765625 | 2026-10-08 | 73.8 | 56.1 | 51.2 | provisional_with_explicit_gaps |
 | action | 2 | ZETA | 33.7400016784668 | 2026-10-07 | 72.5 | 67.0 | 85.6 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 475.4100036621094 | 2026-10-07 | 70.2 | 60.2 | 62.6 | provisional_with_explicit_gaps |
-| action | 4 | CRMD | 7.28000020980835 | 2026-10-07 | 68.7 | 68.1 | 18.2 | provisional_with_explicit_gaps |
-| action | 5 | VST | 166.72000122070312 | 2026-10-07 | 68.4 | 55.7 | 76.6 | provisional_with_explicit_gaps |
-| action | 6 | KTOS | 41.939998626708984 | 2026-10-07 | 62.5 | 44.8 | 18.2 | provisional_with_explicit_gaps |
-| action | 7 | AXTI | 79.79000091552734 | 2026-10-07 | 62.3 | 48.0 | 80.2 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 138.86000061035156 | 2026-10-07 | 59.8 | 41.2 | 21.5 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.690000057220459 | 2026-10-07 | 59.1 | 55.1 | 26.2 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 21.850000381469727 | 2026-10-07 | 57.4 | 44.3 | 36.5 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 475.3999938964844 | 2026-10-08 | 70.2 | 60.2 | 65.0 | provisional_with_explicit_gaps |
+| action | 4 | CRMD | 7.320000171661377 | 2026-10-08 | 68.7 | 68.1 | 20.6 | provisional_with_explicit_gaps |
+| action | 5 | VST | 156.13999938964844 | 2026-10-08 | 68.6 | 56.8 | 76.2 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 71.66000366210938 | 2026-10-08 | 62.7 | 49.8 | 61.1 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 41.93000030517578 | 2026-10-08 | 62.5 | 45.9 | 20.3 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 137.60000610351562 | 2026-10-08 | 59.8 | 42.7 | 22.6 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.579999923706055 | 2026-10-08 | 59.2 | 55.5 | 21.2 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 21.15999984741211 | 2026-10-08 | 57.5 | 44.8 | 30.7 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 9.670000076293945 | 2026-10-02 | 55.3 | 44.3 | 43.1 | provisional_with_explicit_gaps |
 | candidate | 2 | RGTI | 15.25 | 2026-10-02 | 53.6 | 9.1 | 30.5 | provisional_with_explicit_gaps |
 | candidate | 3 | SSII | 2.6700000762939453 | 2026-10-02 | 53.1 | 35.5 | 11.5 | provisional_with_explicit_gaps |
@@ -49,6 +49,8 @@ Audit: ./evidence_audit/2026-09-06/ETN.json. Reviewed: 2026-09-07T01:58:22+00:00
 Audit: ./evidence_audit/2026-09-06/ZETA.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- ValueError: Insufficient/exact-session price data
+- Latest market refresh failed; retained values keep their original dates.
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## HUBB — provisional_with_explicit_gaps
@@ -71,14 +73,14 @@ Audit: ./evidence_audit/2026-09-06/VST.json. Reviewed: 2026-09-07T01:58:22+00:00
 - New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 
-## KTOS — provisional_with_explicit_gaps
-Audit: ./evidence_audit/2026-09-06/KTOS.json. Reviewed: 2026-09-07T01:58:22+00:00
+## AXTI — provisional_with_explicit_gaps
+Audit: ./evidence_audit/2026-09-06/AXTI.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - An audited financial/analyst dependency changed; new evidence review is required.
 
-## AXTI — provisional_with_explicit_gaps
-Audit: ./evidence_audit/2026-09-06/AXTI.json. Reviewed: 2026-09-07T01:58:22+00:00
+## KTOS — provisional_with_explicit_gaps
+Audit: ./evidence_audit/2026-09-06/KTOS.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - An audited financial/analyst dependency changed; new evidence review is required.
@@ -178,6 +180,7 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
@@ -212,6 +215,7 @@ Audit: ./evidence_audit/2026-09-06/GRRR.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: July $125M convertible financing and its net proceeds, derivative/economic claims need a current pro forma reconciliation.; Issuer half-year financials are retained separately. Vendor quarterly allocations are not independently reported quarter measurements.
 
