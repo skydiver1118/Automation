@@ -4,8 +4,13 @@ on:
   schedule:
     - cron: '30 20 * * 1-5'
     - cron: '30 21 * * 1-5'
+    # One bounded catch-up after Yahoo's observed late-evening daily-bar gap.
+    # Tue-Sat UTC is the preceding Mon-Fri session in New York (21:30/22:30).
+    - cron: '30 2 * * 2-6'
   workflow_dispatch:
   push:
+    # Review branches must not publish to the shared production gh-pages branch.
+    branches: [main]
     paths:
       - '.github/workflows/stock-project-v2.yml'
       - 'stock-project-v2/config.json'
@@ -92,15 +97,20 @@ jobs:
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: python stock-project-v2/run_v2.py --latest-completed --if-needed
       - name: Explain skipped score refresh
-        if: github.event_name == 'schedule' && (steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true')
+        if: github.event_name == 'schedule' && github.event.schedule != '30 2 * * 2-6' && (steps.market.outputs.is_trading_day != 'true' || steps.market.outputs.after_close != 'true')
         run: echo "No newly completed session for this scheduled refresh."
       - name: Run Stock Project V2
-        if: github.event_name == 'schedule' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'
-        run: python stock-project-v2/run_v2.py
+        id: scheduled_scores
+        if: github.event_name == 'schedule' && (github.event.schedule == '30 2 * * 2-6' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true'))
+        shell: bash
+        run: |
+          python stock-project-v2/run_v2.py --latest-completed --if-needed
+          if git diff --quiet -- stock-project-v2/latest_scores.csv && python stock-project-v2/run_v2.py --validate-snapshot; then echo "reused=true" >> "$GITHUB_OUTPUT"; fi
       - name: Materialize ownership and entry decisions
+        if: steps.scheduled_scores.outputs.reused != 'true'
         run: python stock-project-v2/materialize_decisions.py
       - name: Validate complete configured universe
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true')
+        if: steps.scheduled_scores.outputs.reused != 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || steps.scheduled_scores.outcome == 'success')
         run: |
           python - <<'PY'
           import json,numpy as np,pandas as pd
@@ -111,26 +121,32 @@ jobs:
           print(f"V2 validation passed for all {len(expected)} configured securities and decision fields.")
           PY
       - name: Detect new completed session
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true')
+        if: steps.scheduled_scores.outputs.reused != 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || steps.scheduled_scores.outcome == 'success')
         id: session
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/history/; then echo "new_session=false" >> "$GITHUB_OUTPUT"; else echo "new_session=true" >> "$GITHUB_OUTPUT"; fi
       - name: Analyze entry points and support for the full universe
+        if: steps.scheduled_scores.outputs.reused != 'true'
         run: python stock-project-v2/entry_support.py
       - name: Track diagnostic sentiment transitions
+        if: steps.scheduled_scores.outputs.reused != 'true'
         run: python stock-project-v2/sentiment_transitions.py
       - name: Build canonical market and technical layer
+        if: steps.scheduled_scores.outputs.reused != 'true'
         run: python stock-project-v2/build_canonical.py
       - name: Build dashboard and detail pages
+        if: steps.scheduled_scores.outputs.reused != 'true'
         run: |
           python stock-project-v2/dashboard.py
           python stock-project-v2/enhance_dashboard.py
           python stock-project-v2/add_metric_comments.py
           python stock-project-v2/apply_decision_model.py
           python stock-project-v2/ensure_universe_rows.py
+      - name: Validate current dashboard before publication
+        run: python stock-project-v2/run_v2.py --validate-snapshot
       - name: Commit trading-day scores, decisions, canonical layer, and dashboard
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true')
+        if: steps.scheduled_scores.outputs.reused != 'true' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || steps.scheduled_scores.outcome == 'success')
         shell: bash
         run: |
           if git diff --quiet -- stock-project-v2/latest_scores.csv stock-project-v2/latest_scores.json stock-project-v2/canonical_market.json stock-project-v2/entry_analysis.json stock-project-v2/history/ stock-project-v2/sentiment_history.csv stock-project-v2/sentiment_transitions.json stock-project-v2/dashboard/; then echo "Nothing changed."; exit 0; fi
@@ -155,7 +171,7 @@ jobs:
           force_orphan: false
           enable_jekyll: false
       - name: Email dashboard link
-        if: github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
+        if: steps.scheduled_scores.outputs.reused != 'true' && github.event_name != 'push' && steps.market.outputs.is_trading_day == 'true' && steps.market.outputs.after_close == 'true' && steps.session.outputs.new_session == 'true' && env.STOCK_EMAIL_TO != '' && env.STOCK_EMAIL_USERNAME != '' && env.STOCK_EMAIL_APP_PASSWORD != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com

@@ -1,0 +1,53 @@
+{
+  "provenance": {
+    "source": "https://query1.finance.yahoo.com/v8/finance/chart/NVDA",
+    "captured_utc": "2026-10-09",
+    "expected_session": "2026-10-08",
+    "note": "Unmodified last three observations from the HTTP 200 response; full captured response retained in local investigation evidence."
+  },
+  "timestamp": [
+    1791293400,
+    1791379800,
+    1791466200
+  ],
+  "indicators": {
+    "quote": [
+      {
+        "high": [
+          243.3699951171875,
+          239.0800018310547,
+          237.07000732421875
+        ],
+        "close": [
+          239.24000549316406,
+          237.47000122070312,
+          null
+        ],
+        "low": [
+          238.92999267578125,
+          236.3800048828125,
+          229.85000610351562
+        ],
+        "volume": [
+          101701900,
+          81772400,
+          117720595
+        ],
+        "open": [
+          242.10000610351562,
+          237.69000244140625,
+          234.92999267578125
+        ]
+      }
+    ],
+    "adjclose": [
+      {
+        "adjclose": [
+          239.24000549316406,
+          237.47000122070312,
+          null
+        ]
+      }
+    ]
+  }
+}

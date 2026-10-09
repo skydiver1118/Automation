@@ -3,6 +3,7 @@ import contextlib
 import importlib.util
 import io
 import json
+import re
 import sys
 import tempfile
 import unittest
@@ -143,6 +144,61 @@ class PriceDownloadTest(unittest.TestCase):
 
 
 class MainGuardTest(unittest.TestCase):
+    def test_captured_27_series_failure_cannot_overwrite_any_snapshot(self):
+        capture = json.loads((ROOT / "tests/fixtures/failed_universe_2026-10-08.json").read_text())
+        frames = {}
+        for item in capture["series"]:
+            frame = pd.DataFrame(item["tail"]).set_index("date")
+            frame.index = pd.to_datetime(frame.index)
+            frames[item["ticker"]] = frame.apply(pd.to_numeric, errors="coerce")
+        self.assertEqual(set(frames), set(run.CONFIG["universe"]) | set(run.CONFIG["benchmarks"]))
+        self.assertEqual(len(frames), 27)
+        expected = date.fromisoformat(capture["as_of"])
+        provider = Mock(side_effect=[batch(**frames)] + [frames[t] for t in frames] + [frames[t] for t in ["NVDA", "SMH", "QQQ"]])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            saved = root / "latest_scores.csv"
+            saved.write_text("last verified snapshot")
+            with patch.object(run, "ROOT", root), patch.object(run, "latest_completed_session", return_value=expected), patch.object(run, "scoring_fingerprint", return_value="unchanged"), patch.object(run.yf, "download", provider), patch.object(run, "score") as score, patch.object(sys, "argv", ["run_v2.py", "--latest-completed"]), contextlib.redirect_stdout(io.StringIO()):
+                with self.assertRaisesRegex(RuntimeError, "refusing mixed/stale"):
+                    run.main()
+            self.assertEqual(saved.read_text(), "last verified snapshot")
+            self.assertEqual(list(root.iterdir()), [saved])
+            score.assert_not_called()
+        for call in provider.call_args_list:
+            self.assertFalse(call.kwargs.get("repair", False))
+            self.assertEqual(call.kwargs["interval"], "1d")
+
+    def test_scheduled_second_run_reuses_verified_same_session_without_provider(self):
+        # Exercise the actual scheduled command, not a hand-written --if-needed invocation.
+        workflow = (ROOT.parent / ".github/workflows/stock-project-v2.yml").read_text()
+        command = re.search(r"- name: Run Stock Project V2\n.*?run:\s*(?:\|\n\s*)?(python[^\n]+)", workflow, re.S).group(1)
+        expected = pd.Timestamp.now(tz=run.TZ).date()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            pd.DataFrame([dict(ticker="NVDA", price=10., as_of=str(expected),
+                               scoring_fingerprint="unchanged", sector="Technology", company_name="Nvidia")]).to_csv(root / "latest_scores.csv", index=False)
+            cfg = dict(run.CONFIG, universe=["NVDA"], benchmarks={"QQQ": 1.}, refresh={"trading_days_only": False})
+            with patch.object(run, "ROOT", root), patch.object(run, "CONFIG", cfg), patch.object(run, "latest_completed_session", return_value=expected), patch.object(run, "scoring_fingerprint", return_value="unchanged"), patch.object(run.yf, "download", side_effect=RuntimeError("Yahoo temporarily missing latest close")) as provider, patch.object(sys, "argv", command.split()[1:]), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(run.main(), 0)
+            provider.assert_not_called()
+
+    def test_invalid_same_session_snapshot_is_not_reused(self):
+        for price in (None, np.nan, np.inf, 0., -10.):
+            with self.subTest(price=price), tempfile.TemporaryDirectory() as tmp:
+                root = Path(tmp)
+                record = dict(ticker="NVDA", as_of=str(AS_OF), scoring_fingerprint="unchanged", sector="Technology", company_name="Nvidia")
+                if price is not None:
+                    record["price"] = price
+                pd.DataFrame([record]).to_csv(root / "latest_scores.csv", index=False)
+                before = (root / "latest_scores.csv").read_bytes()
+                cfg = dict(run.CONFIG, universe=["NVDA"], benchmarks={"QQQ": 1.})
+                with patch.object(run, "ROOT", root), patch.object(run, "CONFIG", cfg), patch.object(run, "latest_completed_session", return_value=AS_OF), patch.object(run, "scoring_fingerprint", return_value="unchanged"), patch.object(run, "download_completed_prices", side_effect=RuntimeError("Provider incomplete")) as provider, patch.object(sys, "argv", ["run_v2.py", "--latest-completed", "--if-needed"]), contextlib.redirect_stdout(io.StringIO()):
+                    with self.assertRaisesRegex(RuntimeError, "Provider incomplete"):
+                        run.main()
+                provider.assert_called_once()
+                self.assertEqual((root / "latest_scores.csv").read_bytes(), before)
+
     def test_incomplete_universe_never_scores_or_overwrites_saved_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -159,6 +215,21 @@ class MainGuardTest(unittest.TestCase):
 
 
 class PriceDiagnosticTest(unittest.TestCase):
+    def test_captured_yahoo_null_close_is_missing_before_adjustment_and_stays_rejected(self):
+        from yfinance import utils
+        source = json.loads((ROOT / "tests/fixtures/yahoo_null_latest_close.json").read_text())
+        raw = utils.parse_quotes(source)
+        self.assertTrue(np.isfinite(raw.Open.iloc[-1]))
+        self.assertTrue(pd.isna(raw.Close.iloc[-1]))
+        self.assertTrue(pd.isna(raw["Adj Close"].iloc[-1]))
+        adjusted = utils.auto_adjust(raw)
+        self.assertTrue(adjusted[["Open", "High", "Low", "Close"]].iloc[-1].isna().all())
+        expected = date.fromisoformat(source["provenance"]["expected_session"])
+        provider = Mock(side_effect=[batch(NVDA=adjusted), batch(NVDA=adjusted), raw])
+        with patch.object(run.yf, "download", provider), contextlib.redirect_stdout(io.StringIO()):
+            with self.assertRaisesRegex(RuntimeError, "Incomplete universe/benchmarks.*2026-10-08"):
+                run.download_completed_prices(["NVDA"], expected)
+
     def test_diagnostics_identify_invalid_input_without_mutating_it(self):
         frame = bars()
         frame.loc[pd.Timestamp(AS_OF), "Close"] = np.inf
@@ -198,6 +269,54 @@ class PriceDiagnosticTest(unittest.TestCase):
         probes = [c for c in provider.call_args_list if c.kwargs["auto_adjust"] is False]
         self.assertEqual([c.args[0] for c in probes], [["NVDA"], ["SMH"], ["QQQ"]])
         self.assertNotIn("private cookie text", log.getvalue())
+
+
+class SnapshotValidationTest(unittest.TestCase):
+    def write_snapshot(self, root):
+        (root / "dashboard").mkdir()
+        score = dict(ticker="NVDA", price=10., as_of=str(AS_OF), long_term_score=60., short_term_score=50., buy_now_score=55.)
+        pd.DataFrame([score]).to_csv(root / "latest_scores.csv", index=False)
+        pd.DataFrame([score]).to_csv(root / "dashboard/latest_scores.csv", index=False)
+        payloads = {
+            "entry_analysis.json": {"as_of":str(AS_OF),"errors":[],"securities":[{"ticker":"NVDA","series_as_of":str(AS_OF),"price":10.}]},
+            "canonical_market.json": {"as_of":str(AS_OF),"stocks":{"NVDA":{"as_of":str(AS_OF),"price":10.,"support":{"series_as_of":str(AS_OF)}}}},
+            "dashboard/investment-data.json": {"as_of":str(AS_OF),"records":[dict(score,entry={"series_as_of":str(AS_OF)})]},
+        }
+        for path, data in payloads.items():
+            (root/path).write_text(json.dumps(data))
+        return payloads
+
+    def test_complete_current_outputs_are_accepted(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(run.CONFIG, universe=["NVDA"]):
+            root = Path(tmp)
+            self.write_snapshot(root)
+            run.validate_snapshot(root, AS_OF)
+
+    def test_validation_command_never_fetches_or_changes_saved_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.dict(run.CONFIG, universe=["NVDA"]):
+            root = Path(tmp)
+            self.write_snapshot(root)
+            before = {p.relative_to(root): p.read_bytes() for p in root.rglob("*") if p.is_file()}
+            with patch.object(run, "ROOT", root), patch.object(run, "latest_completed_session", return_value=AS_OF), patch.object(run.yf, "download") as provider, patch.object(sys, "argv", ["run_v2.py", "--validate-snapshot"]), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(run.main(), 0)
+            provider.assert_not_called()
+            self.assertEqual({p.relative_to(root): p.read_bytes() for p in root.rglob("*") if p.is_file()}, before)
+
+    def test_stale_support_and_wrong_dashboard_prices_are_rejected(self):
+        for filename in ("entry_analysis.json", "canonical_market.json", "dashboard/investment-data.json"):
+            with self.subTest(filename=filename), tempfile.TemporaryDirectory() as tmp, patch.dict(run.CONFIG, universe=["NVDA"]):
+                root = Path(tmp)
+                data = self.write_snapshot(root)
+                if filename == "entry_analysis.json":
+                    data[filename]["securities"][0]["series_as_of"] = "2026-09-30"
+                elif filename == "canonical_market.json":
+                    data[filename]["stocks"]["NVDA"]["support"]["series_as_of"] = "2026-09-30"
+                else:
+                    # A finite after-hours replacement must not differ from the ranked daily close.
+                    data[filename]["records"][0]["price"] = 10.5
+                (root/filename).write_text(json.dumps(data[filename]))
+                with self.assertRaises(RuntimeError):
+                    run.validate_snapshot(root, AS_OF)
 
 
 if __name__ == "__main__":
