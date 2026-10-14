@@ -1,16 +1,46 @@
 {
-  "latest_date": "2026-10-13",
+  "latest_date": "2026-10-14",
   "transitions": [
     {
       "ticker": "AXTI",
-      "date": "2026-10-13",
-      "previous_date": "2026-10-12",
-      "from": "Moderately bearish",
+      "date": "2026-10-14",
+      "previous_date": "2026-10-13",
+      "from": "Mixed / neutral",
+      "to": "Moderately bearish",
+      "from_score": 47,
+      "to_score": 42,
+      "direction": "neutral_to_bearish"
+    },
+    {
+      "ticker": "GEV",
+      "date": "2026-10-14",
+      "previous_date": "2026-10-13",
+      "from": "Bullish",
       "to": "Mixed / neutral",
-      "from_score": 35,
-      "to_score": 47,
-      "direction": "bearish_to_neutral"
+      "from_score": 71,
+      "to_score": 53,
+      "direction": "bullish_to_neutral"
+    },
+    {
+      "ticker": "SOXL",
+      "date": "2026-10-14",
+      "previous_date": "2026-10-13",
+      "from": "Mixed / neutral",
+      "to": "Moderately bearish",
+      "from_score": 50,
+      "to_score": 33,
+      "direction": "neutral_to_bearish"
+    },
+    {
+      "ticker": "SPCX",
+      "date": "2026-10-14",
+      "previous_date": "2026-10-13",
+      "from": "Moderately bullish",
+      "to": "Mixed / neutral",
+      "from_score": 60,
+      "to_score": 50,
+      "direction": "bullish_to_neutral"
     }
   ],
-  "all_transition_count": 112
+  "all_transition_count": 116
 }
