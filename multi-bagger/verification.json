@@ -10,10 +10,10 @@
   "removals": [],
   "research_values_reconciled": 30,
   "unverified_official_scores_withheld": true,
-  "market_session_date": "2026-10-15",
+  "market_session_date": "2026-10-16",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-10-16T15:50:48+00:00",
-  "snapshot_sha256": "e899a5dd091599f89041695dec5197cb94e60dbe09995eb033fa1089b71e27ff",
+  "watchlist_recorded_at": "2026-10-17T16:00:39+00:00",
+  "snapshot_sha256": "e163bcb86ce0dad19b6830d9548833b96437f35647fa4db40d756a3b31cbdfb2",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,12 +29,12 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-10-16T155048Z-daily",
+  "monitoring_id": "2026-10-17T160039Z-weekly",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "e899a5dd091599f89041695dec5197cb94e60dbe09995eb033fa1089b71e27ff",
-  "monitoring_history_count": 35,
+  "monitoring_sha256": "e163bcb86ce0dad19b6830d9548833b96437f35647fa4db40d756a3b31cbdfb2",
+  "monitoring_history_count": 36,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
-  "refresh_kind": "daily",
+  "refresh_kind": "weekly",
   "action_members": [
     "ETN",
     "ZETA",
@@ -71,20 +71,20 @@
     "MU",
     "LITE"
   ],
-  "scoreable_count": 18,
-  "critical_data_unscored_count": 14,
+  "scoreable_count": 17,
+  "critical_data_unscored_count": 15,
   "evidence_audit": {
     "stock_count": 32,
     "scorecards_with_audit": 30,
     "eight_factor_scorecards": 30,
-    "full_numeric_input_coverage": 22,
+    "full_numeric_input_coverage": 21,
     "reviewed_within_scope": 0,
     "input_audited": 0,
     "full_research_verified": 0,
     "provisional": 32,
-    "critical_hold": 14,
-    "scoreable": 18,
-    "critical_data_unscored": 14,
+    "critical_hold": 15,
+    "scoreable": 17,
+    "critical_data_unscored": 15,
     "full_six_pass_complete": false
   },
   "v22": {
@@ -92,9 +92,9 @@
     "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
     "mode": "shadow_only",
     "artifact": "./v22/latest.json",
-    "artifact_sha256": "8013ba93e1adcfefac684abc85c3f8e000c2fe67b78d4b7a9d0a8d1ff84fe57e",
-    "source_snapshot_sha256": "e899a5dd091599f89041695dec5197cb94e60dbe09995eb033fa1089b71e27ff",
-    "run_id": "a6881110633bb5e9451e7054",
+    "artifact_sha256": "af89eafa0a803217e09e1cdc8c9711a17578312cedca93fe3680decee2ef4668",
+    "source_snapshot_sha256": "e163bcb86ce0dad19b6830d9548833b96437f35647fa4db40d756a3b31cbdfb2",
+    "run_id": "02e88af96f050cd7e8ed25a0",
     "counts": {
       "members": 32,
       "action": 10,
@@ -106,11 +106,11 @@
     "production_rank_effect": false,
     "calibration_status": "blocked_not_calibrated",
     "last_refresh_attempt": {
-      "at": "2026-10-16T15:50:48+00:00",
+      "at": "2026-10-17T16:00:39+00:00",
       "status": "success",
-      "mode": "daily",
+      "mode": "weekly",
       "errors": {}
     }
   },
-  "built_at": "2026-10-16T15:51:04+00:00"
+  "built_at": "2026-10-17T16:01:06+00:00"
 }

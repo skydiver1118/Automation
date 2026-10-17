@@ -1,42 +1,42 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-16T15:50:48+00:00
+Recorded: 2026-10-17T16:00:39+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 402.4800109863281 | 2026-10-15 | 74.0 | 57.3 | 33.4 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 33.54999923706055 | 2026-10-15 | 72.5 | 67.9 | 84.2 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 464.7099914550781 | 2026-10-15 | 70.3 | 61.0 | 36.3 | provisional_with_explicit_gaps |
-| action | 4 | VST | 154.1699981689453 | 2026-10-15 | 68.7 | 57.0 | 62.3 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 7.460000038146973 | 2026-10-15 | 68.7 | 68.0 | 32.7 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 57.90999984741211 | 2026-10-15 | 63.3 | 52.7 | 21.0 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 40.7400016784668 | 2026-10-15 | 62.6 | 45.9 | 23.2 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 123.22000122070312 | 2026-10-15 | 60.1 | 43.1 | 12.8 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.179999828338623 | 2026-10-15 | 59.4 | 56.8 | 12.1 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 18.450000762939453 | 2026-10-15 | 57.8 | 46.8 | 17.4 | provisional_with_explicit_gaps |
-| candidate | 1 | AMPX | 9.4399995803833 | 2026-10-09 | 55.3 | 44.7 | 31.6 | provisional_with_explicit_gaps |
-| candidate | 2 | RGTI | 14.029999732971191 | 2026-10-09 | 53.5 | 8.5 | 18.4 | provisional_with_explicit_gaps |
-| candidate | 3 | SSII | 2.6449999809265137 | 2026-10-09 | 53.1 | 35.7 | 15.9 | provisional_with_explicit_gaps |
-| candidate | 4 | NBIS | 221.07000732421875 | 2026-10-09 | 52.6 | 43.7 | 45.8 | provisional_with_explicit_gaps |
-| candidate | 5 | IREN | 35.189998626708984 | 2026-10-09 | 50.3 | 52.6 | 12.3 | provisional_with_explicit_gaps |
-| candidate | 6 | TSSI | 9.699999809265137 | 2026-10-09 | 49.4 | 43.2 | 58.9 | provisional_with_explicit_gaps |
-| candidate | 7 | WULF | 13.770000457763672 | 2026-10-09 | 46.0 | 19.8 | 17.7 | provisional_with_explicit_gaps |
-| candidate | 8 | RR | 1.6399999856948853 | 2026-10-09 | 44.2 | 43.5 | 36.7 | provisional_with_explicit_gaps |
-| candidate | None | APLD | 23.68000030517578 | 2026-10-09 | — | — | 22.4 | provisional_with_explicit_gaps |
-| candidate | None | EOSE | 2.5199999809265137 | 2026-10-09 | — | — | 7.2 | provisional_with_explicit_gaps |
-| candidate | None | FIGR | 28.540000915527344 | 2026-10-09 | — | — | 18.9 | provisional_with_explicit_gaps |
-| candidate | None | GRRR | 11.130000114440918 | 2026-10-09 | — | — | 8.8 | provisional_with_explicit_gaps |
-| candidate | None | LITE | 1103.35498046875 | 2026-10-09 | — | — | 86.4 | provisional_with_explicit_gaps |
-| candidate | None | MU | 1029.0 | 2026-10-09 | — | — | 60.1 | provisional_with_explicit_gaps |
-| candidate | None | OKLO | 34.70000076293945 | 2026-10-09 | — | — | 21.6 | provisional_with_explicit_gaps |
-| candidate | None | POET | 6.96999979019165 | 2026-10-09 | — | — | 20.6 | provisional_with_explicit_gaps |
-| candidate | None | QBTS | 14.569999694824219 | 2026-10-09 | — | — | 14.6 | provisional_with_explicit_gaps |
-| candidate | None | RKLB | 68.20999908447266 | 2026-10-09 | — | — | 36.7 | provisional_with_explicit_gaps |
-| candidate | None | RZLV | 1.909999966621399 | 2026-10-09 | — | — | 14.8 | provisional_with_explicit_gaps |
-| candidate | None | SERV | 4.349999904632568 | 2026-10-09 | — | — | 28.0 | provisional_with_explicit_gaps |
-| candidate | None | SMR | 7.199999809265137 | 2026-10-09 | — | — | 15.6 | provisional_with_explicit_gaps |
-| candidate | None | SOUN | 5.389999866485596 | 2026-10-09 | — | — | 14.5 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 391.25 | 2026-10-16 | 74.1 | 57.8 | 18.0 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 31.809999465942383 | 2026-10-16 | 72.7 | 68.4 | 79.3 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 461.1000061035156 | 2026-10-16 | 70.4 | 61.4 | 34.1 | provisional_with_explicit_gaps |
+| action | 4 | VST | 152.02000427246094 | 2026-10-16 | 68.8 | 57.3 | 59.9 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 7.260000228881836 | 2026-10-16 | 68.7 | 68.1 | 27.9 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 51.470001220703125 | 2026-10-16 | 63.6 | 54.0 | 13.4 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 40.41999816894531 | 2026-10-16 | 62.6 | 46.0 | 23.9 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 121.79000091552734 | 2026-10-16 | 60.1 | 43.3 | 13.3 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.159999847412109 | 2026-10-16 | 59.4 | 56.9 | 12.9 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 17.31999969482422 | 2026-10-16 | 57.9 | 47.6 | 12.2 | provisional_with_explicit_gaps |
+| candidate | 1 | AMPX | 7.710000038146973 | 2026-10-16 | 55.8 | 46.8 | 13.4 | provisional_with_explicit_gaps |
+| candidate | 2 | RGTI | 11.800000190734863 | 2026-10-16 | 53.4 | 7.8 | 10.7 | provisional_with_explicit_gaps |
+| candidate | 3 | SSII | 2.5299999713897705 | 2026-10-16 | 53.2 | 36.4 | 19.0 | provisional_with_explicit_gaps |
+| candidate | 4 | NBIS | 165.47000122070312 | 2026-10-16 | 53.1 | 47.5 | 9.2 | provisional_with_explicit_gaps |
+| candidate | 5 | IREN | 26.989999771118164 | 2026-10-16 | 50.7 | 54.8 | 5.2 | provisional_with_explicit_gaps |
+| candidate | 6 | TSSI | 7.070000171661377 | 2026-10-16 | 49.8 | 45.2 | 7.7 | provisional_with_explicit_gaps |
+| candidate | 7 | WULF | 11.680000305175781 | 2026-10-16 | 46.4 | 21.5 | 11.1 | provisional_with_explicit_gaps |
+| candidate | None | APLD | 18.049999237060547 | 2026-10-16 | — | — | 6.6 | provisional_with_explicit_gaps |
+| candidate | None | EOSE | 1.8200000524520874 | 2026-10-16 | — | — | 5.7 | provisional_with_explicit_gaps |
+| candidate | None | FIGR | 27.1299991607666 | 2026-10-16 | — | — | 24.8 | provisional_with_explicit_gaps |
+| candidate | None | GRRR | 7.78000020980835 | 2026-10-16 | — | — | 5.2 | provisional_with_explicit_gaps |
+| candidate | None | LITE | 824.1300048828125 | 2026-10-16 | — | — | 33.2 | provisional_with_explicit_gaps |
+| candidate | None | MU | 878.8400268554688 | 2026-10-16 | — | — | 28.7 | provisional_with_explicit_gaps |
+| candidate | None | OKLO | 27.969999313354492 | 2026-10-16 | — | — | 8.6 | provisional_with_explicit_gaps |
+| candidate | None | POET | 5.429999828338623 | 2026-10-16 | — | — | 6.4 | provisional_with_explicit_gaps |
+| candidate | None | QBTS | 11.779999732971191 | 2026-10-16 | — | — | 7.4 | provisional_with_explicit_gaps |
+| candidate | None | RKLB | 50.84000015258789 | 2026-10-16 | — | — | 7.5 | provisional_with_explicit_gaps |
+| candidate | None | RR | 1.2899999618530273 | 2026-10-16 | — | — | 10.1 | provisional_with_explicit_gaps |
+| candidate | None | RZLV | 1.75 | 2026-10-16 | — | — | 15.7 | provisional_with_explicit_gaps |
+| candidate | None | SERV | 3.2300000190734863 | 2026-10-16 | — | — | 6.9 | provisional_with_explicit_gaps |
+| candidate | None | SMR | 5.829999923706055 | 2026-10-16 | — | — | 10.5 | provisional_with_explicit_gaps |
+| candidate | None | SOUN | 4.71999979019165 | 2026-10-16 | — | — | 11.1 | provisional_with_explicit_gaps |
 
 ## ETN — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/ETN.json. Reviewed: 2026-09-07T01:58:22+00:00
@@ -160,15 +160,6 @@ Audit: ./evidence_audit/2026-09-06/WULF.json. Reviewed: 2026-09-07T01:58:22+00:0
 - New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 
-## RR — provisional_with_explicit_gaps
-Audit: ./evidence_audit/2026-09-06/RR.json. Reviewed: 2026-09-07T01:58:22+00:00
-- Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.
-- Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
-- Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
-- The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- New filed disclosure requires source review
-- An audited financial/analyst dependency changed; new evidence review is required.
-
 ## APLD — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Comparable acquisition/divestiture-adjusted current growth remains unavailable.
@@ -179,6 +170,8 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
+- New financial period; audited statement bridge not yet updated
+- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
@@ -271,6 +264,16 @@ Audit: ./evidence_audit/2026-09-06/RKLB.json. Reviewed: 2026-09-07T01:58:22+00:0
 - New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
+
+## RR — provisional_with_explicit_gaps
+Audit: ./evidence_audit/2026-09-06/RR.json. Reviewed: 2026-09-07T01:58:22+00:00
+- Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.
+- Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
+- Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
+- The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
+- An audited financial/analyst dependency changed; new evidence review is required.
+- Headline investment scores withheld: Required MB factor input is missing: valuation. Missing factor weight is not reweighted into a comparable headline score.
 
 ## RZLV — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/RZLV.json. Reviewed: 2026-09-07T01:58:22+00:00
