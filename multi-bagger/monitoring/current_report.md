@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-19T18:02:25+00:00
+Recorded: 2026-10-20T16:06:23+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 391.25 | 2026-10-16 | 74.1 | 57.8 | 18.0 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 31.809999465942383 | 2026-10-16 | 72.7 | 68.4 | 79.3 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 461.1000061035156 | 2026-10-16 | 70.4 | 61.4 | 34.1 | provisional_with_explicit_gaps |
-| action | 4 | VST | 152.02000427246094 | 2026-10-16 | 68.8 | 57.3 | 59.9 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 7.260000228881836 | 2026-10-16 | 68.7 | 68.1 | 27.9 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 51.470001220703125 | 2026-10-16 | 63.6 | 54.0 | 13.4 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 40.41999816894531 | 2026-10-16 | 62.6 | 46.0 | 23.9 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 121.79000091552734 | 2026-10-16 | 60.1 | 43.3 | 13.3 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.159999847412109 | 2026-10-16 | 59.4 | 56.9 | 12.9 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 17.31999969482422 | 2026-10-16 | 57.9 | 47.6 | 12.2 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 391.5 | 2026-10-19 | 74.1 | 57.7 | 18.0 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 32.5 | 2026-10-19 | 72.6 | 68.0 | 78.8 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 464.9200134277344 | 2026-10-19 | 70.3 | 61.5 | 36.7 | provisional_with_explicit_gaps |
+| action | 4 | VST | 149.6999969482422 | 2026-10-19 | 68.8 | 57.5 | 55.8 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 7.380000114440918 | 2026-10-19 | 68.7 | 68.0 | 32.8 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 56.790000915527344 | 2026-10-19 | 63.4 | 52.9 | 18.8 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 39.16999816894531 | 2026-10-19 | 62.6 | 47.5 | 20.5 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 117.9000015258789 | 2026-10-19 | 60.2 | 43.7 | 10.2 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.179999828338623 | 2026-10-19 | 59.4 | 56.8 | 16.0 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 17.1299991607666 | 2026-10-19 | 57.9 | 47.8 | 11.7 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 7.710000038146973 | 2026-10-16 | 55.8 | 46.8 | 13.4 | provisional_with_explicit_gaps |
 | candidate | 2 | RGTI | 11.800000190734863 | 2026-10-16 | 53.4 | 7.8 | 10.7 | provisional_with_explicit_gaps |
 | candidate | 3 | SSII | 2.5299999713897705 | 2026-10-16 | 53.2 | 36.4 | 19.0 | provisional_with_explicit_gaps |
@@ -69,6 +69,7 @@ Audit: ./evidence_audit/2026-09-06/VST.json. Reviewed: 2026-09-07T01:58:22+00:00
 Audit: ./evidence_audit/2026-09-06/CRMD.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## AXTI — provisional_with_explicit_gaps
@@ -103,8 +104,7 @@ Audit: ./evidence_audit/2026-09-06/BKSY.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Comparable positive-baseline EPS revision unavailable; E&V is valuation-only or partially covered. Raw estimates remain visible.
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- ValueError: Insufficient/exact-session price data
-- Latest market refresh failed; retained values keep their original dates.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## AMPX — provisional_with_explicit_gaps
@@ -239,6 +239,7 @@ Audit: ./evidence_audit/2026-09-06/POET.json. Reviewed: 2026-09-07T01:58:22+00:0
 - 8 required financial-history cells unavailable; blanks are not zero.
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: valuation. Missing factor weight is not reweighted into a comparable headline score.; Gross-profit and valuation coverage are insufficient for a fully populated, comparable MB score.
 
