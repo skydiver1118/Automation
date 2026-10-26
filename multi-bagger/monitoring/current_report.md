@@ -1,12 +1,12 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-24T16:19:51+00:00
+Recorded: 2026-10-26T18:00:33+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
 | action | 1 | ETN | 366.1099853515625 | 2026-10-23 | 74.4 | 59.0 | 15.0 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 33.97999954223633 | 2026-10-23 | 72.4 | 67.2 | 81.9 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 33.97999954223633 | 2026-10-23 | 72.4 | 67.3 | 81.9 | provisional_with_explicit_gaps |
 | action | 3 | HUBB | 448.1000061035156 | 2026-10-23 | 70.5 | 62.1 | 25.2 | provisional_with_explicit_gaps |
 | action | 4 | VST | 140.16000366210938 | 2026-10-23 | 69.1 | 58.8 | 26.4 | provisional_with_explicit_gaps |
 | action | 5 | CRMD | 7.849999904632568 | 2026-10-23 | 68.6 | 67.7 | 69.4 | provisional_with_explicit_gaps |
@@ -137,7 +137,6 @@ Audit: ./evidence_audit/2026-09-06/NBIS.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## IREN — provisional_with_explicit_gaps
@@ -172,8 +171,6 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
@@ -301,7 +298,7 @@ Audit: ./evidence_audit/2026-09-06/SERV.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- ValueError: Insufficient/exact-session price data
+- New filed disclosure requires source review
 - Latest market refresh failed; retained values keep their original dates.
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
