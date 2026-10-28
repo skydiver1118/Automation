@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-27T17:07:35+00:00
+Recorded: 2026-10-28T17:45:10+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 371.9200134277344 | 2026-10-26 | 74.3 | 58.7 | 18.2 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 33.70000076293945 | 2026-10-26 | 72.5 | 67.5 | 81.4 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 459.3999938964844 | 2026-10-26 | 70.4 | 60.0 | 31.9 | provisional_with_explicit_gaps |
-| action | 4 | VST | 141.72999572753906 | 2026-10-26 | 69.0 | 59.6 | 28.8 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 7.940000057220459 | 2026-10-26 | 68.6 | 67.6 | 79.9 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 56.27000045776367 | 2026-10-26 | 63.4 | 53.0 | 25.0 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 40.43000030517578 | 2026-10-26 | 62.6 | 47.7 | 34.1 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 384.20001220703125 | 2026-10-27 | 74.2 | 58.2 | 24.0 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 33.349998474121094 | 2026-10-27 | 72.5 | 67.6 | 80.0 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 434.2799987792969 | 2026-10-27 | 70.6 | 60.9 | 13.3 | provisional_with_explicit_gaps |
+| action | 4 | VST | 146.66000366210938 | 2026-10-27 | 68.9 | 59.7 | 42.7 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 8.0 | 2026-10-27 | 68.6 | 67.6 | 79.6 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 58.22999954223633 | 2026-10-27 | 63.3 | 52.6 | 31.4 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 41.31999969482422 | 2026-10-27 | 62.6 | 47.4 | 48.5 | provisional_with_explicit_gaps |
 | action | 8 | AVAV | 125.44999694824219 | 2026-10-26 | 60.0 | 45.0 | 28.1 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.420000076293945 | 2026-10-26 | 59.3 | 56.1 | 38.1 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 17.84000015258789 | 2026-10-26 | 57.8 | 47.3 | 22.3 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.579999923706055 | 2026-10-27 | 59.2 | 55.5 | 50.9 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 19.149999618530273 | 2026-10-27 | 57.7 | 46.3 | 33.2 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.180000305175781 | 2026-10-23 | 55.7 | 46.3 | 25.8 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.25 | 2026-10-23 | 53.5 | 38.3 | 14.9 | provisional_with_explicit_gaps |
 | candidate | 3 | RGTI | 11.520000457763672 | 2026-10-23 | 53.4 | 7.7 | 12.0 | provisional_with_explicit_gaps |
@@ -55,6 +55,8 @@ Audit: ./evidence_audit/2026-09-06/ZETA.json. Reviewed: 2026-09-07T01:58:22+00:0
 Audit: ./evidence_audit/2026-09-06/HUBB.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
+- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## VST — provisional_with_explicit_gaps
@@ -88,8 +90,8 @@ Audit: ./evidence_audit/2026-09-06/KTOS.json. Reviewed: 2026-09-07T01:58:22+00:0
 Audit: ./evidence_audit/2026-09-06/AVAV.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
+- ValueError: Insufficient/exact-session price data
+- Latest market refresh failed; retained values keep their original dates.
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## EVLV — provisional_with_explicit_gaps
