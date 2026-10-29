@@ -10,10 +10,10 @@
   "removals": [],
   "research_values_reconciled": 30,
   "unverified_official_scores_withheld": true,
-  "market_session_date": "2026-10-27",
+  "market_session_date": "2026-10-28",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-10-28T17:45:10+00:00",
-  "snapshot_sha256": "f4ee52e6179c2a9a6ac884c624732f227205233005569dd815b21f3e171377ae",
+  "watchlist_recorded_at": "2026-10-29T17:50:17+00:00",
+  "snapshot_sha256": "942d5c2a7331e1e7e29372414b46d8cee18703e165818f7b78882a6d1bb6019a",
   "legacy_snapshots_sha256": {
     "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
     "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
@@ -29,10 +29,10 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-10-28T174510Z-daily",
+  "monitoring_id": "2026-10-29T175017Z-daily",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "f4ee52e6179c2a9a6ac884c624732f227205233005569dd815b21f3e171377ae",
-  "monitoring_history_count": 45,
+  "monitoring_sha256": "942d5c2a7331e1e7e29372414b46d8cee18703e165818f7b78882a6d1bb6019a",
+  "monitoring_history_count": 46,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
   "refresh_kind": "daily",
   "action_members": [
@@ -92,9 +92,9 @@
     "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
     "mode": "shadow_only",
     "artifact": "./v22/latest.json",
-    "artifact_sha256": "deac6b17c1cc397d17d8cd11803564632fb75a0ed3d911c23c04049e7e096042",
-    "source_snapshot_sha256": "f4ee52e6179c2a9a6ac884c624732f227205233005569dd815b21f3e171377ae",
-    "run_id": "f6a1d6d9a38a0c586557e97d",
+    "artifact_sha256": "5431dc775bbff00e543568d73f6ba8aaa1cd0c07081a264cafde48ef8e413ebc",
+    "source_snapshot_sha256": "942d5c2a7331e1e7e29372414b46d8cee18703e165818f7b78882a6d1bb6019a",
+    "run_id": "d3c0a567a50a19ceae8a4897",
     "counts": {
       "members": 32,
       "action": 10,
@@ -106,13 +106,11 @@
     "production_rank_effect": false,
     "calibration_status": "blocked_not_calibrated",
     "last_refresh_attempt": {
-      "at": "2026-10-28T17:45:10+00:00",
-      "status": "success_with_disclosed_gaps",
+      "at": "2026-10-29T17:50:17+00:00",
+      "status": "success",
       "mode": "daily",
-      "errors": {
-        "AVAV": "ValueError: Insufficient/exact-session price data"
-      }
+      "errors": {}
     }
   },
-  "built_at": "2026-10-28T17:45:29+00:00"
+  "built_at": "2026-10-29T17:50:33+00:00"
 }
