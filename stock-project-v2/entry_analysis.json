@@ -1,262 +1,302 @@
 {
-  "as_of": "2026-10-27",
+  "as_of": "2026-10-28",
   "top3": [
     {
       "rank": 1,
       "ticker": "MU",
-      "buy_now_score": 69.7,
-      "price": 928.76,
-      "atr14": 46.08,
-      "rsi14": 46.1,
-      "adx14": 29.4,
-      "sma20": 972.28,
-      "sma50": 979.58,
-      "sma200": 737.7,
+      "buy_now_score": 71.2,
+      "price": 983.23,
+      "atr14": 47.16,
+      "rsi14": 53.2,
+      "adx14": 27.8,
+      "sma20": 968.2,
+      "sma50": 980.43,
+      "sma200": 740.88,
       "supports": [
+        {
+          "level": 980.43,
+          "source": "50DMA + 20DMA + 6M Fib 0.382"
+        },
         {
           "level": 918.74,
           "source": "swing low"
         },
         {
           "level": 878.52,
-          "source": "6M Fib 0.500 + swing low"
-        },
-        {
-          "level": 849.25,
-          "source": "20D low"
+          "source": "6M Fib 0.500"
         }
       ],
       "entry_zone": [
-        902.61,
-        934.87
+        963.92,
+        996.94
       ],
       "deep_entry_zone": [
-        862.39,
-        894.65
+        902.23,
+        935.25
       ],
-      "breakout_trigger": 1112.43,
-      "stop_reference": 841.66,
+      "breakout_trigger": 1112.54,
+      "stop_reference": 881.01,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 1.1,
+      "distance_to_support_pct": 0.3,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 2,
-      "ticker": "AVGO",
-      "buy_now_score": 64.5,
-      "price": 342.33,
-      "atr14": 11.58,
-      "rsi14": 47.8,
-      "adx14": 25.4,
-      "sma20": 347.05,
-      "sma50": 354.18,
-      "sma200": 366.73,
+      "ticker": "DRAM",
+      "buy_now_score": 66.5,
+      "price": 54.12,
+      "atr14": 2.61,
+      "rsi14": 51.9,
+      "adx14": 27.0,
+      "sma20": 53.18,
+      "sma50": 56.23,
+      "sma200": null,
       "supports": [
         {
-          "level": 341.71,
+          "level": 53.18,
+          "source": "20DMA + swing low"
+        },
+        {
+          "level": 46.3,
+          "source": "swing low + 20D low + 60D low"
+        },
+        {
+          "level": 45.0,
+          "source": "ATR fallback"
+        }
+      ],
+      "entry_zone": [
+        52.27,
+        54.09
+      ],
+      "deep_entry_zone": [
+        45.39,
+        47.21
+      ],
+      "breakout_trigger": 62.77,
+      "stop_reference": 44.22,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 1.8,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 3,
+      "ticker": "AVGO",
+      "buy_now_score": 64.7,
+      "price": 351.81,
+      "atr14": 11.47,
+      "rsi14": 52.7,
+      "adx14": 23.9,
+      "sma20": 347.08,
+      "sma50": 353.63,
+      "sma200": 366.74,
+      "supports": [
+        {
+          "level": 349.42,
+          "source": "swing low + 20DMA"
+        },
+        {
+          "level": 343.29,
           "source": "swing low"
         },
         {
           "level": 335.2,
           "source": "swing low"
-        },
-        {
-          "level": 328.58,
-          "source": "swing low"
         }
       ],
       "entry_zone": [
-        337.66,
-        345.76
+        345.41,
+        353.43
       ],
       "deep_entry_zone": [
-        331.15,
-        339.25
+        339.28,
+        347.3
       ],
-      "breakout_trigger": 382.0,
-      "stop_reference": 325.94,
-      "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.2,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 3,
-      "ticker": "NVDA",
-      "buy_now_score": 64.2,
-      "price": 217.94,
-      "atr14": 5.94,
-      "rsi14": 46.3,
-      "adx14": 18.5,
-      "sma20": 224.44,
-      "sma50": 222.08,
-      "sma200": 203.69,
-      "supports": [
-        {
-          "level": 216.48,
-          "source": "6M Fib 0.500 + swing low"
-        },
-        {
-          "level": 212.85,
-          "source": "swing low + 20D low"
-        },
-        {
-          "level": 210.13,
-          "source": "6M Fib 0.618"
-        }
-      ],
-      "entry_zone": [
-        214.4,
-        218.56
-      ],
-      "deep_entry_zone": [
-        210.77,
-        214.93
-      ],
-      "breakout_trigger": 243.96,
-      "stop_reference": 208.1,
+      "breakout_trigger": 381.99,
+      "stop_reference": 334.11,
       "stance": "Near support \u2014 starter entry acceptable",
       "distance_to_support_pct": 0.7,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     }
   ],
   "securities": [
     {
       "rank": 1,
       "ticker": "MU",
-      "buy_now_score": 69.7,
-      "price": 928.76,
-      "atr14": 46.08,
-      "rsi14": 46.1,
-      "adx14": 29.4,
-      "sma20": 972.28,
-      "sma50": 979.58,
-      "sma200": 737.7,
+      "buy_now_score": 71.2,
+      "price": 983.23,
+      "atr14": 47.16,
+      "rsi14": 53.2,
+      "adx14": 27.8,
+      "sma20": 968.2,
+      "sma50": 980.43,
+      "sma200": 740.88,
       "supports": [
+        {
+          "level": 980.43,
+          "source": "50DMA + 20DMA + 6M Fib 0.382"
+        },
         {
           "level": 918.74,
           "source": "swing low"
         },
         {
           "level": 878.52,
-          "source": "6M Fib 0.500 + swing low"
-        },
-        {
-          "level": 849.25,
-          "source": "20D low"
+          "source": "6M Fib 0.500"
         }
       ],
       "entry_zone": [
-        902.61,
-        934.87
+        963.92,
+        996.94
       ],
       "deep_entry_zone": [
-        862.39,
-        894.65
+        902.23,
+        935.25
       ],
-      "breakout_trigger": 1112.43,
-      "stop_reference": 841.66,
+      "breakout_trigger": 1112.54,
+      "stop_reference": 881.01,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 1.1,
+      "distance_to_support_pct": 0.3,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 2,
-      "ticker": "AVGO",
-      "buy_now_score": 64.5,
-      "price": 342.33,
-      "atr14": 11.58,
-      "rsi14": 47.8,
-      "adx14": 25.4,
-      "sma20": 347.05,
-      "sma50": 354.18,
-      "sma200": 366.73,
+      "ticker": "DRAM",
+      "buy_now_score": 66.5,
+      "price": 54.12,
+      "atr14": 2.61,
+      "rsi14": 51.9,
+      "adx14": 27.0,
+      "sma20": 53.18,
+      "sma50": 56.23,
+      "sma200": null,
       "supports": [
         {
-          "level": 341.71,
+          "level": 53.18,
+          "source": "20DMA + swing low"
+        },
+        {
+          "level": 46.3,
+          "source": "swing low + 20D low + 60D low"
+        },
+        {
+          "level": 45.0,
+          "source": "ATR fallback"
+        }
+      ],
+      "entry_zone": [
+        52.27,
+        54.09
+      ],
+      "deep_entry_zone": [
+        45.39,
+        47.21
+      ],
+      "breakout_trigger": 62.77,
+      "stop_reference": 44.22,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 1.8,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 3,
+      "ticker": "AVGO",
+      "buy_now_score": 64.7,
+      "price": 351.81,
+      "atr14": 11.47,
+      "rsi14": 52.7,
+      "adx14": 23.9,
+      "sma20": 347.08,
+      "sma50": 353.63,
+      "sma200": 366.74,
+      "supports": [
+        {
+          "level": 349.42,
+          "source": "swing low + 20DMA"
+        },
+        {
+          "level": 343.29,
           "source": "swing low"
         },
         {
           "level": 335.2,
           "source": "swing low"
-        },
-        {
-          "level": 328.58,
-          "source": "swing low"
         }
       ],
       "entry_zone": [
-        337.66,
-        345.76
+        345.41,
+        353.43
       ],
       "deep_entry_zone": [
-        331.15,
-        339.25
+        339.28,
+        347.3
       ],
-      "breakout_trigger": 382.0,
-      "stop_reference": 325.94,
-      "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.2,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 3,
-      "ticker": "NVDA",
-      "buy_now_score": 64.2,
-      "price": 217.94,
-      "atr14": 5.94,
-      "rsi14": 46.3,
-      "adx14": 18.5,
-      "sma20": 224.44,
-      "sma50": 222.08,
-      "sma200": 203.69,
-      "supports": [
-        {
-          "level": 216.48,
-          "source": "6M Fib 0.500 + swing low"
-        },
-        {
-          "level": 212.85,
-          "source": "swing low + 20D low"
-        },
-        {
-          "level": 210.13,
-          "source": "6M Fib 0.618"
-        }
-      ],
-      "entry_zone": [
-        214.4,
-        218.56
-      ],
-      "deep_entry_zone": [
-        210.77,
-        214.93
-      ],
-      "breakout_trigger": 243.96,
-      "stop_reference": 208.1,
+      "breakout_trigger": 381.99,
+      "stop_reference": 334.11,
       "stance": "Near support \u2014 starter entry acceptable",
       "distance_to_support_pct": 0.7,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 4,
-      "ticker": "QTUM",
-      "buy_now_score": 61.8,
-      "price": 142.07,
-      "atr14": 3.62,
-      "rsi14": 45.6,
-      "adx14": 28.7,
-      "sma20": 146.04,
-      "sma50": 147.38,
-      "sma200": 136.95,
+      "ticker": "NVDA",
+      "buy_now_score": 63.0,
+      "price": 215.38,
+      "atr14": 5.91,
+      "rsi14": 43.9,
+      "adx14": 18.3,
+      "sma20": 223.79,
+      "sma50": 222.0,
+      "sma200": 203.84,
       "supports": [
         {
-          "level": 141.39,
+          "level": 214.86,
+          "source": "swing low"
+        },
+        {
+          "level": 210.18,
+          "source": "20D low + swing low + 6M Fib 0.618"
+        },
+        {
+          "level": 207.02,
+          "source": "60D low"
+        }
+      ],
+      "entry_zone": [
+        212.79,
+        216.93
+      ],
+      "deep_entry_zone": [
+        208.11,
+        212.25
+      ],
+      "breakout_trigger": 243.96,
+      "stop_reference": 205.45,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 0.2,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 5,
+      "ticker": "QTUM",
+      "buy_now_score": 60.8,
+      "price": 143.87,
+      "atr14": 3.5,
+      "rsi14": 48.6,
+      "adx14": 28.0,
+      "sma20": 145.66,
+      "sma50": 147.23,
+      "sma200": 137.08,
+      "supports": [
+        {
+          "level": 142.47,
           "source": "swing low"
         },
         {
@@ -269,194 +309,114 @@
         }
       ],
       "entry_zone": [
-        140.12,
-        142.66
+        141.24,
+        143.7
       ],
       "deep_entry_zone": [
-        135.84,
-        138.38
+        135.88,
+        138.34
       ],
-      "breakout_trigger": 158.69,
-      "stop_reference": 134.21,
+      "breakout_trigger": 158.68,
+      "stop_reference": 134.31,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.5,
+      "distance_to_support_pct": 1.0,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
-      "rank": 5,
+      "rank": 6,
       "ticker": "LITE",
-      "buy_now_score": 60.1,
-      "price": 866.18,
-      "atr14": 70.27,
-      "rsi14": 46.6,
-      "adx14": 21.7,
-      "sma20": 943.23,
-      "sma50": 921.02,
-      "sma200": 792.97,
+      "buy_now_score": 60.2,
+      "price": 913.95,
+      "atr14": 69.17,
+      "rsi14": 51.0,
+      "adx14": 20.5,
+      "sma20": 940.37,
+      "sma50": 921.84,
+      "sma200": 795.84,
       "supports": [
+        {
+          "level": 881.23,
+          "source": "swing low + 6M Fib 0.500"
+        },
         {
           "level": 832.11,
           "source": "swing low + 6M Fib 0.618"
         },
         {
           "level": 800.0,
-          "source": "swing low + 200DMA"
-        },
-        {
-          "level": 736.01,
-          "source": "20D low"
+          "source": "swing low"
         }
       ],
       "entry_zone": [
-        807.52,
-        856.7
+        857.02,
+        905.44
       ],
       "deep_entry_zone": [
-        775.41,
-        824.59
+        807.9,
+        856.32
       ],
-      "breakout_trigger": 1150.03,
-      "stop_reference": 743.78,
+      "breakout_trigger": 1149.92,
+      "stop_reference": 776.78,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 4.1,
+      "distance_to_support_pct": 3.7,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 6,
-      "ticker": "DRAM",
-      "buy_now_score": 58.9,
-      "price": 50.52,
-      "atr14": 2.53,
-      "rsi14": 44.2,
-      "adx14": 28.6,
-      "sma20": 53.49,
-      "sma50": 56.25,
-      "sma200": null,
-      "supports": [
-        {
-          "level": 46.3,
-          "source": "swing low + 20D low + 60D low"
-        },
-        {
-          "level": 44.2,
-          "source": "ATR fallback"
-        },
-        {
-          "level": 41.67,
-          "source": "ATR fallback"
-        }
-      ],
-      "entry_zone": [
-        45.41,
-        47.19
-      ],
-      "deep_entry_zone": [
-        43.31,
-        45.09
-      ],
-      "breakout_trigger": 62.76,
-      "stop_reference": 42.18,
-      "stance": "Wait for pullback or confirmed breakout",
-      "distance_to_support_pct": 9.1,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 7,
       "ticker": "MRVL",
-      "buy_now_score": 58.2,
-      "price": 243.57,
-      "atr14": 15.7,
-      "rsi14": 48.7,
-      "adx14": 17.8,
-      "sma20": 254.88,
-      "sma50": 243.33,
-      "sma200": 181.03,
+      "buy_now_score": 58.5,
+      "price": 251.65,
+      "atr14": 15.3,
+      "rsi14": 52.4,
+      "adx14": 16.7,
+      "sma20": 254.25,
+      "sma50": 244.04,
+      "sma200": 181.87,
       "supports": [
         {
-          "level": 240.48,
-          "source": "6M Fib 0.500"
+          "level": 248.09,
+          "source": "swing low + 50DMA + 6M Fib 0.500"
         },
         {
           "level": 226.52,
-          "source": "swing low + 20D low"
+          "source": "swing low + 6M Fib 0.618 + 20D low"
         },
         {
-          "level": 219.42,
-          "source": "6M Fib 0.618"
+          "level": 213.58,
+          "source": "swing low"
         }
       ],
       "entry_zone": [
-        234.98,
-        245.98
+        242.73,
+        253.45
       ],
       "deep_entry_zone": [
-        221.02,
-        232.02
+        221.16,
+        231.88
       ],
-      "breakout_trigger": 302.77,
-      "stop_reference": 213.96,
+      "breakout_trigger": 302.73,
+      "stop_reference": 214.28,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 1.3,
+      "distance_to_support_pct": 1.4,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 8,
-      "ticker": "SPCX",
-      "buy_now_score": 55.0,
-      "price": 148.58,
-      "atr14": 7.7,
-      "rsi14": 47.8,
-      "adx14": 18.4,
-      "sma20": 155.06,
-      "sma50": 149.42,
-      "sma200": null,
-      "supports": [
-        {
-          "level": 145.36,
-          "source": "swing low"
-        },
-        {
-          "level": 140.66,
-          "source": "20D low + swing low"
-        },
-        {
-          "level": 130.39,
-          "source": "swing low"
-        }
-      ],
-      "entry_zone": [
-        142.67,
-        148.05
-      ],
-      "deep_entry_zone": [
-        137.97,
-        143.35
-      ],
-      "breakout_trigger": 177.19,
-      "stop_reference": 134.5,
-      "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 2.2,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 9,
       "ticker": "META",
-      "buy_now_score": 55.0,
-      "price": 620.19,
-      "atr14": 24.62,
-      "rsi14": 31.9,
-      "adx14": 27.5,
-      "sma20": 707.47,
-      "sma50": 665.43,
-      "sma200": 631.43,
+      "buy_now_score": 56.0,
+      "price": 612.49,
+      "atr14": 23.96,
+      "rsi14": 30.7,
+      "adx14": 27.8,
+      "sma20": 701.83,
+      "sma50": 666.82,
+      "sma200": 631.29,
       "supports": [
         {
-          "level": 619.22,
+          "level": 609.0,
           "source": "20D low + swing low"
         },
         {
@@ -469,31 +429,71 @@
         }
       ],
       "entry_zone": [
-        610.6,
-        627.84
+        600.61,
+        617.39
       ],
       "deep_entry_zone": [
-        569.13,
-        586.37
+        569.36,
+        586.14
       ],
-      "breakout_trigger": 773.73,
-      "stop_reference": 558.06,
+      "breakout_trigger": 773.67,
+      "stop_reference": 558.58,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.2,
+      "distance_to_support_pct": 0.6,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 9,
+      "ticker": "PANW",
+      "buy_now_score": 54.0,
+      "price": 394.49,
+      "atr14": 18.12,
+      "rsi14": 55.7,
+      "adx14": 17.4,
+      "sma20": 384.69,
+      "sma50": 371.4,
+      "sma200": 267.99,
+      "supports": [
+        {
+          "level": 384.69,
+          "source": "20DMA"
+        },
+        {
+          "level": 371.4,
+          "source": "50DMA + 6M Fib 0.236 + swing low"
+        },
+        {
+          "level": 356.0,
+          "source": "swing low"
+        }
+      ],
+      "entry_zone": [
+        378.35,
+        391.03
+      ],
+      "deep_entry_zone": [
+        365.06,
+        377.74
+      ],
+      "breakout_trigger": 434.14,
+      "stop_reference": 356.9,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 2.5,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 10,
       "ticker": "AMZN",
-      "buy_now_score": 54.7,
-      "price": 253.1,
-      "atr14": 6.41,
-      "rsi14": 48.6,
-      "adx14": 13.4,
-      "sma20": 254.9,
-      "sma50": 255.21,
-      "sma200": 243.34,
+      "buy_now_score": 53.7,
+      "price": 254.6,
+      "atr14": 6.19,
+      "rsi14": 50.1,
+      "adx14": 12.6,
+      "sma20": 255.17,
+      "sma50": 255.12,
+      "sma200": 243.38,
       "supports": [
         {
           "level": 251.93,
@@ -509,154 +509,114 @@
         }
       ],
       "entry_zone": [
-        249.69,
-        254.17
+        249.76,
+        254.1
       ],
       "deep_entry_zone": [
-        246.36,
-        250.84
+        246.43,
+        250.77
       ],
-      "breakout_trigger": 265.98,
-      "stop_reference": 243.47,
+      "breakout_trigger": 265.96,
+      "stop_reference": 243.65,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.5,
+      "distance_to_support_pct": 1.1,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 11,
-      "ticker": "PANW",
-      "buy_now_score": 53.6,
-      "price": 401.7,
-      "atr14": 18.49,
-      "rsi14": 58.4,
-      "adx14": 17.4,
-      "sma20": 384.83,
-      "sma50": 370.99,
-      "sma200": 266.96,
+      "ticker": "SPCX",
+      "buy_now_score": 53.2,
+      "price": 145.23,
+      "atr14": 7.61,
+      "rsi14": 45.1,
+      "adx14": 17.9,
+      "sma20": 154.78,
+      "sma50": 149.46,
+      "sma200": null,
       "supports": [
         {
-          "level": 395.8,
+          "level": 144.89,
           "source": "swing low"
         },
         {
-          "level": 384.83,
-          "source": "20DMA"
+          "level": 140.66,
+          "source": "20D low + swing low"
         },
         {
-          "level": 371.15,
-          "source": "6M Fib 0.236"
+          "level": 105.11,
+          "source": "60D low"
         }
       ],
       "entry_zone": [
-        389.33,
-        402.27
+        142.23,
+        147.55
       ],
       "deep_entry_zone": [
-        378.36,
-        391.3
+        138.0,
+        143.32
       ],
-      "breakout_trigger": 434.18,
-      "stop_reference": 370.04,
+      "breakout_trigger": 177.18,
+      "stop_reference": 134.57,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 1.5,
+      "distance_to_support_pct": 0.2,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 12,
       "ticker": "AXTI",
-      "buy_now_score": 50.8,
-      "price": 58.23,
-      "atr14": 6.32,
-      "rsi14": 44.2,
-      "adx14": 24.0,
-      "sma20": 66.23,
-      "sma50": 67.23,
-      "sma200": 64.29,
+      "buy_now_score": 52.7,
+      "price": 64.38,
+      "atr14": 6.36,
+      "rsi14": 50.5,
+      "adx14": 22.8,
+      "sma20": 65.58,
+      "sma50": 66.87,
+      "sma200": 64.5,
       "supports": [
+        {
+          "level": 61.86,
+          "source": "swing low"
+        },
         {
           "level": 56.9,
           "source": "swing low"
         },
         {
           "level": 52.76,
-          "source": "swing low + 20D low + 60D low"
-        },
-        {
-          "level": 36.73,
           "source": "swing low"
         }
       ],
       "entry_zone": [
-        54.69,
-        59.11
+        59.63,
+        64.09
       ],
       "deep_entry_zone": [
-        50.55,
-        54.97
+        54.67,
+        59.13
       ],
-      "breakout_trigger": 88.99,
-      "stop_reference": 47.71,
+      "breakout_trigger": 89.0,
+      "stop_reference": 51.81,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 2.3,
+      "distance_to_support_pct": 4.1,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 13,
-      "ticker": "VST",
-      "buy_now_score": 49.9,
-      "price": 146.66,
-      "atr14": 7.53,
-      "rsi14": 48.7,
-      "adx14": 15.4,
-      "sma20": 150.59,
-      "sma50": 144.97,
-      "sma200": 153.67,
-      "supports": [
-        {
-          "level": 145.85,
-          "source": "swing low + 50DMA"
-        },
-        {
-          "level": 139.39,
-          "source": "swing low"
-        },
-        {
-          "level": 134.68,
-          "source": "swing low"
-        }
-      ],
-      "entry_zone": [
-        143.21,
-        148.49
-      ],
-      "deep_entry_zone": [
-        136.75,
-        142.03
-      ],
-      "breakout_trigger": 169.5,
-      "stop_reference": 133.37,
-      "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.6,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 14,
       "ticker": "CRWD",
-      "buy_now_score": 48.8,
-      "price": 268.02,
-      "atr14": 12.57,
-      "rsi14": 60.3,
-      "adx14": 19.8,
-      "sma20": 256.08,
-      "sma50": 236.78,
-      "sma200": 165.1,
+      "buy_now_score": 48.5,
+      "price": 266.66,
+      "atr14": 12.29,
+      "rsi14": 59.5,
+      "adx14": 20.1,
+      "sma20": 256.17,
+      "sma50": 237.86,
+      "sma200": 165.85,
       "supports": [
         {
-          "level": 256.08,
+          "level": 256.17,
           "source": "20DMA"
         },
         {
@@ -664,76 +624,116 @@
           "source": "swing low + 6M Fib 0.236"
         },
         {
-          "level": 236.78,
+          "level": 237.86,
           "source": "50DMA"
         }
       ],
       "entry_zone": [
-        251.68,
-        260.48
+        251.87,
+        260.47
       ],
       "deep_entry_zone": [
-        242.11,
-        250.91
+        242.21,
+        250.81
       ],
-      "breakout_trigger": 288.25,
-      "stop_reference": 236.45,
+      "breakout_trigger": 288.22,
+      "stop_reference": 236.67,
       "stance": "Prefer pullback into first support",
-      "distance_to_support_pct": 4.7,
+      "distance_to_support_pct": 4.1,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
-      "rank": 15,
-      "ticker": "GEV",
-      "buy_now_score": 47.7,
-      "price": 895.08,
-      "atr14": 46.12,
-      "rsi14": 45.1,
-      "adx14": 20.4,
-      "sma20": 942.73,
-      "sma50": 941.69,
-      "sma200": 940.85,
+      "rank": 14,
+      "ticker": "VST",
+      "buy_now_score": 48.5,
+      "price": 142.72,
+      "atr14": 7.39,
+      "rsi14": 45.5,
+      "adx14": 14.8,
+      "sma20": 150.81,
+      "sma50": 145.02,
+      "sma200": 153.52,
       "supports": [
         {
-          "level": 874.0,
+          "level": 139.39,
           "source": "swing low"
         },
         {
-          "level": 796.41,
-          "source": "20D low + 60D low + swing low"
+          "level": 134.79,
+          "source": "20D low + swing low + 60D low"
         },
         {
-          "level": 733.65,
+          "level": 116.84,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        857.86,
-        890.14
+        136.8,
+        141.98
       ],
       "deep_entry_zone": [
-        780.27,
-        812.55
+        132.2,
+        137.38
       ],
-      "breakout_trigger": 1057.39,
-      "stop_reference": 759.51,
+      "breakout_trigger": 169.49,
+      "stop_reference": 128.88,
       "stance": "Near support \u2014 starter entry acceptable",
       "distance_to_support_pct": 2.4,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 15,
+      "ticker": "GEV",
+      "buy_now_score": 47.3,
+      "price": 878.03,
+      "atr14": 47.04,
+      "rsi14": 43.0,
+      "adx14": 20.8,
+      "sma20": 938.61,
+      "sma50": 938.63,
+      "sma200": 941.5,
+      "supports": [
+        {
+          "level": 873.49,
+          "source": "swing low"
+        },
+        {
+          "level": 795.95,
+          "source": "20D low + 60D low + swing low"
+        },
+        {
+          "level": 713.39,
+          "source": "ATR fallback"
+        }
+      ],
+      "entry_zone": [
+        857.03,
+        889.95
+      ],
+      "deep_entry_zone": [
+        779.49,
+        812.41
+      ],
+      "breakout_trigger": 1056.87,
+      "stop_reference": 758.32,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 0.5,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 16,
       "ticker": "AAOI",
-      "buy_now_score": 45.1,
-      "price": 76.95,
-      "atr14": 8.25,
-      "rsi14": 39.3,
-      "adx14": 27.9,
-      "sma20": 93.63,
-      "sma50": 101.8,
-      "sma200": 113.54,
+      "buy_now_score": 45.4,
+      "price": 82.22,
+      "atr14": 8.04,
+      "rsi14": 43.8,
+      "adx14": 27.5,
+      "sma20": 92.78,
+      "sma50": 100.82,
+      "sma200": 113.78,
       "supports": [
         {
           "level": 76.01,
@@ -744,76 +744,76 @@
           "source": "20D low + 60D low + swing low"
         },
         {
-          "level": 48.06,
+          "level": 54.06,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        73.12,
-        78.9
+        73.19,
+        78.83
       ],
       "deep_entry_zone": [
-        63.39,
-        69.17
+        63.46,
+        69.1
       ],
-      "breakout_trigger": 131.98,
-      "stop_reference": 59.68,
-      "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 1.2,
+      "breakout_trigger": 131.95,
+      "stop_reference": 59.84,
+      "stance": "Prefer pullback into first support",
+      "distance_to_support_pct": 8.2,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 17,
       "ticker": "NBIS",
-      "buy_now_score": 45.1,
-      "price": 170.47,
-      "atr14": 16.11,
-      "rsi14": 38.9,
-      "adx14": 26.6,
-      "sma20": 199.15,
-      "sma50": 213.38,
-      "sma200": 176.52,
+      "buy_now_score": 44.9,
+      "price": 182.34,
+      "atr14": 15.95,
+      "rsi14": 44.7,
+      "adx14": 26.2,
+      "sma20": 196.48,
+      "sma50": 212.06,
+      "sma200": 176.9,
       "supports": [
+        {
+          "level": 180.63,
+          "source": "swing low + 200DMA"
+        },
         {
           "level": 149.48,
           "source": "20D low + 60D low + swing low"
         },
         {
-          "level": 130.19,
-          "source": "ATR fallback"
-        },
-        {
-          "level": 114.07,
+          "level": 126.51,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        143.84,
-        155.12
+        175.05,
+        186.21
       ],
       "deep_entry_zone": [
-        124.55,
-        135.83
+        143.9,
+        155.06
       ],
-      "breakout_trigger": 256.71,
-      "stop_reference": 117.3,
-      "stance": "Wait for pullback or confirmed breakout",
-      "distance_to_support_pct": 14.0,
+      "breakout_trigger": 256.7,
+      "stop_reference": 136.72,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 0.9,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 18,
       "ticker": "KTOS",
-      "buy_now_score": 44.8,
-      "price": 41.31,
-      "atr14": 2.1,
-      "rsi14": 45.7,
-      "adx14": 39.2,
-      "sma20": 40.93,
-      "sma50": 46.22,
-      "sma200": 65.34,
+      "buy_now_score": 44.2,
+      "price": 41.17,
+      "atr14": 2.04,
+      "rsi14": 45.1,
+      "adx14": 38.0,
+      "sma20": 40.85,
+      "sma50": 45.8,
+      "sma200": 64.96,
       "supports": [
         {
           "level": 40.93,
@@ -829,111 +829,71 @@
         }
       ],
       "entry_zone": [
-        40.19,
-        41.67
+        40.22,
+        41.64
       ],
       "deep_entry_zone": [
-        37.1,
-        38.58
+        37.13,
+        38.55
       ],
-      "breakout_trigger": 45.05,
-      "stop_reference": 36.16,
+      "breakout_trigger": 44.37,
+      "stop_reference": 36.21,
       "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 0.9,
+      "distance_to_support_pct": 0.6,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 19,
       "ticker": "CEG",
       "buy_now_score": 43.9,
-      "price": 258.98,
-      "atr14": 12.77,
-      "rsi14": 44.3,
-      "adx14": 16.6,
-      "sma20": 272.48,
-      "sma50": 273.21,
-      "sma200": 280.51,
+      "price": 258.08,
+      "atr14": 12.39,
+      "rsi14": 43.8,
+      "adx14": 16.0,
+      "sma20": 272.69,
+      "sma50": 273.04,
+      "sma200": 280.13,
       "supports": [
         {
           "level": 250.55,
           "source": "swing low + 20D low + 60D low"
         },
         {
-          "level": 227.04,
+          "level": 227.1,
           "source": "ATR fallback"
         },
         {
-          "level": 214.27,
+          "level": 214.71,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        246.08,
-        255.02
+        246.21,
+        254.89
       ],
       "deep_entry_zone": [
-        222.57,
-        231.51
+        222.76,
+        231.44
       ],
-      "breakout_trigger": 311.08,
-      "stop_reference": 216.82,
+      "breakout_trigger": 311.04,
+      "stop_reference": 217.19,
       "stance": "Prefer pullback into first support",
-      "distance_to_support_pct": 3.4,
+      "distance_to_support_pct": 3.0,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 20,
-      "ticker": "SOXL",
-      "buy_now_score": 43.1,
-      "price": 101.08,
-      "atr14": 12.45,
-      "rsi14": 42.1,
-      "adx14": 27.1,
-      "sma20": 122.96,
-      "sma50": 122.73,
-      "sma200": 123.58,
-      "supports": [
-        {
-          "level": 99.8,
-          "source": "swing low"
-        },
-        {
-          "level": 80.22,
-          "source": "20D low + 60D low + swing low"
-        },
-        {
-          "level": 57.5,
-          "source": "ATR fallback"
-        }
-      ],
-      "entry_zone": [
-        95.44,
-        104.16
-      ],
-      "deep_entry_zone": [
-        75.86,
-        84.58
-      ],
-      "breakout_trigger": 171.08,
-      "stop_reference": 70.26,
-      "stance": "Near support \u2014 starter entry acceptable",
-      "distance_to_support_pct": 1.3,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 21,
       "ticker": "AVAV",
-      "buy_now_score": 41.4,
-      "price": 126.73,
-      "atr14": 6.8,
-      "rsi14": 41.6,
-      "adx14": 27.6,
-      "sma20": 129.51,
-      "sma50": 143.54,
-      "sma200": 189.06,
+      "buy_now_score": 41.5,
+      "price": 125.95,
+      "atr14": 6.53,
+      "rsi14": 40.7,
+      "adx14": 27.0,
+      "sma20": 128.7,
+      "sma50": 142.58,
+      "sma200": 187.84,
       "supports": [
         {
           "level": 116.43,
@@ -944,36 +904,116 @@
           "source": "20D low + 60D low + swing low"
         },
         {
-          "level": 102.94,
+          "level": 103.09,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        114.05,
-        118.81
+        114.14,
+        118.72
       ],
       "deep_entry_zone": [
-        110.77,
-        115.53
+        110.86,
+        115.44
       ],
-      "breakout_trigger": 149.92,
-      "stop_reference": 107.71,
+      "breakout_trigger": 146.13,
+      "stop_reference": 107.93,
       "stance": "Wait for pullback or confirmed breakout",
-      "distance_to_support_pct": 8.8,
+      "distance_to_support_pct": 8.2,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 21,
+      "ticker": "SOXL",
+      "buy_now_score": 40.7,
+      "price": 107.35,
+      "atr14": 12.1,
+      "rsi14": 45.6,
+      "adx14": 26.4,
+      "sma20": 120.93,
+      "sma50": 122.3,
+      "sma200": 123.84,
+      "supports": [
+        {
+          "level": 105.93,
+          "source": "swing low"
+        },
+        {
+          "level": 99.8,
+          "source": "swing low"
+        },
+        {
+          "level": 80.22,
+          "source": "20D low"
+        }
+      ],
+      "entry_zone": [
+        101.7,
+        110.16
+      ],
+      "deep_entry_zone": [
+        95.57,
+        104.03
+      ],
+      "breakout_trigger": 171.04,
+      "stop_reference": 90.12,
+      "stance": "Near support \u2014 starter entry acceptable",
+      "distance_to_support_pct": 1.3,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 22,
-      "ticker": "MP",
+      "ticker": "APLD",
       "buy_now_score": 38.8,
-      "price": 40.87,
-      "atr14": 2.24,
-      "rsi14": 42.0,
-      "adx14": 37.1,
-      "sma20": 42.73,
-      "sma50": 48.87,
-      "sma200": 55.59,
+      "price": 20.39,
+      "atr14": 1.76,
+      "rsi14": 44.0,
+      "adx14": 29.4,
+      "sma20": 21.5,
+      "sma50": 24.45,
+      "sma200": 31.51,
+      "supports": [
+        {
+          "level": 17.65,
+          "source": "swing low + 20D low + 60D low"
+        },
+        {
+          "level": 16.0,
+          "source": "ATR fallback"
+        },
+        {
+          "level": 14.24,
+          "source": "ATR fallback"
+        }
+      ],
+      "entry_zone": [
+        17.04,
+        18.26
+      ],
+      "deep_entry_zone": [
+        15.39,
+        16.61
+      ],
+      "breakout_trigger": 27.03,
+      "stop_reference": 14.59,
+      "stance": "Wait for pullback or confirmed breakout",
+      "distance_to_support_pct": 15.5,
+      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
+      "series_as_of": "2026-10-28"
+    },
+    {
+      "rank": 23,
+      "ticker": "MP",
+      "buy_now_score": 37.9,
+      "price": 41.06,
+      "atr14": 2.2,
+      "rsi14": 42.7,
+      "adx14": 36.5,
+      "sma20": 42.42,
+      "sma50": 48.56,
+      "sma200": 55.47,
       "supports": [
         {
           "level": 38.6,
@@ -984,144 +1024,104 @@
           "source": "20D low + 60D low + swing low"
         },
         {
-          "level": 33.02,
+          "level": 33.35,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        37.81,
-        39.39
+        37.83,
+        39.37
       ],
       "deep_entry_zone": [
-        36.32,
-        37.9
+        36.34,
+        37.88
       ],
       "breakout_trigger": 48.89,
-      "stop_reference": 35.32,
+      "stop_reference": 35.35,
       "stance": "Prefer pullback into first support",
-      "distance_to_support_pct": 5.9,
+      "distance_to_support_pct": 6.4,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
-    },
-    {
-      "rank": 23,
-      "ticker": "APLD",
-      "buy_now_score": 37.9,
-      "price": 19.51,
-      "atr14": 1.78,
-      "rsi14": 40.3,
-      "adx14": 29.8,
-      "sma20": 21.7,
-      "sma50": 24.61,
-      "sma200": 31.6,
-      "supports": [
-        {
-          "level": 17.65,
-          "source": "swing low + 20D low + 60D low"
-        },
-        {
-          "level": 15.07,
-          "source": "ATR fallback"
-        },
-        {
-          "level": 13.29,
-          "source": "ATR fallback"
-        }
-      ],
-      "entry_zone": [
-        17.03,
-        18.27
-      ],
-      "deep_entry_zone": [
-        14.45,
-        15.69
-      ],
-      "breakout_trigger": 27.03,
-      "stop_reference": 13.65,
-      "stance": "Prefer pullback into first support",
-      "distance_to_support_pct": 10.5,
-      "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 24,
       "ticker": "RKLB",
-      "buy_now_score": 35.4,
-      "price": 58.31,
-      "atr14": 4.03,
-      "rsi14": 45.1,
-      "adx14": 27.9,
-      "sma20": 61.89,
-      "sma50": 65.34,
-      "sma200": 80.31,
+      "buy_now_score": 35.0,
+      "price": 58.6,
+      "atr14": 3.91,
+      "rsi14": 45.7,
+      "adx14": 27.2,
+      "sma20": 61.33,
+      "sma50": 64.93,
+      "sma200": 80.16,
       "supports": [
         {
           "level": 49.69,
           "source": "swing low + 20D low + 60D low"
         },
         {
-          "level": 48.24,
+          "level": 48.83,
           "source": "ATR fallback"
         },
         {
-          "level": 44.21,
+          "level": 44.92,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        48.28,
-        51.1
+        48.32,
+        51.06
       ],
       "deep_entry_zone": [
-        46.83,
-        49.65
+        47.46,
+        50.2
       ],
-      "breakout_trigger": 78.68,
-      "stop_reference": 45.02,
+      "breakout_trigger": 78.67,
+      "stop_reference": 45.7,
       "stance": "Wait for pullback or confirmed breakout",
-      "distance_to_support_pct": 17.3,
+      "distance_to_support_pct": 17.9,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     },
     {
       "rank": 25,
       "ticker": "IREN",
-      "buy_now_score": 32.3,
-      "price": 27.44,
-      "atr14": 2.63,
-      "rsi14": 33.8,
-      "adx14": 34.6,
-      "sma20": 32.88,
-      "sma50": 38.76,
-      "sma200": 44.75,
+      "buy_now_score": 32.7,
+      "price": 28.84,
+      "atr14": 2.59,
+      "rsi14": 38.4,
+      "adx14": 34.9,
+      "sma20": 32.28,
+      "sma50": 38.5,
+      "sma200": 44.64,
       "supports": [
         {
           "level": 23.72,
           "source": "20D low + 60D low + swing low"
         },
         {
-          "level": 20.86,
+          "level": 22.38,
           "source": "ATR fallback"
         },
         {
-          "level": 18.23,
+          "level": 19.79,
           "source": "ATR fallback"
         }
       ],
       "entry_zone": [
-        22.8,
-        24.64
+        22.81,
+        24.63
       ],
       "deep_entry_zone": [
-        19.94,
-        21.78
+        21.47,
+        23.29
       ],
       "breakout_trigger": 44.17,
-      "stop_reference": 18.76,
+      "stop_reference": 20.31,
       "stance": "Wait for pullback or confirmed breakout",
-      "distance_to_support_pct": 15.7,
+      "distance_to_support_pct": 21.6,
       "method": "Support confluence from 20/50/200DMA, 20D/60D lows, recent swing lows, 6M Fibonacci retracements, ATR spacing; entry zones are \u00b10.35 ATR around support.",
-      "series_as_of": "2026-10-27"
+      "series_as_of": "2026-10-28"
     }
   ],
   "errors": []
