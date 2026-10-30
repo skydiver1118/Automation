@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-29T17:50:17+00:00
+Recorded: 2026-10-30T17:32:02+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 392.8800048828125 | 2026-10-28 | 74.1 | 57.8 | 28.5 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 33.45000076293945 | 2026-10-28 | 72.5 | 67.6 | 78.6 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 437.3299865722656 | 2026-10-28 | 70.6 | 60.8 | 19.1 | provisional_with_explicit_gaps |
-| action | 4 | VST | 142.72000122070312 | 2026-10-28 | 68.7 | 59.9 | 27.8 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 8.199999809265137 | 2026-10-28 | 68.6 | 67.5 | 81.6 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 64.37999725341797 | 2026-10-28 | 63.0 | 51.3 | 37.7 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 41.16999816894531 | 2026-10-28 | 62.6 | 47.4 | 48.4 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 125.94999694824219 | 2026-10-28 | 60.0 | 44.9 | 34.2 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.760000228881836 | 2026-10-28 | 59.1 | 54.9 | 56.9 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 19.110000610351562 | 2026-10-28 | 57.7 | 46.3 | 36.1 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 393.7200012207031 | 2026-10-29 | 74.1 | 57.8 | 31.3 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 32.7400016784668 | 2026-10-29 | 72.5 | 67.8 | 67.0 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 438.2300109863281 | 2026-10-29 | 70.6 | 60.7 | 22.1 | provisional_with_explicit_gaps |
+| action | 4 | VST | 140.9499969482422 | 2026-10-29 | 68.8 | 60.6 | 26.7 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 7.639999866485596 | 2026-10-29 | 68.7 | 67.8 | 53.8 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 60.880001068115234 | 2026-10-29 | 63.2 | 52.1 | 30.2 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 43.59000015258789 | 2026-10-29 | 62.4 | 46.7 | 59.6 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 134.8800048828125 | 2026-10-29 | 59.9 | 44.3 | 53.6 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.849999904632568 | 2026-10-29 | 59.0 | 54.6 | 65.9 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 19.200000762939453 | 2026-10-29 | 57.7 | 46.3 | 46.8 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.180000305175781 | 2026-10-23 | 55.7 | 46.3 | 25.8 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.25 | 2026-10-23 | 53.5 | 38.3 | 14.9 | provisional_with_explicit_gaps |
 | candidate | 3 | RGTI | 11.520000457763672 | 2026-10-23 | 53.4 | 7.7 | 12.0 | provisional_with_explicit_gaps |
