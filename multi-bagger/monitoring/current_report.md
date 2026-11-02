@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-10-31T17:25:24+00:00
+Recorded: 2026-11-02T22:02:47+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 369.9700012207031 | 2026-10-30 | 74.3 | 58.8 | 20.2 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 31.170000076293945 | 2026-10-30 | 72.7 | 68.6 | 45.1 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 422.44000244140625 | 2026-10-30 | 70.7 | 61.3 | 17.0 | provisional_with_explicit_gaps |
-| action | 4 | CRMD | 5.699999809265137 | 2026-10-30 | 68.9 | 69.2 | 4.4 | provisional_with_explicit_gaps |
-| action | 5 | VST | 138.3699951171875 | 2026-10-30 | 68.8 | 60.9 | 24.0 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 55.060001373291016 | 2026-10-30 | 63.8 | 54.2 | 21.7 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 41.09000015258789 | 2026-10-30 | 62.6 | 47.4 | 50.5 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 126.11000061035156 | 2026-10-30 | 60.0 | 44.9 | 39.8 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.690000057220459 | 2026-10-30 | 59.1 | 55.1 | 55.3 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 17.8700008392334 | 2026-10-30 | 57.8 | 47.2 | 30.3 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 366.07000732421875 | 2026-11-02 | 74.4 | 59.0 | 20.2 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 30.520000457763672 | 2026-11-02 | 72.8 | 69.0 | 41.5 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 433.739990234375 | 2026-11-02 | 70.6 | 60.9 | 24.9 | provisional_with_explicit_gaps |
+| action | 4 | CRMD | 5.389999866485596 | 2026-11-02 | 68.9 | 69.4 | 6.6 | provisional_with_explicit_gaps |
+| action | 5 | VST | 134.61000061035156 | 2026-11-02 | 68.6 | 60.8 | 23.1 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 48.20000076293945 | 2026-11-02 | 64.3 | 56.8 | 14.9 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 40.22999954223633 | 2026-11-02 | 62.6 | 47.7 | 40.4 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 123.08000183105469 | 2026-11-02 | 60.1 | 45.2 | 36.6 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.610000133514404 | 2026-11-02 | 59.2 | 55.4 | 54.6 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 16.639999389648438 | 2026-11-02 | 58.0 | 48.2 | 21.8 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.59000015258789 | 2026-10-30 | 55.6 | 45.7 | 41.2 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.3499999046325684 | 2026-10-30 | 53.4 | 37.7 | 25.1 | provisional_with_explicit_gaps |
 | candidate | 3 | RGTI | 11.25 | 2026-10-30 | 53.3 | 7.7 | 19.3 | provisional_with_explicit_gaps |
@@ -141,7 +141,6 @@ Audit: ./evidence_audit/2026-09-06/NBIS.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## IREN — provisional_with_explicit_gaps
@@ -176,8 +175,6 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
