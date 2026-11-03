@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-11-02T22:02:47+00:00
+Recorded: 2026-11-03T19:57:41+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 366.07000732421875 | 2026-11-02 | 74.4 | 59.0 | 20.2 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 366.07000732421875 | 2026-11-02 | 74.4 | 57.7 | 20.2 | provisional_with_explicit_gaps |
 | action | 2 | ZETA | 30.520000457763672 | 2026-11-02 | 72.8 | 69.0 | 41.5 | provisional_with_explicit_gaps |
 | action | 3 | HUBB | 433.739990234375 | 2026-11-02 | 70.6 | 60.9 | 24.9 | provisional_with_explicit_gaps |
 | action | 4 | CRMD | 5.389999866485596 | 2026-11-02 | 68.9 | 69.4 | 6.6 | provisional_with_explicit_gaps |
 | action | 5 | VST | 134.61000061035156 | 2026-11-02 | 68.6 | 60.8 | 23.1 | provisional_with_explicit_gaps |
 | action | 6 | AXTI | 48.20000076293945 | 2026-11-02 | 64.3 | 56.8 | 14.9 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 40.22999954223633 | 2026-11-02 | 62.6 | 47.7 | 40.4 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 40.22999954223633 | 2026-11-02 | 62.6 | 44.7 | 40.4 | provisional_with_explicit_gaps |
 | action | 8 | AVAV | 123.08000183105469 | 2026-11-02 | 60.1 | 45.2 | 36.6 | provisional_with_explicit_gaps |
 | action | 9 | EVLV | 4.610000133514404 | 2026-11-02 | 59.2 | 55.4 | 54.6 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 16.639999389648438 | 2026-11-02 | 58.0 | 48.2 | 21.8 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 16.639999389648438 | 2026-11-02 | 58.0 | 48.2 | 21.9 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.59000015258789 | 2026-10-30 | 55.6 | 45.7 | 41.2 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.3499999046325684 | 2026-10-30 | 53.4 | 37.7 | 25.1 | provisional_with_explicit_gaps |
 | candidate | 3 | RGTI | 11.25 | 2026-10-30 | 53.3 | 7.7 | 19.3 | provisional_with_explicit_gaps |
