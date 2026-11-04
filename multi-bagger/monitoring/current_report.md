@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-11-03T19:57:41+00:00
+Recorded: 2026-11-04T20:11:45+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 366.07000732421875 | 2026-11-02 | 74.4 | 57.7 | 20.2 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 30.520000457763672 | 2026-11-02 | 72.8 | 69.0 | 41.5 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 433.739990234375 | 2026-11-02 | 70.6 | 60.9 | 24.9 | provisional_with_explicit_gaps |
-| action | 4 | CRMD | 5.389999866485596 | 2026-11-02 | 68.9 | 69.4 | 6.6 | provisional_with_explicit_gaps |
-| action | 5 | VST | 134.61000061035156 | 2026-11-02 | 68.6 | 60.8 | 23.1 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 48.20000076293945 | 2026-11-02 | 64.3 | 56.8 | 14.9 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 40.22999954223633 | 2026-11-02 | 62.6 | 44.7 | 40.4 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 123.08000183105469 | 2026-11-02 | 60.1 | 45.2 | 36.6 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.610000133514404 | 2026-11-02 | 59.2 | 55.4 | 54.6 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 16.639999389648438 | 2026-11-02 | 58.0 | 48.2 | 21.9 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 391.70001220703125 | 2026-11-03 | 74.0 | 56.5 | 35.3 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 30.969999313354492 | 2026-11-03 | 72.7 | 68.7 | 43.4 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 449.2699890136719 | 2026-11-03 | 70.5 | 60.3 | 34.4 | provisional_with_explicit_gaps |
+| action | 4 | CRMD | 5.559999942779541 | 2026-11-03 | 68.8 | 69.2 | 9.4 | provisional_with_explicit_gaps |
+| action | 5 | VST | 139.58999633789062 | 2026-11-03 | 68.5 | 60.2 | 28.4 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 51.33000183105469 | 2026-11-03 | 64.0 | 52.6 | 19.7 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 40.9900016784668 | 2026-11-03 | 62.6 | 43.5 | 50.2 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 123.52999877929688 | 2026-11-03 | 60.1 | 45.1 | 38.2 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.630000114440918 | 2026-11-03 | 59.1 | 55.4 | 53.0 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 17.440000534057617 | 2026-11-03 | 57.9 | 47.5 | 27.8 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.59000015258789 | 2026-10-30 | 55.6 | 45.7 | 41.2 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.3499999046325684 | 2026-10-30 | 53.4 | 37.7 | 25.1 | provisional_with_explicit_gaps |
 | candidate | 3 | RGTI | 11.25 | 2026-10-30 | 53.3 | 7.7 | 19.3 | provisional_with_explicit_gaps |
@@ -43,6 +43,7 @@ Audit: ./evidence_audit/2026-09-06/ETN.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
+- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## ZETA — provisional_with_explicit_gaps
@@ -215,6 +216,7 @@ Audit: ./evidence_audit/2026-09-06/GRRR.json. Reviewed: 2026-09-07T01:58:22+00:0
 
 ## LITE — provisional_with_explicit_gaps
 Audit: not available. Reviewed: not recorded
+- New filed disclosure requires source review
 - Headline investment scores withheld: Required MB factor input is missing. Missing factor weight is not reweighted into a comparable headline score.
 
 ## MU — provisional_with_explicit_gaps
