@@ -1,46 +1,56 @@
 {
-  "latest_date": "2026-11-03",
+  "latest_date": "2026-11-04",
   "transitions": [
     {
-      "ticker": "AVGO",
-      "date": "2026-11-03",
-      "previous_date": "2026-11-02",
-      "from": "Mixed / neutral",
-      "to": "Moderately bullish",
-      "from_score": 53,
-      "to_score": 56,
-      "direction": "neutral_to_bullish"
+      "ticker": "AMZN",
+      "date": "2026-11-04",
+      "previous_date": "2026-11-03",
+      "from": "Moderately bearish",
+      "to": "Bullish",
+      "from_score": 44,
+      "to_score": 75,
+      "direction": "bearish_to_bullish"
     },
     {
       "ticker": "GEV",
-      "date": "2026-11-03",
-      "previous_date": "2026-11-02",
-      "from": "Mixed / neutral",
-      "to": "Moderately bullish",
-      "from_score": 47,
-      "to_score": 59,
-      "direction": "neutral_to_bullish"
+      "date": "2026-11-04",
+      "previous_date": "2026-11-03",
+      "from": "Moderately bullish",
+      "to": "Moderately bearish",
+      "from_score": 59,
+      "to_score": 41,
+      "direction": "bullish_to_bearish"
     },
     {
-      "ticker": "LITE",
-      "date": "2026-11-03",
-      "previous_date": "2026-11-02",
-      "from": "Moderately bearish",
-      "to": "Mixed / neutral",
-      "from_score": 44,
-      "to_score": 47,
-      "direction": "bearish_to_neutral"
-    },
-    {
-      "ticker": "SPCX",
-      "date": "2026-11-03",
-      "previous_date": "2026-11-02",
+      "ticker": "MRVL",
+      "date": "2026-11-04",
+      "previous_date": "2026-11-03",
       "from": "Mixed / neutral",
       "to": "Moderately bearish",
-      "from_score": 47,
-      "to_score": 43,
+      "from_score": 50,
+      "to_score": 44,
+      "direction": "neutral_to_bearish"
+    },
+    {
+      "ticker": "PANW",
+      "date": "2026-11-04",
+      "previous_date": "2026-11-03",
+      "from": "Moderately bullish",
+      "to": "Mixed / neutral",
+      "from_score": 59,
+      "to_score": 53,
+      "direction": "bullish_to_neutral"
+    },
+    {
+      "ticker": "VST",
+      "date": "2026-11-04",
+      "previous_date": "2026-11-03",
+      "from": "Mixed / neutral",
+      "to": "Moderately bearish",
+      "from_score": 50,
+      "to_score": 35,
       "direction": "neutral_to_bearish"
     }
   ],
-  "all_transition_count": 165
+  "all_transition_count": 170
 }
