@@ -10,13 +10,13 @@
   "removals": [],
   "research_values_reconciled": 30,
   "unverified_official_scores_withheld": true,
-  "market_session_date": "2026-11-03",
+  "market_session_date": "2026-11-04",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-11-04T20:11:45+00:00",
-  "snapshot_sha256": "14feaaec8868a05bc2ff53bd2f7f3296e56a73e8a05a4af8a9116211ad735fd7",
+  "watchlist_recorded_at": "2026-11-05T20:25:17+00:00",
+  "snapshot_sha256": "57b678cd5c5db5e52ba96ff087ca9f799bd54dc5f8f84f2fc43faec2068994aa",
   "legacy_snapshots_sha256": {
-    "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
-    "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
+    "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947",
+    "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751"
   },
   "scoring_code_sha256": "dbe4e33b5b5002d32a6e3a6114279332a252db6b627d2806fbd38a7ee7dc078a",
   "full_six_pass_complete": false,
@@ -29,10 +29,10 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-11-04T201145Z-daily",
+  "monitoring_id": "2026-11-05T202517Z-daily",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "14feaaec8868a05bc2ff53bd2f7f3296e56a73e8a05a4af8a9116211ad735fd7",
-  "monitoring_history_count": 51,
+  "monitoring_sha256": "57b678cd5c5db5e52ba96ff087ca9f799bd54dc5f8f84f2fc43faec2068994aa",
+  "monitoring_history_count": 52,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
   "refresh_kind": "daily",
   "action_members": [
@@ -92,9 +92,9 @@
     "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
     "mode": "shadow_only",
     "artifact": "./v22/latest.json",
-    "artifact_sha256": "8b91c4f715dcaba12804719cc5eb56eb037b8433f2a328002fd79be64d8545b8",
-    "source_snapshot_sha256": "14feaaec8868a05bc2ff53bd2f7f3296e56a73e8a05a4af8a9116211ad735fd7",
-    "run_id": "2835c5f9fce760017425ab0b",
+    "artifact_sha256": "31591af6eef22b19df556eb018d4edd7f94ba0c68381ba4fa55ffa803a9f3dbb",
+    "source_snapshot_sha256": "57b678cd5c5db5e52ba96ff087ca9f799bd54dc5f8f84f2fc43faec2068994aa",
+    "run_id": "e5032d339b1c2c57f7c351c5",
     "counts": {
       "members": 32,
       "action": 10,
@@ -106,11 +106,11 @@
     "production_rank_effect": false,
     "calibration_status": "blocked_not_calibrated",
     "last_refresh_attempt": {
-      "at": "2026-11-04T20:11:45+00:00",
+      "at": "2026-11-05T20:25:17+00:00",
       "status": "success",
       "mode": "daily",
       "errors": {}
     }
   },
-  "built_at": "2026-11-04T20:12:03+00:00"
+  "built_at": "2026-11-05T20:25:32+00:00"
 }
