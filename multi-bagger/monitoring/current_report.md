@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-11-07T18:23:16+00:00
+Recorded: 2026-11-09T22:48:57+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 341.7200012207031 | 2026-11-06 | 74.5 | 59.1 | 19.4 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 31.030000686645508 | 2026-11-06 | 72.7 | 64.6 | 46.2 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 429.45001220703125 | 2026-11-06 | 70.7 | 61.1 | 28.4 | provisional_with_explicit_gaps |
-| action | 4 | VST | 124.80000305175781 | 2026-11-06 | 68.8 | 64.6 | 22.4 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 5.320000171661377 | 2026-11-06 | 68.8 | 69.3 | 10.7 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 38.880001068115234 | 2026-11-06 | 65.0 | 57.3 | 12.3 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 35.099998474121094 | 2026-11-06 | 62.8 | 46.4 | 19.4 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 112.76000213623047 | 2026-11-06 | 60.3 | 46.4 | 25.7 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.559999942779541 | 2026-11-06 | 59.2 | 55.6 | 52.4 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 21.329999923706055 | 2026-11-06 | 57.2 | 44.7 | 69.4 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 359.29998779296875 | 2026-11-09 | 74.5 | 59.1 | 27.3 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 32.41999816894531 | 2026-11-09 | 72.6 | 63.8 | 61.9 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 441.57000732421875 | 2026-11-09 | 70.6 | 60.6 | 36.6 | provisional_with_explicit_gaps |
+| action | 4 | VST | 133.9199981689453 | 2026-11-09 | 70.0 | 63.5 | 31.3 | provisional_with_explicit_gaps |
+| action | 5 | CRMD | 5.46999979019165 | 2026-11-09 | 68.8 | 69.2 | 11.7 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 42.90999984741211 | 2026-11-09 | 64.7 | 55.8 | 17.2 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 37.689998626708984 | 2026-11-09 | 62.7 | 45.1 | 29.2 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 126.95999908447266 | 2026-11-09 | 60.0 | 44.9 | 48.2 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.760000228881836 | 2026-11-09 | 59.1 | 54.9 | 65.9 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 23.899999618530273 | 2026-11-09 | 57.2 | 43.2 | 69.6 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.720000267028809 | 2026-11-06 | 55.5 | 45.6 | 51.5 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.109999895095825 | 2026-11-06 | 53.6 | 39.2 | 25.8 | provisional_with_explicit_gaps |
 | candidate | 3 | NBIS | 129.49000549316406 | 2026-11-06 | 53.6 | 50.5 | 15.4 | provisional_with_explicit_gaps |
@@ -155,7 +155,6 @@ Audit: ./evidence_audit/2026-09-06/IREN.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## TSSI — provisional_with_explicit_gaps
@@ -164,7 +163,6 @@ Audit: ./evidence_audit/2026-09-06/TSSI.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## WULF — provisional_with_explicit_gaps
@@ -172,7 +170,6 @@ Audit: ./evidence_audit/2026-09-06/WULF.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## APLD — provisional_with_explicit_gaps
@@ -185,8 +182,6 @@ Audit: ./evidence_audit/2026-09-06/APLD.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
@@ -317,7 +312,6 @@ Audit: ./evidence_audit/2026-09-06/SERV.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Historical quarter sums differ materially from the score-input bridge; classification/restatement mismatch remains visible.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.
 
@@ -330,7 +324,6 @@ Audit: ./evidence_audit/2026-09-06/SMR.json. Reviewed: 2026-09-07T01:58:22+00:00
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: The operating-business screen is a development-stage proxy, not a risk-adjusted commercial-reactor project valuation.
 
@@ -343,8 +336,6 @@ Audit: ./evidence_audit/2026-09-06/SOUN.json. Reviewed: 2026-09-07T01:58:22+00:0
 - Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
-- New financial period; audited statement bridge not yet updated
-- More than 5% economic-share change; reconcile financing/splits/classes
 - An audited financial/analyst dependency changed; new evidence review is required.
 - Headline investment scores withheld: Required MB factor input is missing: growth. Missing factor weight is not reweighted into a comparable headline score.; Post-LivePerson combined cash, debt, economic share count and forecast perimeter remain unresolved.
 
