@@ -1,20 +1,20 @@
 # Multi Bagger Action 10 + Candidates
 
-Recorded: 2026-11-12T20:34:33+00:00
+Recorded: 2026-11-13T20:12:15+00:00
 Research scores, not calibrated fivefold-return probabilities. Each row preserves its own market and source-review dates.
 
 | Tier | Rank | Ticker | Price | Market date | MB screen | E&V screen | Technical | Evidence status |
 |---|---:|---|---:|---|---:|---:|---:|---|
-| action | 1 | ETN | 360.6199951171875 | 2026-11-11 | 74.4 | 58.9 | 32.8 | provisional_with_explicit_gaps |
-| action | 2 | ZETA | 37.7400016784668 | 2026-11-11 | 72.3 | 71.4 | 86.7 | provisional_with_explicit_gaps |
-| action | 3 | HUBB | 443.4800109863281 | 2026-11-11 | 70.6 | 60.5 | 40.5 | provisional_with_explicit_gaps |
-| action | 4 | VST | 133.4499969482422 | 2026-11-11 | 69.7 | 66.6 | 34.2 | provisional_with_explicit_gaps |
-| action | 5 | CRMD | 5.300000190734863 | 2026-11-11 | 69.4 | 69.5 | 9.2 | provisional_with_explicit_gaps |
-| action | 6 | AXTI | 46.970001220703125 | 2026-11-11 | 64.4 | 54.2 | 24.2 | provisional_with_explicit_gaps |
-| action | 7 | KTOS | 36.689998626708984 | 2026-11-11 | 62.7 | 45.3 | 27.9 | provisional_with_explicit_gaps |
-| action | 8 | AVAV | 124.4000015258789 | 2026-11-11 | 60.0 | 45.4 | 49.0 | provisional_with_explicit_gaps |
-| action | 9 | EVLV | 4.510000228881836 | 2026-11-11 | 59.2 | 55.7 | 38.8 | provisional_with_explicit_gaps |
-| action | 10 | BKSY | 24.100000381469727 | 2026-11-11 | 57.2 | 43.0 | 67.9 | provisional_with_explicit_gaps |
+| action | 1 | ETN | 359.0400085449219 | 2026-11-12 | 74.4 | 59.1 | 33.4 | provisional_with_explicit_gaps |
+| action | 2 | ZETA | 37.27000045776367 | 2026-11-12 | 72.3 | 71.6 | 86.1 | provisional_with_explicit_gaps |
+| action | 3 | HUBB | 437.9800109863281 | 2026-11-12 | 70.6 | 60.8 | 37.4 | provisional_with_explicit_gaps |
+| action | 4 | CRMD | 4.840000152587891 | 2026-11-12 | 69.9 | 99.9 | 3.6 | provisional_with_explicit_gaps |
+| action | 5 | VST | 134.50999450683594 | 2026-11-12 | 69.6 | 66.5 | 37.6 | provisional_with_explicit_gaps |
+| action | 6 | AXTI | 43.540000915527344 | 2026-11-12 | 64.7 | 55.5 | 22.0 | provisional_with_explicit_gaps |
+| action | 7 | KTOS | 34.75 | 2026-11-12 | 62.8 | 45.7 | 21.0 | provisional_with_explicit_gaps |
+| action | 8 | AVAV | 120.83999633789062 | 2026-11-12 | 60.1 | 45.8 | 39.6 | provisional_with_explicit_gaps |
+| action | 9 | EVLV | 4.159999847412109 | 2026-11-12 | 59.4 | 56.9 | 23.6 | provisional_with_explicit_gaps |
+| action | 10 | BKSY | 23.239999771118164 | 2026-11-12 | 57.3 | 43.6 | 68.7 | provisional_with_explicit_gaps |
 | candidate | 1 | AMPX | 8.720000267028809 | 2026-11-06 | 55.5 | 45.6 | 51.5 | provisional_with_explicit_gaps |
 | candidate | 2 | SSII | 2.109999895095825 | 2026-11-06 | 53.6 | 39.2 | 25.8 | provisional_with_explicit_gaps |
 | candidate | 3 | NBIS | 129.49000549316406 | 2026-11-06 | 53.6 | 50.5 | 15.4 | provisional_with_explicit_gaps |
@@ -62,6 +62,14 @@ Audit: ./evidence_audit/2026-09-06/HUBB.json. Reviewed: 2026-09-07T01:58:22+00:0
 - New financial period; audited statement bridge not yet updated
 - An audited financial/analyst dependency changed; new evidence review is required.
 
+## CRMD — provisional_with_explicit_gaps
+Audit: ./evidence_audit/2026-09-06/CRMD.json. Reviewed: 2026-09-07T01:58:22+00:00
+- Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
+- The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
+- New filed disclosure requires source review
+- New financial period; audited statement bridge not yet updated
+- An audited financial/analyst dependency changed; new evidence review is required.
+
 ## VST — provisional_with_explicit_gaps
 Audit: ./evidence_audit/2026-09-06/VST.json. Reviewed: 2026-09-07T01:58:22+00:00
 - 8 required financial-history cells unavailable; blanks are not zero.
@@ -69,13 +77,6 @@ Audit: ./evidence_audit/2026-09-06/VST.json. Reviewed: 2026-09-07T01:58:22+00:00
 - The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
 - New filed disclosure requires source review
 - New financial period; audited statement bridge not yet updated
-- An audited financial/analyst dependency changed; new evidence review is required.
-
-## CRMD — provisional_with_explicit_gaps
-Audit: ./evidence_audit/2026-09-06/CRMD.json. Reviewed: 2026-09-07T01:58:22+00:00
-- Some historical cells are standardized vendor observations, not independently primary-verified values. Per-cell sources are shown.
-- The broader six-pass research programme remains incomplete. A passed input audit is not a fully verified MB score.
-- New filed disclosure requires source review
 - An audited financial/analyst dependency changed; new evidence review is required.
 
 ## AXTI — provisional_with_explicit_gaps
