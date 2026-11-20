@@ -12,11 +12,11 @@
   "unverified_official_scores_withheld": true,
   "market_session_date": "2026-11-19",
   "research_data_collected_at": "2026-09-06T21:07:21.800209+00:00",
-  "watchlist_recorded_at": "2026-11-19T21:06:02+00:00",
-  "snapshot_sha256": "f69ec6dda56fac5eed4950226bd557dfed8ff9151c3544a2515a127814a68eca",
+  "watchlist_recorded_at": "2026-11-20T20:52:13+00:00",
+  "snapshot_sha256": "f63450e2b106771a5af773609ac888d0192747f9e29b7a9a44d55ad41dee5a49",
   "legacy_snapshots_sha256": {
-    "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947",
-    "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751"
+    "2026-09-03.json": "70e71eb9fa15b42860d9f692816bce1416558a17d4ffd9c6f65c4a5ad0929751",
+    "2026-09-04.json": "1bf8bb14f56fd87eb10ea9afa59c131b474a10dac5725947b323775a4ad1a947"
   },
   "scoring_code_sha256": "dbe4e33b5b5002d32a6e3a6114279332a252db6b627d2806fbd38a7ee7dc078a",
   "full_six_pass_complete": false,
@@ -29,10 +29,10 @@
   "candidate_count": 22,
   "candidate_first": true,
   "automatic_swaps": false,
-  "monitoring_id": "2026-11-19T210602Z-daily",
+  "monitoring_id": "2026-11-20T205213Z-daily",
   "registry_sha256": "6a0b3c42d9a71334d7d8c9e7acff99d58c902ed12fd145c0f080b2d51fd3fa59",
-  "monitoring_sha256": "f69ec6dda56fac5eed4950226bd557dfed8ff9151c3544a2515a127814a68eca",
-  "monitoring_history_count": 64,
+  "monitoring_sha256": "f63450e2b106771a5af773609ac888d0192747f9e29b7a9a44d55ad41dee5a49",
+  "monitoring_history_count": 65,
   "audit_reviewed_at": "2026-09-07T01:58:22+00:00",
   "refresh_kind": "daily",
   "action_members": [
@@ -92,9 +92,9 @@
     "methodology": "MB_5X_FEASIBILITY_SHADOW_V2_2",
     "mode": "shadow_only",
     "artifact": "./v22/latest.json",
-    "artifact_sha256": "969274201d64fe1da0af9261309630c53ec691c212116d95c9c116001c7c98ed",
-    "source_snapshot_sha256": "f69ec6dda56fac5eed4950226bd557dfed8ff9151c3544a2515a127814a68eca",
-    "run_id": "418fbeb61ad36e7e6852de86",
+    "artifact_sha256": "a849e86178d8ecd7885cf6f5198377fd6a10f88d4efd2f1c773ae8bfeb9a9795",
+    "source_snapshot_sha256": "f63450e2b106771a5af773609ac888d0192747f9e29b7a9a44d55ad41dee5a49",
+    "run_id": "0853d5dff5d3014e8e719b29",
     "counts": {
       "members": 32,
       "action": 10,
@@ -106,11 +106,11 @@
     "production_rank_effect": false,
     "calibration_status": "blocked_not_calibrated",
     "last_refresh_attempt": {
-      "at": "2026-11-19T21:06:02+00:00",
+      "at": "2026-11-20T20:52:13+00:00",
       "status": "success",
       "mode": "daily",
       "errors": {}
     }
   },
-  "built_at": "2026-11-19T21:06:18+00:00"
+  "built_at": "2026-11-20T20:52:31+00:00"
 }
