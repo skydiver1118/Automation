@@ -1,36 +1,46 @@
 {
-  "latest_date": "2026-11-25",
+  "latest_date": "2026-11-27",
   "transitions": [
     {
       "ticker": "AMZN",
-      "date": "2026-11-25",
-      "previous_date": "2026-11-24",
-      "from": "Moderately bullish",
-      "to": "Mixed / neutral",
-      "from_score": 56,
-      "to_score": 50,
-      "direction": "bullish_to_neutral"
+      "date": "2026-11-27",
+      "previous_date": "2026-11-25",
+      "from": "Mixed / neutral",
+      "to": "Moderately bullish",
+      "from_score": 50,
+      "to_score": 56,
+      "direction": "neutral_to_bullish"
     },
     {
-      "ticker": "MRVL",
-      "date": "2026-11-25",
-      "previous_date": "2026-11-24",
+      "ticker": "AXTI",
+      "date": "2026-11-27",
+      "previous_date": "2026-11-25",
       "from": "Moderately bearish",
       "to": "Mixed / neutral",
-      "from_score": 39,
+      "from_score": 40,
+      "to_score": 47,
+      "direction": "bearish_to_neutral"
+    },
+    {
+      "ticker": "GEV",
+      "date": "2026-11-27",
+      "previous_date": "2026-11-25",
+      "from": "Moderately bearish",
+      "to": "Mixed / neutral",
+      "from_score": 44,
       "to_score": 47,
       "direction": "bearish_to_neutral"
     },
     {
       "ticker": "VST",
-      "date": "2026-11-25",
-      "previous_date": "2026-11-24",
-      "from": "Mixed / neutral",
-      "to": "Moderately bullish",
-      "from_score": 53,
-      "to_score": 59,
-      "direction": "neutral_to_bullish"
+      "date": "2026-11-27",
+      "previous_date": "2026-11-25",
+      "from": "Moderately bullish",
+      "to": "Mixed / neutral",
+      "from_score": 59,
+      "to_score": 53,
+      "direction": "bullish_to_neutral"
     }
   ],
-  "all_transition_count": 210
+  "all_transition_count": 214
 }
